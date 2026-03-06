@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQs – CopyVestPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --gold:#c9a84c;--gold-light:#e2c36e;--gold-dark:#a8841a;
+  --gold-pale:#fdf8ef;--gold-border:rgba(201,168,76,.22);
+  --ink:#0f0f0f;--navy:#0d1b2e;--surface:#fff;
+  --cream:#f6f4f0;--body-txt:#4a4a4a;--muted:#787878;--border:#e8e8e8;
+  --font:'Space Grotesk',sans-serif;--font-serif:'Playfair Display',serif;
+  --text-xs:.875rem;--text-sm:.9375rem;--text-base:1.0625rem;--text-md:1.125rem;
+  --text-4xl:clamp(2rem,3.5vw,2.75rem);--section-py:96px;
+  --r-sm:10px;--r-md:16px;--r-lg:20px;--r-xl:24px;--r-pill:100px;
+  --sh-xs:0 1px 4px rgba(0,0,0,.05);--sh-sm:0 4px 12px rgba(0,0,0,.07);
+  --sh-md:0 12px 32px rgba(0,0,0,.09);--sh-gold:0 8px 32px rgba(201,168,76,.24);
+  --sh-gold-lg:0 18px 52px rgba(201,168,76,.3);
+  --ease:cubic-bezier(.4,0,.2,1);--ease-bounce:cubic-bezier(.34,1.56,.64,1);
+  --tr:.3s var(--ease);--tr-slow:.55s var(--ease);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:var(--font);font-size:var(--text-base);line-height:1.7;background:var(--surface);color:var(--ink);overflow-x:hidden}
+a{text-decoration:none;color:inherit}ul{list-style:none}
+
+/* ═══ TOPBAR ═══ */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 44px;display:flex;justify-content:space-between;align-items:center}
+.topbar .social{display:flex;gap:8px;align-items:center}
+.tsoc{width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff!important;font-size:.7rem;transition:var(--tr);box-shadow:var(--sh-xs)}
+.tsoc:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.topbar .tnav{display:flex}
+.topbar .tnav a{font-size:var(--text-xs);font-weight:500;color:var(--muted);padding:4px 15px;border-left:1px solid var(--border);transition:var(--tr)}
+.topbar .tnav a:first-child{border-left:none}
+.topbar .tnav a:hover{color:var(--gold)}
+
+/* ═══ NAVBAR ═══ */
+.navbar{background:rgba(255,255,255,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 44px;display:flex;align-items:center;justify-content:space-between;height:78px;position:sticky;top:0;z-index:999;transition:var(--tr-slow)}
+.navbar.scrolled{box-shadow:0 4px 28px rgba(0,0,0,.08);border-bottom-color:rgba(201,168,76,.2)}
+.nav-logo{display:flex;align-items:center;gap:13px}
+.nav-logo svg{transition:all .4s var(--ease-bounce)}
+.nav-logo:hover svg{transform:scale(1.06) rotate(-3deg)}
+.logo-wordmark{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.logo-wordmark em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:var(--text-xs);font-weight:600;color:var(--muted);padding:9px 17px;border-radius:var(--r-sm);letter-spacing:.04em;text-transform:uppercase;transition:var(--tr);position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:5px;left:17px;right:17px;height:2px;background:var(--gold);border-radius:2px;transform:scaleX(0);transform-origin:center;transition:transform .28s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-links a.active{color:var(--ink)}
+.nav-cta{display:flex;gap:10px}
+.btn-nav{padding:12px 26px;border-radius:var(--r-md);font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:var(--tr);border:none;font-family:var(--font);position:relative;overflow:hidden}
+.btn-nav-solid{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;box-shadow:0 4px 16px rgba(201,168,76,.38)}
+.btn-nav-solid::before{content:'';position:absolute;top:0;left:-110%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-15deg);transition:left .52s var(--ease)}
+.btn-nav-solid:hover{box-shadow:var(--sh-gold);transform:translateY(-1px)}
+.btn-nav-solid:hover::before{left:160%}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border-radius:8px;transition:var(--tr)}
+.ham:hover{background:rgba(201,168,76,.08)}
+.ham span{width:22px;height:2px;background:#333;border-radius:2px;transition:var(--tr)}
+
+/* ═══ PAGE HERO ═══ */
+.pg-hero{background:linear-gradient(145deg,#090f1a 0%,#0d1b2e 50%,#0f2238 100%);padding:90px 44px 96px;text-align:center;position:relative;overflow:hidden}
+.pg-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.015) 1px,transparent 0);background-size:40px 40px;pointer-events:none}
+.pg-hero::after{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);pointer-events:none}
+.pg-hero-inner{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.pg-eyebrow{display:inline-flex;align-items:center;gap:9px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);border-radius:var(--r-pill);padding:7px 18px;margin-bottom:22px;font-size:var(--text-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-light)}
+.pg-hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:18px;letter-spacing:-.02em}
+.pg-hero h1 em{color:var(--gold-light);font-style:italic}
+.pg-hero p{font-size:var(--text-md);color:rgba(255,255,255,.52);line-height:1.8;max-width:480px;margin:0 auto 32px}
+
+/* Search bar */
+.faq-search{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:var(--r-pill);padding:12px 20px;max-width:440px;margin:0 auto;transition:border-color .2s,background .2s;backdrop-filter:blur(10px)}
+.faq-search:focus-within{border-color:rgba(201,168,76,.5);background:rgba(255,255,255,.1)}
+.faq-search i{color:rgba(255,255,255,.4);font-size:.85rem;flex-shrink:0}
+.faq-search input{background:none;border:none;outline:none;font-size:var(--text-sm);font-family:var(--font);color:#fff;width:100%}
+.faq-search input::placeholder{color:rgba(255,255,255,.3)}
+
+/* ═══ BREADCRUMB ═══ */
+.breadcrumb{background:var(--cream);border-bottom:1px solid var(--border);padding:14px 44px;display:flex;align-items:center;gap:9px;font-size:var(--text-xs);color:var(--muted)}
+.breadcrumb a{color:var(--muted);transition:color .2s}
+.breadcrumb a:hover{color:var(--gold)}
+.breadcrumb i{font-size:.6rem;color:#ccc}
+
+/* ═══ FAQ MAIN ═══ */
+.faq-main{padding:var(--section-py) 44px;background:var(--surface)}
+.faq-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:64px;align-items:start}
+
+/* CATEGORIES */
+.faq-cats{position:sticky;top:100px}
+.faq-cats-title{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.faq-cat-btn{display:flex;align-items:center;gap:11px;width:100%;padding:11px 14px;border:none;border-radius:var(--r-sm);background:none;font-size:var(--text-sm);font-weight:600;color:var(--muted);cursor:pointer;transition:var(--tr);text-align:left;font-family:var(--font);margin-bottom:4px}
+.faq-cat-btn i{width:16px;text-align:center;font-size:.82rem;flex-shrink:0;color:var(--muted);transition:color .2s}
+.faq-cat-btn:hover{background:var(--gold-pale);color:var(--ink)}
+.faq-cat-btn:hover i{color:var(--gold)}
+.faq-cat-btn.on{background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(201,168,76,.05));color:var(--ink);border:1px solid var(--gold-border)}
+.faq-cat-btn.on i{color:var(--gold)}
+.faq-need-help{margin-top:28px;background:var(--gold-pale);border:1px solid var(--gold-border);border-radius:var(--r-lg);padding:20px;text-align:center}
+.faq-need-help p{font-size:var(--text-xs);color:var(--muted);line-height:1.65;margin-bottom:12px}
+.btn-help{display:block;width:100%;padding:10px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;border:none;border-radius:var(--r-sm);font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;font-family:var(--font);transition:var(--tr)}
+.btn-help:hover{box-shadow:var(--sh-gold)}
+
+/* FAQ CONTENT */
+.faq-section{display:none}
+.faq-section.on{display:block}
+.faq-section-title{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.02em}
+.faq-section-sub{font-size:var(--text-sm);color:var(--muted);margin-bottom:32px;line-height:1.65}
+.faq-list{display:flex;flex-direction:column;gap:12px}
+
+/* ACCORDION */
+.acc{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:border-color .25s,box-shadow .25s}
+.acc.open{border-color:var(--gold-border);box-shadow:var(--sh-gold)}
+.acc-q{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;gap:16px;transition:background .2s}
+.acc-q:hover{background:var(--gold-pale)}
+.acc.open .acc-q{background:var(--gold-pale)}
+.acc-qtext{font-size:var(--text-sm);font-weight:700;color:var(--ink);line-height:1.5}
+.acc-ico{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.78rem;color:var(--muted);transition:all .3s var(--ease);background:var(--surface)}
+.acc.open .acc-ico{background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-color:transparent;color:#fff;transform:rotate(45deg);box-shadow:0 3px 10px rgba(201,168,76,.35)}
+.acc-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+.acc.open .acc-a{max-height:600px}
+.acc-body{padding:0 24px 22px;font-size:var(--text-sm);color:var(--body-txt);line-height:1.8;border-top:1px solid var(--border)}
+.acc-body p{margin-top:14px}
+.acc-body ul{margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.acc-body li{display:flex;align-items:flex-start;gap:9px}
+.acc-body li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:8px}
+
+/* ═══ CTA ═══ */
+.cta-bar{background:linear-gradient(135deg,#0a1628,#0d1b2e);padding:72px 44px;text-align:center;position:relative;overflow:hidden}
+.cta-bar::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.015) 1px,transparent 0);background-size:40px 40px}
+.cta-bar::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:580px;margin:0 auto}
+.cta-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,168,76,.65);margin-bottom:16px}
+.cta-bar h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:14px;letter-spacing:-.02em}
+.cta-bar h2 em{color:var(--gold-light);font-style:italic}
+.cta-bar p{font-size:var(--text-md);color:rgba(255,255,255,.42);margin-bottom:34px;line-height:1.75}
+.cta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.btn-cta-gold{padding:15px 36px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;border:none;border-radius:var(--r-md);font-size:var(--text-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:var(--tr);font-family:var(--font);box-shadow:0 4px 22px rgba(201,168,76,.42);position:relative;overflow:hidden}
+.btn-cta-gold::before{content:'';position:absolute;top:0;left:-110%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transition:left .52s var(--ease);transform:skewX(-15deg)}
+.btn-cta-gold:hover{box-shadow:0 10px 34px rgba(201,168,76,.52);transform:translateY(-2px)}
+.btn-cta-gold:hover::before{left:160%}
+.btn-cta-out{padding:15px 36px;background:rgba(255,255,255,.06);color:#fff;border:1.5px solid rgba(255,255,255,.22);border-radius:var(--r-md);font-size:var(--text-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:var(--tr);font-family:var(--font);backdrop-filter:blur(6px)}
+.btn-cta-out:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--navy);padding:56px 44px 28px}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fg-brand p{font-size:var(--text-sm);color:rgba(255,255,255,.36);line-height:1.8;margin:16px 0 22px;max-width:260px}
+.fg-title{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:16px}
+.fg-links{display:flex;flex-direction:column;gap:10px}
+.fg-links a{font-size:var(--text-sm);color:rgba(255,255,255,.42);transition:var(--tr)}
+.fg-links a:hover{color:var(--gold-light)}
+.footer-bar{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-bar p{font-size:var(--text-xs);color:rgba(255,255,255,.2)}
+.footer-bar-links{display:flex;gap:24px}
+.footer-bar-links a{font-size:var(--text-xs);color:rgba(255,255,255,.22);transition:var(--tr)}
+.footer-bar-links a:hover{color:var(--gold-light)}
+.f-socials{display:flex;gap:8px;margin-top:4px}
+.fsoc{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:#fff;transition:var(--tr)}
+.fsoc:hover{transform:translateY(-2px);filter:brightness(1.15)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}
+
+/* EMPTY STATE */
+.faq-empty{text-align:center;padding:52px 20px;color:var(--muted)}
+.faq-empty i{font-size:2rem;display:block;margin-bottom:14px;color:#ddd}
+
+@media(max-width:900px){.faq-wrap{grid-template-columns:1fr;gap:36px}.faq-cats{position:static;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.faq-cats-title{display:none;width:100%}.faq-cat-btn{flex:0 0 auto;width:auto}.faq-need-help{display:none}}
+@media(max-width:768px){.faq-main{padding:52px 20px}.navbar{padding:0 20px}.topbar{display:none}.nav-links,.nav-cta{display:none}.ham{display:flex}.pg-hero{padding:70px 20px 80px}.breadcrumb{padding:12px 20px}.footer-grid{grid-template-columns:1fr}.footer{padding:48px 20px 24px}.cta-bar{padding:60px 20px}.cta-btns{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <ul class="social">
+    <li><a href="#" class="tsoc" style="background:#1877f2"><i class="fab fa-facebook-f"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:#111"><i class="fab fa-x-twitter"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:#0a66c2"><i class="fab fa-linkedin-in"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:#26a5e4"><i class="fab fa-telegram"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"><i class="fab fa-instagram"></i></a></li>
+  </ul>
+  <ul class="tnav">
+    <li><a href="faqs.html">Help</a></li>
+    <li><a href="contact.html">Support</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="register.html">Register</a></li>
+  </ul>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="40" height="40" viewBox="0 0 44 44" fill="none" style="flex-shrink:0;filter:drop-shadow(0 3px 8px rgba(168,132,26,.4))">
+      <defs><linearGradient id="lg_nav" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs>
+      <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_nav)"/>
+      <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+      <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span class="logo-wordmark">Copy<em>Vest</em>Pro</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="faqs.html" class="active">FAQs</a>
+    <a href="pricing.html">Trading</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-nav btn-nav-solid">Log In</a>
+    <a href="register.html" class="btn-nav btn-nav-solid">Get Started</a>
+  </div>
+  <div class="ham" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="pg-hero">
+  <div class="pg-hero-inner">
+    <div class="pg-eyebrow"><i class="fas fa-circle-question"></i> Help Centre</div>
+    <h1>Frequently asked <em>questions</em></h1>
+    <p>Everything you need to know about CopyVestPro — how we work, how to invest, and how to get your money out.</p>
+    <div class="faq-search">
+      <i class="fas fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search questions..." oninput="searchFAQs()">
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html">Home</a>
+  <i class="fas fa-chevron-right"></i>
+  <span>FAQs</span>
+</div>
+
+<!-- FAQ MAIN -->
+<div class="faq-main">
+  <div class="faq-wrap">
+
+    <!-- SIDEBAR -->
+    <div class="faq-cats">
+      <div class="faq-cats-title">Browse by Topic</div>
+      <button class="faq-cat-btn on" onclick="showCat('general',this)"><i class="fas fa-house"></i> General</button>
+      <button class="faq-cat-btn" onclick="showCat('account',this)"><i class="fas fa-user-circle"></i> Account</button>
+      <button class="faq-cat-btn" onclick="showCat('deposit',this)"><i class="fas fa-arrow-down-to-line"></i> Deposits</button>
+      <button class="faq-cat-btn" onclick="showCat('withdraw',this)"><i class="fas fa-arrow-up-from-line"></i> Withdrawals</button>
+      <button class="faq-cat-btn" onclick="showCat('plans',this)"><i class="fas fa-chart-line"></i> Plans & Returns</button>
+      <button class="faq-cat-btn" onclick="showCat('security',this)"><i class="fas fa-shield-halved"></i> Security</button>
+      <button class="faq-cat-btn" onclick="showCat('referral',this)"><i class="fas fa-gift"></i> Referral</button>
+      <div class="faq-need-help">
+        <p>Still have questions? Our support team is available 24/7.</p>
+        <a href="contact.html" class="btn-help"><i class="fas fa-headset"></i> Contact Support</a>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div>
+      <div id="searchResults" style="display:none">
+        <div class="faq-section-title">Search Results</div>
+        <div class="faq-section-sub" id="searchCount"></div>
+        <div class="faq-list" id="searchList"></div>
+      </div>
+
+      <!-- GENERAL -->
+      <div class="faq-section on" id="cat-general">
+        <div class="faq-section-title">General Questions</div>
+        <div class="faq-section-sub">The basics about CopyVestPro and how the platform works.</div>
+        <div class="faq-list">
+          <div class="acc reveal" data-q="What is CopyVestPro?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What is CopyVestPro?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>CopyVestPro is a professional automated investment platform that trades stocks, cryptocurrencies, bonds, futures, and commodities on behalf of our investors. Our team of expert traders and proprietary algorithms execute thousands of trades daily, generating consistent monthly returns that are distributed to our investors.</p><p>Unlike traditional investment platforms, we handle all the complexity of trading — you simply deposit funds, select a plan, and receive your returns monthly.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d1" data-q="Is CopyVestPro legitimate and regulated?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">Is CopyVestPro legitimate and regulated?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Yes. CopyVestPro is a fully registered and licensed investment firm operating in compliance with international financial regulations. We maintain full transparency with our investors — all fees are disclosed upfront, and all returns are genuine.</p><p>We have been operating since 2018 and have served over 12,400 investors across more than 80 countries.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d2" data-q="What markets do you trade in?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What markets do you trade in?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>We actively trade across the following markets:</p><ul><li>Cryptocurrency — Bitcoin, Ethereum, Solana, and major altcoins</li><li>Forex — Major and minor currency pairs</li><li>Equities — Global stocks and ETFs</li><li>Commodities — Gold, silver, oil and agricultural products</li><li>Bonds and fixed income instruments</li></ul></div></div>
+          </div>
+          <div class="acc reveal reveal-d3" data-q="How long has CopyVestPro been in operation?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How long has CopyVestPro been in operation?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>CopyVestPro was founded in 2018 by a team of veteran traders and financial engineers. Over six years, we have grown from a small proprietary trading desk to a global platform managing over $48 million in assets for investors across more than 80 countries.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCOUNT -->
+      <div class="faq-section" id="cat-account">
+        <div class="faq-section-title">Account Questions</div>
+        <div class="faq-section-sub">Registration, login, profile and account management.</div>
+        <div class="faq-list">
+          <div class="acc reveal" data-q="How do I create an account?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How do I create an account?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Creating an account takes less than 2 minutes. Simply click "Get Started" on the homepage, fill in your full name, email address and password, then agree to our Terms of Service. Your account will be activated immediately — no waiting period, no identity documents required to get started.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d1" data-q="Can I have multiple accounts?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">Can I have multiple accounts?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>No. Each person is allowed one account only. Creating multiple accounts is a violation of our Terms of Service and may result in the suspension of all associated accounts. If you have a referral link, share it with others rather than creating extra accounts yourself.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d2" data-q="I forgot my password. How do I reset it?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">I forgot my password. How do I reset it?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Click "Forgot password?" on the login page and enter your registered email address. If an account exists with that email, you will receive a password reset link within 5 minutes. Check your spam folder if you don't see it. If the issue persists, contact our support team directly.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d3" data-q="How do I update my profile information?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How do I update my profile information?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Log in to your dashboard, navigate to the "Profile" section in the sidebar, and update your details under "Update Profile". You can change your name, phone number, and country. Email changes require contacting support for security verification.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEPOSITS -->
+      <div class="faq-section" id="cat-deposit">
+        <div class="faq-section-title">Deposits</div>
+        <div class="faq-section-sub">How to fund your account and get started.</div>
+        <div class="faq-list">
+          <div class="acc reveal" data-q="What is the minimum deposit?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What is the minimum deposit?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>The minimum deposit is <strong>$100</strong>. However, you should note that each investment plan has its own minimum — the Starter Auto plan requires a minimum of $500 to activate. We recommend starting at the plan minimum to activate your investment immediately upon deposit confirmation.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d1" data-q="What payment methods do you accept?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What payment methods do you accept?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>We accept cryptocurrency deposits only. Currently supported networks are:</p><ul><li>Bitcoin (BTC)</li><li>Ethereum — ERC20 (ETH, USDT, USDC)</li><li>Solana (SOL)</li><li>Tron — TRC20 (USDT, USDC)</li></ul><p>We do not accept bank transfers or credit/debit card payments at this time.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d2" data-q="How long does a deposit take to confirm?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How long does a deposit take to confirm?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Deposits are typically confirmed within <strong>30 minutes</strong> to a few hours after you submit the payment notification. Our team manually verifies each transaction on the blockchain. Once confirmed, your balance is credited and your investment plan is activated immediately.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d3" data-q="What happens if I send the wrong coin to a wallet?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What happens if I send the wrong coin to a wallet?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Sending the wrong cryptocurrency to a wallet address typically results in a permanent loss of funds. This is a blockchain-level issue that cannot be reversed by CopyVestPro or anyone else. Always double-check the wallet address and the selected network before making any transfer. We are not liable for funds sent to incorrect addresses.</p></div></div>
+          </div>
+          <div class="acc reveal" data-q="Can I make multiple deposits?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">Can I make multiple deposits?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Yes. You can make multiple deposits at any time. Each deposit activates a separate investment under your chosen plan. There is no cap on the total amount you can deposit, though individual plans have their own minimum and maximum ranges.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WITHDRAWALS -->
+      <div class="faq-section" id="cat-withdraw">
+        <div class="faq-section-title">Withdrawals</div>
+        <div class="faq-section-sub">How to withdraw your funds and earnings.</div>
+        <div class="faq-list">
+          <div class="acc reveal" data-q="How do I withdraw my funds?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How do I withdraw my funds?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Log in to your dashboard and navigate to the "Withdraw" section. Enter the amount you wish to withdraw, select your preferred cryptocurrency and network, and provide your wallet address. Submit the request and our team will process it within 24 hours.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d1" data-q="What is the minimum withdrawal amount?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What is the minimum withdrawal amount?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>The minimum withdrawal amount is <strong>$10</strong>. You can only withdraw funds that are available in your balance — funds locked in active investments cannot be withdrawn until the plan contract period ends.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d2" data-q="How long do withdrawals take?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How long do withdrawals take?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Withdrawals are processed within <strong>24 hours</strong> of submission. In most cases they are completed within a few hours during business hours. Once processed by our team, the blockchain transaction may take additional time depending on network congestion.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d3" data-q="Are there any withdrawal fees?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">Are there any withdrawal fees?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>CopyVestPro does not charge withdrawal fees. You will receive the exact amount you requested. However, standard blockchain network fees (gas fees) apply and are covered separately by the network. These are typically very small and do not affect the amount we send you.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLANS -->
+      <div class="faq-section" id="cat-plans">
+        <div class="faq-section-title">Plans & Returns</div>
+        <div class="faq-section-sub">Understanding our investment plans and how returns are calculated.</div>
+        <div class="faq-list">
+          <div class="acc reveal" data-q="What investment plans are available?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What investment plans are available?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>We currently offer four plans:</p><ul><li><strong>Starter Auto</strong> — 35% ROI/month, min $500, 14-day contract</li><li><strong>Intermediate Auto</strong> — 45% ROI/month, min $10,000, 60-day contract</li><li><strong>Advanced Auto</strong> — 50% ROI/month, min $50,000, 99-day contract</li><li><strong>Expert Bronze</strong> — 85% ROI/month, min $100,000, 365-day contract</li></ul><p>All plans include automated profit accrual, 5% referral bonus eligibility, and 24/7 support.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d1" data-q="When and how are profits paid out?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">When and how are profits paid out?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Profits are accrued monthly and credited directly to your available balance. You can see your next accrual date in the "My Investments" section of your dashboard. Once credited, profits are immediately withdrawable — there is no additional lock-up period on earned returns.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d2" data-q="Can I upgrade or change my plan?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">Can I upgrade or change my plan?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Active investments cannot be changed mid-contract. However, you can make a new deposit under a different plan — you can run multiple active investments simultaneously on different plans. When your current contract expires, your principal is returned to your balance and you can reinvest on any plan of your choice.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d3" data-q="What happens at the end of my contract period?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What happens at the end of my contract period?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>When your investment contract expires, your original principal is automatically returned to your available balance along with any final profit accrual. You can then withdraw it, reinvest in the same plan, or move to a different plan — entirely your choice.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="faq-section" id="cat-security">
+        <div class="faq-section-title">Security</div>
+        <div class="faq-section-sub">How we protect your account and your funds.</div>
+        <div class="faq-list">
+          <div class="acc reveal" data-q="How is my account secured?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How is my account secured?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Your account is protected with industry-standard security measures including bcrypt-encrypted passwords, JWT token authentication with expiry, and HTTPS encryption on all connections. We never store raw passwords or sensitive payment data on our servers.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d1" data-q="What should I do if I suspect unauthorized access?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">What should I do if I suspect unauthorized access?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Change your password immediately via your Profile settings, then contact our support team at the earliest opportunity. We can help lock your account, review recent activity, and assist with any security concerns. Never share your login credentials with anyone — CopyVestPro staff will never ask for your password.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d2" data-q="Is CopyVestPro vulnerable to hacks?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">Is CopyVestPro vulnerable to hacks?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>We use enterprise-grade security infrastructure including DDoS protection, encrypted databases, and regular security audits. While no system is 100% immune, we maintain the same security standards as major financial institutions. Investor funds are held in cold storage wallets that are not connected to the internet.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERRAL -->
+      <div class="faq-section" id="cat-referral">
+        <div class="faq-section-title">Referral Program</div>
+        <div class="faq-section-sub">How the referral system works and how to earn more.</div>
+        <div class="faq-list">
+          <div class="acc reveal" data-q="How does the referral program work?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">How does the referral program work?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Every registered investor gets a unique referral code and link. When someone registers using your link and makes their first investment, you earn a <strong>5% bonus</strong> on their invested amount, credited directly to your available balance.</p><p>There is no cap on how many people you can refer or how much you can earn from referrals.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d1" data-q="When is my referral bonus credited?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">When is my referral bonus credited?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>Referral bonuses are credited to your balance as soon as your referred user's first deposit is confirmed and approved by our team. This typically happens within 24 hours of the referred user completing their deposit.</p></div></div>
+          </div>
+          <div class="acc reveal reveal-d2" data-q="Can I refer myself using a second account?">
+            <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">Can I refer myself using a second account?</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+            <div class="acc-a"><div class="acc-body"><p>No. Self-referrals using multiple accounts are strictly prohibited and will result in permanent suspension of all associated accounts and forfeiture of any earned referral bonuses. Our system detects patterns consistent with self-referral abuse.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-bar">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Still Have Questions?</div>
+    <h2>Our support team is<br><em>available 24/7</em></h2>
+    <p>Can't find what you're looking for? Reach out and we'll get back to you within the hour.</p>
+    <div class="cta-btns">
+      <a href="contact.html" class="btn-cta-gold"><i class="fas fa-headset"></i> Contact Support</a>
+      <a href="register.html" class="btn-cta-out"><i class="fas fa-user-plus"></i> Open an Account</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="fg-brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+        <svg width="36" height="36" viewBox="0 0 44 44" fill="none"><defs><linearGradient id="lg_f" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs><rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_f)"/><rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/><path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/><path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span style="font-family:var(--font-serif);font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-.02em">Copy<em style="color:var(--gold-light);font-style:italic">Vest</em>Pro</span>
+      </a>
+      <p>Professional automated trading across stocks, crypto, forex and commodities.</p>
+      <div class="f-socials">
+        <a href="#" class="fsoc" style="background:#1877f2"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="fsoc" style="background:#111"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="fsoc" style="background:#26a5e4"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="fsoc" style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888)"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div><div class="fg-title">Company</div><div class="fg-links"><a href="about.html">About Us</a><a href="faqs.html">FAQs</a><a href="contact.html">Contact</a><a href="pricing.html">Trading Plans</a></div></div>
+    <div><div class="fg-title">Account</div><div class="fg-links"><a href="login.html">Login</a><a href="register.html">Register</a><a href="dashboard.html">Dashboard</a></div></div>
+    <div><div class="fg-title">Legal</div><div class="fg-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Risk Disclaimer</a><a href="#">AML Policy</a></div></div>
+  </div>
+  <div class="footer-bar">
+    <p>© 2025 CopyVestPro. All rights reserved.</p>
+    <div class="footer-bar-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Risk</a></div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+});
+
+// Reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Toggle nav
+function toggleNav(){document.getElementById('navbar').classList.toggle('nav-open')}
+
+// Category switching
+function showCat(id, btn){
+  document.getElementById('searchResults').style.display='none';
+  document.getElementById('searchInput').value='';
+  document.querySelectorAll('.faq-section').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.faq-cat-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('cat-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// Accordion
+function toggleAcc(el){
+  const acc=el.closest('.acc');
+  const isOpen=acc.classList.contains('open');
+  document.querySelectorAll('.acc.open').forEach(a=>a.classList.remove('open'));
+  if(!isOpen) acc.classList.add('open');
+}
+
+// Search
+const allFAQs=[];
+document.querySelectorAll('.acc').forEach(acc=>{
+  allFAQs.push({
+    q: acc.dataset.q,
+    body: acc.querySelector('.acc-body').innerHTML,
+    el: acc
+  });
+});
+
+function searchFAQs(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  const sr=document.getElementById('searchResults');
+  const sl=document.getElementById('searchList');
+  const sc=document.getElementById('searchCount');
+  if(!q){
+    sr.style.display='none';
+    document.querySelectorAll('.faq-section').forEach(s=>s.classList.remove('on'));
+    document.getElementById('cat-general').classList.add('on');
+    return;
+  }
+  document.querySelectorAll('.faq-section').forEach(s=>s.classList.remove('on'));
+  sr.style.display='block';
+  const hits=allFAQs.filter(f=>f.q.toLowerCase().includes(q)||f.body.toLowerCase().includes(q));
+  sc.textContent=hits.length ? `${hits.length} result${hits.length>1?'s':''} found` : 'No results found';
+  if(!hits.length){sl.innerHTML='<div class="faq-empty"><i class="fas fa-magnifying-glass"></i>No questions match your search. Try different keywords or <a href="contact.html" style="color:var(--gold-dark)">contact us</a>.</div>';return;}
+  sl.innerHTML=hits.map(f=>`
+    <div class="acc">
+      <div class="acc-q" onclick="toggleAcc(this)"><span class="acc-qtext">${f.q}</span><span class="acc-ico"><i class="fas fa-plus"></i></span></div>
+      <div class="acc-a"><div class="acc-body">${f.body}</div></div>
+    </div>`).join('');
+}
+</script>
+</body>
+</html>

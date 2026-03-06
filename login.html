@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login – CopyVestPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --gold:#c9a84c;--gold-light:#e2c36e;--gold-dark:#a8841a;
+  --gold-pale:#fdf8ef;--gold-border:rgba(201,168,76,.22);
+  --ink:#0f0f0f;--navy:#0d1b2e;--surface:#fff;
+  --cream:#f6f4f0;--body-txt:#4a4a4a;--muted:#787878;--border:#e8e8e8;
+  --font:'Space Grotesk',sans-serif;--font-serif:'Playfair Display',serif;
+  --text-xs:.875rem;--text-sm:.9375rem;
+  --r-sm:10px;--r-md:16px;--r-xl:24px;--r-pill:100px;
+  --sh-sm:0 4px 12px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.04);
+  --sh-md:0 12px 32px rgba(0,0,0,.09),0 4px 8px rgba(0,0,0,.05);
+  --sh-gold:0 8px 32px rgba(201,168,76,.24),0 2px 8px rgba(201,168,76,.14);
+  --sh-gold-lg:0 18px 52px rgba(201,168,76,.3),0 4px 16px rgba(201,168,76,.16);
+  --ease:cubic-bezier(.4,0,.2,1);--ease-bounce:cubic-bezier(.34,1.56,.64,1);--tr:.3s var(--ease);
+  --red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;
+  --green:#16a34a;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;height:100%}
+body{font-family:var(--font);background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* ═══ NAVBAR (matches index.html) ═══ */
+.navbar{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);padding:0 44px;
+  display:flex;align-items:center;justify-content:space-between;height:78px;
+  box-shadow:0 4px 28px rgba(0,0,0,.06);
+}
+.nav-logo{display:flex;align-items:center;gap:13px}
+.nav-logo svg{transition:all .4s var(--ease-bounce)}
+.nav-logo:hover svg{transform:scale(1.06) rotate(-3deg)}
+.logo-wordmark{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.logo-wordmark em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:var(--text-xs);font-weight:600;color:var(--muted);padding:9px 17px;border-radius:var(--r-sm);letter-spacing:.04em;text-transform:uppercase;transition:var(--tr)}
+.nav-links a:hover{color:var(--ink);background:var(--gold-pale)}
+.nav-cta{display:flex;gap:10px}
+.btn-nav{padding:11px 24px;border-radius:var(--r-md);font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:var(--tr);border:none;font-family:var(--font);position:relative;overflow:hidden}
+.btn-solid{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;box-shadow:0 4px 16px rgba(201,168,76,.38)}
+.btn-solid::before{content:'';position:absolute;top:0;left:-110%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-15deg);transition:left .52s var(--ease)}
+.btn-solid:hover{box-shadow:var(--sh-gold);transform:translateY(-1px)}
+.btn-solid:hover::before{left:160%}
+.btn-outline-nav{background:var(--surface);border:1.5px solid var(--border);color:var(--muted)}
+.btn-outline-nav:hover{border-color:var(--gold-border);color:var(--gold-dark);background:var(--gold-pale)}
+
+/* ═══ PAGE ═══ */
+.page{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 20px}
+
+/* ═══ SPLIT LAYOUT ═══ */
+.split{
+  width:100%;max-width:960px;
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:28px;overflow:hidden;
+  box-shadow:var(--sh-md);
+}
+
+/* LEFT PANEL */
+.panel-left{
+  background:linear-gradient(145deg,#0a1628 0%,#0d1b2e 55%,#12243d 100%);
+  padding:56px 44px;display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.panel-left::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.016) 1px,transparent 0);background-size:40px 40px;pointer-events:none}
+.panel-left::after{content:'';position:absolute;top:-120px;right:-60px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 65%);pointer-events:none}
+.pl-logo{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.pl-wordmark{font-family:var(--font-serif);font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+.pl-wordmark em{color:var(--gold-light);font-style:italic}
+.pl-body{position:relative;z-index:1}
+.pl-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.65);margin-bottom:16px}
+.pl-heading{font-family:var(--font-serif);font-size:clamp(1.6rem,2.5vw,2.1rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:20px}
+.pl-heading em{color:var(--gold-light);font-style:italic}
+.pl-sub{font-size:var(--text-sm);color:rgba(255,255,255,.46);line-height:1.75;max-width:280px}
+.pl-stats{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.pl-stat{display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-md)}
+.pl-stat-ico{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.08));border:1px solid rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-size:.85rem;flex-shrink:0}
+.pl-stat-val{font-family:var(--font-serif);font-size:1.15rem;font-weight:800;color:#fff;line-height:1.1}
+.pl-stat-lbl{font-size:.72rem;color:rgba(255,255,255,.36);margin-top:1px}
+
+/* RIGHT PANEL */
+.panel-right{padding:52px 44px;display:flex;flex-direction:column;justify-content:center}
+.form-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.form-heading{font-family:var(--font-serif);font-size:1.65rem;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.02em}
+.form-sub{font-size:var(--text-xs);color:var(--muted);margin-bottom:32px;line-height:1.65}
+
+.f-grp{margin-bottom:18px}
+.f-lbl{display:block;font-size:var(--text-xs);font-weight:600;color:var(--ink);margin-bottom:8px}
+.f-wrap{position:relative}
+.f-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.82rem;pointer-events:none}
+.f-inp{
+  width:100%;padding:13px 14px 13px 40px;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r-sm);font-size:var(--text-sm);font-family:var(--font);color:var(--ink);
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.f-inp::placeholder{color:#bbb}
+.f-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+.f-inp.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.08)}
+.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;transition:color .2s;font-size:.85rem}
+.pw-toggle:hover{color:var(--ink)}
+
+.f-opts{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.f-check{display:flex;align-items:center;gap:8px;font-size:var(--text-xs);color:var(--muted);cursor:pointer}
+.f-check input{width:14px;height:14px;accent-color:var(--gold);cursor:pointer}
+.f-forgot{font-size:var(--text-xs);color:var(--gold-dark);font-weight:600;transition:color .2s}
+.f-forgot:hover{color:var(--gold)}
+
+.alert{padding:11px 14px;border-radius:var(--r-sm);font-size:var(--text-xs);font-weight:500;display:none;align-items:center;gap:9px;margin-bottom:16px}
+.alert.on{display:flex}
+.alert-err{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.alert-ok{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+
+/* SUBMIT BUTTON — exact from index.html .btn-hero-solid */
+.btn-submit{
+  width:100%;padding:15px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;border:none;border-radius:var(--r-md);
+  font-size:var(--text-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;font-family:var(--font);transition:var(--tr);
+  box-shadow:0 4px 22px rgba(201,168,76,.38);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.btn-submit::before{content:'';position:absolute;top:0;left:-110%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transition:left .52s var(--ease);transform:skewX(-15deg)}
+.btn-submit:hover:not(:disabled){box-shadow:0 10px 34px rgba(201,168,76,.52);transform:translateY(-2px)}
+.btn-submit:hover::before{left:160%}
+.btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+
+.divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--muted);font-size:.75rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.form-foot{text-align:center;font-size:var(--text-xs);color:var(--muted);margin-top:20px}
+.form-foot a{color:var(--gold-dark);font-weight:700;transition:color .2s}
+.form-foot a:hover{color:var(--gold)}
+
+/* FOOTER */
+.footer{background:var(--navy);padding:22px 44px;display:flex;align-items:center;justify-content:space-between}
+.footer p{font-size:var(--text-xs);color:rgba(255,255,255,.2)}
+.footer a{font-size:var(--text-xs);color:rgba(255,255,255,.3);transition:color .2s}
+.footer a:hover{color:var(--gold-light)}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin .7s linear infinite}
+
+@media(max-width:768px){
+  .navbar{padding:0 20px}.nav-links,.nav-cta{display:none}
+  .split{grid-template-columns:1fr}.panel-left{display:none}
+  .panel-right{padding:36px 28px}
+  .page{padding:24px 16px;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="40" height="40" viewBox="0 0 44 44" fill="none" style="flex-shrink:0;filter:drop-shadow(0 3px 8px rgba(168,132,26,.4))">
+      <defs><linearGradient id="lg_nav" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs>
+      <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_nav)"/>
+      <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+      <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span class="logo-wordmark">Copy<em>Vest</em>Pro</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="faqs.html">FAQs</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-cta">
+    <a href="register.html" class="btn-nav btn-outline-nav">Register</a>
+    <a href="login.html" class="btn-nav btn-solid">Log In</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+  <div class="split">
+
+    <!-- LEFT PANEL -->
+    <div class="panel-left">
+      <div class="pl-logo">
+        <svg width="36" height="36" viewBox="0 0 44 44" fill="none">
+          <defs><linearGradient id="lg_pl" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs>
+          <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_pl)"/>
+          <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+          <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+          <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="pl-wordmark">Copy<em>Vest</em>Pro</span>
+      </div>
+      <div class="pl-body">
+        <div class="pl-eyebrow">Welcome Back</div>
+        <h2 class="pl-heading">Trade smarter,<br><em>earn more</em></h2>
+        <p class="pl-sub">Log in to access your portfolio, track live investments, and manage your funds securely.</p>
+      </div>
+      <div class="pl-stats">
+        <div class="pl-stat">
+          <div class="pl-stat-ico"><i class="fas fa-users"></i></div>
+          <div><div class="pl-stat-val">12,400+</div><div class="pl-stat-lbl">Active Investors</div></div>
+        </div>
+        <div class="pl-stat">
+          <div class="pl-stat-ico"><i class="fas fa-chart-line"></i></div>
+          <div><div class="pl-stat-val">$48M+</div><div class="pl-stat-lbl">Total Managed</div></div>
+        </div>
+        <div class="pl-stat">
+          <div class="pl-stat-ico"><i class="fas fa-shield-halved"></i></div>
+          <div><div class="pl-stat-val">100% Secure</div><div class="pl-stat-lbl">Encrypted & Protected</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL — FORM -->
+    <div class="panel-right">
+      <div class="form-eyebrow">Investor Portal</div>
+      <h1 class="form-heading">Sign In</h1>
+      <p class="form-sub">Welcome back. Enter your credentials to access your dashboard.</p>
+
+      <div class="alert alert-err" id="loginAlert"></div>
+
+      <div class="f-grp">
+        <label class="f-lbl" for="email">Email Address</label>
+        <div class="f-wrap">
+          <i class="fas fa-envelope f-ico"></i>
+          <input type="email" class="f-inp" id="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="f-grp">
+        <label class="f-lbl" for="password">Password</label>
+        <div class="f-wrap">
+          <i class="fas fa-lock f-ico"></i>
+          <input type="password" class="f-inp" id="password" placeholder="••••••••" autocomplete="current-password">
+          <button type="button" class="pw-toggle" id="pwToggle" onclick="togglePw()">
+            <i class="fas fa-eye" id="pwIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="f-opts">
+        <label class="f-check">
+          <input type="checkbox" id="rememberMe"> Remember me
+        </label>
+        <a href="#" class="f-forgot">Forgot password?</a>
+      </div>
+
+      <button class="btn-submit" id="loginBtn" onclick="doLogin()">
+        <i class="fas fa-right-to-bracket"></i> Sign In
+      </button>
+
+      <div class="form-foot">
+        Don't have an account? <a href="register.html">Create one free →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2025 CopyVestPro. All rights reserved.</p>
+  <a href="index.html">← Back to Homepage</a>
+</footer>
+
+<script>
+const API = 'https://copyvestpro-backend-production.up.railway.app';
+
+// If already logged in, redirect
+const existing = localStorage.getItem('cvp_token');
+const existingUser = JSON.parse(localStorage.getItem('cvp_user') || '{}');
+if (existing && existingUser.id) {
+  window.location.href = existingUser.is_admin ? 'admin.html' : 'dashboard.html';
+}
+
+function togglePw() {
+  const inp = document.getElementById('password');
+  const ico = document.getElementById('pwIcon');
+  if (inp.type === 'password') {
+    inp.type = 'text'; ico.className = 'fas fa-eye-slash';
+  } else {
+    inp.type = 'password'; ico.className = 'fas fa-eye';
+  }
+}
+
+// Allow Enter key to submit
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+async function doLogin() {
+  const email    = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const alert    = document.getElementById('loginAlert');
+  const btn      = document.getElementById('loginBtn');
+
+  // Clear error
+  alert.className = 'alert';
+
+  if (!email || !password) {
+    showErr('Please enter your email and password.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-circle-notch spin"></i> Signing in...';
+
+  try {
+    const res = await fetch(`${API}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      showErr(data.error || data.message || 'Login failed. Please check your credentials.');
+      return;
+    }
+
+    // Store token and user
+    localStorage.setItem('cvp_token', data.token);
+    localStorage.setItem('cvp_user', JSON.stringify(data.user));
+
+    // ── Redirect based on is_admin ──
+    if (data.user.is_admin) {
+      window.location.href = 'admin.html';
+    } else {
+      window.location.href = 'dashboard.html';
+    }
+
+  } catch (e) {
+    showErr('Connection error. Please try again.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In';
+  }
+}
+
+function showErr(msg) {
+  const el = document.getElementById('loginAlert');
+  el.className = 'alert alert-err on';
+  el.innerHTML = `<i class="fas fa-circle-exclamation"></i> ${msg}`;
+}
+</script>
+</body>
+</html>

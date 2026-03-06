@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account – CopyVestPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --gold:#c9a84c;--gold-light:#e2c36e;--gold-dark:#a8841a;
+  --gold-pale:#fdf8ef;--gold-border:rgba(201,168,76,.22);
+  --ink:#0f0f0f;--navy:#0d1b2e;--surface:#fff;
+  --cream:#f6f4f0;--body-txt:#4a4a4a;--muted:#787878;--border:#e8e8e8;
+  --font:'Space Grotesk',sans-serif;--font-serif:'Playfair Display',serif;
+  --text-xs:.875rem;--text-sm:.9375rem;
+  --r-sm:10px;--r-md:16px;--r-xl:24px;--r-pill:100px;
+  --sh-sm:0 4px 12px rgba(0,0,0,.07);--sh-md:0 12px 32px rgba(0,0,0,.09),0 4px 8px rgba(0,0,0,.05);
+  --sh-gold:0 8px 32px rgba(201,168,76,.24);--sh-gold-lg:0 18px 52px rgba(201,168,76,.3);
+  --ease:cubic-bezier(.4,0,.2,1);--ease-bounce:cubic-bezier(.34,1.56,.64,1);--tr:.3s var(--ease);
+  --red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;
+  --green:#16a34a;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:var(--font);background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* ═══ NAVBAR ═══ */
+.navbar{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);padding:0 44px;
+  display:flex;align-items:center;justify-content:space-between;height:78px;
+  box-shadow:0 4px 28px rgba(0,0,0,.06);
+}
+.nav-logo{display:flex;align-items:center;gap:13px}
+.nav-logo svg{transition:all .4s var(--ease-bounce)}
+.nav-logo:hover svg{transform:scale(1.06) rotate(-3deg)}
+.logo-wordmark{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.logo-wordmark em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:var(--text-xs);font-weight:600;color:var(--muted);padding:9px 17px;border-radius:var(--r-sm);letter-spacing:.04em;text-transform:uppercase;transition:var(--tr)}
+.nav-links a:hover{color:var(--ink);background:var(--gold-pale)}
+.nav-cta{display:flex;gap:10px}
+.btn-nav{padding:11px 24px;border-radius:var(--r-md);font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:var(--tr);border:none;font-family:var(--font);position:relative;overflow:hidden}
+.btn-solid{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;box-shadow:0 4px 16px rgba(201,168,76,.38)}
+.btn-solid::before{content:'';position:absolute;top:0;left:-110%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-15deg);transition:left .52s var(--ease)}
+.btn-solid:hover{box-shadow:var(--sh-gold);transform:translateY(-1px)}
+.btn-solid:hover::before{left:160%}
+.btn-outline-nav{background:var(--surface);border:1.5px solid var(--border);color:var(--muted)}
+.btn-outline-nav:hover{border-color:var(--gold-border);color:var(--gold-dark);background:var(--gold-pale)}
+
+/* ═══ PAGE ═══ */
+.page{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 20px}
+
+/* ═══ SPLIT ═══ */
+.split{
+  width:100%;max-width:980px;
+  display:grid;grid-template-columns:1fr 1.15fr;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:28px;overflow:hidden;box-shadow:var(--sh-md);
+}
+
+/* LEFT PANEL */
+.panel-left{
+  background:linear-gradient(145deg,#0a1628 0%,#0d1b2e 55%,#12243d 100%);
+  padding:52px 40px;display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.panel-left::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.016) 1px,transparent 0);background-size:40px 40px;pointer-events:none}
+.panel-left::after{content:'';position:absolute;top:-100px;right:-50px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 65%);pointer-events:none}
+.pl-logo{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.pl-wordmark{font-family:var(--font-serif);font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+.pl-wordmark em{color:var(--gold-light);font-style:italic}
+.pl-body{position:relative;z-index:1}
+.pl-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.65);margin-bottom:14px}
+.pl-heading{font-family:var(--font-serif);font-size:clamp(1.5rem,2.3vw,2rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:18px}
+.pl-heading em{color:var(--gold-light);font-style:italic}
+.pl-sub{font-size:var(--text-sm);color:rgba(255,255,255,.46);line-height:1.75;max-width:268px;margin-bottom:28px}
+.pl-perks{display:flex;flex-direction:column;gap:11px;position:relative;z-index:1}
+.pl-perk{display:flex;align-items:center;gap:12px;font-size:var(--text-xs);color:rgba(255,255,255,.55)}
+.pl-perk-ico{width:28px;height:28px;border-radius:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-size:.72rem;flex-shrink:0}
+.pl-plans{display:flex;flex-direction:column;gap:8px;position:relative;z-index:1}
+.pl-plan{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);border-radius:var(--r-md);
+}
+.pl-plan-name{font-size:var(--text-xs);font-weight:600;color:rgba(255,255,255,.65)}
+.pl-plan-roi{font-family:var(--font-serif);font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* RIGHT PANEL */
+.panel-right{padding:44px 40px;display:flex;flex-direction:column;justify-content:center}
+.form-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.form-heading{font-family:var(--font-serif);font-size:1.55rem;font-weight:800;color:var(--ink);margin-bottom:5px;letter-spacing:-.02em}
+.form-sub{font-size:var(--text-xs);color:var(--muted);margin-bottom:26px;line-height:1.65}
+
+.f-grp{margin-bottom:15px}
+.f-lbl{display:block;font-size:var(--text-xs);font-weight:600;color:var(--ink);margin-bottom:7px}
+.f-wrap{position:relative}
+.f-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem;pointer-events:none}
+.f-inp{
+  width:100%;padding:12px 13px 12px 38px;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r-sm);font-size:var(--text-sm);font-family:var(--font);color:var(--ink);
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.f-inp::placeholder{color:#bbb}
+.f-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+.f-inp.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.08)}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;transition:color .2s;font-size:.82rem}
+.pw-toggle:hover{color:var(--ink)}
+.f-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Password strength */
+.pw-strength{margin-top:7px;display:none}
+.pw-strength.show{display:block}
+.pw-bars{display:flex;gap:4px;margin-bottom:5px}
+.pw-bar{height:3px;flex:1;border-radius:2px;background:var(--border);transition:background .3s}
+.pw-bar.weak{background:var(--red)}
+.pw-bar.fair{background:var(--amber,#f59e0b)}
+.pw-bar.good{background:#84cc16}
+.pw-bar.strong{background:var(--green)}
+.pw-txt{font-size:.68rem;color:var(--muted)}
+
+/* Terms */
+.terms-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:18px;font-size:var(--text-xs);color:var(--muted);line-height:1.55}
+.terms-row input{width:14px;height:14px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;margin-top:2px}
+.terms-row a{color:var(--gold-dark);font-weight:600}
+.terms-row a:hover{color:var(--gold)}
+
+.alert{padding:11px 14px;border-radius:var(--r-sm);font-size:var(--text-xs);font-weight:500;display:none;align-items:center;gap:9px;margin-bottom:14px}
+.alert.on{display:flex}
+.alert-err{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.alert-ok{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+
+/* SUCCESS STATE */
+.success-state{display:none;text-align:center;padding:20px 0}
+.success-state.show{display:block}
+.success-ico{width:68px;height:68px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--green);margin:0 auto 18px}
+.success-title{font-family:var(--font-serif);font-size:1.4rem;font-weight:800;color:var(--ink);margin-bottom:8px}
+.success-sub{font-size:var(--text-xs);color:var(--muted);line-height:1.7;max-width:300px;margin:0 auto 24px}
+
+.btn-submit{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;border:none;border-radius:var(--r-md);
+  font-size:var(--text-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;font-family:var(--font);transition:var(--tr);
+  box-shadow:0 4px 22px rgba(201,168,76,.38);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.btn-submit::before{content:'';position:absolute;top:0;left:-110%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transition:left .52s var(--ease);transform:skewX(-15deg)}
+.btn-submit:hover:not(:disabled){box-shadow:0 10px 34px rgba(201,168,76,.52);transform:translateY(-2px)}
+.btn-submit:hover::before{left:160%}
+.btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+.btn-login{
+  width:100%;padding:13px;margin-top:10px;
+  background:var(--surface);border:1.5px solid var(--border);color:var(--body-txt);
+  border-radius:var(--r-md);font-size:var(--text-sm);font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;cursor:pointer;font-family:var(--font);transition:var(--tr);
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.btn-login:hover{border-color:var(--gold-border);color:var(--gold-dark);background:var(--gold-pale)}
+
+.form-foot{text-align:center;font-size:var(--text-xs);color:var(--muted);margin-top:18px}
+.form-foot a{color:var(--gold-dark);font-weight:700;transition:color .2s}
+.form-foot a:hover{color:var(--gold)}
+
+/* FOOTER */
+.footer{background:var(--navy);padding:22px 44px;display:flex;align-items:center;justify-content:space-between}
+.footer p{font-size:var(--text-xs);color:rgba(255,255,255,.2)}
+.footer a{font-size:var(--text-xs);color:rgba(255,255,255,.3);transition:color .2s}
+.footer a:hover{color:var(--gold-light)}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin .7s linear infinite}
+
+@media(max-width:768px){
+  .navbar{padding:0 20px}.nav-links,.nav-cta{display:none}
+  .split{grid-template-columns:1fr}.panel-left{display:none}
+  .panel-right{padding:32px 24px}.f-row2{grid-template-columns:1fr}
+  .page{padding:24px 16px;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="40" height="40" viewBox="0 0 44 44" fill="none" style="flex-shrink:0;filter:drop-shadow(0 3px 8px rgba(168,132,26,.4))">
+      <defs><linearGradient id="lg_nav" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs>
+      <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_nav)"/>
+      <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+      <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span class="logo-wordmark">Copy<em>Vest</em>Pro</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="faqs.html">FAQs</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-nav btn-outline-nav">Log In</a>
+    <a href="register.html" class="btn-nav btn-solid">Get Started</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+  <div class="split">
+
+    <!-- LEFT PANEL -->
+    <div class="panel-left">
+      <div class="pl-logo">
+        <svg width="34" height="34" viewBox="0 0 44 44" fill="none">
+          <defs><linearGradient id="lg_pl" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs>
+          <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_pl)"/>
+          <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+          <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+          <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="pl-wordmark">Copy<em>Vest</em>Pro</span>
+      </div>
+      <div class="pl-body">
+        <div class="pl-eyebrow">Start Earning Today</div>
+        <h2 class="pl-heading">Join thousands of<br><em>smart investors</em></h2>
+        <p class="pl-sub">Create your free account and start growing your wealth with our automated trading plans.</p>
+        <div class="pl-perks">
+          <div class="pl-perk"><div class="pl-perk-ico"><i class="fas fa-bolt"></i></div> Instant account activation</div>
+          <div class="pl-perk"><div class="pl-perk-ico"><i class="fas fa-shield-halved"></i></div> Bank-grade security & encryption</div>
+          <div class="pl-perk"><div class="pl-perk-ico"><i class="fas fa-gift"></i></div> 5% referral bonus on every invite</div>
+          <div class="pl-perk"><div class="pl-perk-ico"><i class="fas fa-headset"></i></div> 24/7 dedicated support team</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px">Available Plans</div>
+        <div class="pl-plans">
+          <div class="pl-plan"><span class="pl-plan-name">Starter Auto</span><span class="pl-plan-roi">35% <span style="font-size:.7rem;font-weight:400;color:rgba(255,255,255,.3)">ROI</span></span></div>
+          <div class="pl-plan"><span class="pl-plan-name">Intermediate Auto</span><span class="pl-plan-roi">45% <span style="font-size:.7rem;font-weight:400;color:rgba(255,255,255,.3)">ROI</span></span></div>
+          <div class="pl-plan"><span class="pl-plan-name">Advanced Auto</span><span class="pl-plan-roi">50% <span style="font-size:.7rem;font-weight:400;color:rgba(255,255,255,.3)">ROI</span></span></div>
+          <div class="pl-plan"><span class="pl-plan-name">Expert Bronze</span><span class="pl-plan-roi">85% <span style="font-size:.7rem;font-weight:400;color:rgba(255,255,255,.3)">ROI</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="panel-right">
+
+      <!-- FORM STATE -->
+      <div id="formState">
+        <div class="form-eyebrow">Free Account</div>
+        <h1 class="form-heading">Create Account</h1>
+        <p class="form-sub">Fill in your details below. Takes less than 2 minutes.</p>
+
+        <div class="alert alert-err" id="regAlert"></div>
+
+        <div class="f-grp">
+          <label class="f-lbl">Full Name</label>
+          <div class="f-wrap">
+            <i class="fas fa-user f-ico"></i>
+            <input type="text" class="f-inp" id="fullName" placeholder="John Doe" autocomplete="name">
+          </div>
+        </div>
+
+        <div class="f-grp">
+          <label class="f-lbl">Email Address</label>
+          <div class="f-wrap">
+            <i class="fas fa-envelope f-ico"></i>
+            <input type="email" class="f-inp" id="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="f-row2">
+          <div class="f-grp">
+            <label class="f-lbl">Phone (optional)</label>
+            <div class="f-wrap">
+              <i class="fas fa-phone f-ico"></i>
+              <input type="tel" class="f-inp" id="phone" placeholder="+1 234 567 8900" autocomplete="tel">
+            </div>
+          </div>
+          <div class="f-grp">
+            <label class="f-lbl">Country (optional)</label>
+            <div class="f-wrap">
+              <i class="fas fa-globe f-ico"></i>
+              <input type="text" class="f-inp" id="country" placeholder="Nigeria" autocomplete="country-name">
+            </div>
+          </div>
+        </div>
+
+        <div class="f-grp">
+          <label class="f-lbl">Password</label>
+          <div class="f-wrap">
+            <i class="fas fa-lock f-ico"></i>
+            <input type="password" class="f-inp" id="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength()">
+            <button type="button" class="pw-toggle" onclick="togglePw('password','pwIcon')">
+              <i class="fas fa-eye" id="pwIcon"></i>
+            </button>
+          </div>
+          <div class="pw-strength" id="pwStrength">
+            <div class="pw-bars">
+              <div class="pw-bar" id="b1"></div>
+              <div class="pw-bar" id="b2"></div>
+              <div class="pw-bar" id="b3"></div>
+              <div class="pw-bar" id="b4"></div>
+            </div>
+            <div class="pw-txt" id="pwTxt">Weak password</div>
+          </div>
+        </div>
+
+        <div class="f-grp">
+          <label class="f-lbl">Confirm Password</label>
+          <div class="f-wrap">
+            <i class="fas fa-lock f-ico"></i>
+            <input type="password" class="f-inp" id="confirmPw" placeholder="Repeat your password" autocomplete="new-password">
+            <button type="button" class="pw-toggle" onclick="togglePw('confirmPw','cpwIcon')">
+              <i class="fas fa-eye" id="cpwIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="terms-row">
+          <input type="checkbox" id="terms">
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that investing carries risk and past performance is not indicative of future results.</label>
+        </div>
+
+        <button class="btn-submit" id="regBtn" onclick="doRegister()">
+          <i class="fas fa-user-plus"></i> Create My Account
+        </button>
+
+        <div class="form-foot">
+          Already have an account? <a href="login.html">Sign in →</a>
+        </div>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-state" id="successState">
+        <div class="success-ico"><i class="fas fa-circle-check"></i></div>
+        <div class="success-title">Account Created!</div>
+        <p class="success-sub">Welcome to CopyVestPro. Your account is ready. Click below to sign in and start investing.</p>
+        <button class="btn-submit" onclick="window.location.href='login.html'">
+          <i class="fas fa-right-to-bracket"></i> Go to Login
+        </button>
+        <button class="btn-login" onclick="window.location.href='index.html'">
+          <i class="fas fa-house"></i> Back to Homepage
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2025 CopyVestPro. All rights reserved.</p>
+  <a href="index.html">← Back to Homepage</a>
+</footer>
+
+<script>
+const API = 'https://copyvestpro-backend-production.up.railway.app';
+
+// Redirect if already logged in
+const t = localStorage.getItem('cvp_token');
+const u = JSON.parse(localStorage.getItem('cvp_user') || '{}');
+if (t && u.id) window.location.href = u.is_admin ? 'admin.html' : 'dashboard.html';
+
+// Check for referral code in URL
+const urlRef = new URLSearchParams(window.location.search).get('ref');
+
+function togglePw(inputId, iconId) {
+  const inp = document.getElementById(inputId);
+  const ico = document.getElementById(iconId);
+  if (inp.type === 'password') { inp.type = 'text'; ico.className = 'fas fa-eye-slash'; }
+  else { inp.type = 'password'; ico.className = 'fas fa-eye'; }
+}
+
+function checkStrength() {
+  const pw = document.getElementById('password').value;
+  const wrap = document.getElementById('pwStrength');
+  const bars = [document.getElementById('b1'), document.getElementById('b2'), document.getElementById('b3'), document.getElementById('b4')];
+  const txt = document.getElementById('pwTxt');
+  if (!pw) { wrap.classList.remove('show'); return; }
+  wrap.classList.add('show');
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+  const cls = ['', 'weak', 'fair', 'good', 'strong'];
+  bars.forEach((b, i) => { b.className = 'pw-bar' + (i < score ? ' ' + cls[score] : ''); });
+  txt.textContent = labels[score] + ' password';
+  txt.style.color = score <= 1 ? 'var(--red)' : score === 2 ? '#f59e0b' : score === 3 ? '#84cc16' : 'var(--green)';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
+
+async function doRegister() {
+  const fullName   = document.getElementById('fullName').value.trim();
+  const email      = document.getElementById('email').value.trim();
+  const phone      = document.getElementById('phone').value.trim();
+  const country    = document.getElementById('country').value.trim();
+  const password   = document.getElementById('password').value;
+  const confirmPw  = document.getElementById('confirmPw').value;
+  const terms      = document.getElementById('terms').checked;
+  const al         = document.getElementById('regAlert');
+
+  // Clear
+  al.className = 'alert';
+
+  if (!fullName)            { showErr('Please enter your full name.'); return; }
+  if (!email)               { showErr('Please enter your email address.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('Please enter a valid email address.'); return; }
+  if (!password)            { showErr('Please choose a password.'); return; }
+  if (password.length < 8)  { showErr('Password must be at least 8 characters.'); return; }
+  if (password !== confirmPw){ showErr('Passwords do not match.'); return; }
+  if (!terms)               { showErr('You must agree to the Terms of Service to continue.'); return; }
+
+  const btn = document.getElementById('regBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-circle-notch spin"></i> Creating account...';
+
+  try {
+    const res = await fetch(`${API}/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ full_name: fullName, email, password, phone: phone||undefined, country: country||undefined, ref: urlRef||undefined }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      showErr(data.error || data.message || 'Registration failed. Please try again.');
+      return;
+    }
+
+    // Show success
+    document.getElementById('formState').style.display = 'none';
+    document.getElementById('successState').classList.add('show');
+
+  } catch (e) {
+    showErr('Connection error. Please check your internet and try again.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create My Account';
+  }
+}
+
+function showErr(msg) {
+  const el = document.getElementById('regAlert');
+  el.className = 'alert alert-err on';
+  el.innerHTML = `<i class="fas fa-circle-exclamation"></i> ${msg}`;
+}
+</script>
+</body>
+</html>
