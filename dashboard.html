@@ -744,7 +744,7 @@ tbody tr:hover{background:var(--bg)}
 /* ═══════════════════════════════════════
    CONFIG & AUTH
 ═══════════════════════════════════════ */
-const API = 'https://copyvestpro-backend-production.up.railway.app';
+const API   = 'https://copyvestpro-backend-production.up.railway.app';
 const token = localStorage.getItem('cvp_token');
 const user  = JSON.parse(localStorage.getItem('cvp_user') || '{}');
 if (!token) window.location.href = 'login.html';
