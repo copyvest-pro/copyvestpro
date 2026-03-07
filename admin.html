@@ -290,6 +290,7 @@ tbody tr:hover{background:var(--bg)}
     <div class="sb-grp">
       <div class="sb-grp-lbl">Tools</div>
       <button class="sb-link" onclick="goTo('credit',this)"><i class="fas fa-circle-plus"></i>Profit Credit</button>
+      <button class="sb-link" onclick="goTo('support',this)" id="sbSupport"><i class="fas fa-headset"></i>Support Messages <span id="unreadBadge" style="display:none;background:#ef4444;color:#fff;border-radius:20px;padding:1px 7px;font-size:11px;font-weight:700;margin-left:4px">0</span></button>
       <button class="sb-link" onclick="goTo('audit',this)"><i class="fas fa-scroll"></i>Audit Logs</button>
       <button class="sb-link" onclick="goTo('settings',this)"><i class="fas fa-sliders"></i>Settings</button>
     </div>
@@ -648,6 +649,24 @@ tbody tr:hover{background:var(--bg)}
       </div>
     </div>
 
+
+    <!-- ══════════════ SUPPORT MESSAGES ══════════════ -->
+    <div class="pg" id="pg-support">
+      <div class="s-hd">
+        <div class="s-title">Support Messages</div>
+        <div class="s-actions">
+          <button class="btn btn-ghost btn-sm" onclick="loadSupportMessages()"><i class="fas fa-rotate"></i> Refresh</button>
+        </div>
+      </div>
+      <div class="info-box" style="margin-bottom:18px">
+        <i class="fas fa-headset"></i>
+        <div>Messages sent via the live chat widget or contact form. Click <strong>Reply</strong> to respond directly to the user's email.</div>
+      </div>
+      <div id="supportMsgList">
+        <div class="tbl-empty"><i class="fas fa-spinner spin"></i><p>Loading messages…</p></div>
+      </div>
+    </div>
+
     <!-- ══════════════ SETTINGS ══════════════ -->
     <div class="pg" id="pg-settings">
       <div style="max-width:560px;display:flex;flex-direction:column;gap:20px">
@@ -743,6 +762,7 @@ async function af(url,opts={}){
 ══════════════════════════════════════ */
 async function loadAll(){
   await Promise.all([loadStats(), loadUsers(), loadDeposits(), loadWithdrawals(), loadInvestments(), loadTraders()]);
+  loadSupportMessages();
 }
 
 /* ══════════════════════════════════════
@@ -1486,8 +1506,73 @@ function goTo(id, btn){
   $('pgTitle').textContent = TITLES[id]||id;
   closeSB();
   // Lazy-load when navigating
-  if(id==='audit')  loadAuditLogs();
-  if(id==='credit') loadRecentCredits();
+  if(id==='audit')   loadAuditLogs();
+  if(id==='credit')  loadRecentCredits();
+  if(id==='support') loadSupportMessages();
+}
+
+
+/* ══════════════════════════════════════
+   SUPPORT MESSAGES
+══════════════════════════════════════ */
+let allSupportMsgs = [];
+
+async function loadSupportMessages(){
+  try {
+    const r = await af('/api/admin/support-messages');
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    allSupportMsgs = await r.json();
+    renderSupportMessages();
+    // Update unread badge
+    const unread = allSupportMsgs.filter(m=>!m.read).length;
+    const badge = $('unreadBadge');
+    if(badge){ badge.textContent=unread; badge.style.display=unread>0?'inline':'none'; }
+  } catch(e) {
+    const el=$('supportMsgList');
+    if(el) el.innerHTML=`<div class="tbl-empty"><i class="fas fa-circle-exclamation"></i><p>Failed to load — ${e.message}</p></div>`;
+  }
+}
+
+function renderSupportMessages(){
+  const el = $('supportMsgList');
+  if(!el) return;
+  if(!allSupportMsgs.length){
+    el.innerHTML='<div class="tbl-empty"><i class="fas fa-inbox"></i><p>No support messages yet.</p></div>';
+    return;
+  }
+  el.innerHTML = allSupportMsgs.map(m=>`
+    <div style="background:${m.read?'var(--surface)':'rgba(201,168,76,.05)'};border:1.5px solid ${m.read?'var(--border)':'rgba(201,168,76,.3)'};border-radius:12px;padding:18px 20px;margin-bottom:12px;transition:all .2s">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            ${!m.read?'<span style="width:8px;height:8px;border-radius:50%;background:#ef4444;flex-shrink:0;display:inline-block"></span>':''}
+            <span style="font-weight:700;font-size:.95rem;color:var(--ink)">${m.sender_name||'Anonymous'}</span>
+            <span style="font-size:.78rem;color:var(--muted)">${m.sender_email}</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--gold-d);font-weight:600;margin-bottom:10px">${m.subject||'Support Chat'}</div>
+          <div style="font-size:.88rem;color:var(--body);line-height:1.7;white-space:pre-wrap;background:var(--bg);border-radius:8px;padding:12px 14px;border-left:3px solid var(--gold)">${m.message}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0">
+          <span style="font-size:.75rem;color:var(--muted)">${fd(m.created_at)}</span>
+          <a href="mailto:${m.sender_email}?subject=Re: ${encodeURIComponent(m.subject||'Your Support Request — CopyVestPro')}" 
+             onclick="markMsgRead('${m.id}')"
+             style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#fff;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;transition:all .2s">
+            <i class="fas fa-reply"></i> Reply
+          </a>
+          ${!m.read?`<button onclick="markMsgRead('${m.id}')" style="padding:6px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:.78rem;cursor:pointer;color:var(--muted)">Mark read</button>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+async function markMsgRead(id){
+  await af(`/api/admin/support-messages/${id}/mark-read`,{method:'POST'}).catch(()=>{});
+  const msg = allSupportMsgs.find(m=>m.id===id);
+  if(msg) msg.read = true;
+  renderSupportMessages();
+  const unread = allSupportMsgs.filter(m=>!m.read).length;
+  const badge = $('unreadBadge');
+  if(badge){ badge.textContent=unread; badge.style.display=unread>0?'inline':'none'; }
 }
 
 function closeModal(){ $('modal').classList.remove('on'); }

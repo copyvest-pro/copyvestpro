@@ -370,6 +370,22 @@ tbody tr:hover{background:var(--bg)}
 /* ── Investment status badges ── */
 .bdg-blue { background: rgba(59,130,246,.15); color: #60a5fa; border: 1px solid rgba(59,130,246,.25); }
 
+
+/* ── Suspension Screen ── */
+#suspensionScreen{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(160deg,#0d1b2e,#0f2240);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:32px;
+}
+#suspensionScreen .sus-icon{font-size:3.5rem;margin-bottom:20px;animation:susPulse 2s ease infinite}
+@keyframes susPulse{0%,100%{opacity:1}50%{opacity:.6}}
+#suspensionScreen h2{font-family:var(--font-serif,serif);font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px}
+#suspensionScreen p{color:rgba(255,255,255,.6);font-size:.95rem;max-width:420px;line-height:1.75;margin-bottom:28px}
+#suspensionScreen .sus-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+#suspensionScreen .sus-btn{padding:12px 28px;border-radius:10px;font-weight:700;font-size:.9rem;cursor:pointer;border:none;transition:all .2s;font-family:var(--font)}
+#suspensionScreen .sus-btn-gold{background:linear-gradient(135deg,#c9a84c,#a8841a);color:#fff;box-shadow:0 4px 18px rgba(201,168,76,.4)}
+#suspensionScreen .sus-btn-outline{background:transparent;border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7)}
 </style>
 </head>
 <body>
@@ -962,6 +978,12 @@ async function loadDash(){
   try{
     const r = await af('/api/user/dashboard');
     if(r.status===401){ logout(); return; }
+    if(r.status===403){
+      // Account suspended — show suspension screen
+      const d = await r.json().catch(()=>({}));
+      showSuspensionScreen(d.error||'Your account has been suspended.');
+      return;
+    }
     dashData = await r.json();
 
     // Show email verification banner if not verified
@@ -2137,6 +2159,13 @@ function initTradingView(){
 ═══════════════════════════════════════ */
 function openSB(){ $('sb').classList.add('open'); $('overlay').style.display='block'; }
 function closeSB(){ $('sb').classList.remove('open'); $('overlay').style.display='none'; }
+
+function showSuspensionScreen(msg){
+  const sc = $('suspensionScreen');
+  if(!sc) return;
+  $('susMsg').textContent = msg + ' Contact support@copyvestpro.xyz or use the chat widget to appeal.';
+  sc.style.display = 'flex';
+}
 function logout(){ localStorage.removeItem('cvp_token'); localStorage.removeItem('cvp_user'); window.location.href='login.html'; }
 </script>
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -2213,5 +2242,23 @@ function logout(){ localStorage.removeItem('cvp_token'); localStorage.removeItem
   </div>
 </div>
 
+
+<!-- Suspension Screen -->
+<div id="suspensionScreen">
+  <div class="sus-icon">🚫</div>
+  <h2>Account Suspended</h2>
+  <p id="susMsg">Your account has been suspended. Please contact our support team to resolve this issue.</p>
+  <div class="sus-btns">
+    <a href="mailto:copyvestpro@gmail.com?subject=Account Suspension Appeal" class="sus-btn sus-btn-gold">
+      <i class="fas fa-envelope"></i> Email Support
+    </a>
+    <a href="contact.html" class="sus-btn sus-btn-outline">
+      <i class="fas fa-headset"></i> Contact Page
+    </a>
+    <button class="sus-btn sus-btn-outline" onclick="logout()">
+      <i class="fas fa-right-from-bracket"></i> Log Out
+    </button>
+  </div>
+</div>
 </body>
 </html>

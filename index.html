@@ -1859,8 +1859,8 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="mailto:support@copyvestpro.com">support@copyvestpro.com</a>
-            <a href="#">www.copyvestpro.com</a>
+            <a href="/cdn-cgi/l/email-protection#0c7f797c7c637e784c6f637c757a697f787c7e6322747576"><span class="__cf_email__" data-cfemail="c6b5b3b6b6a9b4b286a5a9b6bfb0a3b5b2b6b4a9e8bebfbc">[email&#160;protected]</span></a>
+            <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
           </div>
         </li>
       </ul>
@@ -1949,9 +1949,21 @@ strong{font-weight:600}
 </div>
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── PRELOADER ── */
-window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('gone'),920)});
+// Dismiss preloader — never let it hang
+(function(){
+  function dismissPreloader(){
+    var p=document.getElementById('preloader');
+    if(p) p.classList.add('gone');
+  }
+  // Best case: DOM ready
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(dismissPreloader,800)});
+  // Hard fallback: force dismiss after 3s no matter what
+  setTimeout(dismissPreloader,3000);
+  // Also on full load if it happens quickly
+  window.addEventListener('load',function(){setTimeout(dismissPreloader,500)});
+})();
 
 /* ── HERO SLIDER ── */
 let cur=0;
@@ -2120,12 +2132,12 @@ sendBtn.addEventListener('click',async function(){
   sendBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
   sendBtn.disabled=true;
 
-  const payload={name:nameInput.value.trim(),email:emailInput.value.trim(),message:msgInput.value.trim()};
+  const payload={firstName:nameInput.value.trim().split(' ')[0], lastName:nameInput.value.trim().split(' ').slice(1).join(' '), email:emailInput.value.trim(), subject:'Live Chat', message:msgInput.value.trim()};
 
   let sent=false;
   // 1. Try backend endpoint
   try{
-    const res=await fetch('/api/support/message',{
+    const res=await fetch('https://copyvestpro-backend-production.up.railway.app/api/contact',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(payload),
@@ -2138,7 +2150,7 @@ sendBtn.addEventListener('click',async function(){
   if(!sent){
     const subject=encodeURIComponent('CopyVestPro Support Request – '+payload.name);
     const body=encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\n\nMessage:\n${payload.message}`);
-    window.open(`mailto:support@copyvestpro.com?subject=${subject}&body=${body}`,'_blank');
+    window.open(`mailto:support@copyvestpro.xyz?subject=${subject}&body=${body}`,'_blank');
     sent=true;
   }
 
@@ -2246,27 +2258,3 @@ backBtn.addEventListener('click',()=>{
     if(!loaded[key] && wraps[key]){
       loaded[key] = true;
       mountTradingView(wraps[key], configs[key].src, configs[key].cfg);
-    }
-  }
-
-  // initial load when section exists
-  if(wraps.trending){
-    activate('trending');
-    btns.forEach(b => b.addEventListener('click', () => activate(b.dataset.mtab)));
-  }
-})();
-</script>
-
-<script>
-(function(){
-  const wrap = document.getElementById('trustedTrackWrap');
-  const track = document.getElementById('trustedTrack');
-  if(!wrap || !track) return;
-  const clone = track.cloneNode(true);
-  clone.removeAttribute('id');
-  wrap.appendChild(clone);
-})();
-</script>
-
-</body>
-</html>
