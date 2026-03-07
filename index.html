@@ -3,19 +3,14 @@
 <head>
 <script>
 (function(){
-  function bye(){var p=document.getElementById('preloader');if(p){p.style.transition='opacity .4s';p.style.opacity='0';p.style.visibility='hidden';setTimeout(function(){p.style.display='none'},420);}}
-  // Fire ASAP on DOM ready
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',function(){setTimeout(bye,600)});
-  } else {
-    setTimeout(bye,200);
-  }
-  // Also on full load
-  window.addEventListener('load',function(){bye()});
-  // Absolute failsafe — never hang beyond 1.5s
-  setTimeout(bye,1500);
+  function bye(){var p=document.getElementById('preloader');if(p){p.style.opacity='0';p.style.visibility='hidden';p.style.pointerEvents='none';setTimeout(function(){p.style.display='none'},400);}}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(bye,600)});}
+  else{setTimeout(bye,200);}
+  window.addEventListener('load',function(){bye();});
+  setTimeout(bye,1500); // Absolute failsafe
 })();
 </script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CopyVestPro – Forex and Crypto Trading Platform</title>
@@ -217,7 +212,7 @@ strong{font-weight:600}
 .ham span{width:22px;height:2px;background:#333;border-radius:2px;transition:var(--tr)}
 
 /* ═══════════════════ HERO ═══════════════════ */
-.hero{position:relative;overflow:hidden;height:88vh;min-height:560px;-webkit-overflow-scrolling:touch}
+.hero{position:relative;overflow:hidden;height:88vh;min-height:560px}
 .slides{display:flex;height:100%;width:100%;transition:transform .95s cubic-bezier(.77,0,.175,1)}
 .slide{flex:0 0 100%;height:100%;position:relative;display:flex;align-items:center;background-size:cover;background-position:center}
 .s1{background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1800&q=80')}
@@ -1965,34 +1960,18 @@ strong{font-weight:600}
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
 <script>
-/* ── GLOBAL ERROR GUARD — keep page interactive even if something throws ── */
-window.addEventListener('error', function(e){
-  // Force show all .reveal elements if any error occurs
-  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
-  // Force dismiss preloader
-  var p=document.getElementById('preloader');
-  if(p){p.style.display='none';}
-}, true);
-
 /* ── PRELOADER ── */
-// preloader dismissed via head script
+const _hidePreloader=()=>{const p=document.getElementById('preloader');if(p&&!p.classList.contains('gone'))p.classList.add('gone')};
+document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,920));
+window.addEventListener('load',_hidePreloader);
+setTimeout(_hidePreloader,4000);
 
 /* ── HERO SLIDER ── */
-(function(){
-  var cur=0;
-  var sl=document.getElementById('slides');
-  var hd=document.querySelectorAll('.hdot');
-  if(!sl) return; // slider not on this page
-  function goSlide(n){
-    cur=((n%2)+2)%2;
-    sl.style.transform='translateX(-'+(cur*100)+'%)';
-    hd.forEach(function(d,i){d.classList.toggle('on',i===cur)});
-  }
-  setInterval(function(){goSlide(cur+1)},5500);
-  // Expose for arrow buttons
-  window.goSlide=goSlide;
-  window.__getCur=function(){return cur};
-})();
+let cur=0;
+const sl=document.getElementById('slides');
+const hd=document.querySelectorAll('.hdot');
+function goSlide(n){cur=((n%2)+2)%2;sl.style.transform=`translateX(-${cur*100}%)`;hd.forEach((d,i)=>d.classList.toggle('on',i===cur))}
+setInterval(()=>goSlide(cur+1),5500);
 
 /* ── STICKY NAV ── */
 window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>70));
@@ -2005,8 +1984,8 @@ const tdata=[
   {s:'GBP/USD',p:'1.2648',c:'+0.22%',u:1},{s:'NASDAQ',p:'18,340',c:'+0.56%',u:1},
   {s:'BNB/USD',p:'$412',c:'-0.87%',u:0},{s:'DOGE/USD',p:'$0.182',c:'+3.2%',u:1},
 ];
-var tw=document.getElementById('tickWrap');
-if(tw) tw.innerHTML=[...tdata,...tdata].map(function(t){return '<div class="ti"><span class="ts">'+t.s+'</span><span class="tp">'+t.p+'</span><span class="'+(t.u?'tup':'tdn')+'">'+t.c+'</span></div>';}).join('');
+const tw=document.getElementById('tickWrap');
+tw.innerHTML=[...tdata,...tdata].map(t=>`<div class="ti"><span class="ts">${t.s}</span><span class="tp">${t.p}</span><span class="${t.u?'tup':'tdn'}">${t.c}</span></div>`).join('');
 
 /* ── CALCULATOR ── */
 function calc(){
@@ -2020,19 +1999,14 @@ function calc(){
 }
 
 /* ── TESTIMONIALS ── */
-(function(){
-  var tc=0;
-  var tds=document.querySelectorAll('.tdot');
-  var tslides=document.querySelectorAll('.tslide');
-  if(!tslides.length) return;
-  function goT(n){
-    tslides.forEach(function(s,i){s.classList.toggle('on',i===n)});
-    tds.forEach(function(d,i){d.classList.toggle('on',i===n)});
-    tc=n;
-  }
-  setInterval(function(){goT((tc+1)%4)},5000);
-  window.goT=goT;
-})();
+let tc=0;
+const tds=document.querySelectorAll('.tdot');
+function goT(n){
+  document.querySelectorAll('.tslide').forEach((s,i)=>s.classList.toggle('on',i===n));
+  tds.forEach((d,i)=>d.classList.toggle('on',i===n));
+  tc=n;
+}
+setInterval(()=>goT((tc+1)%4),5000);
 
 /* ── RIPPLE ── */
 document.addEventListener('click',function(e){
@@ -2048,31 +2022,10 @@ document.addEventListener('click',function(e){
 });
 
 /* ── SCROLL REVEAL ── */
-(function(){
-  var revEls = Array.from(document.querySelectorAll('.reveal'));
-  if(!revEls.length) return;
-  // Failsafe: show everything after 2.5s regardless
-  var ioTimer = setTimeout(function(){
-    revEls.forEach(function(el){ el.classList.add('visible'); });
-  }, 2500);
-  try {
-    var ro = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target); }
-      });
-    },{threshold:.08, rootMargin:'0px 0px -40px 0px'});
-    revEls.forEach(function(el){ ro.observe(el); });
-    // Clear failsafe once IO is running
-    clearTimeout(ioTimer);
-    // Re-set a softer failsafe
-    ioTimer = setTimeout(function(){
-      revEls.forEach(function(el){ el.classList.add('visible'); });
-    }, 3500);
-  } catch(e){
-    // IO not supported — show everything immediately
-    revEls.forEach(function(el){ el.classList.add('visible'); });
-  }
-})();
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
 /* ── FOOTER SOCIALS ── */
 document.querySelectorAll('.fsoc').forEach(s=>{
@@ -2093,22 +2046,20 @@ function toggleNav(){
 /* ══════════════════════════════════
    LIVE CHAT WIDGET JS
 ══════════════════════════════════ */
-var CHAT_STORAGE_KEY='cvp_chat_draft';
-var chatPanel   = document.getElementById('chat-panel');
-var chatToggle  = document.getElementById('chat-toggle');
-var chatClose   = document.getElementById('chat-close');
-var chatOverlay = document.getElementById('chat-overlay');
-var formArea    = document.getElementById('chat-form-area');
-var successArea = document.getElementById('chat-success-area');
-var sendBtn     = document.getElementById('chat-send-btn');
-var backBtn     = document.getElementById('chat-back-btn');
-var nameInput   = document.getElementById('cf-name');
-var emailInput  = document.getElementById('cf-email');
-var msgInput    = document.getElementById('cf-msg');
+const CHAT_STORAGE_KEY='cvp_chat_draft';
+const chatPanel   = document.getElementById('chat-panel');
+const chatToggle  = document.getElementById('chat-toggle');
+const chatClose   = document.getElementById('chat-close');
+const chatOverlay = document.getElementById('chat-overlay');
+const formArea    = document.getElementById('chat-form-area');
+const successArea = document.getElementById('chat-success-area');
+const sendBtn     = document.getElementById('chat-send-btn');
+const backBtn     = document.getElementById('chat-back-btn');
+const nameInput   = document.getElementById('cf-name');
+const emailInput  = document.getElementById('cf-email');
+const msgInput    = document.getElementById('cf-msg');
 
-var chatOpen = false;
-// Safety check — if any critical element missing, skip chat init
-if(!chatPanel||!chatToggle||!chatClose) { console.warn('[CVP] Chat widget elements missing'); }
+let chatOpen = false;
 
 function openChat(){
   chatOpen=true;
@@ -2144,10 +2095,10 @@ function closeChat(){
   chatToggle.style.display='';
 }
 
-if(chatToggle) chatToggle.addEventListener('click',openChat);
-if(chatClose)  chatClose.addEventListener('click',closeChat);
-if(chatOverlay)chatOverlay.addEventListener('click',closeChat);
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&chatOpen)closeChat()});
+chatToggle.addEventListener('click',openChat);
+chatClose.addEventListener('click',closeChat);
+chatOverlay.addEventListener('click',closeChat);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&chatOpen)closeChat()});
 
 // Save draft on input
 [nameInput,emailInput,msgInput].forEach(inp=>{
@@ -2182,12 +2133,12 @@ sendBtn.addEventListener('click',async function(){
   sendBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
   sendBtn.disabled=true;
 
-  const payload={firstName:nameInput.value.trim().split(' ')[0], lastName:nameInput.value.trim().split(' ').slice(1).join(' '), email:emailInput.value.trim(), subject:'Live Chat', message:msgInput.value.trim()};
+  const payload={name:nameInput.value.trim(),email:emailInput.value.trim(),message:msgInput.value.trim()};
 
   let sent=false;
   // 1. Try backend endpoint
   try{
-    const res=await fetch('https://copyvestpro-backend-production.up.railway.app/api/contact',{
+    const res=await fetch('/api/support/message',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(payload),
