@@ -1859,7 +1859,7 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="/cdn-cgi/l/email-protection#7b080e0b0b14090f3b18140b020d1e080f0b091455030201"><span class="__cf_email__" data-cfemail="7f0c0a0f0f100d0b3f1c100f06091a0c0b0f0d1051070605">[email&#160;protected]</span></a>
+            <a href="/cdn-cgi/l/email-protection#a2d1d7d2d2cdd0d6e2c1cdd2dbd4c7d1d6d2d0cd8cdadbd8"><span class="__cf_email__" data-cfemail="ff8c8a8f8f908d8bbf9c908f86899a8c8b8f8d90d1878685">[email&#160;protected]</span></a>
             <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
           </div>
         </li>
@@ -1951,7 +1951,10 @@ strong{font-weight:600}
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── PRELOADER ── */
-window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('gone'),920)});
+const _hidePreloader=()=>{const p=document.getElementById('preloader');if(p&&!p.classList.contains('gone'))p.classList.add('gone')};
+document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,920));
+window.addEventListener('load',_hidePreloader);
+setTimeout(_hidePreloader,4000);
 
 /* ── HERO SLIDER ── */
 let cur=0;
