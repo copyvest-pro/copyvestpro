@@ -2241,11 +2241,4 @@ backBtn.addEventListener('click',()=>{
       b.classList.toggle('on', on);
       b.setAttribute('aria-selected', on ? 'true' : 'false');
     });
-    Object.entries(wraps).forEach(([k, el]) => {
-      if(!el) return;
-      el.classList.toggle('on', k === key);
-    });
-
-    if(!loaded[key] && wraps[key]){
-      loaded[key] = true;
-      mountTradingView(wraps[key], configs[key].src, configs[key].cfg);
+    Object
