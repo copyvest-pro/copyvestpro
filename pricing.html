@@ -4,159 +4,238 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trading Plans – CopyVestPro</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--black:#0a0a0a;--black2:#111;--gold:#c9a84c;--gold2:#a8841a;--gold3:#e2c36e;--white:#fff;--grey:#f7f4ee;--grey2:#f0ece2;--text:#1a1a1a;--muted:#666;--bdr:rgba(0,0,0,0.09);--sh:0 4px 28px rgba(0,0,0,0.07);--gsh:0 8px 40px rgba(201,168,76,.22)}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text)}
-a{text-decoration:none;color:inherit}
-.topbar{background:var(--black);padding:9px 5%;display:flex;justify-content:flex-end;border-bottom:1px solid rgba(201,168,76,.12)}
-.topbar a{color:rgba(255,255,255,.4);font-size:.78rem;font-weight:500;padding:0 12px;border-left:1px solid rgba(255,255,255,.08);transition:color .2s}
-.topbar a:first-child{border-left:none}
-.topbar a:hover{color:var(--gold)}
-.nav{height:70px;background:var(--white);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 5%;justify-content:space-between;position:sticky;top:0;z-index:99}
-.nav::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--black),var(--gold),var(--gold3),var(--gold),var(--black))}
-.nl{display:flex;align-items:center;gap:10px}
-.lm{width:38px;height:38px;background:var(--black);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:11px;font-weight:800;color:var(--gold)}
-.lw{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--black)}
-.lw em{color:var(--gold2);font-style:normal}
-.nm{display:flex;gap:26px}
-.nm a{font-size:.875rem;font-weight:500;color:#666;transition:color .2s}
-.nm a:hover,.nm a.on{color:var(--black);font-weight:600}
-.nbtns{display:flex;gap:8px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 22px;border-radius:7px;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .25s;border:none;font-family:'DM Sans',sans-serif}
-.btn-black{background:var(--black);color:var(--white)}
-.btn-black:hover{background:#1c1c1c;transform:translateY(-1px)}
-.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--white)}
-.btn-gold:hover{box-shadow:var(--gsh);transform:translateY(-1px)}
-.btn-outline{background:transparent;border:1.5px solid var(--black);color:var(--black)}
-.btn-outline:hover{background:var(--black);color:var(--white)}
-.btn-sm{padding:8px 18px;font-size:.82rem}
-.btn-lg{padding:13px 30px;font-size:.95rem}
-.btn-xl{padding:15px 34px;font-size:.98rem}
-
-/* HERO */
-.page-hero{
-  padding:80px 5% 70px;background:var(--white);text-align:center;
-  border-bottom:1px solid var(--bdr);position:relative;
+:root{
+  --gold:#c9a84c;--gold-light:#e2c36e;--gold-dark:#a8841a;
+  --gold-pale:#fdf8ef;--gold-border:rgba(201,168,76,.22);
+  --ink:#0f0f0f;--navy:#0d1b2e;--surface:#fff;--cream:#f6f4f0;
+  --body-txt:#4a4a4a;--muted:#787878;--border:#e8e8e8;
+  --font:'Space Grotesk',sans-serif;--font-serif:'Playfair Display',serif;
+  --r-sm:8px;--r-md:12px;--r-lg:18px;--r-xl:24px;
+  --sh-gold:0 8px 32px rgba(201,168,76,.32);
+  --tr:all .22s ease;--ease:cubic-bezier(.4,0,.2,1);
 }
-.page-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--black),var(--gold),var(--gold3),var(--gold),var(--black))}
-.section-tag{display:inline-flex;align-items:center;gap:9px;font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-bottom:14px}
-.section-tag::before,.section-tag::after{content:'';width:22px;height:1.5px;background:var(--gold);display:inline-block}
-.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--black);margin-bottom:16px;letter-spacing:-.5px}
-.page-hero h1 em{color:var(--gold2);font-style:normal}
-.page-hero p{font-size:1rem;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.78}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--surface);color:var(--ink);overflow-x:hidden;line-height:1.7}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
 
-/* PLANS */
-.plans-section{padding:80px 5%;background:var(--grey)}
+/* ═══ TOPBAR ═══ */
+.topbar{
+  background:var(--navy);padding:9px 5%;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(201,168,76,.1);
+}
+.topbar .social{display:flex;gap:8px;align-items:center}
+.tsoc{width:26px;height:26px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:.68rem;transition:var(--tr);opacity:.85}
+.tsoc:hover{opacity:1;transform:translateY(-1px)}
+.topbar .tnav{display:flex}
+.topbar .tnav li a{color:rgba(255,255,255,.4);font-size:.77rem;font-weight:500;padding:0 12px;border-left:1px solid rgba(255,255,255,.08);transition:color .2s}
+.topbar .tnav li:first-child a{border-left:none}
+.topbar .tnav li a:hover{color:var(--gold)}
+
+/* ═══ NAVBAR ═══ */
+.navbar{
+  background:rgba(255,255,255,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  height:72px;display:flex;align-items:center;padding:0 5%;
+  justify-content:space-between;position:sticky;top:0;z-index:100;
+  border-bottom:1px solid var(--border);transition:box-shadow .3s;
+}
+.navbar.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.navbar::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
+.nav-logo{display:flex;align-items:center;gap:13px}
+.nav-logo svg{transition:all .4s var(--ease);filter:drop-shadow(0 3px 8px rgba(168,132,26,0.4))}
+.nav-logo:hover svg{transform:scale(1.06) rotate(-3deg)}
+.logo-wordmark{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.logo-wordmark em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:.875rem;font-weight:600;color:var(--muted);padding:9px 17px;border-radius:var(--r-sm);transition:var(--tr);position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:6px;left:17px;right:17px;height:2px;background:var(--gold);border-radius:2px;transform:scaleX(0);transform-origin:center;transition:transform .28s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-links a.active{color:var(--ink)}
+.nav-cta{display:flex;gap:10px}
+.btn-nav{padding:10px 22px;border-radius:var(--r-md);font-size:.875rem;font-weight:600;cursor:pointer;border:none;font-family:var(--font);position:relative;overflow:hidden;transition:var(--tr)}
+.btn-nav-outline{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
+.btn-nav-outline:hover{border-color:var(--ink)}
+.btn-nav-solid{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;box-shadow:0 4px 16px rgba(201,168,76,.38)}
+.btn-nav-solid:hover{box-shadow:var(--sh-gold);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border-radius:8px;transition:var(--tr)}
+.ham span{width:22px;height:2px;background:#333;border-radius:2px;transition:var(--tr)}
+
+/* ═══ PAGE HERO ═══ */
+.page-hero{
+  padding:90px 5% 80px;
+  background:linear-gradient(160deg,var(--navy) 0%,#0f2240 60%,#112035 100%);
+  text-align:center;position:relative;overflow:hidden;
+}
+.page-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,.12) 0%,transparent 65%);pointer-events:none}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
+.hero-tag{display:inline-flex;align-items:center;gap:9px;font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:16px;position:relative;z-index:1}
+.hero-tag::before,.hero-tag::after{content:'';width:24px;height:1px;background:var(--gold-light)}
+.page-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;color:#fff;margin-bottom:16px;letter-spacing:-.5px;position:relative;z-index:1}
+.page-hero h1 em{color:var(--gold-light);font-style:normal}
+.page-hero p{font-size:1rem;color:rgba(255,255,255,.55);max-width:560px;margin:0 auto;line-height:1.8;position:relative;z-index:1}
+
+/* ═══ PLANS SECTION ═══ */
+.plans-section{padding:88px 5%;background:var(--cream)}
 .plans-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.plan{background:var(--white);border:1.5px solid var(--bdr);border-radius:18px;overflow:hidden;transition:all .3s;box-shadow:var(--sh)}
-.plan:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 20px 60px rgba(201,168,76,.15)}
-.plan.hot{border-color:var(--gold);box-shadow:0 16px 50px rgba(201,168,76,.18);transform:scale(1.03)}
-.plan.hot:hover{transform:scale(1.03) translateY(-6px)}
-.ph{background:var(--black);padding:30px 22px;text-align:center;position:relative;overflow:hidden}
-.ph::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.plan.hot .ph{background:linear-gradient(160deg,#111,#1a1a1a)}
-.hot-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--black);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:20px}
-.p-price{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:800;color:var(--white);line-height:1}
-.p-price sup{font-size:1.1rem;vertical-align:super;color:var(--gold3)}
-.p-price sub{font-size:.9rem;color:rgba(255,255,255,.4);font-weight:400}
-.p-name{font-size:.68rem;font-weight:700;color:var(--gold3);letter-spacing:2.5px;text-transform:uppercase;margin-top:10px}
-.pb{padding:26px 22px}
-.p-roi{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold2);text-align:center;margin-bottom:3px}
-.p-roi-l{font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:20px}
-.p-feats{border-top:1px solid var(--bdr);margin-bottom:22px;list-style:none}
-.p-feats li{display:flex;align-items:center;gap:9px;font-size:.84rem;color:var(--muted);padding:9px 0;border-bottom:1px solid rgba(0,0,0,.04)}
+
+.plan{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-xl);overflow:hidden;transition:all .3s var(--ease);box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.plan:hover{border-color:var(--gold-border);transform:translateY(-8px);box-shadow:0 20px 56px rgba(201,168,76,.14)}
+.plan.hot{border-color:var(--gold);box-shadow:0 16px 48px rgba(201,168,76,.2);transform:scale(1.03)}
+.plan.hot:hover{transform:scale(1.03) translateY(-8px)}
+
+.plan-head{background:var(--navy);padding:32px 24px;text-align:center;position:relative;overflow:hidden}
+.plan-head::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.plan.hot .plan-head{background:linear-gradient(160deg,#0d1b2e,#162540)}
+.hot-badge{position:absolute;top:14px;right:14px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:4px 11px;border-radius:20px}
+.p-price{font-family:var(--font-serif);font-size:2.4rem;font-weight:800;color:#fff;line-height:1}
+.p-price sup{font-size:1.1rem;vertical-align:super;color:var(--gold-light)}
+.p-price sub{font-size:.85rem;color:rgba(255,255,255,.35);font-weight:400}
+.p-name{font-size:.65rem;font-weight:700;color:var(--gold-light);letter-spacing:2.5px;text-transform:uppercase;margin-top:12px}
+
+.plan-body{padding:28px 24px}
+.p-roi{font-family:var(--font-serif);font-size:2.1rem;font-weight:700;color:var(--gold-dark);text-align:center;margin-bottom:2px}
+.p-roi-label{font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:22px;font-weight:500}
+.p-feats{border-top:1px solid var(--border);margin-bottom:24px}
+.p-feats li{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--body-txt);padding:10px 0;border-bottom:1px solid rgba(0,0,0,.04)}
 .p-feats li:last-child{border-bottom:none}
 .p-feats li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
-.p-feats li strong{color:var(--black);font-weight:600}
-.p-cta{display:block;width:100%;padding:13px;border-radius:9px;text-align:center;font-size:.88rem;font-weight:700;cursor:pointer;border:none;transition:all .25s;font-family:'DM Sans',sans-serif}
+.p-feats li strong{color:var(--ink);font-weight:600}
+.p-cta{display:block;width:100%;padding:13px;border-radius:var(--r-md);text-align:center;font-size:.875rem;font-weight:700;cursor:pointer;border:none;transition:var(--tr);font-family:var(--font)}
+.p-cta-dark{background:var(--navy);color:#fff}
+.p-cta-dark:hover{background:#162540;transform:translateY(-1px)}
+.p-cta-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;box-shadow:var(--sh-gold)}
+.p-cta-gold:hover{transform:translateY(-1px);box-shadow:0 12px 36px rgba(201,168,76,.4)}
 
-/* COMPARISON TABLE */
-.compare-section{padding:80px 5%;background:var(--white)}
+/* ═══ COMPARISON TABLE ═══ */
+.compare-section{padding:88px 5%;background:var(--surface)}
 .compare-inner{max-width:1100px;margin:0 auto}
-.section-h{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,2.2vw,2.2rem);font-weight:800;color:var(--black);text-align:center;margin-bottom:14px}
+.section-tag{display:inline-flex;align-items:center;gap:9px;font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px}
+.section-tag::before,.section-tag::after{content:'';width:22px;height:1.5px;background:var(--gold)}
+.section-h{font-family:var(--font-serif);font-size:clamp(1.6rem,2.4vw,2.3rem);font-weight:800;color:var(--ink);text-align:center;margin-bottom:10px}
 .section-p{text-align:center;color:var(--muted);font-size:.93rem;margin-bottom:48px}
-.comp-table{width:100%;border-collapse:collapse;border-radius:14px;overflow:hidden;box-shadow:var(--sh)}
-.comp-table th{background:var(--black);color:var(--white);padding:16px 18px;font-size:.8rem;font-weight:700;text-align:center;letter-spacing:.5px}
+.comp-wrap{overflow-x:auto}
+.comp-table{width:100%;border-collapse:collapse;border-radius:var(--r-lg);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.comp-table th{background:var(--navy);color:#fff;padding:16px 18px;font-size:.78rem;font-weight:700;text-align:center;letter-spacing:.5px}
 .comp-table th:first-child{text-align:left}
 .comp-table td{padding:13px 18px;font-size:.85rem;color:var(--muted);border-bottom:1px solid rgba(0,0,0,.05);text-align:center}
-.comp-table td:first-child{text-align:left;font-weight:600;color:var(--black)}
+.comp-table td:first-child{text-align:left;font-weight:600;color:var(--ink)}
 .comp-table tr:last-child td{border-bottom:none}
-.comp-table tr:nth-child(even) td{background:var(--grey)}
-.comp-table .hi{background:rgba(201,168,76,.06)!important}
-.comp-table .hi strong{color:var(--black)}
-.chk{color:#22c55e;font-weight:700}
+.comp-table tr:nth-child(even) td{background:var(--cream)}
+.comp-table .hi{background:rgba(201,168,76,.07)!important}
+.comp-table .hi strong{color:var(--ink)}
+.chk{color:#16a34a;font-weight:700}
 .xmark{color:#ef4444;font-weight:700}
-.gold-col{color:var(--gold2);font-weight:700}
+.gold-col{color:var(--gold-dark);font-weight:700}
 
-/* FAQ */
-.faq-section{padding:80px 5%;background:var(--grey)}
+/* ═══ FAQ ═══ */
+.faq-section{padding:88px 5%;background:var(--cream)}
 .faq-inner{max-width:780px;margin:0 auto}
-.faq-item{background:var(--white);border:1.5px solid var(--bdr);border-radius:14px;overflow:hidden;margin-bottom:12px;transition:border-color .2s}
+.faq-item{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:12px;transition:border-color .2s}
 .faq-item.open{border-color:var(--gold)}
-.faq-q{padding:18px 22px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:.92rem;color:var(--black)}
-.faq-arr{font-size:.75rem;color:var(--gold2);transition:transform .3s;flex-shrink:0}
+.faq-q{padding:18px 22px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:.92rem;color:var(--ink);gap:12px}
+.faq-arr{font-size:.75rem;color:var(--gold-dark);transition:transform .3s;flex-shrink:0}
 .faq-item.open .faq-arr{transform:rotate(180deg)}
-.faq-a{padding:0 22px;max-height:0;overflow:hidden;transition:all .35s ease;font-size:.88rem;color:var(--muted);line-height:1.75;background:var(--grey)}
+.faq-a{padding:0 22px;max-height:0;overflow:hidden;transition:all .35s ease;font-size:.88rem;color:var(--body-txt);line-height:1.8}
 .faq-item.open .faq-a{padding:16px 22px;max-height:300px}
 
-/* CTA */
-.cta-section{padding:70px 5%;background:var(--black);text-align:center;position:relative;overflow:hidden}
-.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,.09) 0%,transparent 70%)}
-.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:800;color:var(--white);margin-bottom:14px;position:relative;z-index:1}
-.cta-section h2 em{color:var(--gold3);font-style:normal}
-.cta-section p{color:rgba(255,255,255,.5);font-size:.95rem;margin-bottom:30px;position:relative;z-index:1}
+/* ═══ CTA BAR ═══ */
+.cta-bar{padding:80px 5%;background:var(--navy);text-align:center;position:relative;overflow:hidden}
+.cta-bar::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,.1) 0%,transparent 65%)}
+.cta-bar::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.cta-bar h2{font-family:var(--font-serif);font-size:clamp(1.7rem,2.8vw,2.5rem);font-weight:800;color:#fff;margin-bottom:14px;position:relative;z-index:1}
+.cta-bar h2 em{color:var(--gold-light);font-style:normal}
+.cta-bar p{color:rgba(255,255,255,.5);font-size:.95rem;margin-bottom:32px;position:relative;z-index:1}
+.btn-cta{display:inline-flex;align-items:center;gap:9px;padding:15px 36px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;border-radius:var(--r-md);font-weight:700;font-size:.95rem;position:relative;z-index:1;transition:var(--tr);box-shadow:var(--sh-gold)}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(201,168,76,.45)}
 
-/* FOOTER MINI */
-.footer-mini{background:var(--black2);padding:22px 5%;border-top:1px solid rgba(255,255,255,.06)}
-.fm-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.fm-inner p{font-size:.77rem;color:rgba(255,255,255,.25)}
-.fm-links{display:flex;gap:20px}
-.fm-links a{font-size:.77rem;color:rgba(255,255,255,.3);transition:color .2s}
-.fm-links a:hover{color:var(--gold3)}
+/* ═══ FOOTER ═══ */
+.footer{background:var(--navy);padding:64px 5% 0;position:relative;overflow:hidden}
+.footer::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.016) 1px,transparent 0);background-size:80px 80px}
+.footer-accent{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.footer-grid{max-width:1120px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:48px;padding-bottom:48px}
+.fc-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:18px}
+.fc a{display:block;color:rgba(255,255,255,.45);font-size:.875rem;margin-bottom:11px;transition:color .2s}
+.fc a:hover{color:var(--gold-light)}
+.fcontact{display:flex;flex-direction:column;gap:14px}
+.fcontact li{display:flex;gap:12px;align-items:flex-start}
+.fcontact .ico{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.8rem;flex-shrink:0}
+.fcontact p,.fcontact a{color:rgba(255,255,255,.45);font-size:.84rem;line-height:1.6;margin:0}
+.fcontact a:hover{color:var(--gold-light)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding:22px 0;max-width:1120px;margin:0 auto;position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.footer-bottom p{font-size:.77rem;color:rgba(255,255,255,.2)}
+.fsocials{display:flex;gap:8px}
+.fsoc{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;transition:var(--tr);opacity:.7}
+.fsoc:hover{opacity:1;transform:translateY(-2px)}
 
+/* ═══ MOBILE ═══ */
 @media(max-width:1024px){.plans-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){
-  .nm,.nbtns{display:none}
+  .nav-links,.nav-cta,.topbar{display:none}
+  .ham{display:flex}
+  .navbar{padding:0 20px}
   .plans-grid{grid-template-columns:1fr}
   .plan.hot{transform:none}
   .comp-table{font-size:.8rem}
   .comp-table th,.comp-table td{padding:10px 12px}
+  .footer-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
-  <a href="faqs.html">Help</a>
-  <a href="contact.html">Support</a>
-  <a href="login.html">Login</a>
-  <a href="register.html">Register</a>
+  <ul class="social">
+    <li><a href="#" class="tsoc" style="background:#1877f2"><i class="fab fa-facebook-f"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:#111"><i class="fab fa-x-twitter"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:#0a66c2"><i class="fab fa-linkedin-in"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:#26a5e4"><i class="fab fa-telegram"></i></a></li>
+    <li><a href="#" class="tsoc" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"><i class="fab fa-instagram"></i></a></li>
+  </ul>
+  <ul class="tnav">
+    <li><a href="faqs.html">Help</a></li>
+    <li><a href="contact.html">Support</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="register.html">Register</a></li>
+  </ul>
 </div>
 
-<nav class="nav">
-  <a href="index.html" class="nl">
-    <div class="lm">CV</div>
-    <span class="lw">Copy<em>Vest</em>Pro</span>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="40" height="40" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+      <defs><linearGradient id="lg_nav" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs>
+      <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_nav)"/>
+      <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+      <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span class="logo-wordmark">Copy<em>Vest</em>Pro</span>
   </a>
-  <div class="nm">
+  <div class="nav-links" id="navLinks">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="faqs.html">FAQs</a>
-    <a href="pricing.html" class="on">Trading</a>
+    <a href="pricing.html" class="active">Trading</a>
     <a href="contact.html">Contact</a>
+    <!-- Mobile-only logout (hidden on desktop via CSS in mobile menu) -->
+    <a href="login.html" class="mob-logout" id="mobLogoutLink" style="display:none;align-items:center;gap:8px;color:#ef4444;font-weight:700;padding:12px 17px;border-top:1px solid #f0ece2;margin-top:4px"><i class="fas fa-right-from-bracket"></i> Log Out</a>
   </div>
-  <div class="nbtns">
-    <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
-    <a href="register.html" class="btn btn-gold btn-sm">Get Started</a>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-nav btn-nav-outline">Log In</a>
+    <a href="register.html" class="btn-nav btn-nav-solid">Get Started</a>
   </div>
+  <div class="ham" onclick="toggleNav()" id="hamBtn"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
-  <div class="section-tag">Investment Tiers</div>
+  <div class="hero-tag">Investment Tiers</div>
   <h1>Trading <em>Plans</em></h1>
   <p>Choose the investment plan that aligns with your financial goals. All plans include automatic payouts, a 5% referral bonus, and real-time copy trading.</p>
 </section>
@@ -164,14 +243,15 @@ a{text-decoration:none;color:inherit}
 <!-- PLANS GRID -->
 <section class="plans-section">
   <div class="plans-grid">
+
     <div class="plan">
-      <div class="ph">
+      <div class="plan-head">
         <div class="p-price"><sup>$</sup>500<sub>.00</sub></div>
         <div class="p-name">Starter Auto Plan</div>
       </div>
-      <div class="pb">
+      <div class="plan-body">
         <div class="p-roi">35%</div>
-        <div class="p-roi-l">Return on Investment</div>
+        <div class="p-roi-label">Return on Investment</div>
         <ul class="p-feats">
           <li><strong>Stocks / Forex / Crypto</strong></li>
           <li>Max Investment — <strong>$9,999</strong></li>
@@ -179,19 +259,19 @@ a{text-decoration:none;color:inherit}
           <li>14 Days Contract</li>
           <li>Automatic Payout</li>
         </ul>
-        <a href="register.html" class="p-cta btn-black">Get Started</a>
+        <a href="register.html" class="p-cta p-cta-dark">Get Started</a>
       </div>
     </div>
 
     <div class="plan hot">
-      <div class="ph">
+      <div class="plan-head">
         <span class="hot-badge">Most Popular</span>
         <div class="p-price"><sup>$</sup>10,000<sub>.00</sub></div>
         <div class="p-name">Growth Auto Plan</div>
       </div>
-      <div class="pb">
+      <div class="plan-body">
         <div class="p-roi">45%</div>
-        <div class="p-roi-l">Return on Investment</div>
+        <div class="p-roi-label">Return on Investment</div>
         <ul class="p-feats">
           <li><strong>Stocks / Forex / Crypto</strong></li>
           <li>Max Investment — <strong>$49,999</strong></li>
@@ -199,18 +279,18 @@ a{text-decoration:none;color:inherit}
           <li>60 Days Contract</li>
           <li>Automatic Payout</li>
         </ul>
-        <a href="register.html" class="p-cta btn-gold" style="background:linear-gradient(135deg,#c9a84c,#a8841a);color:#fff">Get Started</a>
+        <a href="register.html" class="p-cta p-cta-gold">Get Started</a>
       </div>
     </div>
 
     <div class="plan">
-      <div class="ph">
+      <div class="plan-head">
         <div class="p-price"><sup>$</sup>50,000<sub>.00</sub></div>
         <div class="p-name">Advanced Auto Plan</div>
       </div>
-      <div class="pb">
+      <div class="plan-body">
         <div class="p-roi">50%</div>
-        <div class="p-roi-l">Return on Investment</div>
+        <div class="p-roi-label">Return on Investment</div>
         <ul class="p-feats">
           <li><strong>Stocks / Forex / Crypto</strong></li>
           <li>Max Investment — <strong>$99,999</strong></li>
@@ -218,18 +298,18 @@ a{text-decoration:none;color:inherit}
           <li>99 Days Contract</li>
           <li>Automatic Payout</li>
         </ul>
-        <a href="register.html" class="p-cta btn-black">Get Started</a>
+        <a href="register.html" class="p-cta p-cta-dark">Get Started</a>
       </div>
     </div>
 
     <div class="plan">
-      <div class="ph">
+      <div class="plan-head">
         <div class="p-price"><sup>$</sup>100,000<sub>.00</sub></div>
         <div class="p-name">Elite Bronze Plan</div>
       </div>
-      <div class="pb">
+      <div class="plan-body">
         <div class="p-roi">85%</div>
-        <div class="p-roi-l">Return on Investment</div>
+        <div class="p-roi-label">Return on Investment</div>
         <ul class="p-feats">
           <li><strong>Stocks / Forex / Crypto</strong></li>
           <li>Maximum — <strong>Unlimited</strong></li>
@@ -237,99 +317,104 @@ a{text-decoration:none;color:inherit}
           <li>365 Days Contract</li>
           <li>Automatic Payout</li>
         </ul>
-        <a href="register.html" class="p-cta btn-black">Get Started</a>
+        <a href="register.html" class="p-cta p-cta-dark">Get Started</a>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- COMPARISON TABLE -->
 <section class="compare-section">
   <div class="compare-inner">
+    <div style="text-align:center;margin-bottom:6px"><div class="section-tag">Side by Side</div></div>
     <h2 class="section-h">Plan Comparison</h2>
     <p class="section-p">See exactly what each tier includes before you invest.</p>
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>Starter</th>
-          <th>Growth</th>
-          <th>Advanced</th>
-          <th>Elite</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Min. Investment</td>
-          <td>$500</td>
-          <td class="hi"><strong>$10,000</strong></td>
-          <td>$50,000</td>
-          <td>$100,000</td>
-        </tr>
-        <tr>
-          <td>Max. Investment</td>
-          <td>$9,999</td>
-          <td class="hi"><strong>$49,999</strong></td>
-          <td>$99,999</td>
-          <td>Unlimited</td>
-        </tr>
-        <tr>
-          <td>ROI</td>
-          <td>35%</td>
-          <td class="hi gold-col"><strong>45%</strong></td>
-          <td>50%</td>
-          <td>85%</td>
-        </tr>
-        <tr>
-          <td>Contract Duration</td>
-          <td>14 Days</td>
-          <td class="hi"><strong>60 Days</strong></td>
-          <td>99 Days</td>
-          <td>365 Days</td>
-        </tr>
-        <tr>
-          <td>Referral Bonus</td>
-          <td class="chk">5% ✓</td>
-          <td class="hi chk"><strong>5% ✓</strong></td>
-          <td class="chk">5% ✓</td>
-          <td class="chk">5% ✓</td>
-        </tr>
-        <tr>
-          <td>Automatic Payout</td>
-          <td class="chk">✓</td>
-          <td class="hi chk"><strong>✓</strong></td>
-          <td class="chk">✓</td>
-          <td class="chk">✓</td>
-        </tr>
-        <tr>
-          <td>Stocks / Forex / Crypto</td>
-          <td class="chk">✓</td>
-          <td class="hi chk"><strong>✓</strong></td>
-          <td class="chk">✓</td>
-          <td class="chk">✓</td>
-        </tr>
-        <tr>
-          <td>Priority Support</td>
-          <td class="xmark">✗</td>
-          <td class="hi chk"><strong>✓</strong></td>
-          <td class="chk">✓</td>
-          <td class="chk">✓</td>
-        </tr>
-        <tr>
-          <td>Dedicated Manager</td>
-          <td class="xmark">✗</td>
-          <td class="hi xmark">✗</td>
-          <td class="chk">✓</td>
-          <td class="chk">✓</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="comp-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Starter</th>
+            <th>Growth</th>
+            <th>Advanced</th>
+            <th>Elite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Min. Investment</td>
+            <td>$500</td>
+            <td class="hi"><strong>$10,000</strong></td>
+            <td>$50,000</td>
+            <td>$100,000</td>
+          </tr>
+          <tr>
+            <td>Max. Investment</td>
+            <td>$9,999</td>
+            <td class="hi"><strong>$49,999</strong></td>
+            <td>$99,999</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>ROI</td>
+            <td>35%</td>
+            <td class="hi gold-col"><strong>45%</strong></td>
+            <td>50%</td>
+            <td>85%</td>
+          </tr>
+          <tr>
+            <td>Contract Duration</td>
+            <td>14 Days</td>
+            <td class="hi"><strong>60 Days</strong></td>
+            <td>99 Days</td>
+            <td>365 Days</td>
+          </tr>
+          <tr>
+            <td>Referral Bonus</td>
+            <td class="chk">5% ✓</td>
+            <td class="hi chk"><strong>5% ✓</strong></td>
+            <td class="chk">5% ✓</td>
+            <td class="chk">5% ✓</td>
+          </tr>
+          <tr>
+            <td>Automatic Payout</td>
+            <td class="chk">✓</td>
+            <td class="hi chk"><strong>✓</strong></td>
+            <td class="chk">✓</td>
+            <td class="chk">✓</td>
+          </tr>
+          <tr>
+            <td>Stocks / Forex / Crypto</td>
+            <td class="chk">✓</td>
+            <td class="hi chk"><strong>✓</strong></td>
+            <td class="chk">✓</td>
+            <td class="chk">✓</td>
+          </tr>
+          <tr>
+            <td>Priority Support</td>
+            <td class="xmark">✗</td>
+            <td class="hi chk"><strong>✓</strong></td>
+            <td class="chk">✓</td>
+            <td class="chk">✓</td>
+          </tr>
+          <tr>
+            <td>Dedicated Manager</td>
+            <td class="xmark">✗</td>
+            <td class="hi xmark">✗</td>
+            <td class="chk">✓</td>
+            <td class="chk">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="faq-section">
   <div class="faq-inner">
+    <div style="text-align:center;margin-bottom:6px"><div class="section-tag">Common Questions</div></div>
     <h2 class="section-h">Frequently Asked Questions</h2>
     <p class="section-p">Everything you need to know before investing.</p>
     <div id="faqs">
@@ -359,7 +444,7 @@ a{text-decoration:none;color:inherit}
           Is CopyVestPro regulated and licensed?
           <i class="fas fa-chevron-down faq-arr"></i>
         </div>
-        <div class="faq-a">Yes. CopyVestPro is a registered and licensed trading company authorized to operate globally. We comply fully with all applicable financial regulations and maintain strict standards of client fund protection.</div>
+        <div class="faq-a">Yes. CopyVestPro is a registered and licensed trading company authorised to operate globally. We comply fully with all applicable financial regulations and maintain strict standards of client fund protection.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
@@ -379,32 +464,97 @@ a{text-decoration:none;color:inherit}
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
+<!-- CTA BAR -->
+<section class="cta-bar">
   <h2>Ready to Start <em>Growing Your Wealth?</em></h2>
   <p>Join thousands of investors earning consistent returns with CopyVestPro.</p>
-  <a href="register.html" class="btn btn-gold btn-xl" style="position:relative;z-index:1">Create Free Account</a>
+  <a href="register.html" class="btn-cta"><i class="fas fa-arrow-right"></i> Create Free Account</a>
 </section>
 
-<div class="footer-mini">
-  <div class="fm-inner">
-    <p>Copyright &copy; 2025 CopyVestPro. All Rights Reserved. Trading involves risk.</p>
-    <div class="fm-links">
-      <a href="about.html">About</a>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-accent"></div>
+  <div class="footer-grid">
+    <div class="fc">
+      <div class="fc-title">Services</div>
+      <a href="pricing.html">Trading Plans</a>
+      <a href="contact.html">Support</a>
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+    </div>
+    <div class="fc">
+      <div class="fc-title">Information</div>
+      <a href="about.html">About Us</a>
       <a href="faqs.html">FAQs</a>
+      <a href="register.html">Getting Started</a>
       <a href="contact.html">Contact</a>
-      <a href="#">Terms</a>
-      <a href="#">Privacy</a>
+    </div>
+    <div class="fc">
+      <div class="fc-title">Get In Touch</div>
+      <ul class="fcontact">
+        <li>
+          <span class="ico"><i class="fas fa-location-dot"></i></span>
+          <p>1060 W. Addison Blvd, Suite 457<br>Wrigley Field, CA 60613</p>
+        </li>
+        <li>
+          <span class="ico"><i class="fas fa-envelope"></i></span>
+          <div>
+            <a href="mailto:support@copyvestpro.xyz">support@copyvestpro.xyz</a>
+            <a href="https://copyvestpro.xyz">www.copyvestpro.xyz</a>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 CopyVestPro. All Rights Reserved. Trading involves risk.</p>
+    <div class="fsocials">
+      <a href="#" class="fsoc" style="background:#1877f2"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="fsoc" style="background:#111"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="fsoc" style="background:#0a66c2"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" class="fsoc" style="background:#26a5e4"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="fsoc" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</footer>
 
 <script>
+// Navbar scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);
+});
+
+// Mobile menu toggle
+function toggleNav(){
+  const nl = document.getElementById('navLinks');
+  const isOpen = nl.classList.contains('open');
+  if(!isOpen){
+    nl.style.cssText='display:flex;flex-direction:column;gap:0;position:absolute;top:72px;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid #eee;padding:16px 28px 20px;box-shadow:0 14px 36px rgba(0,0,0,.1);z-index:99';
+    nl.classList.add('open');
+    // Show logout in mobile menu if logged in
+    const tok = localStorage.getItem('cvp_token');
+    const mobLogout = document.getElementById('mobLogoutLink');
+    if(tok && mobLogout) mobLogout.style.display='flex';
+  } else {
+    nl.style.display='none';
+    nl.classList.remove('open');
+  }
+}
+
+// Logout
+document.getElementById('mobLogoutLink')?.addEventListener('click', function(e){
+  e.preventDefault();
+  localStorage.removeItem('cvp_token');
+  localStorage.removeItem('cvp_user');
+  window.location.href='login.html';
+});
+
+// FAQ accordion
 function toggleFaq(el){
-  const item=el.parentElement;
-  const open=item.classList.contains('open');
+  const item = el.parentElement;
+  const open = item.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
-  if(!open)item.classList.add('open');
+  if(!open) item.classList.add('open');
 }
 </script>
 </body>
