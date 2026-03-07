@@ -540,11 +540,11 @@ tbody tr:hover{background:var(--bg)}
             <div class="fg">
               <label class="fl">Amount (USD)</label>
               <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px">
-                <button type="button" onclick="setAmt(250)"  style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$250</button>
-                <button type="button" onclick="setAmt(500)"  style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$500</button>
-                <button type="button" onclick="setAmt(1000)" style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--gold-d),var(--gold));border:none;cursor:pointer;transition:var(--tr);font-family:var(--font);color:#fff;box-shadow:0 3px 10px rgba(201,168,76,.3)">$1,000 ✦</button>
-                <button type="button" onclick="setAmt(2500)" style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$2,500</button>
-                <button type="button" onclick="setAmt(5000)" style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$5,000</button>
+                <button type="button" onclick="setAmt(100)"   style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$100</button>
+                <button type="button" onclick="setAmt(500)"   style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--gold-d),var(--gold));border:none;cursor:pointer;transition:var(--tr);font-family:var(--font);color:#fff;box-shadow:0 3px 10px rgba(201,168,76,.3)">$500 ✦</button>
+                <button type="button" onclick="setAmt(10000)" style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$10,000</button>
+                <button type="button" onclick="setAmt(50000)" style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$50,000</button>
+                <button type="button" onclick="setAmt(100000)" style="padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;transition:var(--tr);font-family:var(--font);color:var(--muted)" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold-d)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">$100,000</button>
               </div>
               <input type="number" class="fi" id="depAmt" placeholder="Or enter custom amount" min="100" step="1">
             </div>
@@ -775,11 +775,9 @@ tbody tr:hover{background:var(--bg)}
       </div>
     </div>
 
-  </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /layout -->
+    <!-- ═══════════ WATCH PORTFOLIO ═══════════ -->
     <div class="pg" id="pg-watch">
-      <!-- Pending investments alert (shown only when there are pending) -->
+      <!-- Pending investments alert -->
       <div id="watchPendingAlert" style="display:none;margin-bottom:20px"></div>
 
       <!-- Live Chart Card -->
@@ -827,6 +825,10 @@ tbody tr:hover{background:var(--bg)}
         <div id="watchProfitHistory" style="padding:0 4px"><div class="empty"><i class="fas fa-coins"></i><p>No profit accruals yet. Activate an investment to start earning.</p></div></div>
       </div>
     </div><!-- /pg-watch -->
+
+  </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /layout -->
 
 <!-- ═══════════ MOBILE BOTTOM NAV ═══════════ -->
 <div class="bot-nav">
