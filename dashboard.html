@@ -320,6 +320,37 @@ tbody tr:hover{background:var(--bg)}
   .plan-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){.g4,.g3,.g2,.plan-grid{grid-template-columns:1fr}.trader-grid{grid-template-columns:1fr}.frow{grid-template-columns:1fr}.t-stats{flex-wrap:wrap}.ts-box{min-width:30%}}
+
+/* ── Verified gold badge ── */
+.t-verif-chip.performance_verified {
+  background: linear-gradient(135deg,#c9a84c,#e8c96b) !important;
+  color: #1a1200 !important;
+  font-weight: 800 !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(201,168,76,0.4);
+}
+.tav-badge.performance_verified {
+  background: linear-gradient(135deg,#c9a84c,#e8c96b) !important;
+  color: #1a1200 !important;
+  box-shadow: 0 2px 6px rgba(201,168,76,0.5);
+}
+/* ── 3-button trader card layout ── */
+.t-btns {
+  display: flex !important;
+  gap: 6px !important;
+  flex-wrap: wrap !important;
+}
+.t-btns button {
+  flex: 1 1 calc(33% - 4px) !important;
+  min-width: 80px;
+  font-size: 11px !important;
+  padding: 7px 6px !important;
+  justify-content: center;
+  white-space: nowrap;
+}
+/* ── Investment status badges ── */
+.bdg-blue { background: rgba(59,130,246,.15); color: #60a5fa; border: 1px solid rgba(59,130,246,.25); }
+
 </style>
 </head>
 <body>
@@ -877,19 +908,31 @@ function renderInvestments(invs){
   const el = $('investmentList');
   if(!invs.length){ el.innerHTML='<div class="empty"><i class="fas fa-layer-group"></i><p>No active investments.<br>Tap <strong>Buy Trade</strong> to start.</p></div>'; return; }
   el.innerHTML = invs.map(i=>{
-    const pct = i.plan_min_deposit>0 ? Math.min(100,(parseFloat(i.funded_total||0)/parseFloat(i.plan_min_deposit||1))*100) : 100;
-    const isActive = i.status==='active', isPending = i.status!=='active';
+    const funded   = parseFloat(i.funded_total||0);
+    const target   = parseFloat(i.plan_min_deposit||1);
+    const pct      = target>0 ? Math.min(100,(funded/target)*100) : 100;
+    const isActive = i.status==='active';
+    const isComp   = i.status==='completed';
+    const notFunded= funded < target;
+    // Status badge logic
+    const bdgCls = isActive?'bdg-green': isComp?'bdg-blue':'bdg-amber';
+    const bdgLbl = isActive?'Active': isComp?'Completed': notFunded?'Pending Funding':'Awaiting Activation';
+    const stMsg  = isActive
+      ? '<div style="font-size:12px;color:var(--green);margin-top:6px;font-weight:600"><i class="fas fa-circle-check"></i> Trade Active — Earning hourly. Total profit: '+fmt(i.total_earned||0)+'</div>'
+      : notFunded
+        ? '<div style="font-size:12px;color:var(--gold-d);margin-top:6px"><i class="fas fa-clock"></i> <strong>Pending Funding</strong> — Deposit '+fmt(target-funded)+' more to reach minimum. Trade starts after admin confirms full funding.</div>'
+        : '<div style="font-size:12px;color:var(--muted);margin-top:6px"><i class="fas fa-hourglass-half"></i> Fully funded — awaiting admin activation. Trade will start shortly.</div>';
     return `<div style="padding:14px 0;border-bottom:1px solid var(--border)">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div>
           <div style="font-size:14px;font-weight:700;color:var(--ink)">${i.plan_name||'Plan'}</div>
           <div style="font-size:12px;color:var(--muted)">${i.monthly_roi}% monthly · ${i.lock_months}mo lock</div>
         </div>
-        <span class="bdg ${isActive?'bdg-green':'bdg-amber'}">${isActive?'Active':'Pending'}</span>
+        <span class="bdg ${bdgCls}">${bdgLbl}</span>
       </div>
-      <div class="prog-info"><span style="color:var(--muted)">Funded</span><span>${fmt(i.funded_total||0)} / ${fmt(i.plan_min_deposit||0)}</span></div>
+      <div class="prog-info"><span style="color:var(--muted)">Funded</span><span>${fmt(funded)} / ${fmt(target)}</span></div>
       <div class="prog-track"><div class="prog-fill ${pct>=100?'complete':''}" style="width:${pct}%"></div></div>
-      ${isActive?'<div style="font-size:12px;color:var(--green);margin-top:6px;font-weight:600"><i class="fas fa-circle-check"></i> Earning — Total profit: '+fmt(i.total_earned||0)+'</div>':''}
+      ${stMsg}
     </div>`;
   }).join('');
 }
@@ -1155,6 +1198,7 @@ const TRADER_PHOTOS = {
   'akademi crypto':       'https://yt3.googleusercontent.com/ytc/APkrFKRqFgQFuWXoAqSCHrIDCYzQQQF4_bKkW3a-NJP9=s176-c-k-c0x00ffffff-no-rj',
   'stockwise':            'https://yt3.googleusercontent.com/ytc/APkrFKZTpOdFKBSEFOBaBh9_k0ZXFqRqt8gB7s6zHpnJbA=s176-c-k-c0x00ffffff-no-rj',
   'andre rizky':          'https://yt3.googleusercontent.com/ytc/APkrFKbCNNQ_0LxvFk5Y23Rp8OQr_c5j-W0Yq6-6a8Cag=s176-c-k-c0x00ffffff-no-rj',
+  'the edge funder':      'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=160&h=160&fit=crop&crop=faces&auto=format',
 };
 // Per-category Unsplash fallbacks (used only if no DB photo + no name key match)
 const FALLBACK_PHOTOS = {
@@ -1200,7 +1244,7 @@ function renderTraders(){
   const VERIF = {
     unverified:           {cls:'unverified',          ico:'fa-minus-circle', lbl:'Unverified'},
     identity_verified:    {cls:'identity_verified',   ico:'fa-id-card',      lbl:'ID Verified'},
-    performance_verified: {cls:'performance_verified',ico:'fa-chart-bar',    lbl:'Perf. Verified'},
+    performance_verified: {cls:'performance_verified',ico:'fa-medal',        lbl:'Verified'},
   };
 
   grid.innerHTML = list.map(t=>{
@@ -1226,11 +1270,14 @@ function renderTraders(){
            <i class="fas fa-external-link-alt"></i>Visit Partner
          </a>`
       : `<div class="t-btns">
-           <button class="btn-ghost btn-sm" onclick="viewTrader('${t.id}','${nameSafe}')">
+           <button class="btn-ghost btn-sm" onclick="viewTrader(\'${t.id}\',\'${nameSafe}\')" style="flex:1">
              <i class="fas fa-eye"></i> Overview
            </button>
-           <button class="btn-gold btn-sm" onclick="copyTrader('${t.id}','${nameSafe}')">
+           <button class="btn-gold btn-sm" onclick="buyTrade(\'${t.id}\',\'${nameSafe}\')" style="flex:1">
              <i class="fas fa-bolt"></i> Buy Trade
+           </button>
+           <button class="btn-ghost btn-sm" onclick="copyTrade(\'${t.id}\',\'${nameSafe}\')" style="flex:1;border-color:var(--gold);color:var(--gold-d)">
+             <i class="fas fa-copy"></i> Copy Trade
            </button>
          </div>`;
 
@@ -1296,18 +1343,94 @@ function viewTrader(id, name){
   // Don't auto-remove — user dismisses manually
 }
 
-async function copyTrader(id, name){
+// ── BUY TRADE: opens dedicated buy-trade modal ──────────────────
+function buyTrade(id, name){
+  // Set selected trader context
+  selectedTraderId   = id;
+  selectedTraderName = name;
+  localStorage.setItem('cvp_selected_trader', JSON.stringify({id, name}));
+  try{ af('/api/user/select-trader',{method:'POST',body:JSON.stringify({trader_id:id})}); }catch(e){}
+
+  // Populate modal trader info
+  const t = allTraders.find(x=>x.id===id);
+  const photo = t ? getTraderPhoto(t) : '';
+  document.getElementById('btModalTraderName').textContent  = name;
+  document.getElementById('btModalTraderPhoto').src         = photo||'https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=c9a84c&color=fff&bold=true&format=svg&s=80';
+  document.getElementById('btModalTraderHandle').textContent = t?.handle||'';
+
+  // Reset and show modal
+  document.getElementById('btModalAlert').style.display = 'none';
+  document.getElementById('btModalAmt').value = '';
+  document.getElementById('buyTradeModal').style.display  = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBuyTradeModal(){
+  document.getElementById('buyTradeModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function submitBuyTrade(){
+  const amt    = parseFloat(document.getElementById('btModalAmt').value);
+  const coin   = document.getElementById('btModalCoin').value;
+  const alert  = document.getElementById('btModalAlert');
+
+  if(!amt || amt < 100){
+    alert.textContent = 'Minimum deposit is $100.';
+    alert.style.display = 'block'; return;
+  }
+  if(!selectedTraderId){
+    alert.textContent = 'No trader selected.';
+    alert.style.display = 'block'; return;
+  }
+
+  const btn = document.getElementById('btModalBtn');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+  try{
+    // Get plan auto-assigned (first active plan)
+    const pR = await af('/api/user/plans');
+    const plans = await pR.json();
+    // Pick plan that fits the amount
+    const plan = plans.find(p => amt >= parseFloat(p.min_deposit)) || plans[0];
+    if(!plan){ throw new Error('No suitable plan found.'); }
+
+    const r = await af('/api/user/deposit',{
+      method:'POST',
+      body: JSON.stringify({
+        amount: amt,
+        coin,
+        plan_id: plan.id,
+        proof_note: `Buy Trade deposit — copying ${selectedTraderName} — ${coin}`
+      })
+    });
+    const data = await r.json();
+    if(!r.ok) throw new Error(data.error||'Deposit failed');
+
+    closeBuyTradeModal();
+    toast('Buy Trade deposit submitted! Awaiting admin confirmation. Trade activates once confirmed.','ok');
+    await loadDash();
+    goTo('overview');
+  }catch(e){
+    alert.textContent = e.message||'An error occurred.';
+    alert.style.display = 'block';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Submit Buy Trade';
+  }
+}
+
+// ── COPY TRADE: selects trader → goes to plan page ──────────────
+async function copyTrade(id, name){
   selectedTraderId   = id;
   selectedTraderName = name;
   localStorage.setItem('cvp_selected_trader', JSON.stringify({id, name}));
   try{ await af('/api/user/select-trader',{method:'POST',body:JSON.stringify({trader_id:id})}); }catch(e){}
-  toast(`Copying ${name} — select a plan & fund below!`,'ok');
+  toast('Copying '+name+' — select a plan & complete funding below!','ok');
   goTo('buy', null);
   showTraderBanner();
-  // Pre-fill $1000 when arriving from Buy Trade (only if empty)
   const amtEl = document.getElementById('depAmt');
   if(amtEl && !amtEl.value) amtEl.value = 1000;
 }
+
 
 function showTraderBanner(){
   const banner = $('traderBanner');
@@ -1410,5 +1533,68 @@ function closeSB(){ $('sb').classList.remove('open'); $('overlay').style.display
 function logout(){ localStorage.removeItem('cvp_token'); localStorage.removeItem('cvp_user'); window.location.href='login.html'; }
 </script>
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+<!-- ══════════ BUY TRADE MODAL ══════════ -->
+<div id="buyTradeModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--card);border-radius:var(--r-lg);max-width:440px;width:100%;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid var(--border);position:relative;max-height:90vh;overflow-y:auto">
+    <!-- Close -->
+    <button onclick="closeBuyTradeModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1">&times;</button>
+
+    <!-- Header: Trader info -->
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+      <img id="btModalTraderPhoto" src="" alt="" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink)" id="btModalTraderName"></div>
+        <div style="font-size:12px;color:var(--muted)" id="btModalTraderHandle"></div>
+        <div style="font-size:11px;color:var(--gold-d);font-weight:600;margin-top:2px"><i class="fas fa-bolt"></i> Buy Trade</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55">
+      Submit your deposit below. Once the admin confirms your payment, your plan will activate and hourly profits will begin accruing. Plans stay <strong>Pending</strong> until fully funded and confirmed.
+    </p>
+
+    <!-- Amount -->
+    <div class="fg" style="margin-bottom:14px">
+      <label class="fl">Deposit Amount (USD)</label>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+        <button type="button" onclick="document.getElementById('btModalAmt').value=250" style="padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:var(--font)">$250</button>
+        <button type="button" onclick="document.getElementById('btModalAmt').value=500" style="padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:var(--font)">$500</button>
+        <button type="button" onclick="document.getElementById('btModalAmt').value=1000" style="padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:var(--font)">$1,000</button>
+        <button type="button" onclick="document.getElementById('btModalAmt').value=5000" style="padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg);border:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:var(--font)">$5,000</button>
+      </div>
+      <input type="number" id="btModalAmt" class="fs" placeholder="e.g. 1000" min="100" style="font-size:16px;font-weight:700">
+    </div>
+
+    <!-- Coin -->
+    <div class="fg" style="margin-bottom:18px">
+      <label class="fl">Pay With</label>
+      <select id="btModalCoin" class="fs">
+        <option value="BTC">Bitcoin — BTC</option>
+        <option value="USDT_TRC20">USDT — TRC20</option>
+        <option value="USDT_ERC20">USDT — ERC20</option>
+        <option value="ETH_ERC20">Ethereum — ERC20</option>
+        <option value="USDC_ERC20">USDC — ERC20</option>
+        <option value="SOL">Solana — SOL</option>
+        <option value="USDC_TRC20">USDC — TRC20</option>
+      </select>
+    </div>
+
+    <div class="al al-warn on" style="margin-bottom:16px;font-size:12px">
+      <i class="fas fa-triangle-exclamation"></i>
+      After submitting, go to <strong>Overview → Buy Trade tab</strong> to send crypto and upload your payment screenshot.
+    </div>
+
+    <!-- Error -->
+    <div id="btModalAlert" style="display:none;background:#3d1a1a;color:#f87171;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:14px"></div>
+
+    <!-- Submit -->
+    <button id="btModalBtn" onclick="submitBuyTrade()" class="btn-gold btn-full" style="font-size:15px;padding:14px">
+      <i class="fas fa-bolt"></i> Submit Buy Trade
+    </button>
+    <button onclick="closeBuyTradeModal()" class="btn-ghost btn-full" style="margin-top:10px">Cancel</button>
+  </div>
+</div>
+
 </body>
 </html>
