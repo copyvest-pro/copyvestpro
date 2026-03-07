@@ -968,7 +968,8 @@ async function loadDash(){
     // Separate active vs pending from investment list
     const allInvs   = dashData.investments||[];
     const activeInvs  = allInvs.filter(i=>i.status==='active');
-    const pendingInvs = allInvs.filter(i=>i.status!=='active' && i.status!=='completed');
+    const pendingInvs = allInvs.filter(i=>i.status==='pending_funding'||i.status==='awaiting_activation'||
+                                          (i.status!=='active'&&i.status!=='completed'));
 
     $('ov-investments').textContent = activeInvs.length;
     $('wdAvailBal').textContent  = fmt(dashData.available_balance||0);
@@ -1069,8 +1070,8 @@ function renderInvestments(invs){
     const pct      = target>0 ? Math.min(100,(funded/target)*100) : 100;
     const isActive = i.status==='active';
     const isComp   = i.status==='completed';
-    const notFunded = !isActive && !isComp && funded < target;
-    const fullyFundedPending = !isActive && !isComp && funded >= target;
+    const notFunded = i.status==='pending_funding' || (!isActive && !isComp && funded < target);
+    const fullyFundedPending = i.status==='awaiting_activation' || (!isActive && !isComp && funded >= target);
     const needed   = Math.max(0, target - funded);
 
     if(isActive){
