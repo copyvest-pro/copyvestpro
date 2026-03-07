@@ -966,19 +966,24 @@ async function loadDash(){
     $('ov-deposited').textContent= fmt(dashData.total_deposited);
 
     // Separate active vs pending from investment list
-    const allInvs   = dashData.investments||[];
-    const activeInvs  = allInvs.filter(i=>i.status==='active');
-    const pendingInvs = allInvs.filter(i=>i.status==='pending_funding'||i.status==='awaiting_activation'||
-                                          (i.status!=='active'&&i.status!=='completed'));
+    const allInvs        = dashData.investments||[];
+    const activeInvs     = allInvs.filter(i=>i.status==='active');
+    // ONLY truly underfunded (not 100% yet) — awaiting_activation means fully paid, just waiting admin
+    const underfundedInvs = allInvs.filter(i=>{
+      if(i.status==='active'||i.status==='completed') return false;
+      const funded = parseFloat(i.funded_total||0);
+      const target = parseFloat(i.plan_min_deposit||1);
+      return funded < target;
+    });
 
     $('ov-investments').textContent = activeInvs.length;
     $('wdAvailBal').textContent  = fmt(dashData.available_balance||0);
 
-    // Pending tag on stat card
+    // Pending tag — only when genuinely underfunded
     const pendingTag = $('ov-pending-tag');
-    if(pendingInvs.length){
+    if(underfundedInvs.length){
       pendingTag.style.display = 'block';
-      pendingTag.innerHTML = `<i class="fas fa-hourglass-half"></i> ${pendingInvs.length} Pending`;
+      pendingTag.innerHTML = `<i class="fas fa-hourglass-half"></i> ${underfundedInvs.length} needs funding`;
     } else {
       pendingTag.style.display = 'none';
     }
@@ -986,14 +991,14 @@ async function loadDash(){
     // Account status bar
     const bar = $('sbStatus'), txt = $('sbStatusTxt');
     if(activeInvs.length>0){ bar.className='sb-status-bar active'; txt.textContent='Active Account'; }
-    else if(pendingInvs.length>0){ bar.className='sb-status-bar pending'; txt.textContent='Funding Incomplete'; }
+    else if(underfundedInvs.length>0){ bar.className='sb-status-bar pending'; txt.textContent='Funding Incomplete'; }
     else if((dashData.total_deposited||0)>0){ bar.className='sb-status-bar pending'; txt.textContent='Pending Activation'; }
     else{ bar.className='sb-status-bar inactive'; txt.textContent='Fund to Activate'; }
 
-    // Big pending banner
+    // Big pending banner — only for genuinely underfunded plans
     const bannerEl = $('pendingBanner');
-    if(pendingInvs.length){
-      const totalNeeded = pendingInvs.reduce((s,i)=>{
+    if(underfundedInvs.length){
+      const totalNeeded = underfundedInvs.reduce((s,i)=>{
         const funded = parseFloat(i.funded_total||0);
         const target = parseFloat(i.plan_min_deposit||0);
         return s + Math.max(0, target - funded);
@@ -1007,13 +1012,12 @@ async function loadDash(){
             </div>
             <div style="flex:1">
               <div style="font-size:15px;font-weight:800;color:#92400e;margin-bottom:4px">
-                ${pendingInvs.length} investment${pendingInvs.length>1?'s':''} waiting — trading not started yet
+                ${underfundedInvs.length} plan${underfundedInvs.length>1?'s':''} waiting for full funding — trading not started
               </div>
               <div style="font-size:13px;color:#78350f;line-height:1.6;margin-bottom:12px">
-                Your plan${pendingInvs.length>1?'s are':' is'} <strong>not active</strong> because the full funding amount has not been reached. 
-                Send <strong style="color:#b45309">${fmt(totalNeeded)}</strong> more to unlock trading and start earning.
+                Send <strong style="color:#b45309">${fmt(totalNeeded)}</strong> more to complete funding and activate trading.
               </div>
-              ${pendingInvs.map(i=>{
+              ${underfundedInvs.map(i=>{
                 const funded = parseFloat(i.funded_total||0);
                 const target = parseFloat(i.plan_min_deposit||1);
                 const pct = Math.min(100,(funded/target)*100);
@@ -1030,11 +1034,12 @@ async function loadDash(){
                     <span>Paid: <strong>${fmt(funded)}</strong></span>
                     <span>Still need: <strong style="color:#b45309">${fmt(needed)}</strong> of ${fmt(target)}</span>
                   </div>
+                  <button onclick="autoSelectPlanAndInvest('${i.plan_id}','${(i.plan_name||'').replace(/'/g,"\\'")}',${needed})"
+                    style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:8px;padding:8px;border-radius:8px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">
+                    <i class="fas fa-bolt"></i> Add ${fmt(needed)} to activate this plan
+                  </button>
                 </div>`;
               }).join('')}
-              <button onclick="goTo('buy',null)" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:20px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);box-shadow:0 3px 12px rgba(217,119,6,.35)">
-                <i class="fas fa-bolt"></i> Complete Funding Now
-              </button>
             </div>
           </div>
         </div>`;
@@ -1115,7 +1120,7 @@ function renderInvestments(invs){
           <div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:3px"><i class="fas fa-ban"></i> Trading NOT started</div>
           <div style="font-size:12px;color:#78350f">You need to send <strong>${fmt(needed)}</strong> more before this investment activates.</div>
         </div>
-        <button onclick="goTo('buy',null)" style="display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:9px;border-radius:10px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">
+        <button onclick="autoSelectPlanAndInvest('${i.plan_id||''}','${(i.plan_name||'').replace(/'/g,"\\'")}',${needed})" style="display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:9px;border-radius:10px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">
           <i class="fas fa-plus"></i> Add ${fmt(needed)} to Activate
         </button>
       </div>`;
@@ -1192,7 +1197,7 @@ async function loadPlans(){
     const grid = $('planGrid');
     if(!plans.length){ grid.innerHTML='<div class="empty" style="grid-column:1/-1"><p>No plans available.</p></div>'; return; }
     grid.innerHTML = plans.map(p=>`
-      <div class="plan-card" id="pc-${p.id}" onclick="selectPlan('${p.id}',this)">
+      <div class="plan-card" id="pc-${p.id}" data-plan-id="${p.id}" data-plan-name="${p.name}" onclick="selectPlan('${p.id}',this)">
         <div class="plan-name">${p.name}</div>
         <div class="plan-roi">${p.monthly_roi}%</div>
         <div class="plan-detail"><span class="lbl">Monthly ROI</span><span class="val">${p.monthly_roi}%</span></div>
@@ -1694,6 +1699,36 @@ async function clearTrader(){
 
 // Quick-fill amount preset chips
 function setAmt(v){ const el=$('depAmt'); el.value=v; el.focus(); }
+
+// Auto-select a specific plan and pre-fill the exact needed amount, then navigate to Invest tab
+function autoSelectPlanAndInvest(planId, planName, neededAmount){
+  // Pre-select the plan
+  selectedPlanId = planId;
+  // Navigate to invest page
+  goTo('buy', null);
+  // After a short delay (let the page render), select the plan card and fill the amount
+  setTimeout(()=>{
+    // Find and click the plan card with matching plan_id or name
+    const planCards = document.querySelectorAll('.plan-card, [data-plan-id]');
+    planCards.forEach(card=>{
+      const pid = card.getAttribute('data-plan-id');
+      const pname = card.getAttribute('data-plan-name')||'';
+      if(pid===String(planId) || pname.toLowerCase()===planName.toLowerCase()){
+        card.click();
+      }
+    });
+    // Fill the exact amount needed
+    if(neededAmount > 0){
+      const amtEl = $('depAmt');
+      if(amtEl){ amtEl.value = Math.ceil(neededAmount); amtEl.focus(); }
+    }
+    // Scroll to payment section
+    const payCard = $('payCard');
+    if(payCard) payCard.scrollIntoView({behavior:'smooth', block:'start'});
+    // Show a helpful toast
+    toast(`${planName} selected — send ${fmt(neededAmount)} to complete funding`, 'ok');
+  }, 300);
+}
 /* ═══════════════════════════════════════
    PROFILE
 ═══════════════════════════════════════ */
