@@ -76,6 +76,7 @@ button,input,select,textarea{font-family:var(--font)}
 .btn-dark:hover{background:#222;transform:translateY(-1px)}
 .btn-sm{padding:8px 14px!important;font-size:13px!important}
 .btn-full{width:100%}
+.mob-logout-btn{display:none}
 .ham{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:8px;border-radius:8px;background:var(--bg);border:1px solid var(--border)}
 .ham span{width:18px;height:2px;background:var(--muted);border-radius:2px}
 
@@ -334,7 +335,7 @@ tbody tr:hover{background:var(--bg)}
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:none;box-shadow:4px 0 24px rgba(0,0,0,.12)}
   .main{margin-left:0}.content{padding:18px 16px 88px}
-  .topbar{padding:0 16px}.ham{display:flex}.bot-nav{display:block}
+  .topbar{padding:0 16px}.ham{display:flex}.mob-logout-btn{display:flex}.bot-nav{display:block}
   .plan-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){.g4,.g3,.g2,.plan-grid{grid-template-columns:1fr}.trader-grid{grid-template-columns:1fr}.frow{grid-template-columns:1fr}.t-stats{flex-wrap:wrap}.ts-box{min-width:30%}}
@@ -428,6 +429,7 @@ tbody tr:hover{background:var(--bg)}
     <div class="tb-r">
       <button class="btn-ghost" onclick="goTo('buy',null)"><i class="fas fa-bolt"></i><span>Invest</span></button>
       <button class="btn-ghost" onclick="loadDash()"><i class="fas fa-rotate"></i></button>
+      <button class="btn-ghost mob-logout-btn" onclick="logout()" title="Log Out" style="color:#ef4444"><i class="fas fa-right-from-bracket"></i></button>
     </div>
   </div>
 
@@ -451,7 +453,7 @@ tbody tr:hover{background:var(--bg)}
         <div class="stat blue">
           <div class="stat-ico ico-blue"><i class="fas fa-circle-check"></i></div>
           <div class="stat-val" id="ov-investments">—</div>
-          <div class="stat-lbl">Active Investments</div>
+          <div class="stat-lbl">Investments</div>
           <div class="stat-tag" id="ov-pending-tag" style="display:none;background:#fef3c7;color:#92400e;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700"></div>
         </div>
         <div class="stat purple">
@@ -998,14 +1000,18 @@ async function loadDash(){
       return funded < target;
     });
 
-    $('ov-investments').textContent = activeInvs.length;
+    $('ov-investments').textContent = allInvs.filter(i=>i.status!=='completed').length;
     $('wdAvailBal').textContent  = fmt(dashData.available_balance||0);
 
     // Pending tag — only when genuinely underfunded
+    const awaitingInvs = allInvs.filter(i=>i.status==='awaiting_activation');
     const pendingTag = $('ov-pending-tag');
     if(underfundedInvs.length){
       pendingTag.style.display = 'block';
       pendingTag.innerHTML = `<i class="fas fa-hourglass-half"></i> ${underfundedInvs.length} needs funding`;
+    } else if(awaitingInvs.length){
+      pendingTag.style.display = 'block';
+      pendingTag.innerHTML = `<i class="fas fa-clock"></i> ${awaitingInvs.length} awaiting activation`;
     } else {
       pendingTag.style.display = 'none';
     }
