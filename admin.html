@@ -819,6 +819,7 @@ function renderUsers(users){
           ?`<button class="btn btn-reject btn-sm" onclick="suspendUser('${u.id}')"><i class="fas fa-ban"></i></button>`
           :`<button class="btn btn-approve btn-sm" onclick="activateUser('${u.id}')"><i class="fas fa-check"></i></button>`}
         <button class="btn btn-ghost btn-sm" onclick="quickCredit('${u.email}')"><i class="fas fa-circle-plus"></i></button>
+        <button class="btn btn-reject btn-sm" onclick="deleteUser('${u.id}','${u.full_name||u.email}')" title="Delete account" style="background:#fee2e2;color:#dc2626;border-color:#fecaca"><i class="fas fa-trash"></i></button>
       </div></td>
     </tr>`).join('')}
     </tbody></table>`;
@@ -832,6 +833,16 @@ async function suspendUser(id){
 async function activateUser(id){
   const r = await af(`/api/admin/users/${id}/activate`,{method:'POST'});
   if(r.ok){ toast('User activated','ok'); loadUsers(); } else toast('Failed','err');
+}
+
+async function deleteUser(id, name){
+  const confirmed = confirm(`⚠️ PERMANENTLY DELETE "${name}"?\n\nThis will remove their account, all deposits, withdrawals, investments and balance data.\n\nThis CANNOT be undone. Type DELETE to confirm.`);
+  if(!confirmed) return;
+  const typed = prompt('Type DELETE to confirm:');
+  if(typed !== 'DELETE'){ toast('Cancelled — you must type DELETE exactly','err'); return; }
+  const r = await af(`/api/admin/users/${id}/delete`,{method:'DELETE'});
+  if(r.ok){ toast('Account deleted','ok'); loadUsers(); loadStats(); }
+  else { const d=await r.json().catch(()=>({})); toast(d.error||'Delete failed','err'); }
 }
 
 function quickCredit(email){
@@ -860,6 +871,7 @@ function viewUser(id){
       ${u.status!=='suspended'
         ?`<button class="btn btn-ghost" onclick="suspendUser('${u.id}');closeModal()"><i class="fas fa-ban"></i> Suspend</button>`
         :`<button class="btn btn-approve" onclick="activateUser('${u.id}');closeModal()"><i class="fas fa-check"></i> Activate</button>`}
+      <button class="btn" onclick="deleteUser('${u.id}','${u.full_name||u.email}');closeModal()" style="background:#fee2e2;color:#dc2626;border:1.5px solid #fecaca;padding:9px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px"><i class="fas fa-trash"></i> Delete Account</button>
     </div>`;
   $('modal').classList.add('on');
 }
