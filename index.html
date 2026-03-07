@@ -1859,8 +1859,8 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="/cdn-cgi/l/email-protection#a2d1d7d2d2cdd0d6e2c1cdd2dbd4c7d1d6d2d0cd8cdadbd8"><span class="__cf_email__" data-cfemail="ff8c8a8f8f908d8bbf9c908f86899a8c8b8f8d90d1878685">[email&#160;protected]</span></a>
-            <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
+            <a href="mailto:support@copyvestpro.com">support@copyvestpro.com</a>
+            <a href="#">www.copyvestpro.com</a>
           </div>
         </li>
       </ul>
@@ -1949,12 +1949,9 @@ strong{font-weight:600}
 </div>
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── PRELOADER ── */
-const _hidePreloader=()=>{const p=document.getElementById('preloader');if(p&&!p.classList.contains('gone'))p.classList.add('gone')};
-document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,920));
-window.addEventListener('load',_hidePreloader);
-setTimeout(_hidePreloader,4000);
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('gone'),920)});
 
 /* ── HERO SLIDER ── */
 let cur=0;
@@ -2141,7 +2138,7 @@ sendBtn.addEventListener('click',async function(){
   if(!sent){
     const subject=encodeURIComponent('CopyVestPro Support Request – '+payload.name);
     const body=encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\n\nMessage:\n${payload.message}`);
-    window.open(`mailto:support@copyvestpro.xyz?subject=${subject}&body=${body}`,'_blank');
+    window.open(`mailto:support@copyvestpro.com?subject=${subject}&body=${body}`,'_blank');
     sent=true;
   }
 
@@ -2249,3 +2246,27 @@ backBtn.addEventListener('click',()=>{
     if(!loaded[key] && wraps[key]){
       loaded[key] = true;
       mountTradingView(wraps[key], configs[key].src, configs[key].cfg);
+    }
+  }
+
+  // initial load when section exists
+  if(wraps.trending){
+    activate('trending');
+    btns.forEach(b => b.addEventListener('click', () => activate(b.dataset.mtab)));
+  }
+})();
+</script>
+
+<script>
+(function(){
+  const wrap = document.getElementById('trustedTrackWrap');
+  const track = document.getElementById('trustedTrack');
+  if(!wrap || !track) return;
+  const clone = track.cloneNode(true);
+  clone.removeAttribute('id');
+  wrap.appendChild(clone);
+})();
+</script>
+
+</body>
+</html>
