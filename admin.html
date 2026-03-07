@@ -7,10 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+/* ═══════════════ TOKENS ═══════════════ */
 :root{
   --gold:#c9a84c;--gold-l:#e2c36e;--gold-d:#a8841a;--gold-pale:#fdf8ef;
-  --gold-border:rgba(201,168,76,.2);--ink:#0f0f0f;
-  --bg:#f5f4f1;--surface:#fff;
+  --gold-border:rgba(201,168,76,.2);--ink:#0f0f0f;--navy:#0d1b2e;
+  --bg:#f5f4f1;--surface:#fff;--surface2:#fafaf8;
   --txt:#2a2a2a;--muted:#6b7280;--border:#e5e7eb;
   --font:'Space Grotesk',sans-serif;
   --r:20px;--r-sm:12px;--r-pill:100px;
@@ -26,39 +27,52 @@
   --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-font-smoothing:antialiased}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 body{font-family:var(--font);background:var(--bg);color:var(--txt);font-size:17px;line-height:1.7;overflow-x:hidden}
 a{text-decoration:none;color:inherit}ul{list-style:none}
-button,input,select,textarea{font-family:var(--font)}
+button{font-family:var(--font);cursor:pointer}
+input,select,textarea{font-family:var(--font)}
 
+/* ═══ LAYOUT ═══ */
 .layout{display:flex;min-height:100vh}
 
 /* ═══ SIDEBAR ═══ */
-.sidebar{width:var(--sidebar);flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:200;transition:transform var(--tr);overflow-y:auto}
+.sidebar{
+  width:var(--sidebar);flex-shrink:0;background:var(--surface);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;height:100vh;z-index:200;
+  transition:transform var(--tr);overflow-y:auto;
+}
 .sb-logo{padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:11px;flex-shrink:0}
+.sb-logo svg{flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(168,132,26,.35))}
 .sb-wordmark{font-size:1.05rem;font-weight:700;color:var(--ink);letter-spacing:-.02em}
 .sb-wordmark em{color:var(--gold);font-style:italic}
 .admin-tag{display:inline-flex;align-items:center;gap:5px;background:var(--red-bg);border:1px solid var(--red-border);color:var(--red);font-size:11px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);margin-top:8px;letter-spacing:.06em;text-transform:uppercase}
-.sb-nav{flex:1;padding:14px 10px}
-.sb-grp{margin-bottom:20px}
-.sb-grp-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b0b7c3;padding:0 10px;margin-bottom:6px}
-.sb-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:var(--r-sm);font-size:15px;font-weight:500;color:var(--muted);transition:var(--tr);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--font);position:relative}
+
+.sb-nav{flex:1;padding:16px 10px}
+.sb-group{margin-bottom:22px}
+.sb-group-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b0b7c3;padding:0 10px;margin-bottom:6px}
+.sb-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:var(--r-sm);font-size:15px;font-weight:500;color:var(--muted);transition:var(--tr);cursor:pointer;border:none;background:none;width:100%;text-align:left;position:relative;font-family:var(--font)}
 .sb-link i{width:18px;text-align:center;font-size:15px;flex-shrink:0;transition:color var(--tr)}
-.sb-link:hover{background:var(--gold-pale);color:var(--ink)}.sb-link:hover i{color:var(--gold)}
+.sb-link:hover{background:var(--gold-pale);color:var(--ink)}
+.sb-link:hover i{color:var(--gold)}
 .sb-link.on{background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.05));color:var(--ink);font-weight:600;border:1px solid var(--gold-border)}
 .sb-link.on i{color:var(--gold-d)}
-.sb-ct{margin-left:auto;background:var(--red);color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:2px 7px}
+.sb-ct{margin-left:auto;background:var(--red);color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:2px 7px;min-width:18px;text-align:center}
+
 .sb-user{padding:14px;border-top:1px solid var(--border);flex-shrink:0}
-.sb-user-inner{display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--r-sm);background:var(--bg)}
+.sb-user-inner{display:flex;align-items:center;gap:11px;padding:10px;border-radius:var(--r-sm);background:var(--bg)}
 .sb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--red),#ef4444);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0}
 .sb-uname{font-size:14px;font-weight:600;color:var(--ink);line-height:1.2}
 .sb-urole{font-size:12px;color:var(--red);font-weight:600}
-.sb-logout{margin-left:auto;width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:var(--muted);border-radius:8px;transition:var(--tr);background:none;border:none;flex-shrink:0;cursor:pointer}
+.sb-logout{margin-left:auto;width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:var(--muted);border-radius:8px;transition:var(--tr);background:none;border:none;flex-shrink:0}
 .sb-logout:hover{background:var(--red-bg);color:var(--red)}
 
 /* ═══ MAIN ═══ */
 .main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
-.topbar{height:var(--topbar);background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+
+/* ═══ TOPBAR ═══ */
+.topbar{height:var(--topbar);background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
 .tb-left{display:flex;align-items:center;gap:14px}
 .tb-page{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
 .tb-right{display:flex;align-items:center;gap:10px}
@@ -68,11 +82,12 @@ button,input,select,textarea{font-family:var(--font)}
 .tb-btn-ghost{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
 .tb-btn-ghost:hover{background:var(--gold-pale);border-color:var(--gold-border);color:var(--ink)}
 .ham{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:8px;border-radius:8px;background:var(--bg);border:1px solid var(--border)}
-.ham span{width:18px;height:2px;background:var(--muted);border-radius:2px}
+.ham span{width:18px;height:2px;background:var(--muted);border-radius:2px;transition:var(--tr)}
 
 /* ═══ CONTENT ═══ */
 .content{padding:28px;flex:1}
-.pg{display:none}.pg.on{display:block}
+.pg{display:none}
+.pg.on{display:block}
 
 /* ═══ GRIDS ═══ */
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
@@ -82,6 +97,7 @@ button,input,select,textarea{font-family:var(--font)}
 
 /* ═══ CARDS ═══ */
 .card{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);padding:24px;transition:var(--tr)}
+.card-sm{padding:18px}
 .card-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
 .card-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.5}
 
@@ -93,15 +109,14 @@ button,input,select,textarea{font-family:var(--font)}
 .stat-card.blue::before{background:linear-gradient(90deg,#2563eb,#60a5fa)}
 .stat-card.purple::before{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
 .stat-card.red::before{background:linear-gradient(90deg,#dc2626,#f87171)}
-.stat-card.amber::before{background:linear-gradient(90deg,#d97706,#fbbf24)}
 .stat-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
 .stat-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:16px}
-.ico-gold{background:rgba(201,168,76,.1);color:var(--gold-d)}
-.ico-green{background:#dcfce7;color:#16a34a}
-.ico-blue{background:#dbeafe;color:#2563eb}
-.ico-purple{background:#ede9fe;color:#7c3aed}
-.ico-red{background:#fee2e2;color:#dc2626}
-.ico-amber{background:#fef3c7;color:#d97706}
+.stat-ico.gold{background:rgba(201,168,76,.1);color:var(--gold-d)}
+.stat-ico.green{background:#dcfce7;color:#16a34a}
+.stat-ico.blue{background:#dbeafe;color:#2563eb}
+.stat-ico.purple{background:#ede9fe;color:#7c3aed}
+.stat-ico.red{background:#fee2e2;color:#dc2626}
+.stat-ico.amber{background:#fef3c7;color:#d97706}
 .stat-val{font-size:1.75rem;font-weight:700;color:var(--ink);line-height:1;margin-bottom:5px;letter-spacing:-.03em}
 .stat-lbl{font-size:13px;color:var(--muted);font-weight:500}
 
@@ -113,20 +128,26 @@ button,input,select,textarea{font-family:var(--font)}
 .badge-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .badge-purple{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
 .badge-gray{background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb}
-.badge-gold{background:var(--gold-pale);color:var(--gold-d);border:1px solid var(--gold-border)}
 
 /* ═══ BUTTONS ═══ */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 20px;border-radius:var(--r-sm);font-size:14px;font-weight:600;border:none;cursor:pointer;transition:var(--tr);font-family:var(--font)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 20px;border-radius:var(--r-sm);font-size:14px;font-weight:600;border:none;cursor:pointer;transition:var(--tr);letter-spacing:-.01em;font-family:var(--font)}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#fff;box-shadow:0 3px 14px rgba(201,168,76,.28)}
 .btn-gold:hover{box-shadow:var(--sh-gold);transform:translateY(-1px)}
 .btn-gold:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btn-dark{background:var(--ink);color:#fff}.btn-dark:hover{background:#222;transform:translateY(-1px)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#222;transform:translateY(-1px)}
 .btn-ghost{background:var(--surface);border:1.5px solid var(--border);color:var(--muted)}
 .btn-ghost:hover{border-color:var(--gold-border);color:var(--ink);background:var(--gold-pale)}
+.btn-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.btn-red:hover{background:#fee2e2;transform:translateY(-1px)}
 .btn-approve{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);font-size:13px;padding:7px 13px}
-.btn-approve:hover{background:#dcfce7}.btn-reject{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);font-size:13px;padding:7px 11px}
-.btn-reject:hover{background:#fee2e2}.btn-view{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border);font-size:13px;padding:7px 13px}
-.btn-view:hover{background:#dbeafe}.btn-sm{padding:7px 14px;font-size:13px}.btn-full{width:100%}
+.btn-approve:hover{background:#dcfce7}
+.btn-reject{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);font-size:13px;padding:7px 11px}
+.btn-reject:hover{background:#fee2e2}
+.btn-view{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border);font-size:13px;padding:7px 13px}
+.btn-view:hover{background:#dbeafe}
+.btn-sm{padding:7px 14px;font-size:13px}
+.btn-full{width:100%}
 
 /* ═══ FORMS ═══ */
 .f-grp{margin-bottom:16px}
@@ -134,41 +155,35 @@ button,input,select,textarea{font-family:var(--font)}
 .f-inp,.f-sel,.f-ta{width:100%;padding:11px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:15px;font-family:var(--font);color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
 .f-inp::placeholder,.f-ta::placeholder{color:#b0b7c3}
 .f-inp:focus,.f-sel:focus,.f-ta:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
-.f-sel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.f-sel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
 .f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.f-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .f-ta{min-height:90px;resize:vertical}
 
-/* ═══ ALERTS ═══ */
+/* ═══ ALERT ═══ */
 .alert{padding:12px 16px;border-radius:var(--r-sm);font-size:14px;font-weight:500;display:none;align-items:center;gap:9px;line-height:1.5;margin-bottom:14px}
 .alert.on{display:flex}
 .alert-err{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
 .alert-ok{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
 .alert-warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber)}
-.alert-info{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
 
 /* ═══ SECTION HEADER ═══ */
 .s-hd{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px}
 .s-title{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
 .s-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 
-/* ═══ SEARCH ═══ */
-.search-wrap{position:relative}
-.search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.82rem;pointer-events:none}
-.search-inp{padding-left:34px!important;min-width:200px}
-
 /* ═══ TABLE ═══ */
 .tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse;font-size:14px}
 thead{background:var(--bg)}
 th{padding:11px 16px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;border-bottom:1px solid var(--border)}
-td{padding:13px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
+td{padding:13px 16px;border-bottom:1px solid var(--border);color:var(--txt);vertical-align:middle}
 tr:last-child td{border-bottom:none}
+tbody tr{transition:background var(--tr)}
 tbody tr:hover{background:var(--bg)}
 .td-user .name{font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
 .td-user .email{font-size:12px;color:var(--muted);margin-top:1px}
 .td-mono{font-family:monospace;font-size:12px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.act-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.act-row{display:flex;gap:6px;align-items:center}
 
 /* ═══ EMPTY STATE ═══ */
 .tbl-empty{text-align:center;padding:52px 20px;color:var(--muted)}
@@ -176,70 +191,42 @@ tbody tr:hover{background:var(--bg)}
 .tbl-empty p{font-size:14px}
 
 /* ═══ NOTE BOX ═══ */
-.note-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:12px 16px;font-size:13px;color:var(--amber);display:flex;align-items:flex-start;gap:9px;line-height:1.6}
-.info-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--r-sm);padding:12px 16px;font-size:13px;color:var(--blue);display:flex;align-items:flex-start;gap:9px;line-height:1.6}
-
-/* ═══ TRADER PREVIEW ═══ */
-.tcard-admin{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:var(--tr);display:flex;flex-direction:column}
-.tcard-admin:hover{box-shadow:var(--sh-md);border-color:var(--gold-border)}
-.tcard-admin-head{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border)}
-.t-av{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#eee;border:2px solid var(--gold-pale)}
-.t-av-placeholder{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0}
-.t-info{flex:1;min-width:0}
-.t-name{font-size:15px;font-weight:700;color:var(--ink);line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.t-handle{font-size:12px;color:var(--muted);margin-top:1px}
-.tcard-admin-body{padding:12px 16px;flex:1}
-.tcard-admin-foot{padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:7px;flex-wrap:wrap}
-.t-tag-sm{padding:2px 8px;border-radius:var(--r-pill);font-size:11px;font-weight:600;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
-
-/* ═══ PROOF ITEM ═══ */
-.proof-item{padding:10px 14px;background:var(--bg);border-radius:var(--r-sm);border:1px solid var(--border);display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
-.proof-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem}
-.proof-icon.identity{background:var(--blue-bg);color:var(--blue)}
-.proof-icon.track_record{background:var(--green-bg);color:var(--green)}
-.proof-icon.broker_statement{background:var(--gold-pale);color:var(--gold-d)}
-.proof-icon.audit{background:var(--purple-bg);color:var(--purple)}
-
-/* ═══ AUDIT LOG ═══ */
-.audit-item{display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;transition:var(--tr)}
-.audit-item:hover{border-color:var(--gold-border);background:var(--gold-pale)}
-.audit-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:6px}
-.audit-dot.credit{background:var(--green)}.audit-dot.deposit{background:var(--blue)}.audit-dot.withdrawal{background:var(--amber)}.audit-dot.debit{background:var(--red)}.audit-dot.trader{background:var(--purple)}.audit-dot.other{background:var(--muted)}
-.audit-body{flex:1;min-width:0}
-.audit-action{font-size:14px;font-weight:600;color:var(--ink)}
-.audit-detail{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5;word-break:break-word}
-.audit-meta{font-size:12px;color:var(--muted);margin-top:4px}
-.audit-amt{font-size:14px;font-weight:700;white-space:nowrap;flex-shrink:0}
-.audit-amt.pos{color:var(--green)}.audit-amt.neg{color:var(--red)}.audit-amt.neu{color:var(--muted)}
+.note-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:12px 14px;font-size:13px;color:var(--amber);display:flex;align-items:flex-start;gap:9px;line-height:1.6}
 
 /* ═══ MODAL ═══ */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px}
 .modal-bg.on{display:flex}
-.modal{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);box-shadow:0 24px 64px rgba(0,0,0,.14);max-width:600px;width:100%;overflow:hidden;max-height:90vh;display:flex;flex-direction:column}
-.modal-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);box-shadow:0 24px 64px rgba(0,0,0,.14);max-width:520px;width:100%;overflow:hidden}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .modal-title{font-size:17px;font-weight:700;color:var(--ink)}
 .modal-close{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:none;background:var(--bg);border-radius:8px;color:var(--muted);cursor:pointer;transition:var(--tr)}
 .modal-close:hover{background:var(--red-bg);color:var(--red)}
-.modal-body{padding:24px;overflow-y:auto;flex:1}
-.modal-foot{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;flex-shrink:0}
-.modal-row{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;gap:12px}
+.modal-body{padding:24px;max-height:60vh;overflow-y:auto}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+.modal-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
 .modal-row:last-child{border-bottom:none}
-.modal-row .lbl{color:var(--muted);font-weight:500;flex-shrink:0}
-.modal-row .val{font-weight:600;color:var(--ink);text-align:right;word-break:break-word}
-.ss-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--blue);font-weight:600;padding:5px 10px;background:var(--blue-bg);border-radius:var(--r-sm);border:1px solid var(--blue-border)}
+.modal-row .lbl{color:var(--muted);font-weight:500}
+.modal-row .val{font-weight:600;color:var(--ink);text-align:right;max-width:260px}
+
+/* ═══ SCREENSHOT PREVIEW ═══ */
+.ss-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--blue);font-weight:600;padding:5px 10px;background:var(--blue-bg);border-radius:var(--r-sm);border:1px solid var(--blue-border);transition:var(--tr)}
 .ss-link:hover{background:#dbeafe}
 
-/* ═══ PULSE ═══ */
+/* ═══ PENDING BADGE PULSE ═══ */
 @keyframes pulse-amber{0%,100%{box-shadow:0 0 0 0 rgba(217,119,6,.3)}50%{box-shadow:0 0 0 6px rgba(217,119,6,0)}}
 .pulse{animation:pulse-amber 2s infinite}
+
+/* ═══ SPIN ═══ */
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{animation:spin .7s linear infinite}
 
 /* ═══ TOAST ═══ */
 .toast-wrap{position:fixed;top:80px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{background:var(--ink);color:#fff;padding:12px 18px;border-radius:var(--r-sm);font-size:14px;font-weight:500;display:flex;align-items:center;gap:9px;box-shadow:var(--sh-md);animation:toastIn .3s var(--ease);pointer-events:auto;max-width:320px}
-.toast.ok{background:#16a34a}.toast.err{background:#dc2626}.toast.warn{background:#d97706}
+.toast.ok{background:#16a34a}.toast.err{background:#dc2626}
 @keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+/* ═══ OVERLAY ═══ */
 #overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:199;backdrop-filter:blur(2px)}
 
 /* ═══ RESPONSIVE ═══ */
@@ -248,8 +235,12 @@ tbody tr:hover{background:var(--bg)}
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:none;box-shadow:4px 0 24px rgba(0,0,0,.12)}
-  .main{margin-left:0}.content{padding:18px 16px}.topbar{padding:0 16px}
-  .ham{display:flex}.grid-4,.grid-3{grid-template-columns:1fr 1fr}.f-row,.f-row-3{grid-template-columns:1fr}
+  .main{margin-left:0}
+  .content{padding:18px 16px}
+  .topbar{padding:0 16px}
+  .ham{display:flex}
+  .grid-4,.grid-3{grid-template-columns:1fr 1fr}
+  .f-row{grid-template-columns:1fr}
 }
 @media(max-width:480px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
 </style>
@@ -264,35 +255,35 @@ tbody tr:hover{background:var(--bg)}
 <!-- ═══════════ SIDEBAR ═══════════ -->
 <aside class="sidebar" id="sb">
   <div class="sb-logo">
-    <svg width="36" height="36" viewBox="0 0 44 44" fill="none"><defs><linearGradient id="lg_sb" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs><rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_sb)"/><path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/><path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <svg width="36" height="36" viewBox="0 0 44 44" fill="none">
+      <defs><linearGradient id="lg_sb" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="55%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs>
+      <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#lg_sb)"/>
+      <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+      <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
     <div>
       <div class="sb-wordmark">Copy<em>Vest</em>Pro</div>
-      <div class="admin-tag"><i class="fas fa-shield-halved"></i> Admin</div>
+      <div class="admin-tag"><i class="fas fa-shield-halved"></i> Admin Panel</div>
     </div>
   </div>
 
   <nav class="sb-nav">
-    <div class="sb-grp">
-      <div class="sb-grp-lbl">Overview</div>
-      <button class="sb-link on" onclick="goTo('overview',this)"><i class="fas fa-chart-pie"></i>Dashboard</button>
+    <div class="sb-group">
+      <div class="sb-group-lbl">Overview</div>
+      <button class="sb-link on" onclick="goTo('overview',this)"><i class="fas fa-chart-pie"></i> Dashboard</button>
     </div>
-    <div class="sb-grp">
-      <div class="sb-grp-lbl">Manage</div>
-      <button class="sb-link" onclick="goTo('users',this)"><i class="fas fa-users"></i>All Users</button>
-      <button class="sb-link" onclick="goTo('deposits',this)"><i class="fas fa-arrow-down-to-line"></i>Deposits <span class="sb-ct pulse" id="depCt">0</span></button>
-      <button class="sb-link" onclick="goTo('withdrawals',this)"><i class="fas fa-arrow-up-from-line"></i>Withdrawals <span class="sb-ct pulse" id="wdCt">0</span></button>
-      <button class="sb-link" onclick="goTo('investments',this)"><i class="fas fa-chart-line"></i>Investments</button>
+    <div class="sb-group">
+      <div class="sb-group-lbl">Manage</div>
+      <button class="sb-link" onclick="goTo('users',this)"><i class="fas fa-users"></i> All Users</button>
+      <button class="sb-link" onclick="goTo('deposits',this)"><i class="fas fa-arrow-down-to-line"></i> Deposits <span class="sb-ct pulse" id="depCt">0</span></button>
+      <button class="sb-link" onclick="goTo('withdrawals',this)"><i class="fas fa-arrow-up-from-line"></i> Withdrawals <span class="sb-ct pulse" id="wdCt">0</span></button>
+      <button class="sb-link" onclick="goTo('investments',this)"><i class="fas fa-chart-line"></i> Investments</button>
     </div>
-    <div class="sb-grp">
-      <div class="sb-grp-lbl">Trading</div>
-      <button class="sb-link" onclick="goTo('traders',this)"><i class="fas fa-user-group"></i>Manage Traders</button>
-    </div>
-    <div class="sb-grp">
-      <div class="sb-grp-lbl">Tools</div>
-      <button class="sb-link" onclick="goTo('credit',this)"><i class="fas fa-circle-plus"></i>Profit Credit</button>
-      <button class="sb-link" onclick="goTo('support',this)" id="sbSupport"><i class="fas fa-headset"></i>Support Messages <span id="unreadBadge" style="display:none;background:#ef4444;color:#fff;border-radius:20px;padding:1px 7px;font-size:11px;font-weight:700;margin-left:4px">0</span></button>
-      <button class="sb-link" onclick="goTo('audit',this)"><i class="fas fa-scroll"></i>Audit Logs</button>
-      <button class="sb-link" onclick="goTo('settings',this)"><i class="fas fa-sliders"></i>Settings</button>
+    <div class="sb-group">
+      <div class="sb-group-lbl">Tools</div>
+      <button class="sb-link" onclick="goTo('credit',this)"><i class="fas fa-circle-plus"></i> Credit Balance</button>
+      <button class="sb-link" onclick="goTo('settings',this)"><i class="fas fa-sliders"></i> Settings</button>
     </div>
   </nav>
 
@@ -310,6 +301,8 @@ tbody tr:hover{background:var(--bg)}
 
 <!-- ═══════════ MAIN ═══════════ -->
 <div class="main">
+
+  <!-- TOPBAR -->
   <div class="topbar">
     <div class="tb-left">
       <div class="ham" onclick="openSB()"><span></span><span></span><span></span></div>
@@ -321,358 +314,191 @@ tbody tr:hover{background:var(--bg)}
     </div>
   </div>
 
+  <!-- ═══════════ CONTENT ═══════════ -->
   <div class="content">
 
-    <!-- ══════════════ OVERVIEW ══════════════ -->
+    <!-- ══════ OVERVIEW ══════ -->
     <div class="pg on" id="pg-overview">
-      <!-- Connection error banner -->
-      <div id="stErr" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#b91c1c;font-weight:600"></div>
 
+      <!-- STAT CARDS -->
       <div class="grid-4" style="margin-bottom:22px">
-        <div class="stat-card gold"><div class="stat-ico ico-gold"><i class="fas fa-users"></i></div><div class="stat-val" id="stUsers">—</div><div class="stat-lbl">Total Users</div></div>
-        <div class="stat-card green"><div class="stat-ico ico-green"><i class="fas fa-arrow-down-to-line"></i></div><div class="stat-val" id="stDeps">—</div><div class="stat-lbl">Total Deposited</div></div>
-        <div class="stat-card blue"><div class="stat-ico ico-blue"><i class="fas fa-chart-line"></i></div><div class="stat-val" id="stInvs">—</div><div class="stat-lbl">Active Investments</div></div>
-        <div class="stat-card purple"><div class="stat-ico ico-purple"><i class="fas fa-chart-bar"></i></div><div class="stat-val" id="stProfit">—</div><div class="stat-lbl">Total Profit Issued</div></div>
-      </div>
-      <div class="grid-4" style="margin-bottom:26px">
-        <div class="stat-card amber"><div class="stat-ico ico-amber"><i class="fas fa-hourglass-half"></i></div><div class="stat-val" id="stPendDep">—</div><div class="stat-lbl">Pending Deposits</div></div>
-        <div class="stat-card red"><div class="stat-ico ico-red"><i class="fas fa-hourglass-half"></i></div><div class="stat-val" id="stPendWd">—</div><div class="stat-lbl">Pending Withdrawals</div></div>
-        <div class="stat-card gold"><div class="stat-ico ico-gold"><i class="fas fa-arrow-up-from-line"></i></div><div class="stat-val" id="stWd">—</div><div class="stat-lbl">Total Withdrawn</div></div>
-        <div class="stat-card green"><div class="stat-ico ico-green"><i class="fas fa-user-group"></i></div><div class="stat-val" id="stTraders">—</div><div class="stat-lbl">Active Traders</div></div>
+        <div class="stat-card gold">
+          <div class="stat-ico gold"><i class="fas fa-users"></i></div>
+          <div class="stat-val" id="stUsers">—</div>
+          <div class="stat-lbl">Total Users</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-ico green"><i class="fas fa-arrow-down-to-line"></i></div>
+          <div class="stat-val" id="stDeps">—</div>
+          <div class="stat-lbl">Total Deposited</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-ico blue"><i class="fas fa-chart-line"></i></div>
+          <div class="stat-val" id="stInvs">—</div>
+          <div class="stat-lbl">Active Investments</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-ico red"><i class="fas fa-clock"></i></div>
+          <div class="stat-val" id="stPendWd">—</div>
+          <div class="stat-lbl">Pending Withdrawals</div>
+        </div>
       </div>
 
-      <div class="grid-2-1" style="gap:20px">
-        <div>
-          <div class="card" style="padding:0;margin-bottom:20px">
-            <div style="padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-              <div class="card-title" style="margin:0">Pending Actions</div>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-ghost btn-sm" id="accrualBtn" onclick="triggerAccrual()"><i class="fas fa-bolt"></i> Force Accrual</button>
-                <button class="btn btn-ghost btn-sm" onclick="loadAll()"><i class="fas fa-rotate"></i> Refresh</button>
-              </div>
+      <div class="grid-2-1" style="margin-bottom:22px">
+
+        <!-- PENDING ACTIONS TABLE -->
+        <div class="card">
+          <div class="s-hd">
+            <div>
+              <div class="card-title">Pending Actions</div>
+              <div class="card-sub" style="margin-bottom:0">Deposits and withdrawals awaiting approval</div>
             </div>
-            <div id="pendingTable"><div class="tbl-empty"><i class="fas fa-check-circle" style="color:var(--green)"></i><p>All caught up!</p></div></div>
+            <button class="btn btn-ghost btn-sm" onclick="loadAll()"><i class="fas fa-rotate"></i> Refresh</button>
+          </div>
+          <div id="pendTable">
+            <div class="tbl-empty"><i class="fas fa-circle-check" style="color:#16a34a"></i><p>Loading pending items...</p></div>
           </div>
         </div>
-        <div>
-          <div class="card" style="padding:0;margin-bottom:20px">
-            <div style="padding:18px 22px;border-bottom:1px solid var(--border)"><div class="card-title" style="margin:0">Recent Signups</div></div>
-            <div id="recentUsersTable"></div>
+
+        <!-- RECENT SIGNUPS -->
+        <div class="card">
+          <div class="card-title">Recent Signups</div>
+          <div class="card-sub">Newest registered users</div>
+          <div id="recentUsersTable">
+            <div class="tbl-empty"><i class="fas fa-users"></i><p>Loading...</p></div>
           </div>
+        </div>
+
+      </div>
+
+      <!-- SECONDARY STATS -->
+      <div class="grid-3">
+        <div class="stat-card purple">
+          <div class="stat-ico purple"><i class="fas fa-arrow-up-from-line"></i></div>
+          <div class="stat-val" id="stWd">—</div>
+          <div class="stat-lbl">Total Withdrawn</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-ico amber"><i class="fas fa-hourglass-half"></i></div>
+          <div class="stat-val" id="stPendDep">—</div>
+          <div class="stat-lbl">Pending Deposits</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-ico green"><i class="fas fa-coins"></i></div>
+          <div class="stat-val" id="stProfit">—</div>
+          <div class="stat-lbl">Total Profit Paid</div>
         </div>
       </div>
     </div>
 
-    <!-- ══════════════ USERS ══════════════ -->
+    <!-- ══════ USERS ══════ -->
     <div class="pg" id="pg-users">
       <div class="s-hd">
         <div class="s-title">All Users</div>
         <div class="s-actions">
-          <div class="search-wrap"><i class="fas fa-magnifying-glass"></i>
-            <input type="text" class="f-inp search-inp" id="userSearch" placeholder="Search name or email…" oninput="filterUsers()">
+          <div style="position:relative">
+            <i class="fas fa-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem"></i>
+            <input type="text" class="f-inp" id="userSearch" placeholder="Search name or email..." style="padding-left:34px;width:220px" oninput="filterUsers()">
           </div>
         </div>
       </div>
-      <div class="tbl-wrap"><div id="usersTable"></div></div>
+      <div class="card" style="padding:0">
+        <div class="tbl-wrap">
+          <div id="usersTable"><div class="tbl-empty"><i class="fas fa-users"></i><p>Loading users...</p></div></div>
+        </div>
+      </div>
     </div>
 
-    <!-- ══════════════ DEPOSITS ══════════════ -->
+    <!-- ══════ DEPOSITS ══════ -->
     <div class="pg" id="pg-deposits">
       <div class="s-hd">
         <div class="s-title">Deposit Requests</div>
         <div class="s-actions">
-          <select class="f-sel" id="depFilter" style="width:140px" onchange="filterDeposits()">
-            <option value="">All Status</option><option value="pending">Pending</option>
-            <option value="confirmed">Confirmed</option><option value="rejected">Rejected</option>
+          <select class="f-sel" style="width:160px" id="depFilter" onchange="filterDeposits()">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="rejected">Rejected</option>
           </select>
         </div>
       </div>
-      <div class="tbl-wrap"><div id="depositsTable"></div></div>
+      <div class="card" style="padding:0">
+        <div class="tbl-wrap">
+          <div id="depositsTable"><div class="tbl-empty"><i class="fas fa-arrow-down-to-line"></i><p>Loading deposits...</p></div></div>
+        </div>
+      </div>
     </div>
 
-    <!-- ══════════════ WITHDRAWALS ══════════════ -->
+    <!-- ══════ WITHDRAWALS ══════ -->
     <div class="pg" id="pg-withdrawals">
       <div class="s-hd">
         <div class="s-title">Withdrawal Requests</div>
         <div class="s-actions">
-          <select class="f-sel" id="wdFilter" style="width:140px" onchange="filterWithdrawals()">
-            <option value="">All Status</option><option value="pending">Pending</option>
-            <option value="approved">Approved</option><option value="rejected">Rejected</option>
+          <select class="f-sel" style="width:160px" id="wdFilter" onchange="filterWithdrawals()">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
           </select>
         </div>
       </div>
-      <div class="tbl-wrap"><div id="withdrawalsTable"></div></div>
-    </div>
-
-    <!-- ══════════════ INVESTMENTS ══════════════ -->
-    <div class="pg" id="pg-investments">
-      <div class="s-hd">
-        <div class="s-title">Investments</div>
-        <button class="btn btn-approve" onclick="bulkActivate()" id="bulkActivateBtn" style="display:none">
-          <i class="fas fa-bolt"></i> Activate All Eligible
-        </button>
-      </div>
-
-      <!-- Pending Activations Panel -->
-      <div id="pendingActivationsWrap" style="margin-bottom:22px;display:none">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div>
-            <div style="font-size:15px;font-weight:800;color:#92400e">
-              <i class="fas fa-hourglass-half" style="color:#d97706;margin-right:6px"></i>
-              Pending Activations — Fully Funded, Awaiting Your Action
-            </div>
-            <div style="font-size:13px;color:#78350f;margin-top:2px">
-              These users have paid in full. Click <strong>Activate</strong> to start their investment.
-            </div>
-          </div>
+      <div class="card" style="padding:0">
+        <div class="tbl-wrap">
+          <div id="withdrawalsTable"><div class="tbl-empty"><i class="fas fa-arrow-up-from-line"></i><p>Loading withdrawals...</p></div></div>
         </div>
-        <div id="pendingActivationsTable"></div>
       </div>
-
-      <!-- All investments table -->
-      <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">All Investments</div>
-      <div class="tbl-wrap"><div id="investmentsTable"></div></div>
     </div>
 
-    <!-- ══════════════ MANAGE TRADERS ══════════════ -->
-    <div class="pg" id="pg-traders">
-      <div class="grid-2-1" style="gap:22px;align-items:start">
+    <!-- ══════ INVESTMENTS ══════ -->
+    <div class="pg" id="pg-investments">
+      <div class="s-hd"><div class="s-title">All Investments</div></div>
+      <div class="card" style="padding:0">
+        <div class="tbl-wrap">
+          <div id="investmentsTable"><div class="tbl-empty"><i class="fas fa-chart-line"></i><p>Loading investments...</p></div></div>
+        </div>
+      </div>
+    </div>
 
-        <!-- Trader List -->
-        <div>
-          <div class="s-hd">
-            <div class="s-title">Trader Directory</div>
-            <div class="s-actions">
-              <div class="search-wrap"><i class="fas fa-magnifying-glass"></i>
-                <input type="text" class="f-inp search-inp" id="traderSearch" placeholder="Search…" oninput="renderAdminTraders()">
-              </div>
-              <select class="f-sel" id="traderCatFilter" style="width:130px" onchange="renderAdminTraders()">
-                <option value="">All</option><option value="trader">Traders</option>
-                <option value="academy">Academies</option><option value="prop_firm">Prop Firms</option>
+    <!-- ══════ CREDIT BALANCE ══════ -->
+    <div class="pg" id="pg-credit">
+      <div style="max-width:560px">
+        <div class="card">
+          <div class="card-title">Credit / Debit User Balance</div>
+          <div class="card-sub">Manually adjust a user's available balance. All adjustments are logged in the audit trail.</div>
+          <div class="alert" id="creditAlert"></div>
+          <div class="f-grp">
+            <label class="f-lbl">User Email Address</label>
+            <input type="email" class="f-inp" id="creditEmail" placeholder="user@example.com">
+          </div>
+          <div class="f-row">
+            <div class="f-grp">
+              <label class="f-lbl">Amount (USD)</label>
+              <input type="number" class="f-inp" id="creditAmt" placeholder="e.g. 500.00" step="0.01">
+            </div>
+            <div class="f-grp">
+              <label class="f-lbl">Adjustment Type</label>
+              <select class="f-sel" id="creditType">
+                <option value="credit">Credit (+)</option>
+                <option value="debit">Debit (−)</option>
               </select>
             </div>
           </div>
-
-          <div class="note-box" style="margin-bottom:16px">
-            <i class="fas fa-triangle-exclamation"></i>
-            <div>All entries are <strong>Unverified</strong> by default. Set status to "Verified Identity" or "Verified Performance" only when supporting proof has been uploaded below.</div>
+          <div class="f-grp">
+            <label class="f-lbl">Reason / Note</label>
+            <textarea class="f-ta" id="creditNote" placeholder="e.g. Manual deposit approval, bonus credit, correction..."></textarea>
           </div>
-
-          <div id="traderAdminGrid" style="display:grid;gap:14px">
-            <div class="tbl-empty"><i class="fas fa-spinner spin"></i><p>Loading…</p></div>
-          </div>
-        </div>
-
-        <!-- Add/Edit Trader Form -->
-        <div>
-          <div class="card" id="traderFormCard">
-            <div class="card-title" id="traderFormTitle"><i class="fas fa-plus"></i> Add New Trader</div>
-            <div class="card-sub">Fields marked * are required. Unverified status is the default — never claim verified without proof.</div>
-            <div class="alert" id="traderAlert"></div>
-
-            <input type="hidden" id="editTraderId">
-
-            <div class="f-grp"><label class="f-lbl">Name *</label><input type="text" class="f-inp" id="tName" placeholder="e.g. Alex Morgan"></div>
-            <div class="f-row">
-              <div class="f-grp"><label class="f-lbl">Handle</label><input type="text" class="f-inp" id="tHandle" placeholder="@handle"></div>
-              <div class="f-grp">
-                <label class="f-lbl">Category *</label>
-                <select class="f-sel" id="tCategory">
-                  <option value="trader">Trader</option>
-                  <option value="academy">Academy / Channel</option>
-                  <option value="prop_firm">Prop Firm / Partner</option>
-                </select>
-              </div>
-            </div>
-            <div class="f-grp"><label class="f-lbl">Bio</label><textarea class="f-ta" id="tBio" placeholder="Short description…"></textarea></div>
-            <div class="f-grp"><label class="f-lbl">Photo URL</label><input type="url" class="f-inp" id="tPhoto" placeholder="https://…"></div>
-            <div class="f-row">
-              <div class="f-grp"><label class="f-lbl">Markets (comma-separated)</label><input type="text" class="f-inp" id="tMarkets" placeholder="forex,crypto,stocks"></div>
-              <div class="f-grp"><label class="f-lbl">Strategy Tags</label><input type="text" class="f-inp" id="tTags" placeholder="scalping,swing trading"></div>
-            </div>
-            <div class="f-row">
-              <div class="f-grp">
-                <label class="f-lbl">Risk Level</label>
-                <select class="f-sel" id="tRisk"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select>
-              </div>
-              <div class="f-grp"><label class="f-lbl">Reported ROI</label><input type="text" class="f-inp" id="tROI" placeholder="e.g. +142% (reported)"></div>
-            </div>
-            <div class="f-row-3">
-              <div class="f-grp"><label class="f-lbl">Followers</label><input type="text" class="f-inp" id="tFollowers" placeholder="8.2K"></div>
-              <div class="f-grp"><label class="f-lbl">Copiers</label><input type="text" class="f-inp" id="tCopiers" placeholder="3.1K"></div>
-              <div class="f-grp"><label class="f-lbl">Accuracy</label><input type="text" class="f-inp" id="tAccuracy" placeholder="91%"></div>
-            </div>
-            <div class="f-grp"><label class="f-lbl">YouTube URL</label><input type="url" class="f-inp" id="tYT" placeholder="https://youtube.com/@handle"></div>
-            <div class="f-row">
-              <div class="f-grp"><label class="f-lbl">Twitter / X URL</label><input type="url" class="f-inp" id="tTwitter" placeholder="https://x.com/handle"></div>
-              <div class="f-grp"><label class="f-lbl">Website URL</label><input type="url" class="f-inp" id="tWebsite" placeholder="https://…"></div>
-            </div>
-            <div class="f-row">
-              <div class="f-grp">
-                <label class="f-lbl">Verification Status</label>
-                <select class="f-sel" id="tVerif">
-                  <option value="unverified">Unverified</option>
-                  <option value="identity_verified">Verified Identity</option>
-                  <option value="performance_verified">Verified Performance</option>
-                </select>
-              </div>
-              <div class="f-grp"><label class="f-lbl">Sort Order</label><input type="number" class="f-inp" id="tOrder" placeholder="0" value="0" min="0"></div>
-            </div>
-
-            <div class="note-box" style="margin-bottom:16px">
-              <i class="fas fa-shield-halved"></i>
-              <div>Only set "Verified Identity" or "Verified Performance" after uploading proof documents below. Users see this badge publicly.</div>
-            </div>
-
-            <div style="display:flex;gap:10px;margin-bottom:0">
-              <button class="btn btn-gold" style="flex:1" id="traderSaveBtn" onclick="saveTrader()"><i class="fas fa-check"></i> Save Trader</button>
-              <button class="btn btn-ghost" onclick="resetTraderForm()"><i class="fas fa-xmark"></i> Reset</button>
-            </div>
-          </div>
-
-          <!-- Add Proof -->
-          <div class="card" style="margin-top:16px" id="proofCard">
-            <div class="card-title"><i class="fas fa-file-shield"></i> Add Verification Proof</div>
-            <div class="card-sub">Upload proof for the currently selected trader before changing verification status.</div>
-            <div class="alert" id="proofAlert"></div>
-            <div class="f-grp">
-              <label class="f-lbl">Select Trader</label>
-              <select class="f-sel" id="proofTraderId"><option value="">— Choose trader —</option></select>
-            </div>
-            <div class="f-row">
-              <div class="f-grp">
-                <label class="f-lbl">Proof Type</label>
-                <select class="f-sel" id="proofType">
-                  <option value="identity">Identity Document</option>
-                  <option value="track_record">Track Record / Statement</option>
-                  <option value="broker_statement">Broker Statement</option>
-                  <option value="audit">Independent Audit</option>
-                </select>
-              </div>
-              <div class="f-grp"><label class="f-lbl">Date Verified</label><input type="date" class="f-inp" id="proofDate"></div>
-            </div>
-            <div class="f-grp"><label class="f-lbl">Link / URL to proof</label><input type="url" class="f-inp" id="proofLink" placeholder="https://…"></div>
-            <div class="f-grp"><label class="f-lbl">Admin Note</label><textarea class="f-ta" id="proofNote" placeholder="Notes about this proof document…" style="min-height:60px"></textarea></div>
-            <button class="btn btn-dark btn-full" id="proofSaveBtn" onclick="saveProof()"><i class="fas fa-upload"></i> Upload Proof</button>
-          </div>
+          <div class="note-box" style="margin-bottom:18px"><i class="fas fa-triangle-exclamation"></i> This directly modifies the user's balance. Double-check the email and amount before submitting.</div>
+          <button class="btn btn-gold btn-full" id="creditBtn" onclick="doCredit()"><i class="fas fa-check"></i> Apply Balance Adjustment</button>
         </div>
       </div>
     </div>
 
-    <!-- ══════════════ PROFIT CREDIT ══════════════ -->
-    <div class="pg" id="pg-credit">
-      <div class="grid-2" style="gap:22px;align-items:start">
-        <div>
-          <div class="card">
-            <div class="card-title"><i class="fas fa-circle-plus" style="color:var(--green)"></i> Issue Profit Credit</div>
-            <div class="card-sub">Credit shows immediately as <strong>Total Profit</strong> and <strong>Available Balance</strong> on the user's dashboard. Every action is audit-logged.</div>
-
-            <div class="info-box" style="margin-bottom:18px">
-              <i class="fas fa-circle-info"></i>
-              <div><strong>Ledger-based:</strong> Credits go to <code>PROFIT_CREDIT</code> — directly adds to the user's Total Profit and withdrawable Available Balance. Debits subtract in the same way. No manual SQL needed.</div>
-            </div>
-
-            <div class="alert" id="creditAlert"></div>
-
-            <div class="f-grp">
-              <label class="f-lbl">User Email Address *</label>
-              <input type="email" class="f-inp" id="creditEmail" placeholder="user@example.com">
-            </div>
-            <div class="f-row">
-              <div class="f-grp">
-                <label class="f-lbl">Amount (USD) *</label>
-                <input type="number" class="f-inp" id="creditAmt" placeholder="e.g. 250.00" step="0.01" min="0.01">
-              </div>
-              <div class="f-grp">
-                <label class="f-lbl">Action Type</label>
-                <select class="f-sel" id="creditType">
-                  <option value="credit">➕ Profit Credit — adds to balance</option>
-                  <option value="debit">➖ Admin Debit — removes from balance</option>
-                </select>
-              </div>
-            </div>
-            <div class="f-grp">
-              <label class="f-lbl">Reason / Audit Note *</label>
-              <textarea class="f-ta" id="creditNote" placeholder="e.g. Manual profit allocation — February trading cycle, Bonus for referral milestone, Error correction…" style="min-height:80px"></textarea>
-            </div>
-
-            <div class="note-box" style="margin-bottom:18px">
-              <i class="fas fa-triangle-exclamation"></i>
-              <div>Credits are labeled <strong>"Admin credit"</strong> on the user's transaction ledger — not as guaranteed returns. Double-check before submitting. This action is irreversible without a manual debit.</div>
-            </div>
-
-            <button class="btn btn-gold btn-full" id="creditBtn" onclick="doCredit()">
-              <i class="fas fa-check"></i> Apply &amp; Log to Ledger
-            </button>
-          </div>
-        </div>
-
-        <!-- Recent Credits Ledger -->
-        <div class="card" style="padding:0">
-          <div style="padding:18px 22px;border-bottom:1px solid var(--border)">
-            <div class="card-title" style="margin:0">Recent Ledger Credits</div>
-          </div>
-          <div id="recentCredits" style="padding:14px">
-            <div class="tbl-empty"><i class="fas fa-clock-rotate-left"></i><p>No credits yet.</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════ AUDIT LOGS ══════════════ -->
-    <div class="pg" id="pg-audit">
-      <div class="s-hd">
-        <div class="s-title">Audit Log</div>
-        <div class="s-actions">
-          <select class="f-sel" id="auditFilter" style="width:180px" onchange="renderAudit()">
-            <option value="">All Actions</option>
-            <option value="PROFIT_CREDIT">Profit Credits</option>
-            <option value="ADMIN_DEBIT">Admin Debits</option>
-            <option value="DEPOSIT_APPROVED">Deposits Approved</option>
-            <option value="DEPOSIT_REJECTED">Deposits Rejected</option>
-            <option value="WITHDRAWAL_APPROVED">Withdrawals Approved</option>
-            <option value="WITHDRAWAL_REJECTED">Withdrawals Rejected</option>
-            <option value="TRADER_CREATED">Traders Created</option>
-            <option value="TRADER_UPDATED">Traders Updated</option>
-          </select>
-          <button class="btn btn-ghost btn-sm" onclick="loadAuditLogs()"><i class="fas fa-rotate"></i> Refresh</button>
-        </div>
-      </div>
-
-      <div class="info-box" style="margin-bottom:18px">
-        <i class="fas fa-scroll"></i>
-        <div>Every admin action is immutably logged here — who did what, to which account, when, and how much. This cannot be edited or deleted.</div>
-      </div>
-
-      <div id="auditList">
-        <div class="tbl-empty"><i class="fas fa-spinner spin"></i><p>Loading audit logs…</p></div>
-      </div>
-    </div>
-
-
-    <!-- ══════════════ SUPPORT MESSAGES ══════════════ -->
-    <div class="pg" id="pg-support">
-      <div class="s-hd">
-        <div class="s-title">Support Messages</div>
-        <div class="s-actions">
-          <button class="btn btn-ghost btn-sm" onclick="loadSupportMessages()"><i class="fas fa-rotate"></i> Refresh</button>
-        </div>
-      </div>
-      <div class="info-box" style="margin-bottom:18px">
-        <i class="fas fa-headset"></i>
-        <div>Messages sent via the live chat widget or contact form. Click <strong>Reply</strong> to respond directly to the user's email.</div>
-      </div>
-      <div id="supportMsgList">
-        <div class="tbl-empty"><i class="fas fa-spinner spin"></i><p>Loading messages…</p></div>
-      </div>
-    </div>
-
-    <!-- ══════════════ SETTINGS ══════════════ -->
+    <!-- ══════ SETTINGS ══════ -->
     <div class="pg" id="pg-settings">
       <div style="max-width:560px;display:flex;flex-direction:column;gap:20px">
         <div class="card">
           <div class="card-title">Platform Settings</div>
-          <div class="card-sub">Global configuration for all platform limits and fees</div>
+          <div class="card-sub">General platform configuration</div>
           <div class="alert" id="settingsAlert"></div>
           <div class="f-grp"><label class="f-lbl">Platform Name</label><input type="text" class="f-inp" id="setPlatName" value="CopyVestPro"></div>
           <div class="f-row">
@@ -684,11 +510,12 @@ tbody tr:hover{background:var(--bg)}
         </div>
         <div class="card">
           <div class="card-title">Change Admin Password</div>
+          <div class="card-sub">Use a strong password of at least 8 characters</div>
           <div class="alert" id="pwAlert"></div>
           <div class="f-grp"><label class="f-lbl">Current Password</label><input type="password" class="f-inp" id="curPw" placeholder="••••••••"></div>
           <div class="f-row">
             <div class="f-grp"><label class="f-lbl">New Password</label><input type="password" class="f-inp" id="newPw" placeholder="Min 8 characters"></div>
-            <div class="f-grp"><label class="f-lbl">Confirm</label><input type="password" class="f-inp" id="conPw" placeholder="Repeat new password"></div>
+            <div class="f-grp"><label class="f-lbl">Confirm New</label><input type="password" class="f-inp" id="conPw" placeholder="Repeat new password"></div>
           </div>
           <button class="btn btn-dark btn-full" onclick="changeAdmPw()"><i class="fas fa-key"></i> Change Password</button>
         </div>
@@ -699,49 +526,47 @@ tbody tr:hover{background:var(--bg)}
 </div><!-- /main -->
 </div><!-- /layout -->
 
-<!-- ══════ USER DETAIL MODAL ══════ -->
+<!-- ═══ USER DETAIL MODAL ═══ -->
 <div class="modal-bg" id="modal">
   <div class="modal">
     <div class="modal-head">
       <div class="modal-title" id="modalTitle">User Details</div>
-      <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body" id="modalBody"></div>
-    <div class="modal-foot">
+    <div class="modal-foot" id="modalActions">
       <button class="btn btn-ghost" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
 
-<!-- ══════ SCREENSHOT MODAL ══════ -->
+<!-- ═══ DEPOSIT SCREENSHOT MODAL ═══ -->
 <div class="modal-bg" id="ssModal">
-  <div class="modal" style="max-width:700px">
-    <div class="modal-head"><div class="modal-title">Payment Screenshot</div>
-      <button class="modal-close" onclick="document.getElementById('ssModal').classList.remove('on')"><i class="fas fa-xmark"></i></button>
+  <div class="modal" style="max-width:640px">
+    <div class="modal-head">
+      <div class="modal-title">Payment Screenshot</div>
+      <button class="modal-close" onclick="document.getElementById('ssModal').classList.remove('on')"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body" style="text-align:center">
       <img id="ssImg" src="" style="max-width:100%;border-radius:var(--r-sm);display:block;margin:0 auto">
     </div>
-    <div class="modal-foot"><button class="btn btn-ghost" onclick="document.getElementById('ssModal').classList.remove('on')">Close</button></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="document.getElementById('ssModal').classList.remove('on')">Close</button>
+    </div>
   </div>
 </div>
 
 <script>
-/* ══════════════════════════════════════
-   CONFIG & AUTH
-══════════════════════════════════════ */
+/* ═══════════ INIT ═══════════ */
 const API   = 'https://copyvestpro-backend-production.up.railway.app';
 const token = localStorage.getItem('cvp_token');
 const user  = JSON.parse(localStorage.getItem('cvp_user') || '{}');
+
 if (!token || !user.is_admin) window.location.href = 'login.html';
 
-let allUsers=[], allDeposits=[], allWithdrawals=[], allInvestments=[], allTraders=[], allAudit=[];
+let allUsers=[], allDeposits=[], allWithdrawals=[], allInvestments=[];
 
-const TITLES = {
-  overview:'Dashboard', users:'All Users', deposits:'Deposits', withdrawals:'Withdrawals',
-  investments:'Investments', traders:'Manage Traders', credit:'Profit Credit',
-  audit:'Audit Log', settings:'Settings'
-};
+const TITLES = {overview:'Dashboard',users:'All Users',deposits:'Deposits',withdrawals:'Withdrawals',investments:'Investments',credit:'Credit Balance',settings:'Settings'};
 
 window.addEventListener('DOMContentLoaded', () => {
   const n = user.full_name || user.name || 'Admin';
@@ -751,65 +576,51 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function $(id){ return document.getElementById(id); }
-function fm(v){ return '$'+parseFloat(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-function fd(d){ return d?new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—'; }
+function fm(v){ return '$' + parseFloat(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fd(d){ return d ? new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—'; }
 async function af(url,opts={}){
   return fetch(`${API}${url}`,{...opts,headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`,...(opts.headers||{})}});
 }
 
-/* ══════════════════════════════════════
-   LOAD ALL
-══════════════════════════════════════ */
+/* ═══════════ LOAD ALL ═══════════ */
 async function loadAll(){
-  await Promise.all([loadStats(), loadUsers(), loadDeposits(), loadWithdrawals(), loadInvestments(), loadTraders()]);
-  loadSupportMessages();
+  await Promise.all([loadStats(),loadUsers(),loadDeposits(),loadWithdrawals(),loadInvestments()]);
 }
 
-/* ══════════════════════════════════════
-   STATS
-══════════════════════════════════════ */
+/* ═══════════ STATS ═══════════ */
 async function loadStats(){
   try{
     const r = await af('/api/admin/stats');
     if(r.status===401){ logout(); return; }
-    if(!r.ok){ const e=await r.text(); throw new Error(`HTTP ${r.status}: ${e.slice(0,80)}`); }
     const d = await r.json();
     $('stUsers').textContent   = d.total_users||0;
     $('stDeps').textContent    = fm(d.total_deposits);
     $('stInvs').textContent    = d.active_investments||0;
-    $('stProfit').textContent  = fm(d.total_profit_paid||0);
-    $('stPendDep').textContent = d.pending_deposits||0;
     $('stPendWd').textContent  = d.pending_withdrawals||0;
     $('stWd').textContent      = fm(d.total_withdrawn);
+    $('stPendDep').textContent = d.pending_deposits||0;
+    $('stProfit').textContent  = fm(d.total_profit||0);
     $('depCt').textContent     = d.pending_deposits||0;
     $('wdCt').textContent      = d.pending_withdrawals||0;
-  }catch(e){ console.error('stats:', e); $('stErr').textContent='Stats error: '+e.message; $('stErr').style.display='block'; }
+  }catch(e){ console.log('stats:', e); }
 }
 
-/* ══════════════════════════════════════
-   USERS
-══════════════════════════════════════ */
+/* ═══════════ USERS ═══════════ */
 async function loadUsers(){
   try{
     const r = await af('/api/admin/users');
-    if(r.status===401){ logout(); return; }
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    allUsers = await r.json()||[];
-    if(!Array.isArray(allUsers)) throw new Error('Bad response');
+    allUsers = await r.json() || [];
     renderUsers(allUsers);
     renderRecentUsers(allUsers.slice(0,5));
-  }catch(e){ $('usersTable').innerHTML = tblEmpty('fa-circle-exclamation',`Failed to load users — ${e.message}. <button onclick="loadUsers()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
-}
-
-function filterUsers(){
-  const q = $('userSearch').value.toLowerCase();
-  renderUsers(q ? allUsers.filter(u=>(u.full_name||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q)) : allUsers);
+  }catch(e){
+    $('usersTable').innerHTML = tblEmpty('fa-circle-exclamation','Failed to load users.');
+  }
 }
 
 function renderRecentUsers(users){
   const el = $('recentUsersTable');
-  if(!users.length){ el.innerHTML=tblEmpty('fa-users','No users yet.'); return; }
-  el.innerHTML=`<div class="tbl-wrap"><table>
+  if(!users.length){ el.innerHTML = tblEmpty('fa-users','No users yet.'); return; }
+  el.innerHTML = `<div class="tbl-wrap"><table>
     <thead><tr><th>User</th><th>Joined</th><th>Status</th></tr></thead>
     <tbody>${users.map(u=>`<tr>
       <td class="td-user"><div class="name">${u.full_name||'—'}</div><div class="email">${u.email}</div></td>
@@ -821,94 +632,63 @@ function renderRecentUsers(users){
 
 function renderUsers(users){
   const el = $('usersTable');
-  if(!users.length){ el.innerHTML=tblEmpty('fa-users','No users found.'); return; }
-  el.innerHTML=`<table>
-    <thead><tr><th>User</th><th>Country</th><th>Balance</th><th>Profit</th><th>Deposited</th><th>Investments</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead>
+  if(!users.length){ el.innerHTML = tblEmpty('fa-users','No users found.'); return; }
+  el.innerHTML = `<table>
+    <thead><tr><th>User</th><th>Country</th><th>Balance</th><th>Deposited</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead>
     <tbody>${users.map(u=>`<tr>
       <td class="td-user"><div class="name">${u.full_name||'—'}</div><div class="email">${u.email}</div></td>
       <td style="font-size:13px;color:var(--muted)">${u.country||'—'}</td>
-      <td style="font-weight:700">${fm(u.balance)}</td>
-      <td style="color:var(--green);font-weight:600">${fm(u.total_profit)}</td>
-      <td>${fm(u.total_deposited)}</td>
-      <td style="text-align:center">${u.active_investments||0}</td>
-      <td style="font-size:13px;color:var(--muted);white-space:nowrap">${fd(u.created_at)}</td>
+      <td style="font-weight:700;color:var(--gold-d)">${fm(u.balance)}</td>
+      <td style="font-weight:600">${fm(u.total_deposited)}</td>
+      <td style="font-size:13px;color:var(--muted)">${fd(u.created_at)}</td>
       <td><span class="badge ${u.status==='active'?'badge-green':u.status==='suspended'?'badge-red':'badge-amber'}">${u.status||'active'}</span></td>
       <td><div class="act-row">
-        <button class="btn btn-view btn-sm" onclick="viewUser('${u.id}')"><i class="fas fa-eye"></i></button>
-        ${u.status!=='suspended'
-          ?`<button class="btn btn-reject btn-sm" onclick="suspendUser('${u.id}')"><i class="fas fa-ban"></i></button>`
-          :`<button class="btn btn-approve btn-sm" onclick="activateUser('${u.id}')"><i class="fas fa-check"></i></button>`}
-        <button class="btn btn-ghost btn-sm" onclick="quickCredit('${u.email}')"><i class="fas fa-circle-plus"></i></button>
-        <button class="btn btn-reject btn-sm" onclick="deleteUser('${u.id}','${u.full_name||u.email}')" title="Delete account" style="background:#fee2e2;color:#dc2626;border-color:#fecaca"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-view btn-sm" onclick="viewUser('${u.id}')"><i class="fas fa-eye"></i> View</button>
+        <button class="btn ${u.status==='active'?'btn-reject':'btn-approve'} btn-sm" onclick="toggleUser('${u.id}','${u.status}')">
+          ${u.status==='active'?'<i class="fas fa-ban"></i> Suspend':'<i class="fas fa-check"></i> Activate'}
+        </button>
+        <button class="btn btn-sm" style="background:#fee2e2;color:#dc2626;border:1px solid #fca5a5" onclick="deleteUser('${u.id}','${(u.full_name||u.email).replace(/'/g,'')}')"><i class="fas fa-trash"></i></button>
       </div></td>
-    </tr>`).join('')}
-    </tbody></table>`;
+    </tr>`).join('')}</tbody>
+  </table>`;
 }
 
-async function suspendUser(id){
-  if(!confirm('Suspend this user?')) return;
-  const r = await af(`/api/admin/users/${id}/suspend`,{method:'POST'});
-  if(r.ok){ toast('User suspended','ok'); loadUsers(); } else toast('Failed','err');
-}
-async function activateUser(id){
-  const r = await af(`/api/admin/users/${id}/activate`,{method:'POST'});
-  if(r.ok){ toast('User activated','ok'); loadUsers(); } else toast('Failed','err');
+function filterUsers(){
+  const q = $('userSearch').value.toLowerCase();
+  renderUsers(allUsers.filter(u=>(u.full_name||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q)));
 }
 
-async function deleteUser(id, name){
-  const confirmed = confirm(`⚠️ PERMANENTLY DELETE "${name}"?\n\nThis will remove their account, all deposits, withdrawals, investments and balance data.\n\nThis CANNOT be undone. Type DELETE to confirm.`);
-  if(!confirmed) return;
-  const typed = prompt('Type DELETE to confirm:');
-  if(typed !== 'DELETE'){ toast('Cancelled — you must type DELETE exactly','err'); return; }
-  const r = await af(`/api/admin/users/${id}/delete`,{method:'DELETE'});
-  if(r.ok){ toast('Account deleted','ok'); loadUsers(); loadStats(); }
-  else { const d=await r.json().catch(()=>({})); toast(d.error||'Delete failed','err'); }
-}
-
-function quickCredit(email){
-  $('creditEmail').value = email;
-  goTo('credit', document.querySelector('.sb-link[onclick*="credit"]'));
-  $('creditAmt').focus();
-}
-
-function viewUser(id){
-  const u = allUsers.find(x=>x.id===id);
-  if(!u) return;
-  $('modalTitle').textContent = u.full_name||'User Details';
-  $('modalBody').innerHTML=`
-    <div class="modal-row"><span class="lbl">Full Name</span><span class="val">${u.full_name||'—'}</span></div>
-    <div class="modal-row"><span class="lbl">Email</span><span class="val">${u.email}</span></div>
-    <div class="modal-row"><span class="lbl">Country</span><span class="val">${u.country||'—'}</span></div>
-    <div class="modal-row"><span class="lbl">Phone</span><span class="val">${u.phone||'—'}</span></div>
-    <div class="modal-row"><span class="lbl">Available Balance</span><span class="val" style="color:var(--green);font-size:1.1rem;font-weight:700">${fm(u.balance)}</span></div>
-    <div class="modal-row"><span class="lbl">Total Profit</span><span class="val" style="color:var(--green)">${fm(u.total_profit)}</span></div>
-    <div class="modal-row"><span class="lbl">Total Deposited</span><span class="val">${fm(u.total_deposited)}</span></div>
-    <div class="modal-row"><span class="lbl">Active Investments</span><span class="val">${u.active_investments||0}</span></div>
-    <div class="modal-row"><span class="lbl">Status</span><span class="val"><span class="badge ${u.status==='active'?'badge-green':u.status==='suspended'?'badge-red':'badge-amber'}">${u.status}</span></span></div>
-    <div class="modal-row"><span class="lbl">Joined</span><span class="val">${fd(u.created_at)}</span></div>
-    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-gold" onclick="quickCredit('${u.email}');closeModal()"><i class="fas fa-circle-plus"></i> Credit Balance</button>
-      ${u.status!=='suspended'
-        ?`<button class="btn btn-ghost" onclick="suspendUser('${u.id}');closeModal()"><i class="fas fa-ban"></i> Suspend</button>`
-        :`<button class="btn btn-approve" onclick="activateUser('${u.id}');closeModal()"><i class="fas fa-check"></i> Activate</button>`}
-      <button class="btn" onclick="deleteUser('${u.id}','${u.full_name||u.email}');closeModal()" style="background:#fee2e2;color:#dc2626;border:1.5px solid #fecaca;padding:9px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px"><i class="fas fa-trash"></i> Delete Account</button>
-    </div>`;
-  $('modal').classList.add('on');
-}
-
-/* ══════════════════════════════════════
-   DEPOSITS
-══════════════════════════════════════ */
+/* ═══════════ DEPOSITS ═══════════ */
 async function loadDeposits(){
   try{
     const r = await af('/api/admin/deposits');
-    if(r.status===401){ logout(); return; }
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    allDeposits = await r.json()||[];
-    if(!Array.isArray(allDeposits)) throw new Error('Bad response');
+    allDeposits = await r.json() || [];
     renderDeposits(allDeposits);
-    renderPendingActions();
-  }catch(e){ $('depositsTable').innerHTML=tblEmpty('fa-circle-exclamation',`Failed to load deposits — ${e.message}. <button onclick="loadDeposits()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
+    buildPendingTable();
+  }catch(e){
+    $('depositsTable').innerHTML = tblEmpty('fa-circle-exclamation','Failed to load deposits.');
+  }
+}
+
+function renderDeposits(deps){
+  const el = $('depositsTable');
+  if(!deps.length){ el.innerHTML = tblEmpty('fa-inbox','No deposits found.'); return; }
+  el.innerHTML = `<table>
+    <thead><tr><th>User</th><th>Amount</th><th>Coin</th><th>Screenshot</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>${deps.map(d=>`<tr>
+      <td class="td-user"><div class="name">${d.user_name||'—'}</div><div class="email">${d.user_email||''}</div></td>
+      <td style="font-weight:700">${fm(d.amount)}</td>
+      <td>${d.coin?`<span class="badge badge-blue">${d.coin}</span>`:'—'}</td>
+      <td>${d.screenshot_url?`<a href="#" class="ss-link" onclick="viewScreenshot('${d.screenshot_url}');return false"><i class="fas fa-image"></i> View</a>`:
+          d.proof_note?`<span style="font-size:12px;color:var(--muted)" title="${d.proof_note}">${d.proof_note.substring(0,30)}${d.proof_note.length>30?'...':''}</span>`:'<span style="color:#ddd;font-size:13px">None</span>'}</td>
+      <td style="font-size:13px;color:var(--muted)">${fd(d.created_at)}</td>
+      <td><span class="badge ${d.status==='confirmed'?'badge-green':d.status==='pending'?'badge-amber':'badge-red'}">${d.status}</span></td>
+      <td>${d.status==='pending'?`<div class="act-row">
+        <button class="btn btn-approve btn-sm" onclick="approveItem('${d.id}','deposit')"><i class="fas fa-check"></i> Approve</button>
+        <button class="btn btn-reject btn-sm" onclick="rejectItem('${d.id}','deposit')"><i class="fas fa-xmark"></i></button>
+      </div>`:`<span style="font-size:12px;color:var(--muted)">Processed</span>`}</td>
+    </tr>`).join('')}</tbody>
+  </table>`;
 }
 
 function filterDeposits(){
@@ -916,55 +696,36 @@ function filterDeposits(){
   renderDeposits(f ? allDeposits.filter(d=>d.status===f) : allDeposits);
 }
 
-function renderDeposits(deps){
-  const el = $('depositsTable');
-  if(!deps.length){ el.innerHTML=tblEmpty('fa-arrow-down-to-line','No deposits found.'); return; }
-  el.innerHTML=`<table>
-    <thead><tr><th>User</th><th>Plan</th><th>Amount</th><th>Coin</th><th>Status</th><th>Date</th><th>Proof</th><th>Actions</th></tr></thead>
-    <tbody>${deps.map(d=>`<tr>
-      <td class="td-user"><div class="name">${d.user_name||'—'}</div><div class="email">${d.user_email||'—'}</div></td>
-      <td style="font-size:13px;font-weight:600">${d.plan_name||'—'}</td>
-      <td style="font-weight:700;font-size:15px">${fm(d.amount)}</td>
-      <td>${d.coin?`<span class="badge badge-blue">${d.coin}</span>`:'—'}</td>
-      <td><span class="badge ${d.status==='confirmed'?'badge-green':d.status==='pending'?'badge-amber':'badge-red'}">${d.status}</span></td>
-      <td style="font-size:13px;color:var(--muted);white-space:nowrap">${fd(d.created_at)}</td>
-      <td>${d.screenshot_url?`<a class="ss-link" href="${d.screenshot_url}" target="_blank"><i class="fas fa-image"></i>View</a>`
-          :d.proof_note?`<span style="font-size:12px;color:var(--muted);max-width:140px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${d.proof_note}">${d.proof_note}</span>`:'<span style="font-size:12px;color:var(--muted)">None</span>'}</td>
-      <td>${d.status==='pending'?`<div class="act-row">
-        <button class="btn btn-approve" onclick="approveDeposit('${d.id}')"><i class="fas fa-check"></i> Approve</button>
-        <button class="btn btn-reject" onclick="rejectDeposit('${d.id}')"><i class="fas fa-xmark"></i></button>
-      </div>`:'-'}</td>
-    </tr>`).join('')}
-    </tbody></table>`;
-}
-
-async function approveDeposit(id){
-  if(!confirm('Approve this deposit and activate investment?')) return;
-  const r = await af(`/api/admin/deposits/${id}/approve`,{method:'POST'});
-  const d = await r.json();
-  if(r.ok){ toast('Deposit approved','ok'); loadStats(); loadDeposits(); }
-  else toast(d.error||'Failed','err');
-}
-async function rejectDeposit(id){
-  if(!confirm('Reject this deposit?')) return;
-  const r = await af(`/api/admin/deposits/${id}/reject`,{method:'POST'});
-  if(r.ok){ toast('Deposit rejected','ok'); loadDeposits(); }
-  else toast('Failed','err');
-}
-
-/* ══════════════════════════════════════
-   WITHDRAWALS
-══════════════════════════════════════ */
+/* ═══════════ WITHDRAWALS ═══════════ */
 async function loadWithdrawals(){
   try{
     const r = await af('/api/admin/withdrawals');
-    if(r.status===401){ logout(); return; }
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    allWithdrawals = await r.json()||[];
-    if(!Array.isArray(allWithdrawals)) throw new Error('Bad response');
+    allWithdrawals = await r.json() || [];
     renderWithdrawals(allWithdrawals);
-    renderPendingActions();
-  }catch(e){ $('withdrawalsTable').innerHTML=tblEmpty('fa-circle-exclamation',`Failed to load withdrawals — ${e.message}. <button onclick="loadWithdrawals()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
+    buildPendingTable();
+  }catch(e){
+    $('withdrawalsTable').innerHTML = tblEmpty('fa-circle-exclamation','Failed to load withdrawals.');
+  }
+}
+
+function renderWithdrawals(wds){
+  const el = $('withdrawalsTable');
+  if(!wds.length){ el.innerHTML = tblEmpty('fa-inbox','No withdrawals found.'); return; }
+  el.innerHTML = `<table>
+    <thead><tr><th>User</th><th>Amount</th><th>Coin</th><th>Wallet Address</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>${wds.map(w=>`<tr>
+      <td class="td-user"><div class="name">${w.user_name||'—'}</div><div class="email">${w.user_email||''}</div></td>
+      <td style="font-weight:700">${fm(w.amount)}</td>
+      <td>${w.coin?`<span class="badge badge-blue">${w.coin}</span>`:'—'}</td>
+      <td><span class="td-mono" title="${w.wallet_address||'—'}">${w.wallet_address||'—'}</span></td>
+      <td style="font-size:13px;color:var(--muted)">${fd(w.created_at)}</td>
+      <td><span class="badge ${w.status==='approved'?'badge-green':w.status==='pending'?'badge-amber':'badge-red'}">${w.status}</span></td>
+      <td>${w.status==='pending'?`<div class="act-row">
+        <button class="btn btn-approve btn-sm" onclick="approveItem('${w.id}','withdrawal')"><i class="fas fa-check"></i> Approve</button>
+        <button class="btn btn-reject btn-sm" onclick="rejectItem('${w.id}','withdrawal')"><i class="fas fa-xmark"></i></button>
+      </div>`:`<span style="font-size:12px;color:var(--muted)">Processed</span>`}</td>
+    </tr>`).join('')}</tbody>
+  </table>`;
 }
 
 function filterWithdrawals(){
@@ -972,633 +733,221 @@ function filterWithdrawals(){
   renderWithdrawals(f ? allWithdrawals.filter(w=>w.status===f) : allWithdrawals);
 }
 
-function renderWithdrawals(wds){
-  const el = $('withdrawalsTable');
-  if(!wds.length){ el.innerHTML=tblEmpty('fa-arrow-up-from-line','No withdrawals found.'); return; }
-  el.innerHTML=`<table>
-    <thead><tr><th>User</th><th>Amount</th><th>Coin</th><th>Wallet</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
-    <tbody>${wds.map(w=>`<tr>
-      <td class="td-user"><div class="name">${w.user_name||'—'}</div><div class="email">${w.user_email||'—'}</div></td>
-      <td style="font-weight:700;font-size:15px">${fm(w.amount)}</td>
-      <td>${w.coin?`<span class="badge badge-blue">${w.coin}</span>`:'—'}</td>
-      <td class="td-mono">${w.wallet_address||'—'}</td>
-      <td><span class="badge ${w.status==='approved'?'badge-green':w.status==='pending'?'badge-amber':'badge-red'}">${w.status}</span></td>
-      <td style="font-size:13px;color:var(--muted);white-space:nowrap">${fd(w.created_at)}</td>
-      <td>${w.status==='pending'?`<div class="act-row">
-        <button class="btn btn-approve" onclick="approveWd('${w.id}')"><i class="fas fa-check"></i> Approve</button>
-        <button class="btn btn-reject" onclick="rejectWd('${w.id}')"><i class="fas fa-xmark"></i></button>
-      </div>`:'-'}</td>
-    </tr>`).join('')}
-    </tbody></table>`;
-}
-
-async function approveWd(id){
-  if(!confirm('Approve this withdrawal?')) return;
-  const r = await af(`/api/admin/withdrawals/${id}/approve`,{method:'POST'});
-  if(r.ok){ toast('Withdrawal approved','ok'); loadStats(); loadWithdrawals(); }
-  else toast('Failed','err');
-}
-async function rejectWd(id){
-  if(!confirm('Reject and refund this withdrawal?')) return;
-  const r = await af(`/api/admin/withdrawals/${id}/reject`,{method:'POST'});
-  if(r.ok){ toast('Withdrawal rejected & refunded','ok'); loadWithdrawals(); }
-  else toast('Failed','err');
-}
-
-/* ══════════════════════════════════════
-   INVESTMENTS
-══════════════════════════════════════ */
-/* ══════════════════════════════════════
-   INVESTMENTS
-══════════════════════════════════════ */
+/* ═══════════ INVESTMENTS ═══════════ */
 async function loadInvestments(){
   try{
-    const [r, pa] = await Promise.all([
-      af('/api/admin/investments'),
-      af('/api/admin/investments/pending-activations'),
-    ]);
-    if(r.status===401){ logout(); return; }
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    allInvestments = await r.json()||[];
-    if(!Array.isArray(allInvestments)) throw new Error('Bad response');
-    // pending-activations is optional (gracefully handle 404 if not deployed yet)
-    const pending = pa.ok ? (await pa.json()||[]) : [];
-    renderPendingActivations(Array.isArray(pending) ? pending : []);
+    const r = await af('/api/admin/investments');
+    allInvestments = await r.json() || [];
     renderInvestments(allInvestments);
-  }catch(e){ $('investmentsTable').innerHTML=tblEmpty('fa-chart-line',`Failed to load investments — ${e.message}. <button onclick="loadInvestments()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
-}
-
-function renderPendingActivations(rows){
-  const wrap = $('pendingActivationsWrap');
-  const btn  = $('bulkActivateBtn');
-  if(!rows.length){ wrap.style.display='none'; btn.style.display='none'; return; }
-  wrap.style.display='block';
-  btn.style.display='inline-flex';
-  const el = $('pendingActivationsTable');
-  el.innerHTML=`
-    <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fde68a;border-radius:14px;overflow:hidden">
-      <table style="border:none">
-        <thead style="background:#fef3c7">
-          <tr>
-            <th style="color:#92400e">User</th>
-            <th style="color:#92400e">Plan</th>
-            <th style="color:#92400e">Funded</th>
-            <th style="color:#92400e">Required</th>
-            <th style="color:#92400e">ROI</th>
-            <th style="color:#92400e">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(r=>`<tr style="background:rgba(255,255,255,0.6)">
-            <td class="td-user">
-              <div class="name">${r.user_name||'—'}</div>
-              <div class="email">${r.user_email||'—'}</div>
-            </td>
-            <td style="font-weight:700;color:#92400e">${r.plan_name}</td>
-            <td style="font-weight:800;color:#16a34a;font-size:15px">${fm(r.funded_total)}</td>
-            <td style="color:var(--muted)">${fm(r.min_deposit)}</td>
-            <td><span class="badge badge-gold">${r.monthly_roi}%/mo</span></td>
-            <td>
-              <button class="btn btn-approve"
-                onclick="activateInvestment('${r.investment_id||''}','${r.user_id}','${r.plan_id}','${r.user_name||r.user_email}')"
-                style="white-space:nowrap">
-                <i class="fas fa-bolt"></i> Activate
-              </button>
-            </td>
-          </tr>`).join('')}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-async function activateInvestment(invId, userId, planId, userName){
-  if(!confirm(`Activate investment for ${userName}?`)) return;
-  let r;
-  if(invId && invId!=='null' && invId!=='undefined'){
-    r = await af(`/api/admin/investments/${invId}/activate`,{method:'POST'});
-  } else {
-    // No investment record yet — use bulk which will create it
-    r = await af('/api/admin/investments/activate-all-pending',{method:'POST'});
-  }
-  const d = await r.json();
-  if(r.ok){ toast(d.message||'Activated!','ok'); loadInvestments(); loadStats(); }
-  else toast(d.error||'Failed','err');
-}
-
-async function bulkActivate(){
-  if(!confirm('Activate ALL fully-funded investments now?')) return;
-  const r = await af('/api/admin/investments/activate-all-pending',{method:'POST'});
-  const d = await r.json();
-  if(r.ok){ toast(d.message||'Done','ok'); loadInvestments(); loadStats(); }
-  else toast(d.error||'Failed','err');
+  }catch(e){}
 }
 
 function renderInvestments(invs){
   const el = $('investmentsTable');
-  if(!invs.length){ el.innerHTML=tblEmpty('fa-chart-line','No investments found.'); return; }
-  el.innerHTML=`<table>
-    <thead><tr><th>User</th><th>Plan</th><th>Principal</th><th>ROI</th><th>Earned</th><th>Start</th><th>Lock</th><th>Status</th><th>Action</th></tr></thead>
+  if(!invs.length){ el.innerHTML = tblEmpty('fa-chart-line','No investments yet.'); return; }
+  el.innerHTML = `<table>
+    <thead><tr><th>User</th><th>Plan</th><th>Principal</th><th>ROI</th><th>Earned</th><th>Next Accrual</th><th>Status</th></tr></thead>
     <tbody>${invs.map(i=>`<tr>
-      <td class="td-user"><div class="name">${i.user_name||'—'}</div><div class="email">${i.user_email||'—'}</div></td>
+      <td class="td-user"><div class="name">${i.user_name||'—'}</div><div class="email">${i.user_email||''}</div></td>
       <td style="font-weight:600">${i.plan_name||'—'}</td>
-      <td style="font-weight:700">${fm(i.principal)}</td>
-      <td><span class="badge badge-gold">${i.monthly_roi}%/mo</span></td>
-      <td style="color:var(--green);font-weight:600">${fm(i.total_earned)}</td>
-      <td style="font-size:13px;color:var(--muted)">${fd(i.start_date)}</td>
-      <td style="font-size:13px;color:var(--muted)">${i.months_elapsed||0}/${i.lock_months} mo</td>
-      <td><span class="badge ${i.status==='active'?'badge-green':i.status==='completed'?'badge-blue':'badge-amber'}">${i.status}</span></td>
-      <td>${i.status!=='active'&&i.status!=='completed'?
-        `<button class="btn btn-approve btn-sm" onclick="activateInvestment('${i.id}','${i.user_id}','${i.plan_id}','${i.user_name||''}')"><i class="fas fa-bolt"></i></button>`
-        :'-'}</td>
-    </tr>`).join('')}
-    </tbody></table>`;
+      <td style="font-weight:700">${fm(i.principal||i.amount)}</td>
+      <td style="font-weight:700;color:var(--gold-d)">${i.monthly_roi||0}%/mo</td>
+      <td style="font-weight:700;color:var(--green)">${fm(i.total_earned||0)}</td>
+      <td style="font-size:13px;color:var(--muted)">${fd(i.next_accrual_date)}</td>
+      <td><span class="badge ${i.status==='active'?'badge-green':i.status==='completed'?'badge-blue':'badge-gray'}">${i.status||'active'}</span></td>
+    </tr>`).join('')}</tbody>
+  </table>`;
 }
 
-/* ══════════════════════════════════════
-   PENDING ACTIONS OVERVIEW
-══════════════════════════════════════ */
-function renderPendingActions(){
-  const pending = [
-    ...allDeposits.filter(d=>d.status==='pending').map(d=>({...d,_type:'deposit'})),
-    ...allWithdrawals.filter(w=>w.status==='pending').map(w=>({...w,_type:'withdrawal'}))
-  ].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-
-  const el = $('pendingTable');
-  if(!pending.length){ el.innerHTML='<div class="tbl-empty"><i class="fas fa-check-circle" style="color:var(--green)"></i><p>All caught up — no pending actions.</p></div>'; return; }
-  el.innerHTML=`<div class="tbl-wrap"><table>
-    <thead><tr><th>Type</th><th>User</th><th>Amount</th><th>Info</th><th>Date</th><th>Actions</th></tr></thead>
-    <tbody>${pending.slice(0,20).map(p=>`<tr>
-      <td><span class="badge ${p._type==='deposit'?'badge-blue':'badge-amber'}">${p._type==='deposit'?'Deposit':'Withdrawal'}</span></td>
-      <td class="td-user"><div class="name">${p.user_name||'—'}</div><div class="email">${p.user_email||'—'}</div></td>
-      <td style="font-weight:700;font-size:15px">${fm(p.amount)}</td>
-      <td style="font-size:13px;color:var(--muted)">${p._type==='deposit'?(p.coin||'CRYPTO'):((p.coin||'')+' '+((p.wallet_address||'').substring(0,14)+'…'))}</td>
-      <td style="font-size:13px;color:var(--muted);white-space:nowrap">${fd(p.created_at)}</td>
+/* ═══════════ PENDING TABLE ═══════════ */
+function buildPendingTable(){
+  const el = $('pendTable');
+  const pd = allDeposits.filter(d=>d.status==='pending').map(d=>({...d,_type:'deposit'}));
+  const pw = allWithdrawals.filter(w=>w.status==='pending').map(w=>({...w,_type:'withdrawal'}));
+  const all = [...pd,...pw].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8);
+  if(!all.length){
+    el.innerHTML = tblEmpty('fa-circle-check','All clear — no pending items','#16a34a');
+    return;
+  }
+  el.innerHTML = `<div class="tbl-wrap"><table>
+    <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Time</th><th>Actions</th></tr></thead>
+    <tbody>${all.map(t=>`<tr>
+      <td class="td-user"><div class="name">${t.user_name||'—'}</div><div class="email">${t.user_email||''}</div></td>
+      <td><span class="badge ${t._type==='deposit'?'badge-blue':'badge-purple'}">${t._type}</span></td>
+      <td style="font-weight:700">${fm(t.amount)}</td>
+      <td style="font-size:12px;color:var(--muted)">${fd(t.created_at)}</td>
       <td><div class="act-row">
-        ${p._type==='deposit'
-          ?`<button class="btn btn-approve" onclick="approveDeposit('${p.id}')"><i class="fas fa-check"></i> Approve</button>
-             <button class="btn btn-reject" onclick="rejectDeposit('${p.id}')"><i class="fas fa-xmark"></i></button>`
-          :`<button class="btn btn-approve" onclick="approveWd('${p.id}')"><i class="fas fa-check"></i> Approve</button>
-             <button class="btn btn-reject" onclick="rejectWd('${p.id}')"><i class="fas fa-xmark"></i></button>`}
+        <button class="btn btn-approve btn-sm" onclick="approveItem('${t.id}','${t._type}')"><i class="fas fa-check"></i> Approve</button>
+        <button class="btn btn-reject btn-sm" onclick="rejectItem('${t.id}','${t._type}')"><i class="fas fa-xmark"></i></button>
       </div></td>
-    </tr>`).join('')}
-    </tbody></table></div>`;
+    </tr>`).join('')}</tbody>
+  </table></div>`;
 }
 
-/* ══════════════════════════════════════
-   TRADERS MANAGEMENT
-══════════════════════════════════════ */
-async function loadTraders(){
+/* ═══════════ APPROVE / REJECT ═══════════ */
+async function approveItem(id, type){
+  if(!confirm(`Approve this ${type}?`)) return;
   try{
-    const r = await af('/api/admin/traders');
-    allTraders = await r.json()||[];
-    renderAdminTraders();
-    populateProofTraderSelect();
-    $('stTraders').textContent = allTraders.filter(t=>t.is_active).length;
-  }catch(e){ console.log('traders:', e); }
+    const r = await af(`/api/admin/${type}s/${id}/approve`,{method:'POST'});
+    const d = await r.json();
+    if(r.ok){ toast(`${type} approved successfully`,'ok'); loadAll(); }
+    else toast(d.error||'Failed','err');
+  }catch{ toast('Connection error','err'); }
 }
 
-function renderAdminTraders(){
-  const q      = ($('traderSearch').value||'').toLowerCase();
-  const cat    = $('traderCatFilter').value;
-  const grid   = $('traderAdminGrid');
-  let list     = allTraders.filter(t=>{
-    if(cat && t.category!==cat) return false;
-    if(!q) return true;
-    return (t.name||'').toLowerCase().includes(q)||(t.handle||'').toLowerCase().includes(q);
-  });
-  if(!list.length){ grid.innerHTML='<div class="tbl-empty"><i class="fas fa-search"></i><p>No traders found.</p></div>'; return; }
-
-  const VERIF_MAP = {
-    unverified:            {label:'Unverified',    cls:'badge-gray',   ico:'fa-question'},
-    identity_verified:     {label:'ID Verified',   cls:'badge-blue',   ico:'fa-id-card'},
-    performance_verified:  {label:'Perf. Verified',cls:'badge-green',  ico:'fa-chart-bar'},
-  };
-  const CAT_MAP = {trader:'Trader',academy:'Academy',prop_firm:'Prop Firm'};
-
-  grid.innerHTML = list.map(t=>{
-    const v  = VERIF_MAP[t.verification_status]||VERIF_MAP.unverified;
-    const av = t.photo_url
-      ? `<img class="t-av" src="${t.photo_url}" alt="${t.name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
-      : '';
-    const fb = `<div class="t-av-placeholder" style="${t.photo_url?'display:none':''}">${(t.name[0]||'T').toUpperCase()}</div>`;
-    const mkts= (t.markets||[]).map(m=>`<span class="t-tag-sm">${m}</span>`).join('');
-
-    return `<div class="tcard-admin">
-      <div class="tcard-admin-head">
-        ${av}${fb}
-        <div class="t-info">
-          <div class="t-name">${t.name}</div>
-          <div class="t-handle">${t.handle||''} <span style="font-size:11px;background:var(--bg);padding:2px 7px;border-radius:6px;border:1px solid var(--border)">${CAT_MAP[t.category]||t.category}</span></div>
-        </div>
-        <span class="badge ${v.cls}" style="flex-shrink:0"><i class="fas ${v.ico}"></i>${v.label}</span>
-      </div>
-      <div class="tcard-admin-body">
-        <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:8px">${(t.bio||'No bio').substring(0,100)}${(t.bio||'').length>100?'…':''}</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">${mkts}</div>
-        <div style="font-size:12px;color:var(--muted)">
-          ${t.proof_count>0?`<span style="color:var(--green)"><i class="fas fa-shield-halved"></i> ${t.proof_count} proof file${t.proof_count>1?'s':''}</span>`:'<span style="color:var(--amber)"><i class="fas fa-triangle-exclamation"></i> No proof uploaded</span>'}
-          ${t.youtube_url?` · <a href="${t.youtube_url}" target="_blank" style="color:var(--red)"><i class="fab fa-youtube"></i> YouTube</a>`:''}
-        </div>
-      </div>
-      <div class="tcard-admin-foot">
-        <button class="btn btn-view btn-sm" onclick="editTrader('${t.id}')"><i class="fas fa-edit"></i> Edit</button>
-        <button class="btn btn-ghost btn-sm" onclick="toggleTraderActive('${t.id}','${t.is_active}')">
-          <i class="fas ${t.is_active?'fa-eye-slash':'fa-eye'}"></i> ${t.is_active?'Hide':'Show'}
-        </button>
-        <button class="btn btn-ghost btn-sm" onclick="selectProofTrader('${t.id}')"><i class="fas fa-file-shield"></i> Add Proof</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function populateProofTraderSelect(){
-  const sel = $('proofTraderId');
-  sel.innerHTML = '<option value="">— Choose trader —</option>' +
-    allTraders.map(t=>`<option value="${t.id}">${t.name} (${t.verification_status})</option>`).join('');
-}
-
-function selectProofTrader(id){
-  $('proofTraderId').value = id;
-  $('proofCard').scrollIntoView({behavior:'smooth'});
-  $('proofType').focus();
-}
-
-function editTrader(id){
-  const t = allTraders.find(x=>x.id===id);
-  if(!t) return;
-  $('editTraderId').value    = t.id;
-  $('tName').value           = t.name||'';
-  $('tHandle').value         = t.handle||'';
-  $('tCategory').value       = t.category||'trader';
-  $('tBio').value            = t.bio||'';
-  $('tPhoto').value          = t.photo_url||'';
-  $('tMarkets').value        = (t.markets||[]).join(',');
-  $('tTags').value           = (t.strategy_tags||[]).join(',');
-  $('tRisk').value           = t.risk_level||'medium';
-  $('tROI').value            = t.roi_display||'';
-  $('tFollowers').value      = t.followers||'';
-  $('tCopiers').value        = t.copiers||'';
-  $('tAccuracy').value       = t.accuracy||'';
-  $('tYT').value             = t.youtube_url||'';
-  $('tTwitter').value        = t.twitter_url||'';
-  $('tWebsite').value        = t.website_url||'';
-  $('tVerif').value          = t.verification_status||'unverified';
-  $('tOrder').value          = t.sort_order||0;
-  $('traderFormTitle').innerHTML = `<i class="fas fa-edit"></i> Edit: ${t.name}`;
-  $('traderSaveBtn').innerHTML   = '<i class="fas fa-save"></i> Update Trader';
-  $('traderFormCard').scrollIntoView({behavior:'smooth'});
-}
-
-function resetTraderForm(){
-  $('editTraderId').value=''; $('tName').value=''; $('tHandle').value='';
-  $('tCategory').value='trader'; $('tBio').value=''; $('tPhoto').value='';
-  $('tMarkets').value=''; $('tTags').value=''; $('tRisk').value='medium';
-  $('tROI').value=''; $('tFollowers').value=''; $('tCopiers').value='';
-  $('tAccuracy').value=''; $('tYT').value=''; $('tTwitter').value='';
-  $('tWebsite').value=''; $('tVerif').value='unverified'; $('tOrder').value=0;
-  $('traderFormTitle').innerHTML='<i class="fas fa-plus"></i> Add New Trader';
-  $('traderSaveBtn').innerHTML='<i class="fas fa-check"></i> Save Trader';
-  $('traderAlert').className='alert';
-}
-
-async function saveTrader(){
-  const name = $('tName').value.trim();
-  if(!name){ showAl($('traderAlert'),'Name is required.','alert-err'); return; }
-
-  const body = {
-    name, handle:$('tHandle').value.trim()||null, bio:$('tBio').value.trim()||null,
-    photo_url:$('tPhoto').value.trim()||null, category:$('tCategory').value,
-    markets:$('tMarkets').value.split(',').map(s=>s.trim()).filter(Boolean),
-    strategy_tags:$('tTags').value.split(',').map(s=>s.trim()).filter(Boolean),
-    risk_level:$('tRisk').value, roi_display:$('tROI').value.trim()||null,
-    followers:$('tFollowers').value.trim()||null, copiers:$('tCopiers').value.trim()||null,
-    accuracy:$('tAccuracy').value.trim()||null, youtube_url:$('tYT').value.trim()||null,
-    twitter_url:$('tTwitter').value.trim()||null, website_url:$('tWebsite').value.trim()||null,
-    verification_status:$('tVerif').value, sort_order:parseInt($('tOrder').value)||0
-  };
-
-  const editId = $('editTraderId').value;
-  const btn = $('traderSaveBtn');
-  btn.disabled=true; btn.innerHTML='<i class="fas fa-circle-notch spin"></i> Saving…';
-
+async function rejectItem(id, type){
+  if(!confirm(`Reject this ${type}?${type==='withdrawal'?' The balance will be refunded.':''}`)) return;
   try{
-    const r = editId
-      ? await af(`/api/admin/traders/${editId}`,{method:'PUT',body:JSON.stringify(body)})
-      : await af('/api/admin/traders',{method:'POST',body:JSON.stringify(body)});
+    const r = await af(`/api/admin/${type}s/${id}/reject`,{method:'POST'});
+    const d = await r.json();
+    if(r.ok){ toast(`${type} rejected`,'ok'); loadAll(); }
+    else toast(d.error||'Failed','err');
+  }catch{ toast('Connection error','err'); }
+}
+
+/* ═══════════ DELETE USER ═══════════ */
+async function deleteUser(id, name){
+  if(!confirm(`Permanently delete account for "${name}"?\n\nThis removes ALL their data — deposits, investments, withdrawals, balances.\nThis CANNOT be undone.`)) return;
+  const typed = prompt('Type DELETE to confirm:');
+  if(typed !== 'DELETE'){ alert('Cancelled — you must type DELETE exactly.'); return; }
+  try{
+    const r = await af(`/api/admin/users/${id}/delete`,{method:'DELETE'});
     const d = await r.json();
     if(r.ok){
-      showAl($('traderAlert'),`Trader ${editId?'updated':'created'} successfully.`,'alert-ok');
-      toast(`Trader ${editId?'updated':'created'}!`,'ok');
-      resetTraderForm();
-      await loadTraders();
-    } else showAl($('traderAlert'),d.error||'Failed.','alert-err');
-  }catch(e){ showAl($('traderAlert'),'Connection error.','alert-err'); }
-  finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i> Save Trader'; }
+      toast('Account permanently deleted','ok');
+      allUsers = allUsers.filter(u=>u.id!==id);
+      renderUsers(allUsers);
+    } else { toast(d.error||'Delete failed','err'); }
+  } catch { toast('Connection error','err'); }
 }
 
-async function toggleTraderActive(id, currentlyActive){
-  const active = currentlyActive==='true' || currentlyActive===true;
-  const r = await af(`/api/admin/traders/${id}`,{method:'PUT',body:JSON.stringify({is_active:!active})});
-  if(r.ok){ toast(`Trader ${active?'hidden':'shown'}`,'ok'); loadTraders(); }
-  else toast('Failed','err');
-}
-
-async function saveProof(){
-  const traderId = $('proofTraderId').value;
-  const proofType= $('proofType').value;
-  if(!traderId){ showAl($('proofAlert'),'Select a trader first.','alert-err'); return; }
-  if(!proofType){ showAl($('proofAlert'),'Select proof type.','alert-err'); return; }
-  const body = {
-    proof_type:proofType, link:$('proofLink').value.trim()||null,
-    date_verified:$('proofDate').value||null, admin_note:$('proofNote').value.trim()||null
-  };
-  const btn=$('proofSaveBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-circle-notch spin"></i> Saving…';
+/* ═══════════ TOGGLE USER ═══════════ */
+async function toggleUser(id, status){
+  const action = status==='active' ? 'suspend' : 'activate';
+  if(!confirm(`${action.charAt(0).toUpperCase()+action.slice(1)} this user?`)) return;
   try{
-    const r = await af(`/api/admin/traders/${traderId}/proof`,{method:'POST',body:JSON.stringify(body)});
-    const d = await r.json();
-    if(r.ok){
-      showAl($('proofAlert'),'Proof uploaded and verification status updated.','alert-ok');
-      toast('Proof saved!','ok');
-      $('proofLink').value=''; $('proofDate').value=''; $('proofNote').value='';
-      await loadTraders();
-    } else showAl($('proofAlert'),d.error||'Failed.','alert-err');
-  }catch(e){ showAl($('proofAlert'),'Connection error.','alert-err'); }
-  finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-upload"></i> Upload Proof'; }
+    const r = await af(`/api/admin/users/${id}/${action}`,{method:'POST'});
+    if(r.ok){ toast('User updated','ok'); loadUsers(); }
+    else{ const d=await r.json(); toast(d.error||'Failed','err'); }
+  }catch{ toast('Connection error','err'); }
 }
 
-/* ══════════════════════════════════════
-   PROFIT CREDIT
-══════════════════════════════════════ */
+/* ═══════════ VIEW USER MODAL ═══════════ */
+function viewUser(id){
+  const u = allUsers.find(x=>x.id===id); if(!u) return;
+  $('modalTitle').textContent = 'User Details';
+  $('modalBody').innerHTML = `
+    <div class="modal-row"><span class="lbl">Full Name</span><span class="val">${u.full_name||'—'}</span></div>
+    <div class="modal-row"><span class="lbl">Email</span><span class="val">${u.email}</span></div>
+    <div class="modal-row"><span class="lbl">Phone</span><span class="val">${u.phone||'—'}</span></div>
+    <div class="modal-row"><span class="lbl">Country</span><span class="val">${u.country||'—'}</span></div>
+    <div class="modal-row"><span class="lbl">Available Balance</span><span class="val" style="color:var(--gold-d);font-size:16px">${fm(u.balance)}</span></div>
+    <div class="modal-row"><span class="lbl">Total Deposited</span><span class="val">${fm(u.total_deposited)}</span></div>
+    <div class="modal-row"><span class="lbl">Active Investments</span><span class="val">${u.active_investments||0}</span></div>
+    <div class="modal-row"><span class="lbl">Referral Code</span><span class="val" style="font-family:monospace">CVP${String(u.id||'').substring(0,6).toUpperCase()}</span></div>
+    <div class="modal-row"><span class="lbl">Account Status</span><span class="val"><span class="badge ${u.status==='active'?'badge-green':'badge-red'}">${u.status||'active'}</span></span></div>
+    <div class="modal-row"><span class="lbl">Member Since</span><span class="val">${fd(u.created_at)}</span></div>`;
+  $('modalActions').innerHTML = `
+    <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+    <button class="btn" style="background:#fee2e2;color:#dc2626;border:1px solid #fca5a5" onclick="deleteUser('${u.id}','${(u.full_name||u.email).replace(/'/g,'')}');closeModal()"><i class="fas fa-trash"></i> Delete Account</button>
+    <button class="btn ${u.status==='active'?'btn-reject':'btn-approve'}" onclick="toggleUser('${u.id}','${u.status}');closeModal()">
+      ${u.status==='active'?'<i class="fas fa-ban"></i> Suspend User':'<i class="fas fa-check"></i> Activate User'}
+    </button>`;
+  $('modal').classList.add('on');
+}
+
+function viewScreenshot(url){
+  $('ssImg').src = url;
+  $('ssModal').classList.add('on');
+}
+
+/* ═══════════ CREDIT ═══════════ */
 async function doCredit(){
   const email = $('creditEmail').value.trim();
   const amt   = parseFloat($('creditAmt').value);
   const type  = $('creditType').value;
   const note  = $('creditNote').value.trim();
   const al    = $('creditAlert');
-
-  if(!email)        { showAl(al,'Email address is required.','alert-err'); return; }
-  if(!amt||amt<=0)  { showAl(al,'Enter a valid positive amount.','alert-err'); return; }
-  if(!note)         { showAl(al,'Audit note is required — describe why this credit is being issued.','alert-err'); return; }
-
-  const btn=$('creditBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-circle-notch spin"></i> Processing…';
+  if(!email||!amt){ showAl(al,'Email and amount are required.','err'); return; }
+  const btn = $('creditBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-circle-notch spin"></i> Processing...';
   try{
-    const r = await af('/api/admin/credit',{method:'POST',body:JSON.stringify({
-      email, amount: type==='debit' ? -amt : amt, note
-    })});
+    const r = await af('/api/admin/credit',{method:'POST',body:JSON.stringify({email,amount:type==='debit'?-amt:amt,note})});
     const d = await r.json();
     if(r.ok){
-      const isCredit = type==='credit';
-      showAl(al,
-        `<strong>${isCredit?'Profit Credit':'Admin Debit'} applied.</strong><br>
-         $${amt.toFixed(2)} has been ${isCredit?'added to':'removed from'} <em>${email}</em>'s balance.
-         Entry type: <code>${isCredit?'PROFIT_CREDIT':'ADMIN_DEBIT'}</code> — logged in Audit Log.`,
-        'alert-ok');
+      showAl(al,`Balance ${type==='credit'?'credited':'debited'} successfully.`,'ok');
       $('creditEmail').value=''; $('creditAmt').value=''; $('creditNote').value='';
-      toast(`${isCredit?'Profit Credit':'Debit'} applied to ${email}`,'ok');
-      loadStats();
-      loadRecentCredits();
-    } else showAl(al,d.error||'Failed.','alert-err');
-  }catch(e){ showAl(al,'Connection error. Please try again.','alert-err'); }
-  finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i> Apply & Log to Ledger'; }
+      toast('Balance updated','ok');
+    } else showAl(al,d.error||'Failed.','err');
+  }catch{ showAl(al,'Connection error.','err'); }
+  finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-check"></i> Apply Balance Adjustment'; }
 }
 
-async function loadRecentCredits(){
-  try{
-    const r = await af('/api/admin/audit-logs');
-    const logs = (await r.json()||[]).filter(l=>l.action==='PROFIT_CREDIT'||l.action==='ADMIN_DEBIT');
-    const el=$('recentCredits');
-    if(!logs.length){ el.innerHTML='<div class="tbl-empty"><i class="fas fa-clock-rotate-left"></i><p>No credits yet.</p></div>'; return; }
-    el.innerHTML = logs.slice(0,8).map(l=>{
-      const det = l.details||{};
-      const isCredit = l.action==='PROFIT_CREDIT';
-      return `<div class="audit-item" style="margin-bottom:8px">
-        <div class="audit-dot ${isCredit?'credit':'debit'}"></div>
-        <div class="audit-body">
-          <div class="audit-action">${isCredit?'Profit Credit':'Admin Debit'} — ${det.target_email||'—'}</div>
-          <div class="audit-detail">${det.note||'—'}</div>
-          <div class="audit-meta">By ${l.admin_email||'—'} · ${fd(l.created_at)}</div>
-        </div>
-        <div class="audit-amt ${isCredit?'pos':'neg'}">${isCredit?'+':'-'} $${Math.abs(det.amount||0).toFixed(2)}</div>
-      </div>`;
-    }).join('');
-  }catch(e){}
-}
-
-/* ══════════════════════════════════════
-   AUDIT LOGS
-══════════════════════════════════════ */
-async function loadAuditLogs(){
-  try{
-    const r = await af('/api/admin/audit-logs');
-    if(r.status===401){ logout(); return; }
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    allAudit = await r.json()||[];
-    if(!Array.isArray(allAudit)) allAudit=[];
-    renderAudit();
-  }catch(e){ $('auditList').innerHTML=tblEmpty('fa-circle-exclamation',`Failed to load audit logs — ${e.message}`); }
-}
-
-function renderAudit(){
-  const filter = $('auditFilter').value;
-  let logs = filter ? allAudit.filter(l=>l.action===filter) : allAudit;
-  const el = $('auditList');
-  if(!logs.length){ el.innerHTML='<div class="tbl-empty"><i class="fas fa-scroll"></i><p>No audit log entries found.</p></div>'; return; }
-
-  const dotClass = a => {
-    if(a==='PROFIT_CREDIT'||a==='ADMIN_CREDIT') return 'credit';
-    if(a==='ADMIN_DEBIT') return 'debit';
-    if(a.includes('DEPOSIT')) return 'deposit';
-    if(a.includes('WITHDRAWAL')) return 'withdrawal';
-    if(a.includes('TRADER')) return 'trader';
-    return 'other';
-  };
-
-  const ACTION_LABEL = {
-    PROFIT_CREDIT:'Profit Credit issued', ADMIN_DEBIT:'Admin Debit',
-    DEPOSIT_APPROVED:'Deposit approved', DEPOSIT_REJECTED:'Deposit rejected',
-    WITHDRAWAL_APPROVED:'Withdrawal approved', WITHDRAWAL_REJECTED:'Withdrawal rejected',
-    TRADER_CREATED:'Trader created', TRADER_UPDATED:'Trader updated',
-    TRADER_PROOF_ADDED:'Proof uploaded',
-  };
-
-  el.innerHTML = logs.map(l=>{
-    const det  = l.details||{};
-    const isMonetary = l.action==='PROFIT_CREDIT'||l.action==='ADMIN_DEBIT';
-    const isCredit   = l.action==='PROFIT_CREDIT';
-    let detail = '';
-    if(det.target_email) detail += `User: ${det.target_email}`;
-    if(det.amount)       detail += ` · Amount: $${Math.abs(det.amount).toFixed(2)}`;
-    if(det.note)         detail += ` · Note: "${det.note}"`;
-    if(det.name)         detail += ` · Trader: ${det.name}`;
-    if(det.verification_status) detail += ` · Status: ${det.verification_status}`;
-    if(det.proof_type)   detail += ` · Proof type: ${det.proof_type}`;
-
-    return `<div class="audit-item">
-      <div class="audit-dot ${dotClass(l.action)}"></div>
-      <div class="audit-body">
-        <div class="audit-action">${ACTION_LABEL[l.action]||l.action}
-          ${isMonetary?`<span class="badge ${isCredit?'badge-green':'badge-red'}" style="font-size:11px;margin-left:6px">${isCredit?'PROFIT_CREDIT':'ADMIN_DEBIT'}</span>`:''}
-        </div>
-        ${detail?`<div class="audit-detail">${detail}</div>`:''}
-        <div class="audit-meta"><i class="fas fa-user-shield"></i> ${l.admin_email||'unknown'} · ${fd(l.created_at)}</div>
-      </div>
-      ${isMonetary?`<div class="audit-amt ${isCredit?'pos':'neg'}">${isCredit?'+':'-'} $${Math.abs(det.amount||0).toFixed(2)}</div>`:''}
-    </div>`;
-  }).join('');
-}
-
-/* ══════════════════════════════════════
-   SETTINGS
-══════════════════════════════════════ */
+/* ═══════════ SETTINGS ═══════════ */
 async function saveSettings(){
-  const al=$('settingsAlert'); const btn=$('settingsBtn');
-  btn.disabled=true; btn.innerHTML='<i class="fas fa-circle-notch spin"></i> Saving…';
+  const al = $('settingsAlert');
+  const btn = $('settingsBtn'); btn.disabled=true; btn.innerHTML='<i class="fas fa-circle-notch spin"></i> Saving...';
   try{
     const r = await af('/api/admin/settings',{method:'POST',body:JSON.stringify({
-      platform_name:$('setPlatName').value, min_deposit:$('setMinDep').value,
-      min_withdrawal:$('setMinWd').value, referral_percent:$('setRefPct').value
+      platform_name:$('setPlatName').value,
+      min_deposit:$('setMinDep').value,
+      min_withdrawal:$('setMinWd').value,
+      referral_percent:$('setRefPct').value
     })});
-    const d=await r.json();
-    if(r.ok){ showAl(al,'Settings saved.','alert-ok'); toast('Settings saved','ok'); }
-    else showAl(al,d.error||'Failed.','alert-err');
-  }catch(e){ showAl(al,'Connection error.','alert-err'); }
+    const d = await r.json();
+    if(r.ok){ showAl(al,'Settings saved.','ok'); toast('Settings saved','ok'); }
+    else showAl(al,d.error||'Failed.','err');
+  }catch{ showAl(al,'Connection error.','err'); }
   finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i> Save Settings'; }
 }
 
+/* ═══════════ CHANGE PASSWORD ═══════════ */
 async function changeAdmPw(){
-  const cur=$('curPw').value, nw=$('newPw').value, cn=$('conPw').value, al=$('pwAlert');
-  if(!cur||!nw||!cn){ showAl(al,'Fill all fields.','alert-err'); return; }
-  if(nw!==cn){ showAl(al,'Passwords do not match.','alert-err'); return; }
-  if(nw.length<8){ showAl(al,'Minimum 8 characters.','alert-err'); return; }
+  const cur=$('curPw').value, nw=$('newPw').value, cn=$('conPw').value;
+  const al=$('pwAlert');
+  if(!cur||!nw||!cn){ showAl(al,'Fill all fields.','err'); return; }
+  if(nw!==cn){ showAl(al,'Passwords do not match.','err'); return; }
+  if(nw.length<8){ showAl(al,'Minimum 8 characters.','err'); return; }
   try{
     const r = await af('/api/user/change-password',{method:'POST',body:JSON.stringify({current_password:cur,new_password:nw})});
     const d = await r.json();
-    if(r.ok){ showAl(al,'Password changed.','alert-ok'); $('curPw').value=''; $('newPw').value=''; $('conPw').value=''; }
-    else showAl(al,d.error||'Incorrect current password.','alert-err');
-  }catch(e){ showAl(al,'Connection error.','alert-err'); }
+    if(r.ok){ showAl(al,'Password changed.','ok'); $('curPw').value=''; $('newPw').value=''; $('conPw').value=''; }
+    else showAl(al,d.error||'Incorrect current password.','err');
+  }catch{ showAl(al,'Connection error.','err'); }
 }
 
-function viewScreenshot(url){
-  $('ssImg').src=url;
-  $('ssModal').classList.add('on');
+/* ═══════════ HELPERS ═══════════ */
+function showAl(el, msg, type){
+  el.className = `alert alert-${type} on`;
+  el.innerHTML = `<i class="fas fa-${type==='err'?'circle-xmark':type==='ok'?'circle-check':'circle-info'}"></i> ${msg}`;
 }
 
-/* ══════════════════════════════════════
-   HELPERS
-══════════════════════════════════════ */
-function showAl(el, msg, cls){
-  el.className = `alert ${cls} on`;
-  const ico = cls.includes('err')?'fa-circle-xmark':cls.includes('ok')?'fa-circle-check':'fa-circle-info';
-  el.innerHTML = `<i class="fas ${ico}"></i> ${msg}`;
-}
-
-function tblEmpty(icon, msg){
-  return `<div class="tbl-empty"><i class="fas ${icon}"></i><p>${msg}</p></div>`;
+function tblEmpty(icon, msg, iconColor=''){
+  return `<div class="tbl-empty"><i class="fas ${icon}" style="${iconColor?'color:'+iconColor:''}"></i><p>${msg}</p></div>`;
 }
 
 function goTo(id, btn){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.sb-link').forEach(b=>b.classList.remove('on'));
-  const pg = $('pg-'+id);
-  if(!pg){ return; }
-  pg.classList.add('on');
+  $('pg-'+id).classList.add('on');
   if(btn) btn.classList.add('on');
   $('pgTitle').textContent = TITLES[id]||id;
   closeSB();
-  // Lazy-load when navigating
-  if(id==='audit')   loadAuditLogs();
-  if(id==='credit')  loadRecentCredits();
-  if(id==='support') loadSupportMessages();
-}
-
-
-/* ══════════════════════════════════════
-   SUPPORT MESSAGES
-══════════════════════════════════════ */
-let allSupportMsgs = [];
-
-async function loadSupportMessages(){
-  try {
-    const r = await af('/api/admin/support-messages');
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    allSupportMsgs = await r.json();
-    renderSupportMessages();
-    // Update unread badge
-    const unread = allSupportMsgs.filter(m=>!m.read).length;
-    const badge = $('unreadBadge');
-    if(badge){ badge.textContent=unread; badge.style.display=unread>0?'inline':'none'; }
-  } catch(e) {
-    const el=$('supportMsgList');
-    if(el) el.innerHTML=`<div class="tbl-empty"><i class="fas fa-circle-exclamation"></i><p>Failed to load — ${e.message}</p></div>`;
-  }
-}
-
-function renderSupportMessages(){
-  const el = $('supportMsgList');
-  if(!el) return;
-  if(!allSupportMsgs.length){
-    el.innerHTML='<div class="tbl-empty"><i class="fas fa-inbox"></i><p>No support messages yet.</p></div>';
-    return;
-  }
-  el.innerHTML = allSupportMsgs.map(m=>`
-    <div style="background:${m.read?'var(--surface)':'rgba(201,168,76,.05)'};border:1.5px solid ${m.read?'var(--border)':'rgba(201,168,76,.3)'};border-radius:12px;padding:18px 20px;margin-bottom:12px;transition:all .2s">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
-        <div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-            ${!m.read?'<span style="width:8px;height:8px;border-radius:50%;background:#ef4444;flex-shrink:0;display:inline-block"></span>':''}
-            <span style="font-weight:700;font-size:.95rem;color:var(--ink)">${m.sender_name||'Anonymous'}</span>
-            <span style="font-size:.78rem;color:var(--muted)">${m.sender_email}</span>
-          </div>
-          <div style="font-size:.8rem;color:var(--gold-d);font-weight:600;margin-bottom:10px">${m.subject||'Support Chat'}</div>
-          <div style="font-size:.88rem;color:var(--body);line-height:1.7;white-space:pre-wrap;background:var(--bg);border-radius:8px;padding:12px 14px;border-left:3px solid var(--gold)">${m.message}</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0">
-          <span style="font-size:.75rem;color:var(--muted)">${fd(m.created_at)}</span>
-          <a href="mailto:${m.sender_email}?subject=Re: ${encodeURIComponent(m.subject||'Your Support Request — CopyVestPro')}" 
-             onclick="markMsgRead('${m.id}')"
-             style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#fff;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;transition:all .2s">
-            <i class="fas fa-reply"></i> Reply
-          </a>
-          ${!m.read?`<button onclick="markMsgRead('${m.id}')" style="padding:6px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:.78rem;cursor:pointer;color:var(--muted)">Mark read</button>`:''}
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-async function markMsgRead(id){
-  await af(`/api/admin/support-messages/${id}/mark-read`,{method:'POST'}).catch(()=>{});
-  const msg = allSupportMsgs.find(m=>m.id===id);
-  if(msg) msg.read = true;
-  renderSupportMessages();
-  const unread = allSupportMsgs.filter(m=>!m.read).length;
-  const badge = $('unreadBadge');
-  if(badge){ badge.textContent=unread; badge.style.display=unread>0?'inline':'none'; }
 }
 
 function closeModal(){ $('modal').classList.remove('on'); }
 function openSB(){ $('sb').classList.add('open'); $('overlay').style.display='block'; }
 function closeSB(){ $('sb').classList.remove('open'); $('overlay').style.display='none'; }
-async function triggerAccrual(){
-  const btn = $('accrualBtn');
-  if(btn){ btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Running…'; }
-  try{
-    const r = await af('/api/admin/trigger-accrual', {method:'POST'});
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    const d = await r.json();
-    toast(d.message||'Accrual run complete!','ok');
-    loadStats();
-  }catch(e){ toast('Accrual failed — push new admin.js to Railway first','err'); }
-  finally{ if(btn){ btn.disabled=false; btn.innerHTML='<i class="fas fa-bolt"></i> Force Accrual'; } }
-}
-
 function logout(){ localStorage.removeItem('cvp_token'); localStorage.removeItem('cvp_user'); window.location.href='login.html'; }
 
+/* ═══════════ TOAST ═══════════ */
 function toast(msg, type=''){
-  const wrap=$('toastWrap'); const el=document.createElement('div');
-  el.className='toast '+(type||'');
-  el.innerHTML=`<i class="fas fa-${type==='ok'?'check-circle':type==='err'?'circle-xmark':type==='warn'?'triangle-exclamation':'circle-info'}"></i>${msg}`;
+  const wrap = $('toastWrap');
+  const el   = document.createElement('div');
+  el.className = 'toast ' + type;
+  const ico  = type==='ok' ? 'fa-check-circle' : type==='err' ? 'fa-circle-xmark' : 'fa-circle-info';
+  el.innerHTML = `<i class="fas ${ico}"></i>${msg}`;
   wrap.appendChild(el);
-  setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(20px)';el.style.transition='all .3s';setTimeout(()=>el.remove(),300);},3500);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(20px)'; el.style.transition='all .3s'; setTimeout(()=>el.remove(),300); },3500);
 }
 </script>
 </body>
