@@ -399,7 +399,31 @@ tbody tr:hover{background:var(--bg)}
 
     <!-- ══════════════ INVESTMENTS ══════════════ -->
     <div class="pg" id="pg-investments">
-      <div class="s-hd"><div class="s-title">All Investments</div></div>
+      <div class="s-hd">
+        <div class="s-title">Investments</div>
+        <button class="btn btn-approve" onclick="bulkActivate()" id="bulkActivateBtn" style="display:none">
+          <i class="fas fa-bolt"></i> Activate All Eligible
+        </button>
+      </div>
+
+      <!-- Pending Activations Panel -->
+      <div id="pendingActivationsWrap" style="margin-bottom:22px;display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div>
+            <div style="font-size:15px;font-weight:800;color:#92400e">
+              <i class="fas fa-hourglass-half" style="color:#d97706;margin-right:6px"></i>
+              Pending Activations — Fully Funded, Awaiting Your Action
+            </div>
+            <div style="font-size:13px;color:#78350f;margin-top:2px">
+              These users have paid in full. Click <strong>Activate</strong> to start their investment.
+            </div>
+          </div>
+        </div>
+        <div id="pendingActivationsTable"></div>
+      </div>
+
+      <!-- All investments table -->
+      <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">All Investments</div>
       <div class="tbl-wrap"><div id="investmentsTable"></div></div>
     </div>
 
@@ -936,19 +960,92 @@ async function rejectWd(id){
 /* ══════════════════════════════════════
    INVESTMENTS
 ══════════════════════════════════════ */
+/* ══════════════════════════════════════
+   INVESTMENTS
+══════════════════════════════════════ */
 async function loadInvestments(){
   try{
-    const r = await af('/api/admin/investments');
+    const [r, pa] = await Promise.all([
+      af('/api/admin/investments'),
+      af('/api/admin/investments/pending-activations'),
+    ]);
     allInvestments = await r.json()||[];
+    const pending = await pa.json()||[];
+    renderPendingActivations(pending);
     renderInvestments(allInvestments);
   }catch(e){ $('investmentsTable').innerHTML=tblEmpty('fa-chart-line','Failed.'); }
+}
+
+function renderPendingActivations(rows){
+  const wrap = $('pendingActivationsWrap');
+  const btn  = $('bulkActivateBtn');
+  if(!rows.length){ wrap.style.display='none'; btn.style.display='none'; return; }
+  wrap.style.display='block';
+  btn.style.display='inline-flex';
+  const el = $('pendingActivationsTable');
+  el.innerHTML=`
+    <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fde68a;border-radius:14px;overflow:hidden">
+      <table style="border:none">
+        <thead style="background:#fef3c7">
+          <tr>
+            <th style="color:#92400e">User</th>
+            <th style="color:#92400e">Plan</th>
+            <th style="color:#92400e">Funded</th>
+            <th style="color:#92400e">Required</th>
+            <th style="color:#92400e">ROI</th>
+            <th style="color:#92400e">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(r=>`<tr style="background:rgba(255,255,255,0.6)">
+            <td class="td-user">
+              <div class="name">${r.user_name||'—'}</div>
+              <div class="email">${r.user_email||'—'}</div>
+            </td>
+            <td style="font-weight:700;color:#92400e">${r.plan_name}</td>
+            <td style="font-weight:800;color:#16a34a;font-size:15px">${fm(r.funded_total)}</td>
+            <td style="color:var(--muted)">${fm(r.min_deposit)}</td>
+            <td><span class="badge badge-gold">${r.monthly_roi}%/mo</span></td>
+            <td>
+              <button class="btn btn-approve"
+                onclick="activateInvestment('${r.investment_id||''}','${r.user_id}','${r.plan_id}','${r.user_name||r.user_email}')"
+                style="white-space:nowrap">
+                <i class="fas fa-bolt"></i> Activate
+              </button>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+async function activateInvestment(invId, userId, planId, userName){
+  if(!confirm(`Activate investment for ${userName}?`)) return;
+  let r;
+  if(invId && invId!=='null' && invId!=='undefined'){
+    r = await af(`/api/admin/investments/${invId}/activate`,{method:'POST'});
+  } else {
+    // No investment record yet — use bulk which will create it
+    r = await af('/api/admin/investments/activate-all-pending',{method:'POST'});
+  }
+  const d = await r.json();
+  if(r.ok){ toast(d.message||'Activated!','ok'); loadInvestments(); loadStats(); }
+  else toast(d.error||'Failed','err');
+}
+
+async function bulkActivate(){
+  if(!confirm('Activate ALL fully-funded investments now?')) return;
+  const r = await af('/api/admin/investments/activate-all-pending',{method:'POST'});
+  const d = await r.json();
+  if(r.ok){ toast(d.message||'Done','ok'); loadInvestments(); loadStats(); }
+  else toast(d.error||'Failed','err');
 }
 
 function renderInvestments(invs){
   const el = $('investmentsTable');
   if(!invs.length){ el.innerHTML=tblEmpty('fa-chart-line','No investments found.'); return; }
   el.innerHTML=`<table>
-    <thead><tr><th>User</th><th>Plan</th><th>Principal</th><th>ROI</th><th>Earned</th><th>Start</th><th>Lock</th><th>Status</th></tr></thead>
+    <thead><tr><th>User</th><th>Plan</th><th>Principal</th><th>ROI</th><th>Earned</th><th>Start</th><th>Lock</th><th>Status</th><th>Action</th></tr></thead>
     <tbody>${invs.map(i=>`<tr>
       <td class="td-user"><div class="name">${i.user_name||'—'}</div><div class="email">${i.user_email||'—'}</div></td>
       <td style="font-weight:600">${i.plan_name||'—'}</td>
@@ -957,7 +1054,10 @@ function renderInvestments(invs){
       <td style="color:var(--green);font-weight:600">${fm(i.total_earned)}</td>
       <td style="font-size:13px;color:var(--muted)">${fd(i.start_date)}</td>
       <td style="font-size:13px;color:var(--muted)">${i.months_elapsed||0}/${i.lock_months} mo</td>
-      <td><span class="badge ${i.status==='active'?'badge-green':i.status==='completed'?'badge-blue':'badge-gray'}">${i.status}</span></td>
+      <td><span class="badge ${i.status==='active'?'badge-green':i.status==='completed'?'badge-blue':'badge-amber'}">${i.status}</span></td>
+      <td>${i.status!=='active'&&i.status!=='completed'?
+        `<button class="btn btn-approve btn-sm" onclick="activateInvestment('${i.id}','${i.user_id}','${i.plan_id}','${i.user_name||''}')"><i class="fas fa-bolt"></i></button>`
+        :'-'}</td>
     </tr>`).join('')}
     </tbody></table>`;
 }
