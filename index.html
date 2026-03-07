@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+(function(){
+  function bye(){var p=document.getElementById('preloader');if(p){p.style.transition='opacity .4s';p.style.opacity='0';p.style.visibility='hidden';setTimeout(function(){p.style.display='none'},420);}}
+  // Fire ASAP on DOM ready
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',function(){setTimeout(bye,600)});
+  } else {
+    setTimeout(bye,200);
+  }
+  // Also on full load
+  window.addEventListener('load',function(){bye()});
+  // Absolute failsafe — never hang beyond 1.5s
+  setTimeout(bye,1500);
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CopyVestPro – Forex and Crypto Trading Platform</title>
@@ -1951,19 +1966,7 @@ strong{font-weight:600}
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── PRELOADER ── */
-// Dismiss preloader — never let it hang
-(function(){
-  function dismissPreloader(){
-    var p=document.getElementById('preloader');
-    if(p) p.classList.add('gone');
-  }
-  // Best case: DOM ready
-  document.addEventListener('DOMContentLoaded',function(){setTimeout(dismissPreloader,800)});
-  // Hard fallback: force dismiss after 3s no matter what
-  setTimeout(dismissPreloader,3000);
-  // Also on full load if it happens quickly
-  window.addEventListener('load',function(){setTimeout(dismissPreloader,500)});
-})();
+// preloader dismissed via head script
 
 /* ── HERO SLIDER ── */
 let cur=0;
