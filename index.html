@@ -602,6 +602,146 @@ strong{font-weight:600}
 .plogo svg{transition:all .4s var(--ease-bounce)}
 .plogo:hover svg{transform:scale(1.1)}
 
+
+/* ═══════════════════ TRUSTED STRIP (PREMIUM) ═══════════════════ */
+.trusted{
+  padding:72px 5%;
+  background:var(--cream);
+  position:relative;
+  overflow:hidden;
+}
+.trusted::before{
+  content:'';
+  position:absolute;
+  inset:-220px -120px auto auto;
+  width:680px;height:680px;
+  background:radial-gradient(circle, rgba(201,168,76,.14), transparent 62%);
+  pointer-events:none;
+  filter:blur(2px);
+}
+.trusted::after{
+  content:'';
+  position:absolute;
+  left:-160px;bottom:-220px;
+  width:620px;height:620px;
+  background:radial-gradient(circle, rgba(13,27,46,.10), transparent 62%);
+  pointer-events:none;
+}
+.trusted-inner{max-width:1120px;margin:0 auto;position:relative;z-index:1}
+.trusted-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:22px;
+  margin-bottom:16px;
+}
+.trusted-title{
+  font-size:clamp(1.55rem,2.6vw,2.15rem);
+  font-weight:800;
+  letter-spacing:-.02em;
+  line-height:1.15;
+  margin:8px 0 10px;
+}
+.trusted-sub{
+  margin:0;
+  max-width:68ch;
+  font-size:var(--text-base);
+  color:#5e5e5e;
+  line-height:1.75;
+}
+.trusted-ctas{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.trusted-embed{
+  margin-top:18px;
+  border-radius:22px;
+  background:linear-gradient(180deg,#070c14,#060a12);
+  border:1px solid rgba(201,168,76,.20);
+  box-shadow:0 22px 70px rgba(0,0,0,.16);
+  overflow:hidden;
+  padding:10px 12px 6px;
+}
+.trusted-rail{
+  margin-top:16px;
+  position:relative;
+  border-radius:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 18px 60px rgba(16,24,40,.08);
+  overflow:hidden;
+  padding:16px 0;
+}
+.trusted-fade{
+  position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none;
+}
+.trusted-fade-l{left:0;background:linear-gradient(90deg, rgba(246,244,240,1), rgba(246,244,240,0))}
+.trusted-fade-r{right:0;background:linear-gradient(270deg, rgba(246,244,240,1), rgba(246,244,240,0))}
+.trusted-trackWrap{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  animation:trustedMarq 26s linear infinite;
+  will-change:transform;
+}
+.trusted-rail:hover .trusted-trackWrap{animation-play-state:paused}
+.trusted-track{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 22px;
+}
+.trustedLogo{
+  min-width:190px;
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px 16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+  transition:transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
+}
+.trustedLogo:hover{
+  transform:translateY(-2px);
+  border-color:rgba(201,168,76,.32);
+  background:linear-gradient(135deg, rgba(201,168,76,.10), rgba(255,255,255,.82));
+  box-shadow:0 16px 40px rgba(201,168,76,.14), 0 12px 30px rgba(0,0,0,.08);
+}
+.trustedLogo svg{
+  width:34px;height:34px;
+  filter:grayscale(1) contrast(1.08) brightness(.92);
+  opacity:.86;
+}
+.trustedLogo span{
+  font-size:var(--text-xs);
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(15,15,15,.50);
+}
+.trustedLogo:hover svg{filter:none;opacity:1}
+.trustedLogo:hover span{color:var(--gold-dark)}
+.trustedLogo--brand svg{filter:none;opacity:1}
+.trustedLogo--brand span{color:var(--gold)}
+.trusted-note{
+  margin:12px 0 0;
+  font-size:var(--text-xs);
+  color:rgba(15,15,15,.55);
+}
+@keyframes trustedMarq{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+@media(max-width:900px){
+  .trusted-head{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:560px){
+  .trustedLogo{min-width:165px;height:72px}
+  .trusted-fade{width:64px}
+}
+
+
 /* ═══════════════════ CTA BAR ═══════════════════ */
 .cta-bar{
   background:linear-gradient(135deg,var(--gold) 0%,#b8921a 50%,var(--gold) 100%);
@@ -905,6 +1045,190 @@ strong{font-weight:600}
   .features-grid{grid-template-columns:1fr}
   .partners-grid{grid-template-columns:1fr 1fr}
 }
+
+/* ═══════════════════ DISCOVER (DARK MARKETS) ═══════════════════ */
+.discover{
+  padding:84px 5%;
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(201,168,76,.22), transparent 55%),
+    radial-gradient(900px 520px at 78% 18%, rgba(13,27,46,.85), transparent 60%),
+    linear-gradient(180deg,#071225 0%, #0b0f19 100%);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.discover-inner{
+  max-width:1180px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap:34px;
+  align-items:start;
+}
+.discover-copy h2{
+  font-family:var(--font);
+  font-size:clamp(2rem,4.2vw,3.1rem);
+  line-height:1.08;
+  margin:12px 0 14px;
+  letter-spacing:-.02em;
+}
+.discover-copy p.discover-sub{
+  font-size:var(--text-base);
+  color:rgba(255,255,255,.78);
+  line-height:1.75;
+  margin:0 0 18px;
+  max-width:60ch;
+}
+.discover-actions{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0 18px}
+.discover-actions .btn-hero-outline{
+  border-color:rgba(255,255,255,.26);
+  color:#fff;
+}
+.discover-actions .btn-hero-outline:hover{
+  background:rgba(255,255,255,.06);
+}
+.discover-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:var(--text-xs);
+  color:rgba(255,255,255,.78);
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.05);
+}
+.pill.on{
+  color:#081016;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  border-color:rgba(201,168,76,.55);
+  font-weight:700;
+}
+.discover-note{
+  margin-top:16px;
+  font-size:var(--text-xs);
+  color:rgba(255,255,255,.64);
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.tv-card{
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 22px 70px rgba(0,0,0,.55);
+  background:rgba(0,0,0,.22);
+}
+.tv-card--dark{background:rgba(0,0,0,.22)}
+.tv-card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.tv-title{font-weight:800;letter-spacing:.02em}
+.tv-link{color:rgba(255,255,255,.72);font-size:var(--text-xs);font-weight:700}
+.tv-link:hover{color:#fff}
+
+/* ═══════════════════ MARKET NEWS HEADER ═══════════════════ */
+.tv-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 14px;
+  background:linear-gradient(180deg,#ffffff, #f8f6f2);
+  border:1px solid rgba(0,0,0,.06);
+  border-bottom:none;
+  border-radius:18px 18px 0 0;
+}
+.tv-head h3{
+  margin:0;
+  font-size:1rem;
+  font-weight:800;
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
+.tv-head h3 span{color:var(--gold-dark);margin-left:6px}
+.tv-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:var(--text-xs);
+  color:var(--navy);
+  background:rgba(201,168,76,.14);
+  border:1px solid rgba(201,168,76,.22);
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+}
+.noexp .tradingview-widget-container{
+  border-radius:0 0 18px 18px;
+  overflow:hidden;
+}
+
+/* ═══════════════════ MARKET WATCH TABS ═══════════════════ */
+.mwatch{padding:var(--section-py-sm) 5%; background:var(--surface)}
+.mwatch-inner{max-width:1120px;margin:0 auto}
+.mwatch-head{text-align:center;margin-bottom:22px}
+.mwatch-head h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.45rem);margin:10px 0 10px;color:var(--ink);letter-spacing:-.015em}
+.mwatch-head p{margin:0 auto;color:#666;max-width:68ch;font-size:var(--text-base);line-height:1.75}
+.mwatch-card{
+  margin-top:18px;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,.07);
+  background:#fff;
+  box-shadow:0 18px 60px rgba(16,24,40,.08);
+  overflow:hidden;
+}
+.mwatch-tabs{
+  display:flex;
+  gap:8px;
+  padding:12px 12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  background:linear-gradient(180deg,#fff,#fbfaf7);
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.mtab{
+  border:none;
+  cursor:pointer;
+  font-family:var(--font);
+  font-weight:700;
+  font-size:var(--text-sm);
+  padding:10px 14px;
+  border-radius:999px;
+  color:#2b2b2b;
+  background:rgba(15,15,15,.04);
+  transition:var(--tr);
+}
+.mtab:hover{background:rgba(15,15,15,.06)}
+.mtab.on{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;
+  box-shadow:0 10px 26px rgba(201,168,76,.25);
+}
+.mwatch-body{padding:0}
+.mwrap{display:none;min-height:520px}
+.mwrap.on{display:block}
+.mwatch-foot{
+  padding:10px 14px;
+  border-top:1px solid rgba(0,0,0,.06);
+  text-align:right;
+  background:#fbfaf7;
+}
+.mwatch-foot a{color:#357abd;font-weight:700;font-size:var(--text-xs)}
+.mwatch-foot a:hover{opacity:.9}
+
+/* Responsive */
+@media (max-width: 980px){
+  .discover-inner{grid-template-columns:1fr}
+  .tv-card{box-shadow:0 18px 54px rgba(0,0,0,.5)}
+}
+@media (max-width: 560px){
+  .discover{padding:68px 5%}
+  .discover-actions .btn-hero-solid, .discover-actions .btn-hero-outline{width:100%;justify-content:center}
+}
+
 </style>
 </head>
 <body>
@@ -1012,6 +1336,122 @@ strong{font-weight:600}
   <div class="tmask"></div><div class="tmask r"></div>
   <div class="tick-wrap" id="tickWrap"></div>
 </div>
+
+
+<!-- ══ DISCOVER MARKETS ══ -->
+<section class="discover">
+  <div class="discover-inner">
+    <div class="discover-copy reveal">
+      <div class="section-eyebrow">Markets</div>
+      <h2>Discover markets with a premium view</h2>
+      <p class="discover-sub">
+        Track major assets in real time, browse market news, then create an account to start exploring our plans.
+      </p>
+
+      <div class="discover-actions">
+        <a href="register.html" class="btn-hero-solid ripple-wrap">Register <i class="fas fa-arrow-right"></i></a>
+        <a href="login.html" class="btn-hero-outline ripple-wrap">Login <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="discover-pills" aria-label="Market categories">
+        <span class="pill on">Crypto</span>
+        <span class="pill">Indices</span>
+        <span class="pill">Commodities</span>
+        <span class="pill">Forex</span>
+        <span class="pill">Stocks</span>
+      </div>
+
+      <div class="discover-note">
+        <i class="fa-brands fa-trade-federation"></i>
+        Data widgets powered by TradingView.
+      </div>
+    </div>
+
+    <div class="discover-widget reveal reveal-d1">
+      <div class="tv-card tv-card--dark">
+        <div class="tv-card-head">
+          <div class="tv-title">Markets</div>
+          <a class="tv-link" href="https://www.tradingview.com/markets/" rel="noopener" target="_blank">
+            Track all markets <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+          {
+            "colorTheme": "dark",
+            "dateRange": "12M",
+            "showChart": true,
+            "locale": "en",
+            "width": "100%",
+            "height": 620,
+            "showSymbolLogo": true,
+            "isTransparent": false,
+            "plotLineColorGrowing": "rgba(201,168,76,1)",
+            "plotLineColorFalling": "rgba(220,80,80,1)",
+            "gridLineColor": "rgba(255, 255, 255, 0.08)",
+            "scaleFontColor": "rgba(255, 255, 255, 0.72)",
+            "belowLineFillColorGrowing": "rgba(201,168,76,0.12)",
+            "belowLineFillColorFalling": "rgba(220,80,80,0.10)",
+            "symbolActiveColor": "rgba(201,168,76,0.16)",
+            "tabs": [
+              {
+                "title": "Crypto",
+                "originalTitle": "Crypto",
+                "symbols": [
+                  { "s": "BITSTAMP:BTCUSD", "d": "Bitcoin" },
+                  { "s": "BITSTAMP:ETHUSD", "d": "Ethereum" },
+                  { "s": "BINANCE:SOLUSDT", "d": "Solana" },
+                  { "s": "BINANCE:BNBUSDT", "d": "BNB" },
+                  { "s": "BINANCE:XRPUSDT", "d": "XRP" }
+                ]
+              },
+              {
+                "title": "Indices",
+                "originalTitle": "Indices",
+                "symbols": [
+                  { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
+                  { "s": "FOREXCOM:NSXUSD", "d": "Nasdaq 100" },
+                  { "s": "FOREXCOM:DJI", "d": "Dow 30" },
+                  { "s": "INDEX:NKY", "d": "Nikkei 225" }
+                ]
+              },
+              {
+                "title": "Commodities",
+                "originalTitle": "Commodities",
+                "symbols": [
+                  { "s": "COMEX:GC1!", "d": "Gold" },
+                  { "s": "NYMEX:CL1!", "d": "Crude Oil" },
+                  { "s": "NYMEX:NG1!", "d": "Natural Gas" }
+                ]
+              },
+              {
+                "title": "Forex",
+                "originalTitle": "Forex",
+                "symbols": [
+                  { "s": "FX:EURUSD", "d": "EUR/USD" },
+                  { "s": "FX:GBPUSD", "d": "GBP/USD" },
+                  { "s": "FX:USDJPY", "d": "USD/JPY" }
+                ]
+              },
+              {
+                "title": "Stocks",
+                "originalTitle": "Stocks",
+                "symbols": [
+                  { "s": "NASDAQ:AAPL", "d": "Apple" },
+                  { "s": "NASDAQ:TSLA", "d": "Tesla" },
+                  { "s": "NASDAQ:NVDA", "d": "NVIDIA" }
+                ]
+              }
+            ]
+          }
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ FEATURE BOXES ══ -->
 <section class="features">
@@ -1160,6 +1600,11 @@ strong{font-weight:600}
 <section class="noexp">
   <div class="noexp-inner">
     <div class="tv-wrap reveal">
+      <div class="tv-head">
+        <h3>Market News <span>Top Stories</span></h3>
+        <div class="tv-badge"><i class="fa-brands fa-tradingview"></i> Live</div>
+      </div>
+
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
         <div style="padding:9px 16px;font-size:0.875rem;background:#f5f4f0;border-top:1px solid #eee">
@@ -1191,6 +1636,36 @@ strong{font-weight:600}
       <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
       {"width":"100%","height":500,"symbolsGroups":[{"name":"Indices","originalName":"Indices","symbols":[{"name":"FOREXCOM:SPXUSD","displayName":"S&P 500"},{"name":"FOREXCOM:NSXUSD","displayName":"US 100"},{"name":"FOREXCOM:DJI","displayName":"Dow 30"},{"name":"INDEX:NKY","displayName":"Nikkei 225"},{"name":"INDEX:DEU40","displayName":"DAX Index"},{"name":"FOREXCOM:UKXGBP","displayName":"UK 100"}]},{"name":"Futures","originalName":"Futures","symbols":[{"name":"CME_MINI:ES1!","displayName":"S&P 500"},{"name":"CME:6E1!","displayName":"Euro"},{"name":"COMEX:GC1!","displayName":"Gold"},{"name":"NYMEX:CL1!","displayName":"Crude Oil"},{"name":"NYMEX:NG1!","displayName":"Natural Gas"},{"name":"CBOT:ZC1!","displayName":"Corn"}]},{"name":"Bonds","originalName":"Bonds","symbols":[{"name":"CME:GE1!","displayName":"Eurodollar"},{"name":"CBOT:ZB1!","displayName":"T-Bond"},{"name":"CBOT:UB1!","displayName":"Ultra T-Bond"},{"name":"EUREX:FGBL1!","displayName":"Euro Bund"},{"name":"EUREX:FBTP1!","displayName":"Euro BTP"},{"name":"EUREX:FGBM1!","displayName":"Euro BOBL"}]},{"name":"Forex","originalName":"Forex","symbols":[{"name":"FX:EURUSD","displayName":"EUR/USD"},{"name":"FX:GBPUSD","displayName":"GBP/USD"},{"name":"FX:USDJPY","displayName":"USD/JPY"},{"name":"FX:USDCHF","displayName":"USD/CHF"},{"name":"FX:AUDUSD","displayName":"AUD/USD"},{"name":"FX:USDCAD","displayName":"USD/CAD"}]}],"showSymbolLogo":true,"colorTheme":"light","isTransparent":false,"locale":"en"}
       </script>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ MARKET WATCH ══ -->
+<section class="mwatch">
+  <div class="mwatch-inner">
+    <div class="mwatch-head">
+      <div class="section-eyebrow">Market Watch</div>
+      <h2>Trending, movers, and market cap</h2>
+      <p>Quickly scan what is moving, then drill into details with the built-in widget tools.</p>
+    </div>
+
+    <div class="mwatch-card">
+      <div class="mwatch-tabs" role="tablist" aria-label="Market watch tabs">
+        <button class="mtab on" data-mtab="trending" role="tab" aria-selected="true">Trending</button>
+        <button class="mtab" data-mtab="movers" role="tab" aria-selected="false">Gainers / Losers</button>
+        <button class="mtab" data-mtab="cap" role="tab" aria-selected="false">Market Cap</button>
+      </div>
+
+      <div class="mwatch-body">
+        <div class="mwrap on" id="tv-trending" data-tv="trending"></div>
+        <div class="mwrap" id="tv-movers" data-tv="movers"></div>
+        <div class="mwrap" id="tv-cap" data-tv="cap"></div>
+      </div>
+
+      <div class="mwatch-foot">
+        <a href="https://www.tradingview.com/" rel="noopener" target="_blank">Track all markets on TradingView</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1238,17 +1713,115 @@ strong{font-weight:600}
   </div>
 </section>
 
-<!-- ══ PARTNER LOGOS ══ -->
-<section class="partners">
-  <div class="partners-grid">
-    <div class="plogo reveal"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><polygon points="17,2 21.5,11 31.5,12.5 24,19.5 25.5,29.5 17,25 8.5,29.5 10,19.5 2.5,12.5 12.5,11" fill="#F0B90B"/></svg><span style="color:#F0B90B">BINANCE</span></div>
-    <div class="plogo reveal reveal-d1"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="#FF4500"/><circle cx="17" cy="9" r="3.5" fill="white"/><circle cx="24" cy="13.5" r="3" fill="#FF4500" stroke="white" stroke-width="1.5"/><ellipse cx="11.5" cy="17" rx="2.5" ry="3" fill="white"/><ellipse cx="22.5" cy="17" rx="2.5" ry="3" fill="white"/><path d="M10.5 22.5 Q17 27.5 23.5 22.5" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><span style="color:#FF4500">REDDIT</span></div>
-    <div class="plogo reveal reveal-d2" style="border-color:rgba(201,168,76,.32);background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02))"><svg width="34" height="34" viewBox="0 0 44 44" fill="none"><defs><linearGradient id="plg3" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f0d47a"/><stop offset="100%" stop-color="#8a6a10"/></linearGradient></defs><rect x="2" y="2" width="40" height="40" rx="11" fill="url(#plg3)"/><rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/><path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/><path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span style="color:#c9a84c">COPYVESTPRO</span></div>
-    <div class="plogo reveal reveal-d3"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="#16b157"/><text x="17" y="22" text-anchor="middle" font-size="7.5" font-weight="900" fill="white" font-family="Arial,sans-serif">BITFINEX</text></svg><span style="color:#16b157">BITFINEX</span></div>
-    <div class="plogo reveal reveal-d2"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="#0052FF"/><text x="17" y="23" text-anchor="middle" font-size="13" font-weight="900" fill="white" font-family="Arial,sans-serif">CB</text></svg><span style="color:#0052FF">COINBASE</span></div>
-    <div class="plogo reveal reveal-d1"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="#F7931A"/><text x="17" y="24" text-anchor="middle" font-size="20" font-weight="900" fill="white" font-family="Arial,sans-serif">&#8383;</text></svg><span style="color:#F7931A">BITCOIN</span></div>
+
+<!-- ══ TRUSTED STRIP (PREMIUM) ══ -->
+<section class="trusted">
+  <div class="trusted-inner">
+    <div class="trusted-head">
+      <div>
+        <div class="section-eyebrow">Trusted sources</div>
+        <h2 class="trusted-title">Live market data, delivered with clarity</h2>
+        <p class="trusted-sub">Real-time widgets and market signals from widely used venues, presented in a premium, readable layout.</p>
+      </div>
+      <div class="trusted-ctas">
+        <a href="register.html" class="btn-gold ripple-wrap">Get Started <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="trusted-embed" aria-label="Live ticker tape">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+          {
+            "symbols": [
+              { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
+              { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
+              { "proName": "BINANCE:SOLUSDT", "title": "Solana" },
+              { "proName": "FX:EURUSD", "title": "EUR/USD" },
+              { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" }
+            ],
+            "showSymbolLogo": true,
+            "isTransparent": true,
+            "displayMode": "adaptive",
+            "colorTheme": "dark",
+            "locale": "en"
+          }
+        </script>
+      </div>
+    </div>
+
+    <div class="trusted-rail" aria-label="Partners and venues">
+      <div class="trusted-fade trusted-fade-l"></div>
+      <div class="trusted-fade trusted-fade-r"></div>
+
+      <div class="trusted-trackWrap" id="trustedTrackWrap">
+        <div class="trusted-track" id="trustedTrack">
+          <div class="trustedLogo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+              <polygon points="17,2 21.5,11 31.5,12.5 24,19.5 25.5,29.5 17,25 8.5,29.5 10,19.5 2.5,12.5 12.5,11" fill="#F0B90B"/>
+            </svg>
+            <span>Binance</span>
+          </div>
+
+          <div class="trustedLogo">
+            <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+              <circle cx="17" cy="17" r="15" fill="#FF4500"/>
+              <circle cx="17" cy="9" r="3.5" fill="white"/>
+              <circle cx="24" cy="13.5" r="3" fill="#FF4500" stroke="white" stroke-width="1.5"/>
+              <ellipse cx="11.5" cy="17" rx="2.5" ry="3" fill="white"/>
+              <ellipse cx="22.5" cy="17" rx="2.5" ry="3" fill="white"/>
+              <path d="M10.5 22.5 Q17 27.5 23.5 22.5" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span>Reddit</span>
+          </div>
+
+          <div class="trustedLogo trustedLogo--brand">
+            <svg width="34" height="34" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="plg_trusted" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#f0d47a"/>
+                  <stop offset="100%" stop-color="#8a6a10"/>
+                </linearGradient>
+              </defs>
+              <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#plg_trusted)"/>
+              <rect x="3" y="2" width="20" height="40" rx="11" fill="rgba(255,255,255,0.08)"/>
+              <path d="M29 13.5C25 11 15 12.5 13.5 21C12 29.5 18.5 33 26.5 31.5" stroke="#1a0e00" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+              <path d="M27.5 14L24.5 29.5L31 14" stroke="#1a0e00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span>CopyVestPro</span>
+          </div>
+
+          <div class="trustedLogo">
+            <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+              <circle cx="17" cy="17" r="15" fill="#16b157"/>
+              <text x="17" y="22" text-anchor="middle" font-size="7.5" font-weight="900" fill="white" font-family="Arial,sans-serif">BITFINEX</text>
+            </svg>
+            <span>Bitfinex</span>
+          </div>
+
+          <div class="trustedLogo">
+            <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+              <circle cx="17" cy="17" r="15" fill="#0052FF"/>
+              <text x="17" y="23" text-anchor="middle" font-size="13" font-weight="900" fill="white" font-family="Arial,sans-serif">CB</text>
+            </svg>
+            <span>Coinbase</span>
+          </div>
+
+          <div class="trustedLogo">
+            <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+              <circle cx="17" cy="17" r="15" fill="#F7931A"/>
+              <text x="17" y="24" text-anchor="middle" font-size="20" font-weight="900" fill="white" font-family="Arial,sans-serif">&#8383;</text>
+            </svg>
+            <span>Bitcoin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="trusted-note">Market widgets powered by TradingView.</p>
   </div>
 </section>
+
 
 <!-- ══ CTA BANNER ══ -->
 <div class="cta-bar">
@@ -1286,8 +1859,8 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="mailto:support@copyvestpro.com">support@copyvestpro.com</a>
-            <a href="#">www.copyvestpro.com</a>
+            <a href="/cdn-cgi/l/email-protection#7b080e0b0b14090f3b18140b020d1e080f0b091455030201"><span class="__cf_email__" data-cfemail="7f0c0a0f0f100d0b3f1c100f06091a0c0b0f0d1051070605">[email&#160;protected]</span></a>
+            <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
           </div>
         </li>
       </ul>
@@ -1376,7 +1949,7 @@ strong{font-weight:600}
 </div>
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── PRELOADER ── */
 window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('gone'),920)});
 
@@ -1565,7 +2138,7 @@ sendBtn.addEventListener('click',async function(){
   if(!sent){
     const subject=encodeURIComponent('CopyVestPro Support Request – '+payload.name);
     const body=encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\n\nMessage:\n${payload.message}`);
-    window.open(`mailto:support@copyvestpro.com?subject=${subject}&body=${body}`,'_blank');
+    window.open(`mailto:support@copyvestpro.xyz?subject=${subject}&body=${body}`,'_blank');
     sent=true;
   }
 
@@ -1589,6 +2162,87 @@ backBtn.addEventListener('click',()=>{
   emailInput.value='';
   msgInput.value='';
 });
-</script>
-</body>
-</html>
+
+
+
+/* ── MARKET WATCH TABS (TRADINGVIEW) ── */
+(function(){
+  const btns = document.querySelectorAll('.mtab');
+  const wraps = {
+    trending: document.getElementById('tv-trending'),
+    movers: document.getElementById('tv-movers'),
+    cap: document.getElementById('tv-cap')
+  };
+
+  // Lazy-load TradingView widget by injecting script only once per tab
+  const loaded = { trending:false, movers:false, cap:false };
+
+  function mountTradingView(targetEl, scriptSrc, cfg){
+    if(!targetEl) return;
+    // container markup
+    targetEl.innerHTML = '<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>';
+    const c = targetEl.querySelector('.tradingview-widget-container');
+    const s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = scriptSrc;
+    s.async = true;
+    s.innerHTML = JSON.stringify(cfg);
+    c.appendChild(s);
+  }
+
+  const configs = {
+    trending: {
+      src: 'https://s3.tradingview.com/external-embedding/embed-widget-screener.js',
+      cfg: {
+        width: '100%',
+        height: 520,
+        defaultColumn: 'overview',
+        defaultScreen: 'general',
+        market: 'crypto',
+        showToolbar: true,
+        colorTheme: 'light',
+        locale: 'en',
+        isTransparent: false
+      }
+    },
+    movers: {
+      src: 'https://s3.tradingview.com/external-embedding/embed-widget-market-movers.js',
+      cfg: {
+        width: '100%',
+        height: 520,
+        market: 'crypto',
+        colorTheme: 'light',
+        locale: 'en',
+        isTransparent: false
+      }
+    },
+    cap: {
+      src: 'https://s3.tradingview.com/external-embedding/embed-widget-screener.js',
+      cfg: {
+        width: '100%',
+        height: 520,
+        defaultColumn: 'market_cap_basic',
+        defaultScreen: 'general',
+        market: 'crypto',
+        showToolbar: true,
+        colorTheme: 'light',
+        locale: 'en',
+        isTransparent: false
+      }
+    }
+  };
+
+  function activate(key){
+    btns.forEach(b => {
+      const on = b.dataset.mtab === key;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    Object.entries(wraps).forEach(([k, el]) => {
+      if(!el) return;
+      el.classList.toggle('on', k === key);
+    });
+
+    if(!loaded[key] && wraps[key]){
+      loaded[key] = true;
+      mountTradingView(wraps[key], configs[key].src, configs[key].cfg);
