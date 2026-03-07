@@ -448,7 +448,7 @@ tbody tr:hover{background:var(--bg)}
           <div class="stat-ico ico-green"><i class="fas fa-chart-line"></i></div>
           <div class="stat-val" id="ov-profit">$—</div>
           <div class="stat-lbl">Total Profit</div>
-          <div class="stat-tag live"><span class="pulse-dot"></span> Hourly updates</div>
+          <div class="stat-tag live"><span class="pulse-dot"></span> Live counter</div>
         </div>
         <div class="stat blue">
           <div class="stat-ico ico-blue"><i class="fas fa-circle-check"></i></div>
@@ -988,6 +988,9 @@ async function loadDash(){
     $('ov-balance').textContent  = fmt(dashData.available_balance);
     $('ov-profit').textContent   = fmt(dashData.total_profit);
     $('ov-deposited').textContent= fmt(dashData.total_deposited);
+    // Store DB profit base so the live counter can tick from the real value
+    window._dbProfitBase = parseFloat(dashData.total_profit||0);
+    window._profitCounterStart = Date.now();
 
     // Separate active vs pending from investment list
     const allInvs        = dashData.investments||[];
@@ -1974,15 +1977,30 @@ function startLiveProfitCounter(activeInvs){
   activeInvs.forEach(i=>{ bases[i.id] = parseFloat(i.total_earned||0); });
   const startTime = Date.now();
 
+  // Total hourly rate across all active investments (matches accrual job formula)
+  const totalHourlyRate = activeInvs.reduce((sum, i) => {
+    return sum + (parseFloat(i.monthly_roi||0)/100 * parseFloat(i.principal||i.funded_total||0)) / 720;
+  }, 0);
+
   chartLiveInterval = setInterval(()=>{
+    const elapsed = (Date.now() - startTime) / 3600000; // hours elapsed since last DB sync
+
+    // Update each investment card ticker
     activeInvs.forEach(i=>{
       const el = $('liveProfitTicker_'+i.id);
       if(!el) return;
-      const hourlyRate = (parseFloat(i.monthly_roi||0)/100 * parseFloat(i.funded_total||0)) / 720;
-      const elapsed = (Date.now() - startTime) / 3600000; // hours elapsed
+      const hourlyRate = (parseFloat(i.monthly_roi||0)/100 * parseFloat(i.principal||i.funded_total||0)) / 720;
       const simEarned = (bases[i.id]||0) + (hourlyRate * elapsed);
       el.textContent = fmt(simEarned);
     });
+
+    // Update Overview "Total Profit" stat with live counter
+    const ovProfit = $('ov-profit');
+    if(ovProfit && totalHourlyRate > 0){
+      const dbBase = window._dbProfitBase || 0;
+      const liveTotalProfit = dbBase + (totalHourlyRate * elapsed);
+      ovProfit.textContent = fmt(liveTotalProfit);
+    }
   }, 1000);
 }
 
