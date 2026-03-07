@@ -462,6 +462,7 @@ tbody tr:hover{background:var(--bg)}
       </div>
 
       <!-- Pending Funding Alert Banner — shown only when needed -->
+      <div id="verifyBanner" style="display:none;margin-bottom:18px"></div>
       <div id="pendingBanner" style="display:none;margin-bottom:18px"></div>
 
       <div class="g2-1" style="margin-bottom:22px">
@@ -917,8 +918,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
   $('refCode').textContent = code;
   $('refLink').textContent = `https://copyvestpro.xyz/register.html?ref=${code}`;
 
-  // Auto-refresh profit every 5 min
-  setInterval(loadDash, 300000);
+  // Auto-refresh profit every 60 seconds
+  setInterval(loadDash, 60000);
   // Refresh chart every 30s if watch page active
   setInterval(()=>{
     if(document.getElementById('pg-watch').classList.contains('on')){
@@ -960,6 +961,27 @@ async function loadDash(){
     const r = await af('/api/user/dashboard');
     if(r.status===401){ logout(); return; }
     dashData = await r.json();
+
+    // Show email verification banner if not verified
+    const verifyEl = $('verifyBanner');
+    if(dashData.email_verified === false){
+      verifyEl.style.display = 'block';
+      verifyEl.innerHTML = `
+        <div style="background:linear-gradient(135deg,#1e1a3a,#2d2060);border:2px solid #6c63ff;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px">
+          <div style="width:40px;height:40px;border-radius:50%;background:#6c63ff22;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <i class="fas fa-envelope" style="color:#6c63ff;font-size:1.1rem"></i>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:800;color:#c4b5fd;margin-bottom:2px">Verify your email to enable deposits</div>
+            <div style="font-size:12px;color:#8b7fba;line-height:1.5">Check your inbox for a verification link from CopyVestPro. 
+              <span onclick="resendVerification()" style="color:#6c63ff;cursor:pointer;text-decoration:underline;font-weight:700">Resend email</span>
+            </div>
+          </div>
+          <span style="background:#6c63ff22;color:#c4b5fd;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap">Unverified</span>
+        </div>`;
+    } else {
+      verifyEl.style.display = 'none';
+    }
 
     $('ov-balance').textContent  = fmt(dashData.available_balance);
     $('ov-profit').textContent   = fmt(dashData.total_profit);
@@ -1699,6 +1721,18 @@ async function clearTrader(){
 
 // Quick-fill amount preset chips
 function setAmt(v){ const el=$('depAmt'); el.value=v; el.focus(); }
+
+async function resendVerification(){
+  try{
+    const r = await af('/api/auth/resend-verification',{
+      method:'POST',
+      body: JSON.stringify({ email: dashData.email || '' })
+    });
+    const d = await r.json();
+    if(r.ok) toast('Verification email sent! Check your inbox.','ok');
+    else toast(d.error||'Failed to send','err');
+  }catch(e){ toast('Error sending email','err'); }
+}
 
 // Auto-select a specific plan and pre-fill the exact needed amount, then navigate to Invest tab
 function autoSelectPlanAndInvest(planId, planName, neededAmount){

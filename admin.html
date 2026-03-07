@@ -324,6 +324,9 @@ tbody tr:hover{background:var(--bg)}
 
     <!-- ══════════════ OVERVIEW ══════════════ -->
     <div class="pg on" id="pg-overview">
+      <!-- Connection error banner -->
+      <div id="stErr" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#b91c1c;font-weight:600"></div>
+
       <div class="grid-4" style="margin-bottom:22px">
         <div class="stat-card gold"><div class="stat-ico ico-gold"><i class="fas fa-users"></i></div><div class="stat-val" id="stUsers">—</div><div class="stat-lbl">Total Users</div></div>
         <div class="stat-card green"><div class="stat-ico ico-green"><i class="fas fa-arrow-down-to-line"></i></div><div class="stat-val" id="stDeps">—</div><div class="stat-lbl">Total Deposited</div></div>
@@ -342,7 +345,10 @@ tbody tr:hover{background:var(--bg)}
           <div class="card" style="padding:0;margin-bottom:20px">
             <div style="padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
               <div class="card-title" style="margin:0">Pending Actions</div>
-              <button class="btn btn-ghost btn-sm" onclick="loadAll()"><i class="fas fa-rotate"></i> Refresh</button>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-ghost btn-sm" id="accrualBtn" onclick="triggerAccrual()"><i class="fas fa-bolt"></i> Force Accrual</button>
+                <button class="btn btn-ghost btn-sm" onclick="loadAll()"><i class="fas fa-rotate"></i> Refresh</button>
+              </div>
             </div>
             <div id="pendingTable"><div class="tbl-empty"><i class="fas fa-check-circle" style="color:var(--green)"></i><p>All caught up!</p></div></div>
           </div>
@@ -746,6 +752,7 @@ async function loadStats(){
   try{
     const r = await af('/api/admin/stats');
     if(r.status===401){ logout(); return; }
+    if(!r.ok){ const e=await r.text(); throw new Error(`HTTP ${r.status}: ${e.slice(0,80)}`); }
     const d = await r.json();
     $('stUsers').textContent   = d.total_users||0;
     $('stDeps').textContent    = fm(d.total_deposits);
@@ -756,7 +763,7 @@ async function loadStats(){
     $('stWd').textContent      = fm(d.total_withdrawn);
     $('depCt').textContent     = d.pending_deposits||0;
     $('wdCt').textContent      = d.pending_withdrawals||0;
-  }catch(e){ console.log('stats:', e); }
+  }catch(e){ console.error('stats:', e); $('stErr').textContent='Stats error: '+e.message; $('stErr').style.display='block'; }
 }
 
 /* ══════════════════════════════════════
@@ -765,10 +772,13 @@ async function loadStats(){
 async function loadUsers(){
   try{
     const r = await af('/api/admin/users');
+    if(r.status===401){ logout(); return; }
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
     allUsers = await r.json()||[];
+    if(!Array.isArray(allUsers)) throw new Error('Bad response');
     renderUsers(allUsers);
     renderRecentUsers(allUsers.slice(0,5));
-  }catch(e){ $('usersTable').innerHTML = tblEmpty('fa-circle-exclamation','Failed to load users.'); }
+  }catch(e){ $('usersTable').innerHTML = tblEmpty('fa-circle-exclamation',`Failed to load users — ${e.message}. <button onclick="loadUsers()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
 }
 
 function filterUsers(){
@@ -860,10 +870,13 @@ function viewUser(id){
 async function loadDeposits(){
   try{
     const r = await af('/api/admin/deposits');
+    if(r.status===401){ logout(); return; }
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
     allDeposits = await r.json()||[];
+    if(!Array.isArray(allDeposits)) throw new Error('Bad response');
     renderDeposits(allDeposits);
     renderPendingActions();
-  }catch(e){ $('depositsTable').innerHTML=tblEmpty('fa-circle-exclamation','Failed to load deposits.'); }
+  }catch(e){ $('depositsTable').innerHTML=tblEmpty('fa-circle-exclamation',`Failed to load deposits — ${e.message}. <button onclick="loadDeposits()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
 }
 
 function filterDeposits(){
@@ -913,10 +926,13 @@ async function rejectDeposit(id){
 async function loadWithdrawals(){
   try{
     const r = await af('/api/admin/withdrawals');
+    if(r.status===401){ logout(); return; }
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
     allWithdrawals = await r.json()||[];
+    if(!Array.isArray(allWithdrawals)) throw new Error('Bad response');
     renderWithdrawals(allWithdrawals);
     renderPendingActions();
-  }catch(e){ $('withdrawalsTable').innerHTML=tblEmpty('fa-circle-exclamation','Failed.'); }
+  }catch(e){ $('withdrawalsTable').innerHTML=tblEmpty('fa-circle-exclamation',`Failed to load withdrawals — ${e.message}. <button onclick="loadWithdrawals()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
 }
 
 function filterWithdrawals(){
@@ -969,11 +985,15 @@ async function loadInvestments(){
       af('/api/admin/investments'),
       af('/api/admin/investments/pending-activations'),
     ]);
+    if(r.status===401){ logout(); return; }
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
     allInvestments = await r.json()||[];
-    const pending = await pa.json()||[];
-    renderPendingActivations(pending);
+    if(!Array.isArray(allInvestments)) throw new Error('Bad response');
+    // pending-activations is optional (gracefully handle 404 if not deployed yet)
+    const pending = pa.ok ? (await pa.json()||[]) : [];
+    renderPendingActivations(Array.isArray(pending) ? pending : []);
     renderInvestments(allInvestments);
-  }catch(e){ $('investmentsTable').innerHTML=tblEmpty('fa-chart-line','Failed.'); }
+  }catch(e){ $('investmentsTable').innerHTML=tblEmpty('fa-chart-line',`Failed to load investments — ${e.message}. <button onclick="loadInvestments()" style="margin-top:8px;padding:4px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px">Retry</button>`); }
 }
 
 function renderPendingActivations(rows){
@@ -1338,9 +1358,12 @@ async function loadRecentCredits(){
 async function loadAuditLogs(){
   try{
     const r = await af('/api/admin/audit-logs');
+    if(r.status===401){ logout(); return; }
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
     allAudit = await r.json()||[];
+    if(!Array.isArray(allAudit)) allAudit=[];
     renderAudit();
-  }catch(e){ $('auditList').innerHTML=tblEmpty('fa-circle-exclamation','Failed to load audit logs.'); }
+  }catch(e){ $('auditList').innerHTML=tblEmpty('fa-circle-exclamation',`Failed to load audit logs — ${e.message}`); }
 }
 
 function renderAudit(){
@@ -1458,6 +1481,19 @@ function goTo(id, btn){
 function closeModal(){ $('modal').classList.remove('on'); }
 function openSB(){ $('sb').classList.add('open'); $('overlay').style.display='block'; }
 function closeSB(){ $('sb').classList.remove('open'); $('overlay').style.display='none'; }
+async function triggerAccrual(){
+  const btn = $('accrualBtn');
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Running…'; }
+  try{
+    const r = await af('/api/admin/trigger-accrual', {method:'POST'});
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    toast(d.message||'Accrual run complete!','ok');
+    loadStats();
+  }catch(e){ toast('Accrual failed — push new admin.js to Railway first','err'); }
+  finally{ if(btn){ btn.disabled=false; btn.innerHTML='<i class="fas fa-bolt"></i> Force Accrual'; } }
+}
+
 function logout(){ localStorage.removeItem('cvp_token'); localStorage.removeItem('cvp_user'); window.location.href='login.html'; }
 
 function toast(msg, type=''){
