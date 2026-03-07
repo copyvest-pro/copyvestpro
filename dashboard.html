@@ -308,6 +308,24 @@ tbody tr:hover{background:var(--bg)}
 .spin{animation:spin .7s linear infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* Watch Page */
+.watch-inv-card{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);padding:20px;position:relative;overflow:hidden}
+.watch-inv-card.active-card{border-color:var(--green-border);background:linear-gradient(135deg,#f0fdf4,#fff)}
+.watch-inv-card.pending-card{border-color:var(--amber-border);background:linear-gradient(135deg,#fffbeb,#fff)}
+.watch-inv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.watch-inv-card.active-card::before{background:linear-gradient(90deg,var(--green),#4ade80)}
+.watch-inv-card.pending-card::before{background:linear-gradient(90deg,var(--amber),#fbbf24)}
+.profit-ticker{font-size:22px;font-weight:800;color:var(--green);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.need-badge{display:inline-flex;align-items:center;gap:6px;background:#fef3c7;border:1.5px solid #fde68a;border-radius:var(--r-pill);padding:5px 13px;font-size:12px;font-weight:700;color:#92400e;margin-top:10px}
+.chart-ticker-bar{background:var(--ink);color:#fff;padding:7px 0;overflow:hidden;font-size:11px;font-weight:600;letter-spacing:.04em}
+.chart-ticker-inner{display:flex;gap:0;white-space:nowrap;animation:ticker 30s linear infinite}
+.chart-ticker-item{padding:0 28px;border-right:1px solid rgba(255,255,255,.15)}
+.profit-hist-row{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;border-bottom:1px solid var(--border)}
+.profit-hist-row:last-child{border-bottom:none}
+.profit-hist-row .amt{font-weight:700;color:var(--green)}
+.profit-hist-row .meta{font-size:12px;color:var(--muted)}
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:1200px){.g4{grid-template-columns:repeat(2,1fr)}.plan-grid{grid-template-columns:repeat(2,1fr)}}
@@ -378,6 +396,7 @@ tbody tr:hover{background:var(--bg)}
 
     <div class="sb-grp-lbl">Investing</div>
     <button class="sb-link" onclick="goTo('traders',this)"><i class="fas fa-user-group"></i>Copy Traders</button>
+    <button class="sb-link" onclick="goTo('watch',this)"><i class="fas fa-tv"></i>Watch Portfolio</button>
     <button class="sb-link" onclick="goTo('markets',this)"><i class="fas fa-chart-line"></i>Markets</button>
 
     <div class="sb-grp-lbl">Account</div>
@@ -757,8 +776,57 @@ tbody tr:hover{background:var(--bg)}
     </div>
 
   </div><!-- /content -->
-</div><!-- /main -->
+  </div><!-- /main -->
 </div><!-- /layout -->
+    <div class="pg" id="pg-watch">
+      <!-- Pending investments alert (shown only when there are pending) -->
+      <div id="watchPendingAlert" style="display:none;margin-bottom:20px"></div>
+
+      <!-- Live Chart Card -->
+      <div class="card" style="margin-bottom:22px;padding:0;overflow:hidden">
+        <div style="padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div>
+            <div class="card-title" style="margin-bottom:2px">Portfolio Growth Chart</div>
+            <div style="font-size:12px;color:var(--muted)">Simulated based on your active investment plans</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r-pill);padding:5px 12px">
+              <span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 1.2s ease-in-out infinite"></span>
+              <span style="font-size:12px;font-weight:700;color:var(--green)">LIVE</span>
+            </div>
+            <div id="watchTotalVal" style="font-size:18px;font-weight:800;color:var(--ink)">$—</div>
+          </div>
+        </div>
+        <div style="position:relative;padding:0 0 12px">
+          <canvas id="portfolioChart" style="width:100%;height:220px;display:block"></canvas>
+          <div id="chartNoData" style="display:none;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)">
+            <i class="fas fa-chart-line" style="font-size:2rem;color:#ddd"></i>
+            <div style="font-size:13px">Fund an investment plan to see your growth chart</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Investments Live Feed -->
+      <div class="g2" id="watchInvGrid" style="margin-bottom:22px"></div>
+
+      <!-- Pending Investments Section -->
+      <div id="watchPendingSection" style="display:none;margin-bottom:22px">
+        <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px">
+          <i class="fas fa-hourglass-half" style="color:var(--amber)"></i> Pending Investments
+          <span style="font-size:12px;font-weight:500;color:var(--muted)">— Complete funding to activate</span>
+        </div>
+        <div id="watchPendingGrid"></div>
+      </div>
+
+      <!-- Profit History -->
+      <div class="card" style="padding:0">
+        <div style="padding:18px 22px 14px;border-bottom:1px solid var(--border)">
+          <div class="card-title">Recent Profit Accruals</div>
+          <div class="card-sub">Hourly earnings credited to your account</div>
+        </div>
+        <div id="watchProfitHistory" style="padding:0 4px"><div class="empty"><i class="fas fa-coins"></i><p>No profit accruals yet. Activate an investment to start earning.</p></div></div>
+      </div>
+    </div><!-- /pg-watch -->
 
 <!-- ═══════════ MOBILE BOTTOM NAV ═══════════ -->
 <div class="bot-nav">
@@ -766,7 +834,7 @@ tbody tr:hover{background:var(--bg)}
     <button class="bn-item on" onclick="goTo('overview',null,this)"><i class="fas fa-chart-pie"></i>Overview</button>
     <button class="bn-item buy-cta-nav" onclick="goTo('buy',null,this)"><i class="fas fa-bolt"></i>Invest</button>
     <button class="bn-item" onclick="goTo('traders',null,this)"><i class="fas fa-user-group"></i>Traders</button>
-    <button class="bn-item" onclick="goTo('markets',null,this)"><i class="fas fa-chart-line"></i>Markets</button>
+    <button class="bn-item" onclick="goTo('watch',null,this)"><i class="fas fa-tv"></i>Watch</button>
     <button class="bn-item" onclick="goTo('withdraw',null,this)"><i class="fas fa-wallet"></i>Withdraw</button>
   </div>
 </div>
@@ -794,7 +862,7 @@ const WALLETS = {
 };
 let wIdx = 0;
 
-const TITLES = {overview:'Overview',buy:'Invest',traders:'Copy Traders',markets:'Markets',withdraw:'Withdraw',transactions:'Transactions',referral:'Referral Program',profile:'Account Settings'};
+const TITLES = {overview:'Overview',buy:'Invest',traders:'Copy Traders',watch:'Watch Portfolio',markets:'Markets',withdraw:'Withdraw',transactions:'Transactions',referral:'Referral Program',profile:'Account Settings'};
 
 /* ═══════════════════════════════════════
    HELPERS
@@ -845,6 +913,16 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
   // Auto-refresh profit every 5 min
   setInterval(loadDash, 300000);
+  // Refresh chart every 30s if watch page active
+  setInterval(()=>{
+    if(document.getElementById('pg-watch').classList.contains('on')){
+      drawPortfolioChart(
+        (dashData.investments||[]).filter(i=>i.status==='active'),
+        parseFloat(dashData.total_deposited||0),
+        parseFloat(dashData.total_profit||0)
+      );
+    }
+  }, 30000);
 });
 
 /* ═══════════════════════════════════════
@@ -865,6 +943,7 @@ function goTo(id, sbBtn, bnBtn) {
   if(id==='buy'){ updateWallet(); showTraderBanner(); loadFundingProgress(); }
   if(id==='withdraw') $('wdAvailBal').textContent = fmt(dashData.available_balance||0);
   if(id==='transactions') loadTransactions();
+  if(id==='watch') renderWatchPage();
 }
 
 /* ═══════════════════════════════════════
@@ -914,14 +993,18 @@ function renderInvestments(invs){
     const isActive = i.status==='active';
     const isComp   = i.status==='completed';
     const notFunded= funded < target;
-    // Status badge logic
+    const needed   = Math.max(0, target - funded);
     const bdgCls = isActive?'bdg-green': isComp?'bdg-blue':'bdg-amber';
-    const bdgLbl = isActive?'Active': isComp?'Completed': notFunded?'Pending Funding':'Awaiting Activation';
+    const bdgLbl = isActive?'Active': isComp?'Completed': notFunded?'Pending Funding':'Awaiting Admin';
     const stMsg  = isActive
-      ? '<div style="font-size:12px;color:var(--green);margin-top:6px;font-weight:600"><i class="fas fa-circle-check"></i> Trade Active — Earning hourly. Total profit: '+fmt(i.total_earned||0)+'</div>'
+      ? '<div style="font-size:12px;color:var(--green);margin-top:6px;font-weight:600"><i class="fas fa-circle-check"></i> Trade Active — Earning hourly. Profit: '+fmt(i.total_earned||0)+'</div>'
       : notFunded
-        ? '<div style="font-size:12px;color:var(--gold-d);margin-top:6px"><i class="fas fa-clock"></i> <strong>Pending Funding</strong> — Deposit '+fmt(target-funded)+' more to reach minimum. Trade starts after admin confirms full funding.</div>'
-        : '<div style="font-size:12px;color:var(--muted);margin-top:6px"><i class="fas fa-hourglass-half"></i> Fully funded — awaiting admin activation. Trade will start shortly.</div>';
+        ? `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin-top:8px">
+            <div style="font-size:12px;color:#92400e;font-weight:700"><i class="fas fa-circle-exclamation"></i> Trading NOT active — incomplete funding</div>
+            <div style="font-size:12px;color:#78350f;margin-top:3px">Send <strong>${fmt(needed)}</strong> more to reach ${fmt(target)} minimum. Trade starts only after full funding is confirmed.</div>
+            <button onclick="goTo('buy',null)" style="margin-top:8px;padding:5px 14px;border-radius:20px;background:#d97706;color:#fff;border:none;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)"><i class="fas fa-plus"></i> Add ${fmt(needed)}</button>
+           </div>`
+        : '<div style="font-size:12px;color:var(--muted);margin-top:6px"><i class="fas fa-hourglass-half"></i> Fully funded — awaiting admin activation.</div>';
     return `<div style="padding:14px 0;border-bottom:1px solid var(--border)">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div>
@@ -1524,6 +1607,275 @@ async function changePw(){
 function copyRef(type){
   const val = type==='code' ? $('refCode').textContent : $('refLink').textContent;
   navigator.clipboard.writeText(val).then(()=>toast('Copied to clipboard','ok'));
+}
+
+/* ═══════════════════════════════════════
+   WATCH PORTFOLIO PAGE
+═══════════════════════════════════════ */
+let chartAnimFrame = null;
+let chartPoints = [];
+let chartLiveInterval = null;
+
+function renderWatchPage(){
+  const invs = dashData.investments || [];
+  const active = invs.filter(i=>i.status==='active');
+  const pending = invs.filter(i=>i.status!=='active' && i.status!=='completed');
+
+  // Total portfolio value
+  const totalProfit = parseFloat(dashData.total_profit||0);
+  const totalDeposited = parseFloat(dashData.total_deposited||0);
+  const portfolioVal = totalDeposited + totalProfit;
+  $('watchTotalVal').textContent = fmt(portfolioVal);
+
+  // Pending alert banner
+  const alertEl = $('watchPendingAlert');
+  if(pending.length){
+    const totalNeeded = pending.reduce((s,i)=>{
+      const funded = parseFloat(i.funded_total||0);
+      const target = parseFloat(i.plan_min_deposit||0);
+      return s + Math.max(0, target - funded);
+    },0);
+    alertEl.style.display = 'block';
+    alertEl.innerHTML = `<div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:var(--r);padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
+      <i class="fas fa-hourglass-half" style="color:#d97706;font-size:1.4rem;flex-shrink:0;margin-top:2px"></i>
+      <div style="flex:1">
+        <div style="font-weight:700;color:#92400e;font-size:14px;margin-bottom:4px">
+          ${pending.length} investment${pending.length>1?'s':''} waiting for full funding
+        </div>
+        <div style="font-size:13px;color:#78350f;line-height:1.55">
+          You still need <strong>${fmt(totalNeeded)}</strong> more to fully fund your pending plan${pending.length>1?'s':''}. 
+          Trading will <strong>not start</strong> until the full investment amount is received and confirmed by admin.
+        </div>
+        <button onclick="goTo('buy',null)" class="btn-gold btn-sm" style="margin-top:10px"><i class="fas fa-bolt"></i> Add Funds Now</button>
+      </div>
+    </div>`;
+  } else {
+    alertEl.style.display = 'none';
+  }
+
+  // Active investment cards
+  const invGrid = $('watchInvGrid');
+  if(active.length){
+    invGrid.style.display = 'grid';
+    invGrid.innerHTML = active.map(i=>{
+      const hourlyRate = (parseFloat(i.monthly_roi||0)/100 * parseFloat(i.funded_total||0)) / 720;
+      const earned = parseFloat(i.total_earned||0);
+      const traderName = i.trader_name || selectedTraderName || 'Copy Trading';
+      return `<div class="watch-inv-card active-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--ink)">${i.plan_name||'Plan'}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">${traderName} · ${i.monthly_roi}%/mo</div>
+          </div>
+          <span style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r-pill);padding:3px 10px;font-size:10px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:5px">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 1.2s ease-in-out infinite"></span>ACTIVE
+          </span>
+        </div>
+        <div style="margin-bottom:6px">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.05em">Total Profit Earned</div>
+          <div class="profit-ticker" id="liveProfitTicker_${i.id}">${fmt(earned)}</div>
+        </div>
+        <div style="display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:10px;border-top:1px solid var(--border);padding-top:10px">
+          <div><span style="font-weight:700;color:var(--ink)">${fmt(parseFloat(i.funded_total||0))}</span><br>Funded</div>
+          <div><span style="font-weight:700;color:var(--green)">+${fmt(hourlyRate)}</span><br>Per hour</div>
+          <div><span style="font-weight:700;color:var(--ink)">${i.lock_months}mo</span><br>Lock</div>
+        </div>
+      </div>`;
+    }).join('');
+    // Start live profit counter
+    startLiveProfitCounter(active);
+  } else {
+    invGrid.style.display = 'none';
+    invGrid.innerHTML = '';
+  }
+
+  // Pending investments section
+  const pendingSection = $('watchPendingSection');
+  const pendingGrid = $('watchPendingGrid');
+  if(pending.length){
+    pendingSection.style.display = 'block';
+    pendingGrid.innerHTML = pending.map(i=>{
+      const funded = parseFloat(i.funded_total||0);
+      const target = parseFloat(i.plan_min_deposit||1);
+      const pct = Math.min(100, (funded/target)*100);
+      const needed = Math.max(0, target - funded);
+      const isFullyFunded = funded >= target;
+      return `<div class="watch-inv-card pending-card" style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--ink)">${i.plan_name||'Plan'}</div>
+            <div style="font-size:12px;color:var(--muted)">${i.monthly_roi}% monthly · ${i.lock_months}mo lock</div>
+          </div>
+          <span style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-pill);padding:3px 10px;font-size:10px;font-weight:700;color:var(--amber)">
+            ${isFullyFunded?'AWAITING ADMIN':'PENDING FUNDS'}
+          </span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px">
+          <span>Funded: <strong style="color:var(--ink)">${fmt(funded)}</strong></span>
+          <span>Target: <strong style="color:var(--ink)">${fmt(target)}</strong></span>
+        </div>
+        <div style="background:var(--border);border-radius:var(--r-pill);height:8px;overflow:hidden;margin-bottom:10px">
+          <div style="height:100%;border-radius:var(--r-pill);background:${pct>=100?'var(--green)':'linear-gradient(90deg,var(--amber),var(--gold))'};width:${pct}%;transition:width .6s ease"></div>
+        </div>
+        ${!isFullyFunded
+          ? `<div class="need-badge"><i class="fas fa-circle-exclamation"></i>Need ${fmt(needed)} more to activate trading</div>
+             <button onclick="goTo('buy',null)" class="btn-gold btn-sm btn-full" style="margin-top:10px"><i class="fas fa-plus"></i> Add ${fmt(needed)}</button>`
+          : `<div style="font-size:12px;color:var(--green);font-weight:600"><i class="fas fa-circle-check"></i> Fully funded — admin will activate shortly</div>`
+        }
+      </div>`;
+    }).join('');
+  } else {
+    pendingSection.style.display = 'none';
+  }
+
+  // No investments at all
+  if(!active.length && !pending.length){
+    invGrid.style.display = 'block';
+    invGrid.innerHTML = `<div class="empty" style="grid-column:1/-1"><i class="fas fa-layer-group"></i><p>No investments yet.<br>Tap <strong>Invest</strong> to get started.</p></div>`;
+  }
+
+  // Profit history from transactions
+  const profitTxs = (dashData.recent_transactions||[]).filter(t=>
+    t.type==='HOURLY_ACCRUAL'||t.type==='PROFIT_CREDIT'||t.type==='ADMIN_CREDIT'
+  );
+  const histEl = $('watchProfitHistory');
+  if(profitTxs.length){
+    histEl.innerHTML = profitTxs.slice(0,10).map(t=>`
+      <div class="profit-hist-row">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--green-bg);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <i class="fas fa-arrow-trend-up" style="color:var(--green);font-size:13px"></i>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--ink)">${t.type==='ADMIN_CREDIT'?'Admin Credit':t.type==='PROFIT_CREDIT'?'Profit Credit':'Hourly Accrual'}</div>
+            <div class="meta">${fd(t.created_at)}</div>
+          </div>
+        </div>
+        <div class="amt">+${fmt(t.amount)}</div>
+      </div>`).join('');
+  } else {
+    histEl.innerHTML = '<div class="empty"><i class="fas fa-coins"></i><p>No profit accruals yet. Activate an investment to start earning.</p></div>';
+  }
+
+  // Draw chart
+  drawPortfolioChart(active, totalDeposited, totalProfit);
+}
+
+function startLiveProfitCounter(activeInvs){
+  if(chartLiveInterval) clearInterval(chartLiveInterval);
+  const bases = {};
+  activeInvs.forEach(i=>{ bases[i.id] = parseFloat(i.total_earned||0); });
+  const startTime = Date.now();
+
+  chartLiveInterval = setInterval(()=>{
+    activeInvs.forEach(i=>{
+      const el = $('liveProfitTicker_'+i.id);
+      if(!el) return;
+      const hourlyRate = (parseFloat(i.monthly_roi||0)/100 * parseFloat(i.funded_total||0)) / 720;
+      const elapsed = (Date.now() - startTime) / 3600000; // hours elapsed
+      const simEarned = (bases[i.id]||0) + (hourlyRate * elapsed);
+      el.textContent = fmt(simEarned);
+    });
+  }, 1000);
+}
+
+function drawPortfolioChart(activeInvs, totalDeposited, totalProfit){
+  const canvas = $('portfolioChart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 360;
+  const H = 220;
+  canvas.width = W;
+  canvas.height = H;
+
+  if(!activeInvs.length && totalDeposited === 0){
+    $('chartNoData').style.display = 'flex';
+    ctx.clearRect(0,0,W,H);
+    return;
+  }
+  $('chartNoData').style.display = 'none';
+
+  // Generate 24 data points simulating hourly growth
+  const monthlyRoi = activeInvs.length
+    ? activeInvs.reduce((s,i)=>s+parseFloat(i.monthly_roi||0),0)/activeInvs.length
+    : 5;
+  const hourlyRate = monthlyRoi/100/720;
+  const base = totalDeposited || 100;
+
+  if(chartPoints.length === 0){
+    // Seed 24 historical points
+    for(let h=23; h>=0; h--){
+      const decay = Math.pow(1+hourlyRate, -(h));
+      const noise = 1 + (Math.random()-0.48)*0.004;
+      chartPoints.push((base + totalProfit) * decay * noise);
+    }
+    chartPoints.push(base + totalProfit);
+  } else {
+    // Add new point, keep last 25
+    const last = chartPoints[chartPoints.length-1];
+    const tick = last * (1 + hourlyRate + (Math.random()-0.48)*0.003);
+    chartPoints.push(tick);
+    if(chartPoints.length > 30) chartPoints.shift();
+  }
+
+  const pts = chartPoints;
+  const minV = Math.min(...pts)*0.998;
+  const maxV = Math.max(...pts)*1.002;
+  const range = maxV - minV || 1;
+
+  const pad = {t:20, r:20, b:30, l:62};
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+
+  ctx.clearRect(0,0,W,H);
+
+  // Grid lines
+  ctx.strokeStyle = '#f0f0f0';
+  ctx.lineWidth = 1;
+  for(let g=0;g<=4;g++){
+    const y = pad.t + cH*(g/4);
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
+    // Y axis label
+    const val = maxV - (range*(g/4));
+    ctx.fillStyle='#b0b7c3'; ctx.font='10px Space Grotesk,sans-serif';
+    ctx.textAlign='right';
+    ctx.fillText('$'+val.toLocaleString('en-US',{maximumFractionDigits:0}), pad.l-6, y+4);
+  }
+
+  // Build path
+  const toX = (i) => pad.l + (i/(pts.length-1))*cW;
+  const toY = (v) => pad.t + cH*(1-((v-minV)/range));
+
+  // Gradient fill
+  const grad = ctx.createLinearGradient(0,pad.t,0,H-pad.b);
+  grad.addColorStop(0,'rgba(22,163,74,0.18)');
+  grad.addColorStop(1,'rgba(22,163,74,0.01)');
+  ctx.beginPath();
+  ctx.moveTo(toX(0), H-pad.b);
+  pts.forEach((v,i)=>{ if(i===0) ctx.lineTo(toX(0),toY(v)); else ctx.lineTo(toX(i),toY(v)); });
+  ctx.lineTo(toX(pts.length-1), H-pad.b);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  pts.forEach((v,i)=>{ i===0?ctx.moveTo(toX(0),toY(v)):ctx.lineTo(toX(i),toY(v)); });
+  ctx.strokeStyle='#16a34a'; ctx.lineWidth=2.5;
+  ctx.lineJoin='round'; ctx.lineCap='round';
+  ctx.stroke();
+
+  // Latest dot
+  const lx = toX(pts.length-1), ly = toY(pts[pts.length-1]);
+  ctx.beginPath(); ctx.arc(lx,ly,5,0,Math.PI*2);
+  ctx.fillStyle='#16a34a'; ctx.fill();
+  ctx.beginPath(); ctx.arc(lx,ly,9,0,Math.PI*2);
+  ctx.strokeStyle='rgba(22,163,74,0.3)'; ctx.lineWidth=3; ctx.stroke();
+
+  // Current value label
+  ctx.fillStyle='#16a34a'; ctx.font='bold 11px Space Grotesk,sans-serif';
+  ctx.textAlign = lx > W-80 ? 'right':'left';
+  ctx.fillText(fmt(pts[pts.length-1]), lx + (lx>W-80?-12:12), ly-10);
 }
 
 /* ═══════════════════════════════════════
