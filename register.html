@@ -278,17 +278,32 @@ a{text-decoration:none;color:inherit}
 
         <div class="f-row2">
           <div class="f-grp">
-            <label class="f-lbl">Phone (optional)</label>
+            <label class="f-lbl">Phone Number <span style="color:var(--red)">*</span></label>
             <div class="f-wrap">
               <i class="fas fa-phone f-ico"></i>
               <input type="tel" class="f-inp" id="phone" placeholder="+1 234 567 8900" autocomplete="tel">
             </div>
           </div>
           <div class="f-grp">
-            <label class="f-lbl">Country (optional)</label>
+            <label class="f-lbl">Country <span style="color:var(--red)">*</span></label>
             <div class="f-wrap">
               <i class="fas fa-globe f-ico"></i>
-              <input type="text" class="f-inp" id="country" placeholder="Nigeria" autocomplete="country-name">
+              <select class="f-inp f-sel" id="country" style="padding-left:36px">
+                <option value="">Select your country...</option>
+                <option>Nigeria</option><option>Ghana</option><option>Kenya</option>
+                <option>South Africa</option><option>Tanzania</option><option>Uganda</option>
+                <option>Ethiopia</option><option>Egypt</option><option>Algeria</option>
+                <option>Morocco</option><option>Cameroon</option><option>Senegal</option>
+                <option>Rwanda</option><option>Zimbabwe</option><option>Zambia</option>
+                <option>United States</option><option>United Kingdom</option><option>Canada</option>
+                <option>Australia</option><option>Germany</option><option>France</option>
+                <option>Netherlands</option><option>Spain</option><option>Italy</option>
+                <option>UAE</option><option>Saudi Arabia</option><option>India</option>
+                <option>Pakistan</option><option>Bangladesh</option><option>Philippines</option>
+                <option>Indonesia</option><option>Malaysia</option><option>Singapore</option>
+                <option>Brazil</option><option>Mexico</option><option>Argentina</option>
+                <option>Other</option>
+              </select>
             </div>
           </div>
         </div>
@@ -413,12 +428,14 @@ async function doRegister() {
   // Clear
   al.className = 'alert';
 
-  if (!fullName)            { showErr('Please enter your full name.'); return; }
-  if (!email)               { showErr('Please enter your email address.'); return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('Please enter a valid email address.'); return; }
-  if (!password)            { showErr('Please choose a password.'); return; }
-  if (password.length < 8)  { showErr('Password must be at least 8 characters.'); return; }
-  if (password !== confirmPw){ showErr('Passwords do not match.'); return; }
+  if (!fullName)            { showErr('Please enter your full name.'); markErr('fullName'); return; }
+  if (!email)               { showErr('Please enter your email address.'); markErr('email'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('Please enter a valid email address.'); markErr('email'); return; }
+  if (!phone)               { showErr('Please enter your phone number.'); markErr('phone'); return; }
+  if (!country || country === '')  { showErr('Please select your country.'); markErr('country'); return; }
+  if (!password)            { showErr('Please choose a password.'); markErr('password'); return; }
+  if (password.length < 8)  { showErr('Password must be at least 8 characters.'); markErr('password'); return; }
+  if (password !== confirmPw){ showErr('Passwords do not match.'); markErr('confirmPw'); return; }
   if (!terms)               { showErr('You must agree to the Terms of Service to continue.'); return; }
 
   const btn = document.getElementById('regBtn');
@@ -429,7 +446,7 @@ async function doRegister() {
     const res = await fetch(`${API}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ full_name: fullName, email, password, phone: phone||undefined, country: country||undefined, ref: urlRef||undefined }),
+      body: JSON.stringify({ full_name: fullName, email, password, phone, country, ref: urlRef||undefined }),
     });
 
     const data = await res.json();
@@ -455,6 +472,16 @@ function showErr(msg) {
   const el = document.getElementById('regAlert');
   el.className = 'alert alert-err on';
   el.innerHTML = `<i class="fas fa-circle-exclamation"></i> ${msg}`;
+  // Scroll alert into view
+  el.scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+function markErr(id) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('err');
+  el.focus();
+  el.addEventListener('input', () => el.classList.remove('err'), { once: true });
 }
 </script>
 </body>
