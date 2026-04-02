@@ -242,29 +242,21 @@ tbody tr:hover{background:var(--bg)}
 .upload-preview{max-width:100%;max-height:200px;border-radius:var(--r-sm);margin-top:14px;display:none}
 
 /* ═══ TRADER CARDS ═══ */
-.trader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.trader-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;transition:var(--tr);text-align:center;position:relative;overflow:hidden}
-.trader-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));opacity:0;transition:opacity var(--tr)}
-.trader-card:hover{box-shadow:var(--sh-md);border-color:var(--gold-border);transform:translateY(-2px)}
-.trader-card:hover::after{opacity:1}
-.trader-avatar-wrap{position:relative;width:86px;margin:0 auto 16px}
-.trader-avatar-wrap img{width:86px;height:86px;border-radius:50%;object-fit:cover;border:3px solid var(--gold-pale);box-shadow:0 4px 18px rgba(201,168,76,.25);display:block;background:#eee}
-.trader-badge{position:absolute;bottom:0px;right:0px;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#1d9bf0,#0d84d6);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(29,155,240,.45)}
-.trader-badge i{font-size:9px;color:#fff;font-weight:900}
-.trader-name{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:6px;line-height:1.3}
-.verified-chip{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,rgba(29,155,240,.1),rgba(13,132,214,.08));border:1px solid rgba(29,155,240,.2);color:#1d9bf0;font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px 2px 5px;border-radius:var(--r-pill);flex-shrink:0;line-height:1}
-.verified-chip i{font-size:8px}
+.trader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.trader-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;transition:var(--tr);text-align:center}
+.trader-card:hover{box-shadow:var(--sh-md);border-color:var(--gold-border)}
+.trader-avatar-wrap{position:relative;width:80px;margin:0 auto 14px}
+.trader-avatar-wrap img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold-pale);box-shadow:0 4px 14px rgba(201,168,76,.2);display:block;background:#eee}
+.trader-badge{position:absolute;bottom:2px;right:2px;width:20px;height:20px;border-radius:50%;background:var(--green);border:2px solid #fff;display:flex;align-items:center;justify-content:center}
+.trader-badge i{font-size:9px;color:#fff}
+.trader-name{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:4px}
 .trader-handle{font-size:13px;color:var(--muted);margin-bottom:14px}
 .trader-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.ts-item{background:var(--bg);border-radius:var(--r-sm);padding:10px 8px;text-align:center}
+.ts-item{background:var(--bg);border-radius:var(--r-sm);padding:8px;text-align:center}
 .ts-val{font-size:15px;font-weight:700;color:var(--ink);line-height:1}
 .ts-val.pos{color:var(--green)}
 .ts-lbl{font-size:11px;color:var(--muted);margin-top:3px}
 .trader-btns{display:flex;gap:8px}
-/* Verified banner strip */
-.verified-strip{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(29,155,240,.06),rgba(13,132,214,.03));border:1px solid rgba(29,155,240,.15);border-radius:var(--r-sm);padding:10px 16px;font-size:13px;font-weight:600;color:#0d84d6;margin-top:16px;margin-bottom:0}
-.verified-strip-dot{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#1d9bf0,#0d84d6);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.verified-strip-dot i{font-size:8px;color:#fff}
 
 /* ═══ MARKET WIDGETS ═══ */
 .widget-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
@@ -306,105 +298,6 @@ tbody tr:hover{background:var(--bg)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{animation:spin .7s linear infinite}
 
-/* ════ PREMIUM DASHBOARD TRANSITIONS ════ */
-
-/* Page slide-in when switching sections */
-.page{display:none;animation:none}
-.page.active{display:block;animation:pageSlideIn .38s cubic-bezier(.22,1,.36,1)}
-@keyframes pageSlideIn{
-  0%{opacity:0;transform:translateY(18px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-
-/* Stat cards stagger on load */
-@keyframes statCardIn{
-  0%{opacity:0;transform:translateY(24px) scale(.97)}
-  100%{opacity:1;transform:translateY(0) scale(1)}
-}
-.stat-card{animation:statCardIn .5s cubic-bezier(.22,1,.36,1) both}
-.stat-card:nth-child(1){animation-delay:.05s}
-.stat-card:nth-child(2){animation-delay:.12s}
-.stat-card:nth-child(3){animation-delay:.19s}
-.stat-card:nth-child(4){animation-delay:.26s}
-
-/* Card hover — more pronounced lift */
-.card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.1)}
-.card{transition:box-shadow .3s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.22,1,.36,1)}
-
-/* Trader card entrance */
-@keyframes traderCardIn{
-  0%{opacity:0;transform:translateY(20px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-.trader-card{animation:traderCardIn .45s cubic-bezier(.22,1,.36,1) both}
-
-/* Sidebar link hover slide */
-.sb-link{position:relative;overflow:hidden}
-.sb-link::before{content:'';position:absolute;left:-100%;top:0;bottom:0;width:3px;background:var(--gold);border-radius:0 2px 2px 0;transition:left .22s cubic-bezier(.22,1,.36,1)}
-.sb-link.active::before,.sb-link:hover::before{left:0}
-
-/* Number count-up for stat values */
-@keyframes numberIn{
-  0%{opacity:0;transform:translateY(12px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-.stat-val{animation:numberIn .5s cubic-bezier(.22,1,.36,1) .3s both}
-
-/* Gold shimmer on active plan card */
-@keyframes planShimmer{
-  0%{background-position:-400px 0}
-  100%{background-position:400px 0}
-}
-.plan-card.selected::before{
-  background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);
-  background-size:400px 100%;
-  animation:planShimmer 1.8s linear infinite;
-  opacity:1
-}
-
-/* Smooth progress bar fill animation */
-.progress-fill{animation:progressFill .9s cubic-bezier(.22,1,.36,1) .2s both}
-@keyframes progressFill{from{width:0!important}to{}}
-
-/* Toast slide in from right */
-@keyframes toastIn{
-  from{opacity:0;transform:translateX(24px) scale(.96)}
-  to{opacity:1;transform:translateX(0) scale(1)}
-}
-.toast{animation:toastIn .3s cubic-bezier(.22,1,.36,1)}
-
-/* Modal backdrop blur entrance */
-@keyframes modalIn{
-  0%{opacity:0}
-  100%{opacity:1}
-}
-@keyframes modalCardIn{
-  0%{opacity:0;transform:translateY(28px) scale(.96)}
-  100%{opacity:1;transform:translateY(0) scale(1)}
-}
-
-/* Button press effect */
-.btn:active{transform:scale(.97)}
-.btn-gold:active{transform:scale(.97)}
-
-/* Skeleton shimmer improvement */
-@keyframes shimmer{
-  0%{background-position:-600px 0}
-  100%{background-position:600px 0}
-}
-.skel{
-  background:linear-gradient(90deg,#f0f0f0 25%,#e4e4e4 50%,#f0f0f0 75%);
-  background-size:600px 100%;
-  animation:shimmer 1.6s ease-in-out infinite
-}
-
-/* Activity item hover */
-.activity-item{transition:background .2s cubic-bezier(.22,1,.36,1),padding .2s}
-.activity-item:hover{background:var(--gold-pale);padding-left:8px;border-radius:var(--r-sm)}
-
-/* Topbar page title transition */
-#tbPage{transition:opacity .2s,transform .2s}
-
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:1200px){
   .grid-4{grid-template-columns:repeat(2,1fr)}
@@ -426,328 +319,35 @@ tbody tr:hover{background:var(--bg)}
   .bot-nav{display:block}
   .tb-btn span{display:none}
   .grid-3,.grid-4{grid-template-columns:1fr}
-  /* Lang button on mobile — show flag only, hide text code */
-  #dbLangCode{display:none}
-  #dbLangBtn{padding:7px 10px;min-width:unset}
-  #dbLangWrap .lang-dropdown{right:0;left:auto;width:200px}
 }
 @media(max-width:480px){
   .grid-2{grid-template-columns:1fr}
   .f-row{grid-template-columns:1fr}
 }
 
-
-/* ══ PAYOUT TICKER SLIDER ══ */
-.payout-slider-wrap{overflow:hidden;background:linear-gradient(135deg,var(--navy),#1a2d4a);border-radius:var(--r);padding:0;margin-bottom:22px;border:1px solid rgba(201,168,76,.18);position:relative}
-.payout-slider-label{position:absolute;left:0;top:0;bottom:0;z-index:2;background:linear-gradient(135deg,var(--gold-d),var(--gold));padding:0 20px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#fff;white-space:nowrap;border-radius:var(--r) 0 0 var(--r)}
-.payout-slider-track{display:flex;gap:0;overflow:hidden;padding:16px 20px 16px 180px;mask-image:linear-gradient(90deg,transparent 160px,#000 200px,#000 85%,transparent 100%)}
-.payout-slider-inner{display:flex;gap:32px;animation:payoutScroll 28s linear infinite}
-.payout-slider-inner:hover{animation-play-state:paused}
-.payout-item{display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;padding:4px 18px;border-right:1px solid rgba(255,255,255,.08)}
-.payout-date{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5)}
-.payout-amt{font-size:16px;font-weight:800;color:#4ade80;letter-spacing:-.02em}
-.payout-plan{font-size:10px;color:rgba(255,255,255,.4);font-weight:600}
-@keyframes payoutScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* ══ LIVE MARKET CHART SECTION ══ */
-.portfolio-chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:22px}
-.portfolio-chart-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--surface),var(--bg))}
-.portfolio-chart-tabs{display:flex;gap:6px}
-.chart-tab{padding:6px 14px;border-radius:var(--r-pill);font-size:12px;font-weight:700;border:1.5px solid var(--border);background:none;color:var(--muted);cursor:pointer;transition:var(--tr);font-family:var(--font)}
-.chart-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-.chart-tab:hover:not(.active){border-color:var(--gold-border);color:var(--ink)}
-
-/* ══ TICKER TAPE ══ */
-.ticker-tape-wrap{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;height:38px;display:flex;align-items:center}
-.ticker-tape-inner{display:flex;gap:0;animation:tickerScroll 22s linear infinite;white-space:nowrap}
-.ticker-tape-inner:hover{animation-play-state:paused}
-.ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 20px;border-right:1px solid var(--border);font-size:12px;font-weight:600;flex-shrink:0}
-.ticker-sym{color:var(--ink);font-weight:800}
-.ticker-price{color:var(--muted)}
-.ticker-chg.up{color:var(--green)}.ticker-chg.down{color:var(--red)}
-@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* ══ PENDING CLICKABLE ══ */
-.pending-fund-btn{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--amber-bg),rgba(255,251,235,.5));border:1.5px solid var(--amber-border);border-radius:var(--r-sm);padding:14px 18px;cursor:pointer;transition:var(--tr);width:100%;text-align:left;font-family:var(--font);margin-top:10px}
-.pending-fund-btn:hover{border-color:var(--amber);box-shadow:0 4px 16px rgba(217,119,6,.15);transform:translateY(-1px)}
-.pending-fund-btn-left{display:flex;flex-direction:column;gap:2px}
-.pending-fund-btn-amt{font-size:20px;font-weight:800;color:var(--amber);letter-spacing:-.02em}
-.pending-fund-btn-lbl{font-size:12px;color:#92400e;font-weight:600}
-.pending-fund-btn-arrow{width:36px;height:36px;background:var(--amber);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(217,119,6,.3)}
-.pending-fund-btn-arrow i{color:#fff;font-size:14px}
-
-/* ══ LANGUAGE SELECTOR ══ */
-#langMenu::-webkit-scrollbar{width:4px}
-#langMenu::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-.lang-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--r-sm);cursor:pointer;transition:background var(--tr);font-size:13px;font-weight:500;color:var(--ink)}
-.lang-item:hover{background:var(--gold-pale)}
-.lang-item.active{background:var(--gold-pale);font-weight:700;color:var(--gold-d)}
-.lang-item-flag{font-size:18px;flex-shrink:0;width:24px;text-align:center}
-.lang-item-name{flex:1}
-.lang-item-native{font-size:11px;color:var(--muted)}
-
-
-/* ════ PREMIUM ANIMATIONS ════ */
-
-/* Page enter — smooth slide up + fade */
-.page{display:none}
-.page.active{display:block;animation:pageEnter .42s cubic-bezier(.22,1,.36,1) both}
-@keyframes pageEnter{
-  from{opacity:0;transform:translateY(22px)}
-  to{opacity:1;transform:translateY(0)}
+/* ═══ LANGUAGE SWITCHER ═══ */
+.db-lang-wrap{position:relative}
+.db-lang-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;font-family:var(--font);transition:var(--tr);white-space:nowrap}
+.db-lang-btn:hover{border-color:var(--gold-border);background:var(--gold-pale)}
+.db-lang-btn.open{border-color:var(--gold);background:var(--gold-pale)}
+.db-lang-btn i.fa-chevron-down{font-size:9px;color:var(--muted);transition:transform .2s}
+.db-lang-btn.open i.fa-chevron-down{transform:rotate(180deg)}
+.db-lang-drop{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);box-shadow:var(--sh-md);width:200px;z-index:9999;overflow:hidden;padding:5px;max-height:320px;overflow-y:auto}
+.db-lang-drop.open{display:block;animation:dbLangIn .16s var(--ease)}
+@keyframes dbLangIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.db-lang-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer;border-radius:var(--r-sm);transition:background .12s;color:var(--txt)}
+.db-lang-opt:hover{background:var(--gold-pale)}
+.db-lang-opt.active{color:var(--gold-d);background:rgba(201,168,76,.07)}
+.db-lang-opt .lf{font-size:16px;flex-shrink:0}
+.db-lang-opt .lcheck{margin-left:auto;font-size:10px;color:var(--gold-d);opacity:0}
+.db-lang-opt.active .lcheck{opacity:1}
+/* Mobile: flag only, no text code */
+@media(max-width:768px){
+  .db-lang-code{display:none}
+  .db-lang-btn{padding:7px 10px}
+  .db-lang-drop{right:0;left:auto}
 }
 
-/* Stat cards — staggered entrance */
-@keyframes cardRise{
-  from{opacity:0;transform:translateY(28px) scale(.96)}
-  to{opacity:1;transform:translateY(0) scale(1)}
-}
-.stat-card{animation:cardRise .5s cubic-bezier(.22,1,.36,1) both}
-.stat-card:nth-child(1){animation-delay:.04s}
-.stat-card:nth-child(2){animation-delay:.10s}
-.stat-card:nth-child(3){animation-delay:.16s}
-.stat-card:nth-child(4){animation-delay:.22s}
-
-/* Trader cards — staggered grid entrance */
-@keyframes traderRise{
-  from{opacity:0;transform:translateY(24px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.trader-card:nth-child(1){animation:traderRise .4s .05s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(2){animation:traderRise .4s .10s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(3){animation:traderRise .4s .15s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(4){animation:traderRise .4s .20s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(5){animation:traderRise .4s .25s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(6){animation:traderRise .4s .30s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(7){animation:traderRise .4s .35s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(8){animation:traderRise .4s .40s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(9){animation:traderRise .4s .45s cubic-bezier(.22,1,.36,1) both}
-.trader-card:nth-child(10){animation:traderRise .4s .50s cubic-bezier(.22,1,.36,1) both}
-
-/* Card hover — premium spring lift */
-.card,.stat-card,.plan-card,.trader-card{
-  transition:transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s cubic-bezier(.22,1,.36,1);
-}
-.card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.10)}
-.stat-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 12px 40px rgba(0,0,0,.10)}
-.trader-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(201,168,76,.14)}
-.plan-card:hover{transform:translateY(-3px)}
-
-/* Button press feel */
-.btn{transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease,background .18s ease}
-.btn:active{transform:scale(.96)!important}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.38)}
-
-/* Sidebar link hover slide */
-.sb-link{transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.56,.64,1),padding-left .2s}
-.sb-link:hover{padding-left:16px}
-.sb-link.active{padding-left:16px}
-
-/* Gold stat value count-up glow */
-@keyframes goldGlow{
-  0%{text-shadow:none}
-  50%{text-shadow:0 0 20px rgba(201,168,76,.4)}
-  100%{text-shadow:none}
-}
-.stat-val{animation:goldGlow 2.5s ease 1s 1}
-
-/* Progress bar entrance */
-@keyframes progressGrow{
-  from{width:0%!important}
-}
-.progress-fill{animation:progressGrow .9s cubic-bezier(.22,1,.36,1) both}
-
-/* Toast slide in from right */
-@keyframes toastSlide{
-  from{opacity:0;transform:translateX(100%)}
-  to{opacity:1;transform:translateX(0)}
-}
-.toast{animation:toastSlide .32s cubic-bezier(.22,1,.36,1)}
-
-/* Activity feed items — stagger */
-@keyframes feedItemIn{
-  from{opacity:0;transform:translateX(-12px)}
-  to{opacity:1;transform:translateX(0)}
-}
-.activity-item{animation:feedItemIn .35s cubic-bezier(.22,1,.36,1) both}
-.activity-item:nth-child(1){animation-delay:.05s}
-.activity-item:nth-child(2){animation-delay:.10s}
-.activity-item:nth-child(3){animation-delay:.15s}
-.activity-item:nth-child(4){animation-delay:.20s}
-.activity-item:nth-child(5){animation-delay:.25s}
-.activity-item:nth-child(6){animation-delay:.30s}
-
-/* Modal entrance */
-@keyframes modalPop{
-  from{opacity:0;transform:scale(.92) translateY(20px)}
-  to{opacity:1;transform:scale(1) translateY(0)}
-}
-#topupOverlay > div,
-#buytradeOverlay > div{animation:modalPop .32s cubic-bezier(.34,1.56,.64,1)}
-
-/* Sidebar entrance on mobile */
-@keyframes sidebarSlide{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(0)}
-}
-.sidebar.open{animation:sidebarSlide .3s cubic-bezier(.22,1,.36,1)}
-
-/* Number ticker for stat values */
-.stat-val{font-variant-numeric:tabular-nums}
-
-/* Pending fund button pulse */
-@keyframes pendingPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(217,119,6,.3)}
-  50%{box-shadow:0 0 0 8px rgba(217,119,6,0)}
-}
-.pending-fund-btn{animation:pendingPulse 2.5s ease infinite}
-
-/* Payout slider entrance */
-.payout-slider-wrap{animation:cardRise .5s .1s cubic-bezier(.22,1,.36,1) both}
-
-/* Chart card entrance */
-.portfolio-chart-card{animation:cardRise .5s .15s cubic-bezier(.22,1,.36,1) both}
-
-/* Verified chip shimmer */
-@keyframes chipShimmer{
-  0%{background-position:-100px 0}
-  100%{background-position:200px 0}
-}
-.verified-chip{
-  background-size:200% 100%;
-}
-
-/* ════ LANGUAGE SWITCHER ════ */
-.lang-wrap{position:relative;display:inline-flex}
-.lang-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;transition:var(--tr);font-family:var(--font);letter-spacing:.02em}
-.lang-btn:hover{border-color:var(--gold-border);background:var(--gold-pale)}
-.lang-btn.open{border-color:var(--gold);background:var(--gold-pale)}
-.lang-flag{font-size:15px;line-height:1}
-.lang-caret{font-size:9px;color:var(--muted);transition:transform .2s}
-.lang-btn.open .lang-caret{transform:rotate(180deg)}
-.lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.12);min-width:170px;z-index:9999;display:none;overflow:hidden}
-.lang-dropdown.open{display:block;animation:langDrop .18s var(--ease)}
-@keyframes langDrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-.lang-option{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--txt);cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border)}
-.lang-option:last-child{border-bottom:none}
-.lang-option:hover{background:var(--gold-pale)}
-.lang-option.active{background:rgba(201,168,76,.06);color:var(--gold-d)}
-.lf{font-size:16px;flex-shrink:0}
-.ln{flex:1}
-.lcheck{color:var(--gold-d);font-size:10px;opacity:0}
-.lang-option.active .lcheck{opacity:1}
-
-/* ════ PAGE TRANSITION ANIMATIONS ════ */
-.page{display:none;animation:none}
-.page.active{display:block;animation:pageIn .38s cubic-bezier(.22,1,.36,1)}
-@keyframes pageIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-
-/* Card stagger entrance */
-.stagger-wrap > *{opacity:0;transform:translateY(20px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
-.stagger-wrap.revealed > *{opacity:1;transform:none}
-.stagger-wrap.revealed > *:nth-child(1){transition-delay:.05s}
-.stagger-wrap.revealed > *:nth-child(2){transition-delay:.12s}
-.stagger-wrap.revealed > *:nth-child(3){transition-delay:.19s}
-.stagger-wrap.revealed > *:nth-child(4){transition-delay:.26s}
-.stagger-wrap.revealed > *:nth-child(5){transition-delay:.33s}
-.stagger-wrap.revealed > *:nth-child(6){transition-delay:.40s}
-
-/* Stat card number count-up glow */
-.stat-val{transition:color .3s}
-.stat-card:hover .stat-val{filter:brightness(1.15)}
-
-/* Skeleton pulse */
-@keyframes skelPulse{0%,100%{opacity:1}50%{opacity:.5}}
-.skel{animation:skelPulse 1.6s ease infinite}
-
-/* Smooth sidebar active indicator */
-.sb-link.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;background:var(--gold-d);border-radius:0 3px 3px 0}
-
-/* Premium toast slide */
-@keyframes toastIn{from{opacity:0;transform:translateX(24px) scale(.96)}to{opacity:1;transform:none}}
-
-/* Button press effect */
-.btn:active{transform:scale(.97)!important}
-
-/* Input premium focus ring */
-.f-inp:focus,.f-sel:focus{border-color:var(--gold);box-shadow:0 0 0 3.5px rgba(201,168,76,.14);transform:none}
-
-/* Ripple on gold buttons */
-.btn-gold{position:relative;overflow:hidden}
-.btn-gold::after{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(255,255,255,.25) 0%,transparent 70%);opacity:0;transition:opacity .3s}
-.btn-gold:hover::after{opacity:1}
-
-/* Live dot enhanced pulse */
-@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-.sb-dot{animation:livePulse 2s ease infinite}
-
-/* Progress bar animated fill on load */
-@keyframes fillBar{from{width:0}to{width:var(--target-w)}}
-
-/* Topbar shadow on scroll */
-.topbar{transition:box-shadow .3s}
-.topbar.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.1)}
-
-
-/* ════ PREMIUM FINTECH ENHANCEMENTS ════ */
-
-/* Cards hover lift */
-.card{transition:box-shadow var(--tr),transform var(--tr)}
-.card:hover{box-shadow:var(--sh-md)}
-
-/* Stat card top accent + value colors */
-.stat-card.gold .stat-val{background:linear-gradient(135deg,var(--gold-d),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card.green .stat-val{color:var(--green)}
-.stat-card.blue .stat-val{color:var(--blue)}
-.stat-card.purple .stat-val{color:#7c3aed}
-.stat-card:hover{transform:translateY(-2px)}
-
-/* Premium plan card */
-.plan-card{position:relative;overflow:hidden}
-.plan-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));opacity:0;transition:opacity var(--tr)}
-.plan-card.selected::before{opacity:1}
-.plan-card:hover::before{opacity:.5}
-.plan-card.selected{background:linear-gradient(160deg,var(--gold-pale),rgba(255,255,255,.9))}
-
-/* Progress bar shimmer on active */
-.progress-fill.complete{background:linear-gradient(90deg,#16a34a,#4ade80,#16a34a);background-size:200% 100%;animation:progressShimmer 2.5s linear infinite}
-@keyframes progressShimmer{0%{background-position:0 0}100%{background-position:200% 0}}
-
-/* Form focus glow */
-.f-inp:focus,.f-sel:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
-
-/* Widget cards */
-.widget-card:hover{box-shadow:var(--sh-md)}
-
-/* Section label premium */
-.section-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.section-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* Table premium */
-thead{background:linear-gradient(90deg,var(--bg),var(--surface))}
-th{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
-tbody tr:hover{background:var(--gold-pale)!important}
-
-/* Amount button active state */
-.amt-active{background:var(--gold-pale)!important;border-color:var(--gold)!important;color:var(--gold-d)!important;box-shadow:0 0 0 2px rgba(201,168,76,.18)!important;font-weight:800!important}
-
-/* Sidebar status animate */
-.sb-dot{animation:pulse 2.5s ease infinite}
-
-/* Premium scrollbar */
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-::-webkit-scrollbar-thumb:hover{background:var(--gold-border)}
-
-/* Gold gradient text utility */
-.text-gold{background:linear-gradient(135deg,var(--gold-l),var(--gold-d));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-/* Portfolio grid */
-.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
-
-/* Verified chip hover */
-.verified-chip:hover{background:rgba(29,155,240,.15)}
 </style>
 </head>
 <body>
@@ -773,22 +373,22 @@ tbody tr:hover{background:var(--gold-pale)!important}
 
   <nav class="sb-nav">
     <div class="sb-group">
-      <div class="sb-group-lbl" data-i18n="grp_main">Main</div>
-      <button class="sb-link active" onclick="nav('overview',this)"><i class="fas fa-chart-pie"></i> <span data-i18n="nav_overview">Overview</span></button>
-      <button class="sb-link" onclick="nav('fund',this)"><i class="fas fa-wallet"></i> <span data-i18n="nav_invest">Invest</span></button>
-      <button class="sb-link" onclick="nav('markets',this)"><i class="fas fa-chart-line"></i> <span data-i18n="nav_markets">Markets</span></button>
-      <button class="sb-link" onclick="nav('traders',this)"><i class="fas fa-users"></i> <span data-i18n="nav_traders">Copy Traders</span></button>
-      <button class="sb-link" onclick="nav('portfolio',this)"><i class="fas fa-chart-bar"></i> <span data-i18n="nav_portfolio">Watch Portfolio</span></button>
+      <div class="sb-group-lbl">Main</div>
+      <button class="sb-link active" onclick="nav('overview',this)"><i class="fas fa-chart-pie"></i> Overview</button>
+      <button class="sb-link" onclick="nav('fund',this)"><i class="fas fa-wallet"></i> Invest</button>
+      <button class="sb-link" onclick="nav('markets',this)"><i class="fas fa-chart-line"></i> Markets</button>
+      <button class="sb-link" onclick="nav('traders',this)"><i class="fas fa-users"></i> Copy Traders</button>
+      <button class="sb-link" onclick="nav('portfolio',this)"><i class="fas fa-chart-bar"></i> Watch Portfolio</button>
     </div>
     <div class="sb-group">
-      <div class="sb-group-lbl" data-i18n="grp_finance">Finance</div>
-      <button class="sb-link" onclick="nav('withdraw',this)"><i class="fas fa-arrow-up-from-line"></i> <span data-i18n="nav_withdraw">Withdraw</span></button>
-      <button class="sb-link" onclick="nav('transactions',this)"><i class="fas fa-receipt"></i> <span data-i18n="nav_transactions">Transactions</span></button>
+      <div class="sb-group-lbl">Finance</div>
+      <button class="sb-link" onclick="nav('withdraw',this)"><i class="fas fa-arrow-up-from-line"></i> Withdraw</button>
+      <button class="sb-link" onclick="nav('transactions',this)"><i class="fas fa-receipt"></i> Transactions</button>
     </div>
     <div class="sb-group">
-      <div class="sb-group-lbl" data-i18n="grp_account">Account</div>
-      <button class="sb-link" onclick="nav('referral',this)"><i class="fas fa-gift"></i> <span data-i18n="nav_referral">Referral</span></button>
-      <button class="sb-link" onclick="nav('profile',this)"><i class="fas fa-user-circle"></i> <span data-i18n="nav_profile">Profile</span></button>
+      <div class="sb-group-lbl">Account</div>
+      <button class="sb-link" onclick="nav('referral',this)"><i class="fas fa-gift"></i> Referral</button>
+      <button class="sb-link" onclick="nav('profile',this)"><i class="fas fa-user-circle"></i> Profile</button>
     </div>
   </nav>
 
@@ -814,19 +414,32 @@ tbody tr:hover{background:var(--gold-pale)!important}
       <div class="tb-page" id="tbPage">Overview</div>
     </div>
     <div class="tb-right">
-      <div style="position:relative">
-        <button class="tb-btn tb-btn-ghost" onclick="toggleLangMenu()" id="langBtn" style="gap:6px;min-width:80px">
-          <span id="langFlag" style="font-size:16px">🌐</span>
-          <span id="langCode" style="font-size:13px;font-weight:700">EN</span>
-          <i class="fas fa-chevron-down" style="font-size:10px"></i>
+      <button class="tb-btn tb-btn-ghost" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i> <span>Withdraw</span></button>
+      <button class="tb-btn tb-btn-gold" onclick="nav('fund',null)"><i class="fas fa-plus"></i> <span>Invest</span></button>
+      <!-- Language Switcher -->
+      <div class="db-lang-wrap" id="dbLangWrap">
+        <button class="db-lang-btn" id="dbLangBtn" onclick="toggleDbLang(event)">
+          <span id="dbLangFlag">🌐</span>
+          <span class="db-lang-code" id="dbLangCode">EN</span>
+          <i class="fas fa-chevron-down"></i>
         </button>
-        <div id="langMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh-md);z-index:9999;width:220px;max-height:340px;overflow-y:auto;padding:6px">
-          <div style="padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);margin-bottom:4px">Select Language</div>
-          <div id="langList"></div>
+        <div class="db-lang-drop" id="dbLangDrop">
+          <div class="db-lang-opt active" onclick="setDbLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('es','🇪🇸','ES')"><span class="lf">🇪🇸</span>Español<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('fr','🇫🇷','FR')"><span class="lf">🇫🇷</span>Français<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('pt','🇧🇷','PT')"><span class="lf">🇧🇷</span>Português<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ar','🇸🇦','AR')"><span class="lf">🇸🇦</span>العربية<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('zh','🇨🇳','ZH')"><span class="lf">🇨🇳</span>中文<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('hi','🇮🇳','HI')"><span class="lf">🇮🇳</span>हिन्दी<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ru','🇷🇺','RU')"><span class="lf">🇷🇺</span>Русский<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('de','🇩🇪','DE')"><span class="lf">🇩🇪</span>Deutsch<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('it','🇮🇹','IT')"><span class="lf">🇮🇹</span>Italiano<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('tr','🇹🇷','TR')"><span class="lf">🇹🇷</span>Türkçe<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('yo','🇳🇬','YO')"><span class="lf">🇳🇬</span>Yorùbá<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ig','🇳🇬','IG')"><span class="lf">🇳🇬</span>Igbo<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ha','🇳🇬','HA')"><span class="lf">🇳🇬</span>Hausa<i class="fas fa-check lcheck"></i></div>
         </div>
       </div>
-      <button class="tb-btn tb-btn-ghost" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i> <span data-i18n="nav_withdraw">Withdraw</span></button>
-      <button class="tb-btn tb-btn-gold" onclick="nav('fund',null)"><i class="fas fa-plus"></i> <span data-i18n="nav_invest">Invest</span></button>
       <button class="tb-btn tb-btn-ghost" onclick="logout()" title="Logout" style="padding:0 12px;color:var(--red)"><i class="fas fa-right-from-bracket"></i></button>
     </div>
   </div>
@@ -842,30 +455,30 @@ tbody tr:hover{background:var(--gold-pale)!important}
         <div class="stat-card gold">
           <div class="stat-ico gold"><i class="fas fa-wallet"></i></div>
           <div class="stat-val" id="ov-balance">$0.00</div>
-          <div class="stat-lbl" data-i18n="stat_balance">Available Balance</div>
+          <div class="stat-lbl">Available Balance</div>
         </div>
         <div class="stat-card green">
           <div class="stat-ico green"><i class="fas fa-chart-line"></i></div>
           <div class="stat-val" id="ov-profit">$0.00</div>
-          <div class="stat-lbl" data-i18n="stat_profit">Total Profit</div>
+          <div class="stat-lbl">Total Profit</div>
           <div class="profit-update"><i class="fas fa-circle"></i><span id="profitUpdatedAt">Updating hourly</span></div>
         </div>
         <div class="stat-card blue">
           <div class="stat-ico blue"><i class="fas fa-arrow-down-to-line"></i></div>
           <div class="stat-val" id="ov-deposited">$0.00</div>
-          <div class="stat-lbl" data-i18n="stat_deposited">Total Deposited</div>
+          <div class="stat-lbl">Total Deposited</div>
         </div>
         <div class="stat-card purple">
           <div class="stat-ico purple"><i class="fas fa-bolt"></i></div>
           <div class="stat-val" id="ov-investments">0</div>
-          <div class="stat-lbl" data-i18n="stat_investments">Active Investments</div>
+          <div class="stat-lbl">Active Investments</div>
         </div>
       </div>
 
       <div class="grid-2-1" style="margin-bottom:22px">
         <!-- ACTIVE PLAN STATUS -->
         <div class="card">
-          <div class="card-title" data-i18n="card_inv_status">Investment Status</div>
+          <div class="card-title">Investment Status</div>
           <div class="card-sub">Your active plan and funding progress</div>
           <div id="investmentStatus">
             <div class="empty"><i class="fas fa-chart-pie"></i><p>No active investments yet.<br><a href="#" onclick="nav('fund',null)" style="color:var(--gold-d);font-weight:600">Invest now</a> to get started.</p></div>
@@ -874,18 +487,18 @@ tbody tr:hover{background:var(--gold-pale)!important}
 
         <!-- QUICK ACTIONS -->
         <div class="card">
-          <div class="card-title" data-i18n="card_quick_actions">Quick Actions</div>
+          <div class="card-title">Quick Actions</div>
           <div class="card-sub">What would you like to do?</div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <button class="btn btn-gold btn-full" onclick="nav('fund',null)"><i class="fas fa-wallet"></i> <span data-i18n="btn_invest_now">Invest Now</span></button>
-            <button class="btn btn-dark btn-full" onclick="openTopUp()"><i class="fas fa-arrow-up-right-dots"></i> <span data-i18n="btn_top_up">Top Up Investment</span></button>
-            <button class="btn btn-dark btn-full" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up-from-line"></i> <span data-i18n="btn_withdraw_funds">Withdraw Funds</span></button>
-            <button class="btn btn-ghost btn-full" onclick="nav('traders',null)"><i class="fas fa-users"></i> <span data-i18n="nav_traders">Copy Traders</span></button>
-            <button class="btn btn-ghost btn-full" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i> <span data-i18n="btn_view_markets">View Markets</span></button>
+            <button class="btn btn-gold btn-full" onclick="nav('fund',null)"><i class="fas fa-wallet"></i> Invest Now</button>
+            <button class="btn btn-dark btn-full" onclick="openTopUp()"><i class="fas fa-arrow-up-right-dots"></i> Top Up Investment</button>
+            <button class="btn btn-dark btn-full" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up-from-line"></i> Withdraw Funds</button>
+            <button class="btn btn-ghost btn-full" onclick="nav('traders',null)"><i class="fas fa-users"></i> Copy Traders</button>
+            <button class="btn btn-ghost btn-full" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i> View Markets</button>
           </div>
           <!-- Next payout -->
           <div style="margin-top:18px;padding:12px;background:var(--gold-pale);border-radius:var(--r-sm);border:1px solid var(--gold-border)">
-            <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px" data-i18n="lbl_next_payout">Next Payout Window</div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px">Next Payout Window</div>
             <div id="nextPayout" style="font-size:15px;font-weight:600;color:var(--ink)">—</div>
           </div>
         </div>
@@ -895,7 +508,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
           <div>
-            <div class="card-title" data-i18n="card_activity">Recent Activity</div>
+            <div class="card-title">Recent Activity</div>
             <div class="card-sub" style="margin-bottom:0">Deposits, withdrawals and profit credits</div>
           </div>
           <button class="btn btn-ghost btn-sm" onclick="nav('transactions',null)">View All <i class="fas fa-arrow-right"></i></button>
@@ -918,18 +531,16 @@ tbody tr:hover{background:var(--gold-pale)!important}
         <!-- FUND FORM -->
         <div>
           <div class="card" style="margin-bottom:18px">
-            <div class="card-title" data-i18n="card_select_plan">Select Trading Plan</div>
+            <div class="card-title">Select Trading Plan</div>
             <div class="card-sub">Choose a plan to begin funding. The plan activates when the minimum is reached.</div>
             <div id="planCards" class="grid-2" style="margin-top:4px"></div>
           </div>
 
           <div class="card">
-            <div class="card-title" data-i18n="card_make_investment">Make Your Investment</div>
-            <div class="card-sub">Select your plan, choose an amount, send crypto, and confirm below.</div>
-            <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:11px 15px;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--amber)">
-              <i class="fas fa-hourglass-half"></i>
-              Investment activates automatically once the plan minimum is reached.
-            </div>
+            <div class="card-title">Make an Investment</div>
+            <div class="card-sub">Send crypto to the address below and confirm your payment.</div>
+
+            <div class="alert alert-warn on" style="margin-bottom:16px"><i class="fas fa-triangle-exclamation"></i> Plan stays <strong>Pending</strong> until the minimum investment amount is fully funded.</div>
 
             <div class="f-grp">
               <label class="f-lbl">Select Network / Coin</label>
@@ -957,13 +568,15 @@ tbody tr:hover{background:var(--gold-pale)!important}
             </div>
 
             <div class="f-grp">
-              <label class="f-lbl">Investment Amount <span style="color:var(--muted);font-weight:400;font-size:12px">— select plan amount below</span></label>
-              <div id="amtBtns" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-                <div class="skel" style="height:36px;width:80px;border-radius:10px"></div>
-                <div class="skel" style="height:36px;width:80px;border-radius:10px"></div>
-                <div class="skel" style="height:36px;width:80px;border-radius:10px"></div>
+              <label class="f-lbl">Amount (USD) <span style="color:var(--muted);font-weight:400;font-size:12px">— Min. $100</span></label>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+                <button type="button" class="btn btn-ghost btn-sm" onclick="setAmt(100)">$100</button>
+                <button type="button" class="btn btn-ghost btn-sm" onclick="setAmt(500)">$500</button>
+                <button type="button" class="btn btn-ghost btn-sm" onclick="setAmt(1000)">$1,000</button>
+                <button type="button" class="btn btn-ghost btn-sm" onclick="setAmt(5000)">$5,000</button>
+                <button type="button" class="btn btn-ghost btn-sm" onclick="setAmt(10000)">$10,000</button>
               </div>
-              <input type="number" class="f-inp" id="depAmt" placeholder="Or enter a custom amount…" min="100">
+              <input type="number" class="f-inp" id="depAmt" placeholder="Or type amount…" min="100">
             </div>
 
             <div class="f-grp">
@@ -986,7 +599,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
         <div>
           <!-- FUNDING PROGRESS -->
           <div class="card" style="margin-bottom:18px">
-            <div class="card-title" data-i18n="card_funding_progress">Funding Progress</div>
+            <div class="card-title">Funding Progress</div>
             <div class="card-sub">Track how close you are to activating your plan</div>
             <div id="fundingProgress">
               <div class="empty" style="padding:28px 0"><i class="fas fa-chart-pie"></i><p>Select a plan to see progress</p></div>
@@ -995,7 +608,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
 
           <!-- DEPOSIT HISTORY -->
           <div class="card">
-            <div class="card-title" data-i18n="card_deposit_history">Deposit History</div>
+            <div class="card-title">Deposit History</div>
             <div class="card-sub">Your recent deposit requests</div>
             <div id="depositHistoryWrap">
               <div class="empty"><i class="fas fa-inbox"></i><p>No deposits yet</p></div>
@@ -1007,49 +620,10 @@ tbody tr:hover{background:var(--gold-pale)!important}
 
     <!-- ══════ PAGE: WATCH PORTFOLIO ══════ -->
     <div class="page" id="page-portfolio">
-
-      <!-- ── PAYOUT COUNTDOWN SLIDER ── -->
-      <div class="payout-slider-wrap" id="payoutSlider">
-        <div class="payout-slider-label"><i class="fas fa-coins"></i> Upcoming Payouts</div>
-        <div class="payout-slider-track">
-          <div class="payout-slider-inner" id="payoutTrack"><!-- filled by JS --></div>
-        </div>
-      </div>
-
-      <!-- ── LIVE MARKET CHART ── -->
-      <div class="portfolio-chart-card">
-        <div class="portfolio-chart-head">
-          <div>
-            <div style="font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px">
-              <i class="fas fa-chart-candlestick" style="color:var(--gold-d)"></i> Live Market — Where Your Profits Are Made
-            </div>
-            <div style="font-size:12px;color:var(--muted);margin-top:3px">Real-time view of the markets your traders are active in</div>
-          </div>
-          <div class="portfolio-chart-tabs">
-            <button class="chart-tab active" onclick="switchPortChart('BINANCE:BTCUSDT',this)">BTC</button>
-            <button class="chart-tab" onclick="switchPortChart('BINANCE:ETHUSDT',this)">ETH</button>
-            <button class="chart-tab" onclick="switchPortChart('FX:EURUSD',this)">EUR/USD</button>
-            <button class="chart-tab" onclick="switchPortChart('TVC:GOLD',this)">Gold</button>
-            <button class="chart-tab" onclick="switchPortChart('NASDAQ:AAPL',this)">AAPL</button>
-          </div>
-        </div>
-        <!-- live ticker tape -->
-        <div class="ticker-tape-wrap">
-          <div class="ticker-tape-inner" id="portfolioTicker"><!-- filled by JS --></div>
-        </div>
-        <div style="height:360px;position:relative">
-          <iframe id="portChartFrame"
-            src="https://s.tradingview.com/widgetembed/?frameElementId=portChartFrame&symbol=BINANCE%3ABTCUSDT&interval=60&hidesidetoolbar=1&hidetoptoolbar=0&symboledit=0&saveimage=0&toolbarbg=f4f4f4&theme=light&style=1&timezone=Etc%2FUTC&locale=en&utm_source=copyvestpro.xyz&utm_medium=widget&utm_campaign=chart"
-            style="width:100%;height:100%;border:none;display:block"
-            allowtransparency="true" scrolling="no" allowfullscreen></iframe>
-        </div>
-      </div>
-
-      <!-- ── PORTFOLIO HEADER + CARDS ── -->
       <div class="card" style="margin-bottom:22px">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
           <div>
-            <div class="card-title" data-i18n="card_portfolio">Watch Portfolio</div>
+            <div class="card-title">Watch Portfolio</div>
             <div class="card-sub" style="margin-bottom:0">Live performance of traders you are watching or copying</div>
           </div>
           <button class="btn btn-ghost btn-sm" onclick="loadPortfolio()"><i class="fas fa-rotate"></i> Refresh</button>
@@ -1098,17 +672,13 @@ tbody tr:hover{background:var(--gold-pale)!important}
       <div class="card" style="margin-bottom:22px">
         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
           <div style="flex:1;min-width:200px">
-            <div class="card-title" data-i18n="card_traders">Top Copy Traders</div>
-            <div class="card-sub" style="margin-bottom:0">All traders are performance-verified. Select one and fund your account to activate copy trading.</div>
+            <div class="card-title">Top Traders</div>
+            <div class="card-sub" style="margin-bottom:0">Select a trader and fund your account to activate copy mode</div>
           </div>
           <div style="position:relative">
             <i class="fas fa-magnifying-glass" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.82rem"></i>
             <input type="text" class="f-inp" id="traderSearch" placeholder="Search traders..." style="padding-left:36px;width:220px" oninput="filterTraders()">
           </div>
-        </div>
-        <div class="verified-strip">
-          <div class="verified-strip-dot"><i class="fas fa-check"></i></div>
-          All traders are independently audited &amp; performance-verified by CopyVestPro
         </div>
       </div>
       <div class="trader-grid" id="traderGrid"></div>
@@ -1118,7 +688,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-withdraw">
       <div class="grid-2">
         <div class="card">
-          <div class="card-title" data-i18n="card_withdraw">Withdraw Funds</div>
+          <div class="card-title">Withdraw Funds</div>
           <div class="card-sub">Submit a withdrawal request. Admin processes within 24 hours.</div>
           <div class="alert alert-warn on" style="margin-bottom:18px"><i class="fas fa-circle-info"></i> Withdrawals are processed manually. Only available balance can be withdrawn.</div>
 
@@ -1147,7 +717,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
         </div>
 
         <div class="card">
-          <div class="card-title" data-i18n="card_withdraw_history">Withdrawal History</div>
+          <div class="card-title">Withdrawal History</div>
           <div class="card-sub">Track your withdrawal requests</div>
           <div id="withdrawHistoryWrap">
             <div class="empty"><i class="fas fa-inbox"></i><p>No withdrawals yet</p></div>
@@ -1160,7 +730,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-transactions">
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
-          <div><div class="card-title" data-i18n="card_transactions">All Transactions</div><div class="card-sub" style="margin-bottom:0">Complete history of deposits, withdrawals and profit credits</div></div>
+          <div><div class="card-title">All Transactions</div><div class="card-sub" style="margin-bottom:0">Complete history of deposits, withdrawals and profit credits</div></div>
         </div>
         <div class="tbl-wrap">
           <table>
@@ -1175,7 +745,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-referral">
       <div class="grid-2" style="margin-bottom:22px">
         <div class="card">
-          <div class="card-title" data-i18n="card_referral">Your Referral Code</div>
+          <div class="card-title">Your Referral Code</div>
           <div class="card-sub">Share this code or link. Earn 5% on every referred deposit.</div>
           <div class="ref-box"><span id="refCode">—</span><button class="copy-btn btn-sm" onclick="copyRef('code')"><i class="fas fa-copy"></i> Copy</button></div>
           <div style="margin-top:12px">
@@ -1194,7 +764,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-profile">
       <div class="grid-2">
         <div class="card">
-          <div class="card-title" data-i18n="card_profile">Update Profile</div>
+          <div class="card-title">Update Profile</div>
           <div class="card-sub">Keep your account information up to date</div>
           <div class="f-grp"><label class="f-lbl">Full Name</label><input type="text" class="f-inp" id="pName" placeholder="Your name"></div>
           <div class="f-grp"><label class="f-lbl">Phone</label><input type="text" class="f-inp" id="pPhone" placeholder="+1 234 567 8900"></div>
@@ -1203,7 +773,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
           <button class="btn btn-gold btn-full" onclick="updateProfile()"><i class="fas fa-save"></i> Save Changes</button>
         </div>
         <div class="card">
-          <div class="card-title" data-i18n="card_password">Change Password</div>
+          <div class="card-title">Change Password</div>
           <div class="card-sub">Use a strong password of at least 8 characters</div>
           <div class="f-grp"><label class="f-lbl">Current Password</label><input type="password" class="f-inp" id="pwCur" placeholder="••••••••"></div>
           <div class="f-grp"><label class="f-lbl">New Password</label><input type="password" class="f-inp" id="pwNew" placeholder="••••••••"></div>
@@ -1221,12 +791,12 @@ tbody tr:hover{background:var(--gold-pale)!important}
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bot-nav">
   <div class="bot-nav-inner">
-    <button class="bnav-item active" id="bn-overview" onclick="nav('overview',null)"><i class="fas fa-chart-pie"></i><span data-i18n="nav_overview">Overview</span></button>
-    <button class="bnav-item" id="bn-fund" onclick="nav('fund',null)"><i class="fas fa-wallet"></i><span data-i18n="nav_invest">Invest</span></button>
-    <button class="bnav-item" id="bn-markets" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i><span data-i18n="nav_markets">Markets</span></button>
-    <button class="bnav-item" id="bn-traders" onclick="nav('traders',null)"><i class="fas fa-users"></i><span data-i18n="nav_traders_short">Traders</span></button>
-    <button class="bnav-item" id="bn-portfolio" onclick="nav('portfolio',null)"><i class="fas fa-chart-bar"></i><span data-i18n="nav_portfolio_short">Portfolio</span></button>
-    <button class="bnav-item" id="bn-withdraw" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i><span data-i18n="nav_withdraw">Withdraw</span></button>
+    <button class="bnav-item active" id="bn-overview" onclick="nav('overview',null)"><i class="fas fa-chart-pie"></i>Overview</button>
+    <button class="bnav-item" id="bn-fund" onclick="nav('fund',null)"><i class="fas fa-wallet"></i>Invest</button>
+    <button class="bnav-item" id="bn-markets" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i>Markets</button>
+    <button class="bnav-item" id="bn-traders" onclick="nav('traders',null)"><i class="fas fa-users"></i>Traders</button>
+    <button class="bnav-item" id="bn-portfolio" onclick="nav('portfolio',null)"><i class="fas fa-chart-bar"></i>Portfolio</button>
+    <button class="bnav-item" id="bn-withdraw" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i>Withdraw</button>
   </div>
 </nav>
 
@@ -1314,9 +884,9 @@ const COIN_LABELS = {
 };
 const WALLETS = {
   'BTC':['bc1q5q460ngh4dkdsxl4m4p2xw90uvc46lkvefqad3','bc1qrwqynkr6l2xy6zwz5dyra40dz25499up7venn9'],
-  'ETH_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
-  'USDT_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
-  'USDC_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
+  'ETH_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377'],
+  'USDT_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377'],
+  'USDC_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
   'SOL':['838C1Dkn9aPFFqyr4nM8q9stA3x2qcPsKRokfSRVFbJD','4jPt9jyRMVFfUs5hUPTkaKNdUmzhesugHfpX4SmC6tHn'],
   'USDC_TRC20':['TCcuwT7wmpz4TV8wsPGg3ABmdhATbfLPYu','TWT5mwFcmzaC9yiNTgUbLR2umE5MJwqzLC'],
   'USDT_TRC20':['TCcuwT7wmpz4TV8wsPGg3ABmdhATbfLPYu','TWT5mwFcmzaC9yiNTgUbLR2umE5MJwqzLC']
@@ -1340,16 +910,13 @@ const TRADERS = [
   {id:'t8',name:'The Edge Funder',handle:'@edgefunder',roi:'+134%',followers:'7.3K',copiers:'3.4K',accuracy:'90%',specialty:'Asian Markets',
    photo:'https://copyvest-pro.github.io/copyvestpro/The_Edge_funder.jpg'},
   {id:'t9',name:'The Trading Academy',handle:'@tradingacademy',roi:'+221%',followers:'15.2K',copiers:'6.9K',accuracy:'95%',specialty:'High-Freq Trading',
-   photo:'https://copyvest-pro.github.io/copyvestpro/The_trading_academy.jpg'},
-  {id:'t10',name:'Elite Trading Academy',handle:'@elitetradingacademy',roi:'+178%',followers:'11.4K',copiers:'5.2K',accuracy:'93%',specialty:'Crypto/Bitcoin',
-   photo:'https://copyvest-pro.github.io/copyvestpro/Elite_trading_academy.jpg'}
+   photo:'https://copyvest-pro.github.io/copyvestpro/The_trading_academy.jpg'}
 ];
 
 /* ═══════════ STATE ═══════════ */
 let token = localStorage.getItem('cvp_token');
 let user  = JSON.parse(localStorage.getItem('cvp_user') || '{}');
-// Random starting index per session so different users see different addresses
-let wIdx = Math.floor(Math.random() * 10);
+let wIdx  = parseInt(localStorage.getItem('cvp_wi') || '0');
 let selectedPlanId = null;
 let selectedTrader = JSON.parse(localStorage.getItem('cvp_selected_trader') || 'null');
 let profitInterval = null;
@@ -1367,7 +934,6 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshWallet();
   if (selectedTrader) showCopyBanner();
   startProfitClock();
-  initLang();
 });
 
 function $(id){ return document.getElementById(id); }
@@ -1413,27 +979,11 @@ async function loadDashboard(){
 }
 
 /* ═══════════ RENDER OVERVIEW ═══════════ */
-function animateValue(el, target, prefix='$', decimals=2){
-  if(!el) return;
-  const duration = 1200;
-  const start = performance.now();
-  function update(now){
-    const p = Math.min((now-start)/duration, 1);
-    const eased = 1 - Math.pow(1-p, 3);
-    const val = (target * eased);
-    el.textContent = prefix + val.toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
-    if(p < 1) requestAnimationFrame(update);
-    else el.textContent = prefix + target.toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
-  }
-  requestAnimationFrame(update);
-}
-
 function renderOverview(d){
   // principal_balance = funded capital, profit_balance = earned profits
-  const balance = parseFloat(d.principal_balance||0)+parseFloat(d.profit_balance||0);
-  animateValue($('ov-balance'),    balance, '$', 2);
-  animateValue($('ov-profit'),     parseFloat(d.profit_balance||0), '$', 2);
-  animateValue($('ov-deposited'),  parseFloat(d.total_deposited||0), '$', 2);
+  $('ov-balance').textContent    = fmt((parseFloat(d.principal_balance||0)+parseFloat(d.profit_balance||0)));
+  $('ov-profit').textContent     = fmt(d.profit_balance||0);
+  $('ov-deposited').textContent  = fmt(d.total_deposited||0);
   $('ov-investments').textContent= d.active_investments||0;
 
   // Status bar
@@ -1480,34 +1030,18 @@ function renderOverview(d){
   // Investment status
   if(d.active_investments > 0 && d.investments){
     $('investmentStatus').innerHTML = d.investments.slice(0,2).map(inv => {
-      const funded    = parseFloat(inv.funded_total||inv.principal||0);
-      const target    = parseFloat(inv.plan_min_deposit||500);
-      const pct       = Math.min(100, (funded/target)*100);
-      const isActive  = inv.status==='active' || pct>=100;
-      const remaining = Math.max(0, target - funded);
-      return `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-          <span style="font-weight:700;font-size:15px">${inv.plan_name||'Investment'}</span>
-          <span class="badge ${isActive?'badge-green':'badge-amber'}" style="font-size:11px">
-            ${isActive?'<i class="fas fa-circle-check" style="margin-right:3px"></i>Active':'<i class="fas fa-hourglass-half" style="margin-right:3px"></i>Pending'}
-          </span>
+      const pct = Math.min(100, ((inv.funded_total||inv.principal)/inv.plan_min_deposit)*100);
+      const st  = inv.status==='active'?'badge-green':'badge-amber';
+      return `<div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <span style="font-weight:600;font-size:15px">${inv.plan_name||'Investment'}</span>
+          <span class="badge ${st}">${inv.status}</span>
         </div>
-        <div class="progress-wrap" style="margin-bottom:${isActive?'8':'12'}px">
-          <div class="progress-info">
-            <span style="font-weight:600">${fmt(funded)}</span>
-            <span style="color:var(--muted)">${fmt(target)}</span>
-          </div>
-          <div class="progress-track"><div class="progress-fill ${isActive?'complete':''}" style="width:${pct.toFixed(1)}%"></div></div>
+        <div class="progress-wrap">
+          <div class="progress-info"><span>${fmt(inv.funded_total||inv.principal)} funded</span><span>${fmt(inv.plan_min_deposit)} goal</span></div>
+          <div class="progress-track"><div class="progress-fill ${pct>=100?'complete':''}" style="width:${pct}%"></div></div>
         </div>
-        ${isActive
-          ? `<div style="font-size:13px;color:var(--muted)">${inv.monthly_roi}% ROI/mo &middot; Next accrual: ${fmtDate(inv.next_accrual_date)}</div>`
-          : `<button class="pending-fund-btn" onclick="fundRemaining(${remaining}, '${inv.plan_id||''}')">
-               <div class="pending-fund-btn-left">
-                 <span class="pending-fund-btn-amt">${fmt(remaining)}</span>
-                 <span class="pending-fund-btn-lbl">Tap to fund this amount &amp; activate investment</span>
-               </div>
-               <div class="pending-fund-btn-arrow"><i class="fas fa-arrow-right"></i></div>
-             </button>`}
+        <div style="font-size:13px;color:var(--muted);margin-top:6px">${inv.monthly_roi}% ROI/mo &middot; Next accrual: ${fmtDate(inv.next_accrual_date)}</div>
       </div>`;
     }).join('');
   }
@@ -1532,17 +1066,6 @@ async function loadPlans(){
           <div class="plan-detail"><span>ROI/mo</span><span>${p.monthly_roi}%</span></div>
         </div>
       </div>`).join('');
-
-    // ── Build dynamic amount quick-select from plan min_deposits ──
-    const amtBtns = $('amtBtns');
-    if(amtBtns && plans.length){
-      const amounts = [...new Set(plans.map(p => parseFloat(p.min_deposit)))].sort((a,b)=>a-b);
-      amtBtns.innerHTML = amounts.map(amt => `
-        <button type="button" id="amtBtn_${amt}"
-          class="btn btn-ghost btn-sm"
-          style="border-color:var(--gold-border);color:var(--gold-d);font-weight:700;letter-spacing:-.01em"
-          onclick="setAmt(${amt})">${fmt(amt)}</button>`).join('');
-    }
   } catch(e){ console.error('plans:', e); }
 }
 
@@ -1556,78 +1079,34 @@ function selectPlan(id){
 function renderFundingProgress(d){
   const el = $('fundingProgress');
   if(!el) return;
-  const plan      = window._plans && selectedPlanId && window._plans.find(p=>p.id===selectedPlanId);
+  const plan = window._plans && selectedPlanId && window._plans.find(p=>p.id===selectedPlanId);
   if(!plan && (!d||!d.investments||!d.investments.length)){
-    el.innerHTML='<div class="empty" style="padding:28px 0"><i class="fas fa-chart-pie"></i><p>Select a plan above to track your progress</p></div>';
+    el.innerHTML='<div class="empty" style="padding:28px 0"><i class="fas fa-chart-pie"></i><p>Select a plan to see progress</p></div>';
     return;
   }
-  const inv       = plan ? (d&&d.investments||[]).find(i=>i.plan_id===selectedPlanId) : (d&&d.investments||[])[0];
+  const inv = plan ? (d&&d.investments||[]).find(i=>i.plan_id===selectedPlanId) : (d.investments||[])[0];
   if(!inv && !plan){ el.innerHTML='<div class="empty" style="padding:28px 0"><i class="fas fa-chart-pie"></i><p>No funding data yet</p></div>'; return; }
-
-  const funded    = parseFloat(inv?.funded_total||inv?.principal||0);
-  const target    = parseFloat(plan?.min_deposit||inv?.plan_min_deposit||500);
-  const roi       = plan?.monthly_roi||inv?.monthly_roi||'—';
-  const pct       = Math.min(100, (funded/target)*100);
-  const pctStr    = pct.toFixed(1);
-  const active    = pct >= 100;
-  const remaining = Math.max(0, target - funded);
-  const planName  = plan?.name||inv?.plan_name||'Investment Plan';
-  const lockMonths = plan?.lock_months||inv?.lock_months||'—';
-
-  el.innerHTML = `<div>
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:10px">
-      <div>
-        <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:3px">${planName}</div>
-        <div style="font-size:12px;color:var(--muted)">${roi}% ROI/month · ${lockMonths} month lock</div>
+  const funded = parseFloat(inv?.funded_total||inv?.principal||0);
+  const target = parseFloat(plan?.min_deposit||inv?.plan_min_deposit||500);
+  const pct = Math.min(100, (funded/target)*100).toFixed(1);
+  const active = pct>=100;
+  el.innerHTML = `
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <span style="font-size:15px;font-weight:700">${plan?.name||inv?.plan_name||'Current Plan'}</span>
+        <span class="badge ${active?'badge-green':'badge-amber'}">${active?'Active':'Pending'}</span>
       </div>
-      <span class="badge ${active?'badge-green':'badge-amber'}" style="flex-shrink:0;padding:6px 12px;font-size:12px">
-        ${active
-          ? '<i class="fas fa-circle-check" style="margin-right:4px"></i>Activated'
-          : '<i class="fas fa-hourglass-half" style="margin-right:4px"></i>Pending'}
-      </span>
-    </div>
-    <div class="progress-wrap" style="margin-bottom:16px">
-      <div class="progress-info">
-        <span style="color:var(--ink);font-weight:700">${fmt(funded)}</span>
-        <span style="color:var(--muted)">${fmt(target)} target</span>
+      <div class="progress-wrap">
+        <div class="progress-info">
+          <span style="color:var(--ink)">${fmt(funded)} funded</span>
+          <span style="color:var(--muted)">${fmt(target)} target</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill ${active?'complete':''}" style="width:${pct}%"></div></div>
+        <div style="text-align:center;font-size:13px;color:var(--muted);margin-top:6px">${pct}% complete</div>
       </div>
-      <div class="progress-track">
-        <div class="progress-fill ${active?'complete':''}" style="width:${pctStr}%"></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:5px">
-        <span style="color:var(--muted)">${pctStr}% complete</span>
-        ${active
-          ? '<span style="color:var(--green);font-weight:700">Goal reached ✓</span>'
-          : `<span style="color:var(--amber);font-weight:700">${fmt(remaining)} remaining</span>`}
-      </div>
-    </div>
-    ${active ? `
-    <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r-sm);padding:14px 16px;display:flex;gap:12px;align-items:center">
-      <div style="width:38px;height:38px;border-radius:11px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <i class="fas fa-circle-check" style="color:var(--green);font-size:17px"></i>
-      </div>
-      <div>
-        <div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:2px">Investment Active — Earning Now</div>
-        <div style="font-size:13px;color:#166534;line-height:1.5">Your plan is fully funded. Earning <strong>${roi}%</strong>/month automatically.</div>
-      </div>
-    </div>` : `
-    <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">
-      <div style="width:38px;height:38px;border-radius:11px;background:#fde68a;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-        <i class="fas fa-clock" style="color:var(--amber);font-size:17px"></i>
-      </div>
-      <div>
-        <div style="font-size:14px;font-weight:700;color:var(--amber);margin-bottom:2px">Investment Not Started Yet</div>
-        <div style="font-size:13px;color:#92400e;line-height:1.5">Fund <strong>${fmt(remaining)}</strong> more to reach the <strong>${fmt(target)}</strong> minimum. Investment starts automatically once the target is hit.</div>
-      </div>
-    </div>
-    <button class="pending-fund-btn" onclick="fundRemaining(${remaining}, selectedPlanId||'')">
-      <div class="pending-fund-btn-left">
-        <span class="pending-fund-btn-amt">${fmt(remaining)}</span>
-        <span class="pending-fund-btn-lbl">Tap to pay this amount &amp; activate your investment</span>
-      </div>
-      <div class="pending-fund-btn-arrow"><i class="fas fa-arrow-right"></i></div>
-    </button>`}
-  </div>`;
+      ${!active?`<div class="alert alert-warn on" style="margin-top:12px;font-size:13px"><i class="fas fa-clock"></i> ${fmt(target-funded)} more needed to activate</div>`:''}
+      ${active?`<div class="alert alert-ok on" style="margin-top:12px;font-size:13px"><i class="fas fa-check-circle"></i> Plan is active — earning ${plan?.monthly_roi||inv?.monthly_roi}% monthly</div>`:''}
+    </div>`;
 }
 
 /* ═══════════ WALLET ═══════════ */
@@ -1660,21 +1139,10 @@ function previewFile(e){
 /* ═══════════ DEPOSIT ═══════════ */
 function setAmt(val){
   $('depAmt').value = val;
-  // Highlight the active quick-amount button
-  document.querySelectorAll('[id^="amtBtn_"]').forEach(b => {
-    const active = parseFloat(b.id.replace('amtBtn_','')) === val;
-    b.style.background    = active ? 'var(--gold-pale)' : '';
-    b.style.borderColor   = active ? 'var(--gold)'      : '';
-    b.style.boxShadow     = active ? '0 0 0 2px rgba(201,168,76,.2)' : '';
-  });
-  // Auto-select the matching plan
+  // auto-select matching plan
   if(window._plans){
-    const match = window._plans.find(p => parseFloat(p.min_deposit) === val);
-    if(match) selectPlan(match.id);
-    else {
-      const eligible = window._plans.filter(p=>val>=p.min_deposit && (!p.max_deposit||val<=p.max_deposit));
-      if(eligible.length) selectPlan(eligible[eligible.length-1].id);
-    }
+    const eligible = window._plans.filter(p=>val>=p.min_deposit && (!p.max_deposit||val<=p.max_deposit));
+    if(eligible.length && !selectedPlanId) selectPlan(eligible[eligible.length-1].id);
   }
 }
 
@@ -1829,23 +1297,21 @@ async function loadAndRenderTraders(filter=''){
         specialty: (t.markets&&t.markets.length) ? t.markets.join('/') : (t.category||'Crypto/Forex'),
         photo: t.photo_url || (()=>{
           const ghBase = 'https://copyvest-pro.github.io/copyvestpro/';
-          // Keys match ANY part of the DB trader name (case-insensitive)
-          // Covers variations like "Kunting SNR", "KuntingSNR", "Stockwise", "Stock Wise" etc.
-          const nameMap = [
-            { keys:['akademi'],           file:'Akademi_crypto.jpg'         },
-            { keys:['andre','rizky'],      file:'Andre_Rizky_Investasi.jpg'  },
-            { keys:['kunting'],            file:'Kunting.jpg'                },
-            { keys:['max option'],         file:'Max_options_trading.jpg'    },
-            { keys:['shu'],                file:'Shu_crypto.jpg'             },
-            { keys:['stock','stockwise','stock wise'], file:'Stock_wise.jpg' },
-            { keys:['target hit','targethit'],         file:'Target_hit.jpg' },
-            { keys:['edge funder','edgefunder'],       file:'The_Edge_funder.jpg'     },
-            { keys:['trading academy','tradingacademy'],file:'The_trading_academy.jpg' },
-            { keys:['elite trading','elitetrading'],   file:'Elite_trading_academy.jpg' },
-          ];
-          const key = (t.name||'').toLowerCase().replace(/[^a-z0-9 ]/g,'').trim();
-          const match = nameMap.find(m => m.keys.some(k => key.includes(k)));
-          return match ? ghBase+match.file : `https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&size=160&background=c9a84c&color=fff&bold=true`;
+          const nameMap = {
+            'akademi crypto':    'Akademi_crypto.jpg',
+            'andre rizky':       'Andre_Rizky_Investasi.jpg',
+            'kunting':           'Kunting.jpg',
+            'max options':       'Max_options_trading.jpg',
+            'max options trading':'Max_options_trading.jpg',
+            'shu crypto':        'Shu_crypto.jpg',
+            'stock wise':        'Stock_wise.jpg',
+            'target hit':        'Target_hit.jpg',
+            'the edge funder':   'The_Edge_funder.jpg',
+            'the trading academy':'The_trading_academy.jpg',
+          };
+          const key = (t.name||'').toLowerCase().trim();
+          const file = Object.keys(nameMap).find(k=>key.includes(k));
+          return file ? ghBase+nameMap[file] : `https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&size=160&background=c9a84c&color=fff&bold=true`;
         })(),
         verified: t.verification_status !== 'unverified',
       }));
@@ -1862,29 +1328,24 @@ function renderTraderGrid(filter=''){
   const list = filter ? _traders.filter(t=>t.name.toLowerCase().includes(filter.toLowerCase())||t.specialty.toLowerCase().includes(filter.toLowerCase())) : _traders;
   const grid = $('traderGrid');
   if(!list.length){ grid.innerHTML='<div class="empty" style="grid-column:1/-1"><i class="fas fa-users"></i><p>No traders found</p></div>'; return; }
-  grid.innerHTML = list.map((t,i)=>`
-    <div class="trader-card" style="animation-delay:${i*0.07}s">
+  grid.innerHTML = list.map(t=>`
+    <div class="trader-card">
       <div class="trader-avatar-wrap">
-        <img src="${t.photo}" alt="${t.name}"
-          onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.jpg','.jpeg').replace('.JPG','.jpeg')}else{this.src='https://ui-avatars.com/api/?name='+encodeURIComponent(t.name)+'&size=160&background=c9a84c&color=fff&bold=true'}"
-          style="width:100%;height:100%;object-fit:cover;border-radius:50%">
-        <div class="trader-badge" title="Performance Verified"><i class="fas fa-check"></i></div>
+        <img src="${t.photo}" alt="${t.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&size=160&background=c9a84c&color=fff&bold=true'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+        <div class="trader-badge"><i class="fas fa-check"></i></div>
       </div>
-      <div class="trader-name">
-        <span>${t.name}</span>
-        <span class="verified-chip"><i class="fas fa-check"></i> Verified</span>
-      </div>
+      <div class="trader-name">${t.name}</div>
       <div class="trader-handle">${t.handle} &middot; ${t.specialty}</div>
       <div class="trader-stats">
         <div class="ts-item"><div class="ts-val pos">${t.roi}</div><div class="ts-lbl">ROI</div></div>
-        <div class="ts-item"><div class="ts-val">${t.accuracy}</div><div class="ts-lbl">Win Rate</div></div>
+        <div class="ts-item"><div class="ts-val">${t.accuracy}</div><div class="ts-lbl">Accuracy</div></div>
         <div class="ts-item"><div class="ts-val">${t.copiers}</div><div class="ts-lbl">Copiers</div></div>
       </div>
       <div class="trader-btns">
         <button class="btn btn-ghost btn-sm" style="flex:1" onclick="watchTrader('${t.id}','${t.name}')"><i class="fas fa-eye"></i> Watch</button>
         <button class="btn btn-gold btn-sm" style="flex:1" onclick="copyTrader('${t.id}','${t.name}')"><i class="fas fa-copy"></i> Copy</button>
       </div>
-      <button class="btn btn-dark btn-full" style="margin-top:8px" onclick="openBuyTrade('${t.name}')"><i class="fas fa-bolt"></i> Buy Trade — \$1,000</button>
+      <button class="btn btn-dark btn-full" style="margin-top:8px" onclick="openBuyTrade('${t.name}')"><i class="fas fa-bolt"></i> Buy Trade — $1,000</button>
     </div>`).join('');
 }
 
@@ -1901,15 +1362,6 @@ function watchTrader(id, name){
 }
 
 function loadPortfolio(){
-  // Ensure traders are loaded first (fixes race when user navigates directly to portfolio)
-  if(!_traders.length){
-    loadAndRenderTraders('').then(() => _buildPortfolio());
-    return;
-  }
-  _buildPortfolio();
-}
-
-function _buildPortfolio(){
   const wrap = $('portfolioWrap');
   if(!watchedTraders.length){
     wrap.innerHTML=`<div class="card"><div class="empty"><i class="fas fa-eye"></i><p>No traders in watchlist yet</p><p style="font-size:13px;color:var(--muted);margin-top:8px">Go to <strong>Copy Traders</strong> and click <strong>Watch</strong> on any trader</p></div></div>`;
@@ -1934,30 +1386,10 @@ function _buildPortfolio(){
     const sparkPath = pts.map((v,i)=>`${i===0?'M':'L'}${i*11},${90-v}`).join(' ');
     const photo = t.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&size=160&background=c9a84c&color=fff&bold=true`;
 
-    // Map trader specialty to primary TradingView symbol for chart tab
-    const symMap = {
-      'crypto':  'BINANCE:BTCUSDT',
-      'bitcoin': 'BINANCE:BTCUSDT',
-      'eth':     'BINANCE:ETHUSDT',
-      'forex':   'FX:EURUSD',
-      'gold':    'TVC:GOLD',
-      'oil':     'TVC:USOIL',
-      'stock':   'NASDAQ:AAPL',
-      'indices': 'SP:SPX',
-      'option':  'CBOE:SPX',
-      'asian':   'TVC:NI225',
-      'scal':    'BINANCE:ETHUSDT',
-      'high':    'BINANCE:BTCUSDT',
-      'commodity':'TVC:GOLD',
-    };
-    const spec = (t.specialty||'').toLowerCase();
-    const symKey = Object.keys(symMap).find(k => spec.includes(k));
-    const traderSymbol = symKey ? symMap[symKey] : 'BINANCE:BTCUSDT';
-
-    return `<div class="card" style="padding:22px">
+    return `<div class="card" style="padding:20px;margin-bottom:16px">
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
         <div style="position:relative;flex-shrink:0">
-          <img src="${photo}" alt="${t.name}" onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.jpg','.jpeg').replace('.JPG','.jpeg')}else{this.src='https://ui-avatars.com/api/?name='+encodeURIComponent('${t.name}')+'&size=160&background=c9a84c&color=fff&bold=true'}"
+          <img src="${photo}" alt="${t.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&size=160&background=c9a84c&color=fff&bold=true'"
             style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-border)">
           <div style="position:absolute;bottom:0;right:0;width:14px;height:14px;background:#22c55e;border-radius:50%;border:2px solid var(--surface)"></div>
         </div>
@@ -2002,23 +1434,14 @@ function _buildPortfolio(){
       </div>
 
       <!-- Live signal badge -->
-      <div style="background:${isPos?'rgba(22,163,74,.08)':'rgba(220,38,38,.08)'};border:1px solid ${isPos?'rgba(22,163,74,.2)':'rgba(220,38,38,.2)'};border-radius:8px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+      <div style="background:${isPos?'rgba(22,163,74,.08)':'rgba(220,38,38,.08)'};border:1px solid ${isPos?'rgba(22,163,74,.2)':'rgba(220,38,38,.2)'};border-radius:8px;padding:8px 12px;margin-bottom:14px;display:flex;align-items:center;gap:8px">
         <span style="width:8px;height:8px;border-radius:50%;background:${isPos?'#22c55e':'#ef4444'};display:inline-block;animation:pulse 1.5s infinite"></span>
         <span style="font-size:12px;font-weight:600;color:${isPos?'#16a34a':'#dc2626'}">${isPos?'Bullish signal — position open':'Consolidating — monitoring market'}</span>
       </div>
 
-      <!-- Primary market symbol tag -->
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-        <button onclick="switchPortChart('${traderSymbol}',null);nav('portfolio',null)" style="display:inline-flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-pill);padding:4px 12px;font-size:11px;font-weight:700;color:var(--ink);cursor:pointer;transition:var(--tr);font-family:var(--font)" title="View live chart">
-          <i class="fas fa-chart-line" style="color:var(--gold-d);font-size:10px"></i> ${traderSymbol.split(':')[1]||traderSymbol}
-          <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;color:var(--muted)"></i>
-        </button>
-        <span style="font-size:11px;color:var(--muted)">Primary market</span>
-      </div>
-
       <div style="display:flex;gap:8px">
-        <button class="btn btn-gold btn-sm" style="flex:1" onclick="copyTrader('${w.id}','${w.name}')"><i class="fas fa-copy"></i> Copy</button>
-        <button class="btn btn-ghost btn-sm" style="flex:0;padding:8px 10px" onclick="removeWatch('${w.id}')" title="Remove"><i class="fas fa-trash" style="color:var(--red)"></i></button>
+        <button class="btn btn-gold btn-sm" style="flex:1" onclick="copyTrader('${w.id}','${w.name}')"><i class="fas fa-copy"></i> Copy Trader</button>
+        <button class="btn btn-ghost btn-sm" style="flex:1;color:var(--red)" onclick="removeWatch('${w.id}')"><i class="fas fa-trash"></i> Remove</button>
       </div>
     </div>`;
   }).join('');
@@ -2026,19 +1449,18 @@ function _buildPortfolio(){
   // Summary bar
   const total = watchedTraders.length;
   wrap.innerHTML = `
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 18px;display:flex;align-items:center;gap:8px;box-shadow:var(--sh)">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 18px;display:flex;align-items:center;gap:8px">
         <i class="fas fa-eye" style="color:var(--gold-d)"></i>
-        <span style="font-size:14px;font-weight:700;color:var(--ink)">${total} Trader${total!==1?'s':''} Watched</span>
+        <span style="font-size:13px;font-weight:600;color:var(--ink)">${total} Trader${total!==1?'s':''} Watched</span>
       </div>
-      <div style="background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);border-radius:var(--r-sm);padding:10px 18px;display:flex;align-items:center;gap:8px">
-        <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 1.5s infinite;display:inline-block"></span>
-        <span style="font-size:14px;font-weight:700;color:#16a34a">Live Data</span>
+      <div style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:10px 18px;display:flex;align-items:center;gap:8px">
+        <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse 1.5s infinite"></span>
+        <span style="font-size:13px;font-weight:600;color:#16a34a">Live</span>
       </div>
-      <div style="margin-left:auto;font-size:12px;color:var(--muted)">Updates every 90 seconds</div>
     </div>
-    <div class="portfolio-grid">${cards}</div>`;
-} // end _buildPortfolio
+    ${cards}`;
+}
 
 function removeWatch(id){
   watchedTraders = watchedTraders.filter(t=>t.id!==id);
@@ -2129,679 +1551,11 @@ function loadMarketWidgets(){
     width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
 }
 
-
-/* ═══════════ FUND REMAINING (pending → invest page) ═══════════ */
-function fundRemaining(remaining, planId){
-  // Navigate to invest page
-  nav('fund', null);
-  // Pre-fill after a tick so elements are visible
-  setTimeout(()=>{
-    if(planId && planId !== 'null') selectPlan(String(planId));
-    setAmt(remaining);
-    // Smooth scroll to amount input
-    const el = document.getElementById('depAmt');
-    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
-    toast('Amount pre-filled — send payment to activate your investment', 'ok');
-  }, 120);
-}
-
-/* ═══════════ PAYOUT SLIDER ═══════════ */
-function buildPayoutSlider(){
-  const track = document.getElementById('payoutTrack');
-  if(!track) return;
-
-  // Build simulated upcoming payout windows (12 entries × 2 for seamless loop)
-  const now = new Date();
-  const entries = [];
-
-  // Try to use real investment data from dashData
-  const investments = (dashData && dashData.investments) || [];
-  const plans = window._plans || [];
-
-  // Generate 12 payout windows
-  for(let i = 0; i < 12; i++){
-    const payDate = new Date(now);
-    payDate.setDate(payDate.getDate() + (i === 0 ? Math.floor(Math.random()*8+2) : i * 7 + Math.floor(Math.random()*3)));
-
-    // Try real investment if exists
-    let principal = 0, roi = 0, planName = 'Portfolio';
-    if(investments.length){
-      const inv = investments[i % investments.length];
-      principal = parseFloat(inv.funded_total||inv.principal||500);
-      roi       = parseFloat(inv.monthly_roi||5);
-      planName  = inv.plan_name || 'Plan';
-    } else if(plans.length){
-      const p   = plans[i % plans.length];
-      principal = parseFloat(p.min_deposit||500);
-      roi       = parseFloat(p.monthly_roi||5);
-      planName  = p.name || 'Plan';
-    } else {
-      // Demo values
-      const demos = [
-        {p:500,r:5,n:'Starter'},{p:1000,r:7,n:'Basic'},
-        {p:5000,r:12,n:'Pro'},{p:10000,r:18,n:'Elite'}
-      ];
-      const d = demos[i%demos.length];
-      principal = d.p; roi = d.r; planName = d.n;
-    }
-
-    const weeklyPct   = roi / 4.33;                        // monthly → weekly
-    const estimated   = (principal * weeklyPct / 100);
-    const variance    = 1 + (Math.sin(i * 2.7) * 0.08);  // ±8% variance
-    const payAmount   = (estimated * variance).toFixed(2);
-
-    const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const months   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const label    = `${dayNames[payDate.getDay()]} ${months[payDate.getMonth()]} ${payDate.getDate()}`;
-
-    entries.push({label, amount: payAmount, plan: planName});
-  }
-
-  // Double for seamless loop
-  const allEntries = [...entries, ...entries];
-  track.innerHTML = allEntries.map(e => `
-    <div class="payout-item">
-      <div class="payout-date">${e.label}</div>
-      <div class="payout-amt">+$${e.amount}</div>
-      <div class="payout-plan">${e.plan}</div>
-    </div>`).join('');
-}
-
-/* ═══════════ PORTFOLIO TICKER TAPE ═══════════ */
-function buildPortfolioTicker(){
-  const el = document.getElementById('portfolioTicker');
-  if(!el) return;
-
-  // Static realistic price data (will look live due to animation)
-  const markets = [
-    {sym:'BTC/USDT',  price:'94,217.40', chg:'+2.14%', up:true},
-    {sym:'ETH/USDT',  price:'3,482.18',  chg:'+1.87%', up:true},
-    {sym:'EUR/USD',   price:'1.0842',    chg:'-0.12%', up:false},
-    {sym:'XAU/USD',   price:'2,641.50',  chg:'+0.43%', up:true},
-    {sym:'AAPL',      price:'213.47',    chg:'+1.22%', up:true},
-    {sym:'S&P 500',   price:'5,864.67',  chg:'+0.38%', up:true},
-    {sym:'SOL/USDT',  price:'187.34',    chg:'+3.21%', up:true},
-    {sym:'GBP/USD',   price:'1.2718',    chg:'-0.08%', up:false},
-    {sym:'OIL/USD',   price:'71.83',     chg:'-0.55%', up:false},
-    {sym:'BNB/USDT',  price:'612.40',    chg:'+1.44%', up:true},
-    {sym:'NAS 100',   price:'20,341.2',  chg:'+0.67%', up:true},
-    {sym:'USD/JPY',   price:'149.72',    chg:'+0.19%', up:true},
-  ];
-
-  // Animate prices slightly every few seconds
-  function render(){
-    const items = markets.map(m => {
-      // Tiny simulated drift
-      const drift = (Math.random() - 0.48) * 0.001;
-      const basePrice = parseFloat(m.price.replace(/,/g,''));
-      const newPrice  = basePrice * (1 + drift);
-      const fmt2 = basePrice > 100
-        ? newPrice.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
-        : newPrice.toFixed(4);
-      return `<div class="ticker-item">
-        <span class="ticker-sym">${m.sym}</span>
-        <span class="ticker-price">${fmt2}</span>
-        <span class="ticker-chg ${m.up?'up':'down'}">${m.chg}</span>
-      </div>`;
-    });
-    // Double for seamless scroll
-    el.innerHTML = [...items,...items].join('');
-  }
-
-  render();
-  setInterval(render, 4000); // re-render every 4s for "live" feel
-}
-
-/* ═══════════ SWITCH PORTFOLIO CHART SYMBOL ═══════════ */
-function switchPortChart(symbol, btn){
-  const frame = document.getElementById('portChartFrame');
-  if(frame){
-    const encoded = encodeURIComponent(symbol);
-    frame.src = `https://s.tradingview.com/widgetembed/?frameElementId=portChartFrame&symbol=${encoded}&interval=60&hidesidetoolbar=1&hidetoptoolbar=0&symboledit=0&saveimage=0&toolbarbg=f4f4f4&theme=light&style=1&timezone=Etc%2FUTC&locale=en`;
-  }
-  // Update tab active state
-  document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-}
-
-
-/* ═══════════════════════════════════════════════════════
-   LANGUAGE TRANSLATION SYSTEM
-   ═══════════════════════════════════════════════════════ */
-
-const LANGUAGES = [
-  {code:'en', flag:'🇬🇧', name:'English',       native:'English'},
-  {code:'fr', flag:'🇫🇷', name:'French',        native:'Français'},
-  {code:'es', flag:'🇪🇸', name:'Spanish',       native:'Español'},
-  {code:'pt', flag:'🇧🇷', name:'Portuguese',    native:'Português'},
-  {code:'ar', flag:'🇸🇦', name:'Arabic',        native:'العربية'},
-  {code:'zh', flag:'🇨🇳', name:'Chinese',       native:'中文'},
-  {code:'hi', flag:'🇮🇳', name:'Hindi',         native:'हिन्दी'},
-  {code:'ru', flag:'🇷🇺', name:'Russian',       native:'Русский'},
-  {code:'de', flag:'🇩🇪', name:'German',        native:'Deutsch'},
-  {code:'it', flag:'🇮🇹', name:'Italian',       native:'Italiano'},
-  {code:'ja', flag:'🇯🇵', name:'Japanese',      native:'日本語'},
-  {code:'ko', flag:'🇰🇷', name:'Korean',        native:'한국어'},
-  {code:'tr', flag:'🇹🇷', name:'Turkish',       native:'Türkçe'},
-  {code:'nl', flag:'🇳🇱', name:'Dutch',         native:'Nederlands'},
-  {code:'pl', flag:'🇵🇱', name:'Polish',        native:'Polski'},
-  {code:'sv', flag:'🇸🇪', name:'Swedish',       native:'Svenska'},
-  {code:'id', flag:'🇮🇩', name:'Indonesian',    native:'Bahasa Indonesia'},
-  {code:'ms', flag:'🇲🇾', name:'Malay',         native:'Bahasa Melayu'},
-  {code:'vi', flag:'🇻🇳', name:'Vietnamese',    native:'Tiếng Việt'},
-  {code:'th', flag:'🇹🇭', name:'Thai',          native:'ภาษาไทย'},
-  {code:'tl', flag:'🇵🇭', name:'Filipino',      native:'Filipino'},
-  {code:'bn', flag:'🇧🇩', name:'Bengali',       native:'বাংলা'},
-  {code:'ur', flag:'🇵🇰', name:'Urdu',          native:'اردو'},
-  {code:'fa', flag:'🇮🇷', name:'Persian',       native:'فارسی'},
-  {code:'he', flag:'🇮🇱', name:'Hebrew',        native:'עברית'},
-  {code:'el', flag:'🇬🇷', name:'Greek',         native:'Ελληνικά'},
-  {code:'ro', flag:'🇷🇴', name:'Romanian',      native:'Română'},
-  {code:'hu', flag:'🇭🇺', name:'Hungarian',     native:'Magyar'},
-  {code:'cs', flag:'🇨🇿', name:'Czech',         native:'Čeština'},
-  {code:'sw', flag:'🇰🇪', name:'Swahili',       native:'Kiswahili'},
-  {code:'yo', flag:'🇳🇬', name:'Yoruba',        native:'Yorùbá'},
-  {code:'ig', flag:'🇳🇬', name:'Igbo',          native:'Igbo'},
-  {code:'ha', flag:'🇳🇬', name:'Hausa',         native:'Hausa'},
-  {code:'am', flag:'🇪🇹', name:'Amharic',       native:'አማርኛ'},
-  {code:'so', flag:'🇸🇴', name:'Somali',        native:'Soomaali'},
-];
-
-const TRANSLATIONS = {
-  en: {
-    nav_overview:'Overview', nav_invest:'Invest', nav_markets:'Markets',
-    nav_traders:'Copy Traders', nav_traders_short:'Traders',
-    nav_portfolio:'Watch Portfolio', nav_portfolio_short:'Portfolio',
-    nav_withdraw:'Withdraw', nav_transactions:'Transactions',
-    nav_referral:'Referral', nav_profile:'Profile',
-    grp_main:'Main', grp_finance:'Finance', grp_account:'Account',
-    stat_balance:'Available Balance', stat_profit:'Total Profit',
-    stat_deposited:'Total Deposited', stat_investments:'Active Investments',
-    card_inv_status:'Investment Status', card_quick_actions:'Quick Actions',
-    card_activity:'Recent Activity', card_select_plan:'Select Trading Plan',
-    card_make_investment:'Make Your Investment', card_funding_progress:'Funding Progress',
-    card_deposit_history:'Deposit History', card_withdraw:'Withdraw Funds',
-    card_withdraw_history:'Withdrawal History', card_transactions:'All Transactions',
-    card_profile:'Update Profile', card_password:'Change Password',
-    card_referral:'Your Referral Code', card_traders:'Top Copy Traders',
-    card_portfolio:'Watch Portfolio',
-    btn_invest_now:'Invest Now', btn_top_up:'Top Up Investment',
-    btn_withdraw_funds:'Withdraw Funds', btn_view_markets:'View Markets',
-    lbl_next_payout:'Next Payout Window',
-  },
-  fr: {
-    nav_overview:'Aperçu', nav_invest:'Investir', nav_markets:'Marchés',
-    nav_traders:'Copier Traders', nav_traders_short:'Traders',
-    nav_portfolio:'Portefeuille', nav_portfolio_short:'Portefeuille',
-    nav_withdraw:'Retirer', nav_transactions:'Transactions',
-    nav_referral:'Parrainage', nav_profile:'Profil',
-    grp_main:'Principal', grp_finance:'Finance', grp_account:'Compte',
-    stat_balance:'Solde Disponible', stat_profit:'Profit Total',
-    stat_deposited:'Total Déposé', stat_investments:'Investissements Actifs',
-    card_inv_status:'Statut Investissement', card_quick_actions:'Actions Rapides',
-    card_activity:'Activité Récente', card_select_plan:'Sélectionner un Plan',
-    card_make_investment:'Faire un Investissement', card_funding_progress:'Progression',
-    card_deposit_history:'Historique Dépôts', card_withdraw:'Retirer des Fonds',
-    card_withdraw_history:'Historique Retraits', card_transactions:'Toutes Transactions',
-    card_profile:'Modifier Profil', card_password:'Changer Mot de Passe',
-    card_referral:'Votre Code Parrain', card_traders:'Meilleurs Traders',
-    card_portfolio:'Portefeuille Surveillé',
-    btn_invest_now:'Investir Maintenant', btn_top_up:'Recharger',
-    btn_withdraw_funds:'Retirer Fonds', btn_view_markets:'Voir Marchés',
-    lbl_next_payout:'Prochain Paiement',
-  },
-  es: {
-    nav_overview:'Resumen', nav_invest:'Invertir', nav_markets:'Mercados',
-    nav_traders:'Copiar Traders', nav_traders_short:'Traders',
-    nav_portfolio:'Portafolio', nav_portfolio_short:'Portafolio',
-    nav_withdraw:'Retirar', nav_transactions:'Transacciones',
-    nav_referral:'Referido', nav_profile:'Perfil',
-    grp_main:'Principal', grp_finance:'Finanzas', grp_account:'Cuenta',
-    stat_balance:'Saldo Disponible', stat_profit:'Ganancia Total',
-    stat_deposited:'Total Depositado', stat_investments:'Inversiones Activas',
-    card_inv_status:'Estado Inversión', card_quick_actions:'Acciones Rápidas',
-    card_activity:'Actividad Reciente', card_select_plan:'Seleccionar Plan',
-    card_make_investment:'Hacer Inversión', card_funding_progress:'Progreso',
-    card_deposit_history:'Historial Depósitos', card_withdraw:'Retirar Fondos',
-    card_withdraw_history:'Historial Retiros', card_transactions:'Todas Transacciones',
-    card_profile:'Actualizar Perfil', card_password:'Cambiar Contraseña',
-    card_referral:'Tu Código Referido', card_traders:'Mejores Traders',
-    card_portfolio:'Portafolio Vigilado',
-    btn_invest_now:'Invertir Ahora', btn_top_up:'Recargar',
-    btn_withdraw_funds:'Retirar Fondos', btn_view_markets:'Ver Mercados',
-    lbl_next_payout:'Próximo Pago',
-  },
-  pt: {
-    nav_overview:'Visão Geral', nav_invest:'Investir', nav_markets:'Mercados',
-    nav_traders:'Copiar Traders', nav_traders_short:'Traders',
-    nav_portfolio:'Portfólio', nav_portfolio_short:'Portfólio',
-    nav_withdraw:'Sacar', nav_transactions:'Transações',
-    nav_referral:'Indicação', nav_profile:'Perfil',
-    grp_main:'Principal', grp_finance:'Finanças', grp_account:'Conta',
-    stat_balance:'Saldo Disponível', stat_profit:'Lucro Total',
-    stat_deposited:'Total Depositado', stat_investments:'Investimentos Ativos',
-    card_inv_status:'Status Investimento', card_quick_actions:'Ações Rápidas',
-    card_activity:'Atividade Recente', card_select_plan:'Selecionar Plano',
-    card_make_investment:'Fazer Investimento', card_funding_progress:'Progresso',
-    card_deposit_history:'Histórico Depósitos', card_withdraw:'Sacar Fundos',
-    card_withdraw_history:'Histórico Saques', card_transactions:'Todas Transações',
-    card_profile:'Atualizar Perfil', card_password:'Alterar Senha',
-    card_referral:'Seu Código de Indicação', card_traders:'Melhores Traders',
-    card_portfolio:'Portfólio Monitorado',
-    btn_invest_now:'Investir Agora', btn_top_up:'Recarregar',
-    btn_withdraw_funds:'Sacar Fundos', btn_view_markets:'Ver Mercados',
-    lbl_next_payout:'Próximo Pagamento',
-  },
-  ar: {
-    nav_overview:'نظرة عامة', nav_invest:'استثمار', nav_markets:'الأسواق',
-    nav_traders:'نسخ المتداولين', nav_traders_short:'المتداولون',
-    nav_portfolio:'المحفظة', nav_portfolio_short:'المحفظة',
-    nav_withdraw:'سحب', nav_transactions:'المعاملات',
-    nav_referral:'الإحالة', nav_profile:'الملف الشخصي',
-    grp_main:'الرئيسية', grp_finance:'المالية', grp_account:'الحساب',
-    stat_balance:'الرصيد المتاح', stat_profit:'إجمالي الربح',
-    stat_deposited:'إجمالي الإيداع', stat_investments:'الاستثمارات النشطة',
-    card_inv_status:'حالة الاستثمار', card_quick_actions:'إجراءات سريعة',
-    card_activity:'النشاط الأخير', card_select_plan:'اختر خطة',
-    card_make_investment:'قم بالاستثمار', card_funding_progress:'تقدم التمويل',
-    card_deposit_history:'سجل الإيداعات', card_withdraw:'سحب الأموال',
-    card_withdraw_history:'سجل السحوبات', card_transactions:'جميع المعاملات',
-    card_profile:'تحديث الملف', card_password:'تغيير كلمة المرور',
-    card_referral:'كود الإحالة', card_traders:'أفضل المتداولين',
-    card_portfolio:'محفظة المراقبة',
-    btn_invest_now:'استثمر الآن', btn_top_up:'إضافة رصيد',
-    btn_withdraw_funds:'سحب الأموال', btn_view_markets:'عرض الأسواق',
-    lbl_next_payout:'نافذة الدفع القادمة',
-  },
-  zh: {
-    nav_overview:'概览', nav_invest:'投资', nav_markets:'市场',
-    nav_traders:'复制交易员', nav_traders_short:'交易员',
-    nav_portfolio:'投资组合', nav_portfolio_short:'组合',
-    nav_withdraw:'提款', nav_transactions:'交易记录',
-    nav_referral:'推荐', nav_profile:'个人资料',
-    grp_main:'主要', grp_finance:'财务', grp_account:'账户',
-    stat_balance:'可用余额', stat_profit:'总收益',
-    stat_deposited:'总存款', stat_investments:'活跃投资',
-    card_inv_status:'投资状态', card_quick_actions:'快捷操作',
-    card_activity:'最近活动', card_select_plan:'选择计划',
-    card_make_investment:'进行投资', card_funding_progress:'资金进度',
-    card_deposit_history:'存款记录', card_withdraw:'提取资金',
-    card_withdraw_history:'提款记录', card_transactions:'所有交易',
-    card_profile:'更新资料', card_password:'修改密码',
-    card_referral:'您的推荐码', card_traders:'顶级交易员',
-    card_portfolio:'监控组合',
-    btn_invest_now:'立即投资', btn_top_up:'追加投资',
-    btn_withdraw_funds:'提取资金', btn_view_markets:'查看市场',
-    lbl_next_payout:'下次付款窗口',
-  },
-  hi: {
-    nav_overview:'अवलोकन', nav_invest:'निवेश', nav_markets:'बाज़ार',
-    nav_traders:'ट्रेडर कॉपी करें', nav_traders_short:'ट्रेडर्स',
-    nav_portfolio:'पोर्टफोलियो', nav_portfolio_short:'पोर्टफोलियो',
-    nav_withdraw:'निकासी', nav_transactions:'लेनदेन',
-    nav_referral:'रेफरल', nav_profile:'प्रोफाइल',
-    grp_main:'मुख्य', grp_finance:'वित्त', grp_account:'खाता',
-    stat_balance:'उपलब्ध बैलेंस', stat_profit:'कुल लाभ',
-    stat_deposited:'कुल जमा', stat_investments:'सक्रिय निवेश',
-    card_inv_status:'निवेश स्थिति', card_quick_actions:'त्वरित क्रियाएं',
-    card_activity:'हाल की गतिविधि', card_select_plan:'प्लान चुनें',
-    card_make_investment:'निवेश करें', card_funding_progress:'फंडिंग प्रगति',
-    card_deposit_history:'जमा इतिहास', card_withdraw:'पैसे निकालें',
-    card_withdraw_history:'निकासी इतिहास', card_transactions:'सभी लेनदेन',
-    card_profile:'प्रोफाइल अपडेट करें', card_password:'पासवर्ड बदलें',
-    card_referral:'आपका रेफरल कोड', card_traders:'शीर्ष ट्रेडर्स',
-    card_portfolio:'वॉच पोर्टफोलियो',
-    btn_invest_now:'अभी निवेश करें', btn_top_up:'टॉप अप करें',
-    btn_withdraw_funds:'पैसे निकालें', btn_view_markets:'बाज़ार देखें',
-    lbl_next_payout:'अगली भुगतान विंडो',
-  },
-  ru: {
-    nav_overview:'Обзор', nav_invest:'Инвестировать', nav_markets:'Рынки',
-    nav_traders:'Копировать трейдеров', nav_traders_short:'Трейдеры',
-    nav_portfolio:'Портфель', nav_portfolio_short:'Портфель',
-    nav_withdraw:'Вывод', nav_transactions:'Транзакции',
-    nav_referral:'Реферал', nav_profile:'Профиль',
-    grp_main:'Главное', grp_finance:'Финансы', grp_account:'Аккаунт',
-    stat_balance:'Доступный баланс', stat_profit:'Общая прибыль',
-    stat_deposited:'Всего внесено', stat_investments:'Активные инвестиции',
-    card_inv_status:'Статус инвестиций', card_quick_actions:'Быстрые действия',
-    card_activity:'Последняя активность', card_select_plan:'Выбрать план',
-    card_make_investment:'Сделать инвестицию', card_funding_progress:'Прогресс',
-    card_deposit_history:'История депозитов', card_withdraw:'Вывод средств',
-    card_withdraw_history:'История выводов', card_transactions:'Все транзакции',
-    card_profile:'Обновить профиль', card_password:'Сменить пароль',
-    card_referral:'Ваш реферальный код', card_traders:'Лучшие трейдеры',
-    card_portfolio:'Отслеживаемый портфель',
-    btn_invest_now:'Инвестировать сейчас', btn_top_up:'Пополнить',
-    btn_withdraw_funds:'Вывести средства', btn_view_markets:'Просмотр рынков',
-    lbl_next_payout:'Следующая выплата',
-  },
-  de: {
-    nav_overview:'Übersicht', nav_invest:'Investieren', nav_markets:'Märkte',
-    nav_traders:'Trader kopieren', nav_traders_short:'Trader',
-    nav_portfolio:'Portfolio', nav_portfolio_short:'Portfolio',
-    nav_withdraw:'Abheben', nav_transactions:'Transaktionen',
-    nav_referral:'Empfehlung', nav_profile:'Profil',
-    grp_main:'Haupt', grp_finance:'Finanzen', grp_account:'Konto',
-    stat_balance:'Verfügbares Guthaben', stat_profit:'Gesamtgewinn',
-    stat_deposited:'Gesamt eingezahlt', stat_investments:'Aktive Investitionen',
-    card_inv_status:'Investitionsstatus', card_quick_actions:'Schnellaktionen',
-    card_activity:'Letzte Aktivität', card_select_plan:'Plan auswählen',
-    card_make_investment:'Investition tätigen', card_funding_progress:'Finanzierungsfortschritt',
-    card_deposit_history:'Einzahlungshistorie', card_withdraw:'Geld abheben',
-    card_withdraw_history:'Auszahlungshistorie', card_transactions:'Alle Transaktionen',
-    card_profile:'Profil aktualisieren', card_password:'Passwort ändern',
-    card_referral:'Ihr Empfehlungscode', card_traders:'Top Trader',
-    card_portfolio:'Beobachtungsportfolio',
-    btn_invest_now:'Jetzt investieren', btn_top_up:'Aufstocken',
-    btn_withdraw_funds:'Geld abheben', btn_view_markets:'Märkte ansehen',
-    lbl_next_payout:'Nächstes Auszahlungsfenster',
-  },
-  it: {
-    nav_overview:'Panoramica', nav_invest:'Investire', nav_markets:'Mercati',
-    nav_traders:'Copia Trader', nav_traders_short:'Trader',
-    nav_portfolio:'Portafoglio', nav_portfolio_short:'Portafoglio',
-    nav_withdraw:'Prelievo', nav_transactions:'Transazioni',
-    nav_referral:'Referral', nav_profile:'Profilo',
-    grp_main:'Principale', grp_finance:'Finanze', grp_account:'Account',
-    stat_balance:'Saldo Disponibile', stat_profit:'Profitto Totale',
-    stat_deposited:'Totale Depositato', stat_investments:'Investimenti Attivi',
-    card_inv_status:'Stato Investimento', card_quick_actions:'Azioni Rapide',
-    card_activity:'Attività Recente', card_select_plan:'Seleziona Piano',
-    card_make_investment:'Fai un Investimento', card_funding_progress:'Progresso',
-    card_deposit_history:'Storico Depositi', card_withdraw:'Prelevare Fondi',
-    card_withdraw_history:'Storico Prelievi', card_transactions:'Tutte le Transazioni',
-    card_profile:'Aggiorna Profilo', card_password:'Cambia Password',
-    card_referral:'Il Tuo Codice Referral', card_traders:'Migliori Trader',
-    card_portfolio:'Portfolio Monitorato',
-    btn_invest_now:'Investi Ora', btn_top_up:'Ricarica',
-    btn_withdraw_funds:'Preleva Fondi', btn_view_markets:'Vedi Mercati',
-    lbl_next_payout:'Prossima Finestra di Pagamento',
-  },
-  ja: {
-    nav_overview:'概要', nav_invest:'投資', nav_markets:'市場',
-    nav_traders:'トレーダーコピー', nav_traders_short:'トレーダー',
-    nav_portfolio:'ポートフォリオ', nav_portfolio_short:'ポートフォリオ',
-    nav_withdraw:'出金', nav_transactions:'取引履歴',
-    nav_referral:'紹介', nav_profile:'プロフィール',
-    grp_main:'メイン', grp_finance:'財務', grp_account:'アカウント',
-    stat_balance:'利用可能残高', stat_profit:'総利益',
-    stat_deposited:'総入金額', stat_investments:'アクティブ投資',
-    card_inv_status:'投資ステータス', card_quick_actions:'クイックアクション',
-    card_activity:'最近のアクティビティ', card_select_plan:'プランを選択',
-    card_make_investment:'投資する', card_funding_progress:'資金調達進捗',
-    card_deposit_history:'入金履歴', card_withdraw:'出金する',
-    card_withdraw_history:'出金履歴', card_transactions:'全取引',
-    card_profile:'プロフィール更新', card_password:'パスワード変更',
-    card_referral:'紹介コード', card_traders:'トップトレーダー',
-    card_portfolio:'監視ポートフォリオ',
-    btn_invest_now:'今すぐ投資', btn_top_up:'追加投資',
-    btn_withdraw_funds:'出金する', btn_view_markets:'市場を見る',
-    lbl_next_payout:'次回支払い',
-  },
-  ko: {
-    nav_overview:'개요', nav_invest:'투자', nav_markets:'시장',
-    nav_traders:'트레이더 복사', nav_traders_short:'트레이더',
-    nav_portfolio:'포트폴리오', nav_portfolio_short:'포트폴리오',
-    nav_withdraw:'출금', nav_transactions:'거래내역',
-    nav_referral:'추천', nav_profile:'프로필',
-    grp_main:'메인', grp_finance:'재무', grp_account:'계정',
-    stat_balance:'사용 가능 잔액', stat_profit:'총 수익',
-    stat_deposited:'총 입금', stat_investments:'활성 투자',
-    card_inv_status:'투자 현황', card_quick_actions:'빠른 작업',
-    card_activity:'최근 활동', card_select_plan:'플랜 선택',
-    card_make_investment:'투자하기', card_funding_progress:'펀딩 진행률',
-    card_deposit_history:'입금 내역', card_withdraw:'출금하기',
-    card_withdraw_history:'출금 내역', card_transactions:'모든 거래',
-    card_profile:'프로필 업데이트', card_password:'비밀번호 변경',
-    card_referral:'추천 코드', card_traders:'최고 트레이더',
-    card_portfolio:'관심 포트폴리오',
-    btn_invest_now:'지금 투자', btn_top_up:'추가 투자',
-    btn_withdraw_funds:'출금하기', btn_view_markets:'시장 보기',
-    lbl_next_payout:'다음 지급 창',
-  },
-  tr: {
-    nav_overview:'Genel Bakış', nav_invest:'Yatırım Yap', nav_markets:'Piyasalar',
-    nav_traders:'Trader Kopyala', nav_traders_short:'Traderlar',
-    nav_portfolio:'Portföy', nav_portfolio_short:'Portföy',
-    nav_withdraw:'Para Çek', nav_transactions:'İşlemler',
-    nav_referral:'Referans', nav_profile:'Profil',
-    grp_main:'Ana', grp_finance:'Finans', grp_account:'Hesap',
-    stat_balance:'Mevcut Bakiye', stat_profit:'Toplam Kâr',
-    stat_deposited:'Toplam Yatırılan', stat_investments:'Aktif Yatırımlar',
-    card_inv_status:'Yatırım Durumu', card_quick_actions:'Hızlı İşlemler',
-    card_activity:'Son Aktivite', card_select_plan:'Plan Seç',
-    card_make_investment:'Yatırım Yap', card_funding_progress:'Finansman İlerlemesi',
-    card_deposit_history:'Para Yatırma Geçmişi', card_withdraw:'Para Çek',
-    card_withdraw_history:'Para Çekme Geçmişi', card_transactions:'Tüm İşlemler',
-    card_profile:'Profili Güncelle', card_password:'Şifre Değiştir',
-    card_referral:'Referans Kodunuz', card_traders:'En İyi Traderlar',
-    card_portfolio:'İzleme Portföyü',
-    btn_invest_now:'Şimdi Yatır', btn_top_up:'Yükle',
-    btn_withdraw_funds:'Para Çek', btn_view_markets:'Piyasaları Gör',
-    lbl_next_payout:'Sonraki Ödeme Penceresi',
-  },
-  sw: {
-    nav_overview:'Muhtasari', nav_invest:'Kuwekeza', nav_markets:'Masoko',
-    nav_traders:'Nakili Wafanyabiashara', nav_traders_short:'Wafanyabiashara',
-    nav_portfolio:'Jalada', nav_portfolio_short:'Jalada',
-    nav_withdraw:'Toa Pesa', nav_transactions:'Miamala',
-    nav_referral:'Rufaa', nav_profile:'Wasifu',
-    grp_main:'Kuu', grp_finance:'Fedha', grp_account:'Akaunti',
-    stat_balance:'Salio Linalopatikana', stat_profit:'Faida Jumla',
-    stat_deposited:'Jumla Iliyowekwa', stat_investments:'Uwekezaji Hai',
-    card_inv_status:'Hali ya Uwekezaji', card_quick_actions:'Vitendo vya Haraka',
-    card_activity:'Shughuli za Hivi Karibuni', card_select_plan:'Chagua Mpango',
-    card_make_investment:'Fanya Uwekezaji', card_funding_progress:'Maendeleo ya Ufadhili',
-    card_deposit_history:'Historia ya Amana', card_withdraw:'Toa Fedha',
-    card_withdraw_history:'Historia ya Kutoa', card_transactions:'Miamala Yote',
-    card_profile:'Sasisha Wasifu', card_password:'Badilisha Nenosiri',
-    card_referral:'Msimbo Wako wa Rufaa', card_traders:'Wafanyabiashara Bora',
-    card_portfolio:'Jalada la Ufuatiliaji',
-    btn_invest_now:'Wekeza Sasa', btn_top_up:'Ongeza',
-    btn_withdraw_funds:'Toa Fedha', btn_view_markets:'Ona Masoko',
-    lbl_next_payout:'Dirisha la Malipo Lijalo',
-  },
-  yo: {
-    nav_overview:'Akopọ', nav_invest:'Ṣe Idoko-owo', nav_markets:'Awọn Oja',
-    nav_traders:'Daakọ Awọn Oniṣowo', nav_traders_short:'Awọn Oniṣowo',
-    nav_portfolio:'Àkójọ Idoko-owo', nav_portfolio_short:'Àkójọ',
-    nav_withdraw:'Yọ Owo', nav_transactions:'Awọn Iṣowo',
-    nav_referral:'Itọkasi', nav_profile:'Profaili',
-    grp_main:'Akọkọ', grp_finance:'Inawo', grp_account:'Akanti',
-    stat_balance:'Iye Owo to wa', stat_profit:'Ere Lapapọ',
-    stat_deposited:'Lapapọ ti a fi sinu', stat_investments:'Idoko-owo to n ṣiṣẹ',
-    card_inv_status:'Ipo Idoko-owo', card_quick_actions:'Awọn Iṣe Yara',
-    card_activity:'Iṣẹ Aipẹ', card_select_plan:'Yan Eto',
-    card_make_investment:'Ṣe Idoko-owo', card_funding_progress:'Ilọsiwaju Owo',
-    card_deposit_history:'Itan Ifipamọ', card_withdraw:'Yọ Owo',
-    card_withdraw_history:'Itan Yiyọ Owo', card_transactions:'Gbogbo Iṣowo',
-    card_profile:'Ṣe Imudojuiwọn Profaili', card_password:'Yi Ọrọigbaniwọle pada',
-    card_referral:'Koodu Itọkasi Rẹ', card_traders:'Awọn Oniṣowo Giga',
-    card_portfolio:'Àkójọ Amojuto',
-    btn_invest_now:'Doko-owo Bayi', btn_top_up:'Fi Kun',
-    btn_withdraw_funds:'Yọ Owo', btn_view_markets:'Wo Awọn Oja',
-    lbl_next_payout:'Ferese Isanwo To nbọ',
-  },
-  ig: {
-    nav_overview:'Nchịkọta', nav_invest:'Itinye Ego', nav_markets:'Ahịa',
-    nav_traders:'Detuo Ndị Ahịa', nav_traders_short:'Ndị Ahịa',
-    nav_portfolio:'Ndekọ Ihe', nav_portfolio_short:'Ndekọ',
-    nav_withdraw:'Wepụ Ego', nav_transactions:'Azụmahịa',
-    nav_referral:'Ntụnyere', nav_profile:'Profaịlụ',
-    grp_main:'Isi', grp_finance:'Ego', grp_account:'Akaụntụ',
-    stat_balance:'Ego Dị Ndụ', stat_profit:'Nnata Nile',
-    stat_deposited:'Ego Etinyere Nile', stat_investments:'Ntinye Ego Na-arụ Ọrụ',
-    card_inv_status:'Ọnọdụ Ntinye Ego', card_quick_actions:'Ọrụ Ngwa Ngwa',
-    card_activity:'Mmegharị Nso', card_select_plan:'Họrọ Atụmatụ',
-    card_make_investment:'Tinye Ego', card_funding_progress:'Ọganihu Ego',
-    card_deposit_history:'Akụkọ Ntinye', card_withdraw:'Wepụ Ego',
-    card_withdraw_history:'Akụkọ Iwepụ', card_transactions:'Azụmahịa Nile',
-    card_profile:'Melite Profaịlụ', card_password:'Gbanwee Paswọọdụ',
-    card_referral:'Koodu Ntụnyere Gị', card_traders:'Ndị Ahịa Kachasị Mma',
-    card_portfolio:'Ndekọ Na-elele',
-    btn_invest_now:'Tinye Ego Ugbu a', btn_top_up:'Tinye Ọzọ',
-    btn_withdraw_funds:'Wepụ Ego', btn_view_markets:'Lee Ahịa',
-    lbl_next_payout:'Oge Ụgwọ Ọzọ',
-  },
-  ha: {
-    nav_overview:'Bayanai', nav_invest:'Saka Jari', nav_markets:'Kasuwar',
-    nav_traders:'Kwafi Masu Ciniki', nav_traders_short:'Masu Ciniki',
-    nav_portfolio:'Kundin Jari', nav_portfolio_short:'Kundi',
-    nav_withdraw:'Cire Kudi', nav_transactions:'Ma'amaloli',
-    nav_referral:'Koma', nav_profile:'Bayanan Kai',
-    grp_main:'Babba', grp_finance:'Kudi', grp_account:'Asusun',
-    stat_balance:'Kudin da ake da shi', stat_profit:'Jimlar Riba',
-    stat_deposited:'Jimlar Ajiya', stat_investments:'Jarin da ke Aiki',
-    card_inv_status:'Yanayin Jari', card_quick_actions:'Ayyuka Cikin Sauri',
-    card_activity:'Ayyuka na Kwanan nan', card_select_plan:'Zaɓi Shirin',
-    card_make_investment:'Saka Jari', card_funding_progress:'Ci gaban Kuɗi',
-    card_deposit_history:'Tarihin Ajiya', card_withdraw:'Cire Kuɗi',
-    card_withdraw_history:'Tarihin Cirewa', card_transactions:'Duk Ma'amaloli',
-    card_profile:'Sabunta Bayanan Kai', card_password:'Canza Kalmar Sirri',
-    card_referral:'Lambar Koma Naka', card_traders:'Manyan Masu Ciniki',
-    card_portfolio:'Kundin Kallo',
-    btn_invest_now:'Saka Jari Yanzu', btn_top_up:'Kara',
-    btn_withdraw_funds:'Cire Kuɗi', btn_view_markets:'Duba Kasuwar',
-    lbl_next_payout:'Window na Biyan Kuɗi Mai Zuwa',
-  },
-  id: {
-    nav_overview:'Ikhtisar', nav_invest:'Investasi', nav_markets:'Pasar',
-    nav_traders:'Salin Trader', nav_traders_short:'Trader',
-    nav_portfolio:'Portofolio', nav_portfolio_short:'Portofolio',
-    nav_withdraw:'Tarik Dana', nav_transactions:'Transaksi',
-    nav_referral:'Referral', nav_profile:'Profil',
-    grp_main:'Utama', grp_finance:'Keuangan', grp_account:'Akun',
-    stat_balance:'Saldo Tersedia', stat_profit:'Total Keuntungan',
-    stat_deposited:'Total Disetor', stat_investments:'Investasi Aktif',
-    card_inv_status:'Status Investasi', card_quick_actions:'Tindakan Cepat',
-    card_activity:'Aktivitas Terbaru', card_select_plan:'Pilih Rencana',
-    card_make_investment:'Lakukan Investasi', card_funding_progress:'Kemajuan Dana',
-    card_deposit_history:'Riwayat Setoran', card_withdraw:'Tarik Dana',
-    card_withdraw_history:'Riwayat Penarikan', card_transactions:'Semua Transaksi',
-    card_profile:'Perbarui Profil', card_password:'Ganti Kata Sandi',
-    card_referral:'Kode Referral Anda', card_traders:'Trader Terbaik',
-    card_portfolio:'Portofolio Pantau',
-    btn_invest_now:'Investasi Sekarang', btn_top_up:'Tambah Dana',
-    btn_withdraw_funds:'Tarik Dana', btn_view_markets:'Lihat Pasar',
-    lbl_next_payout:'Jendela Pembayaran Berikutnya',
-  },
-};
-
-// Fill missing languages with English fallback
-const EN = TRANSLATIONS.en;
-LANGUAGES.forEach(l => {
-  if(!TRANSLATIONS[l.code]){
-    TRANSLATIONS[l.code] = {...EN};
-  } else {
-    // Fill any missing keys with English
-    TRANSLATIONS[l.code] = {...EN, ...TRANSLATIONS[l.code]};
-  }
-});
-
-let currentLang = localStorage.getItem('cvp_lang') || 'en';
-
-function initLang(){
-  buildLangMenu();
-  applyLang(currentLang, false);
-}
-
-function buildLangMenu(){
-  const list = document.getElementById('langList');
-  if(!list) return;
-  list.innerHTML = LANGUAGES.map(l => `
-    <div class="lang-item ${l.code===currentLang?'active':''}" onclick="setLang('${l.code}')">
-      <span class="lang-item-flag">${l.flag}</span>
-      <div class="lang-item-name">
-        <div>${l.name}</div>
-        <div class="lang-item-native">${l.native}</div>
-      </div>
-      ${l.code===currentLang?'<i class="fas fa-check" style="color:var(--gold-d);font-size:12px"></i>':''}
-    </div>`).join('');
-}
-
-function setLang(code){
-  currentLang = code;
-  localStorage.setItem('cvp_lang', code);
-  applyLang(code, true);
-  closeLangMenu();
-  buildLangMenu();
-}
-
-function applyLang(code, animate){
-  const t = TRANSLATIONS[code] || TRANSLATIONS.en;
-  const lang = LANGUAGES.find(l=>l.code===code) || LANGUAGES[0];
-
-  // Update flag and code in button
-  const flag = document.getElementById('langFlag');
-  const codeEl = document.getElementById('langCode');
-  if(flag) flag.textContent = lang.flag;
-  if(codeEl) codeEl.textContent = code.toUpperCase();
-
-  // Apply RTL for Arabic, Hebrew, Urdu, Persian
-  const rtl = ['ar','he','ur','fa'].includes(code);
-  document.documentElement.dir = rtl ? 'rtl' : 'ltr';
-  document.documentElement.lang = code;
-
-  // Translate all data-i18n elements
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if(t[key]){
-      if(animate){
-        el.style.opacity='0';
-        el.style.transform='translateY(4px)';
-        setTimeout(()=>{
-          el.textContent = t[key];
-          el.style.transition='opacity .25s,transform .25s';
-          el.style.opacity='1';
-          el.style.transform='translateY(0)';
-        }, 80);
-      } else {
-        el.textContent = t[key];
-      }
-    }
-  });
-
-  // Also update page title map used by nav()
-  window._langTitles = t;
-}
-
-function toggleLangMenu(){
-  const menu = document.getElementById('langMenu');
-  if(!menu) return;
-  const isOpen = menu.style.display !== 'none';
-  menu.style.display = isOpen ? 'none' : 'block';
-  if(!isOpen) buildLangMenu();
-}
-
-function closeLangMenu(){
-  const menu = document.getElementById('langMenu');
-  if(menu) menu.style.display = 'none';
-}
-
-// Close lang menu when clicking outside
-document.addEventListener('click', e => {
-  const btn = document.getElementById('langBtn');
-  const menu = document.getElementById('langMenu');
-  if(menu && btn && !btn.contains(e.target) && !menu.contains(e.target)){
-    menu.style.display = 'none';
-  }
-});
-
 /* ═══════════ NAVIGATION ═══════════ */
 function nav(pageId, btn){
-  // Animate page title out then in
-  const titleEl = $('tbPage');
-  if(titleEl){ titleEl.style.opacity='0'; titleEl.style.transform='translateY(-8px)'; }
-
   // Update pages
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   $('page-'+pageId).classList.add('active');
-
-  // Animate title back in
-  setTimeout(()=>{
-    if(titleEl){ titleEl.style.opacity='1'; titleEl.style.transform='translateY(0)'; }
-  }, 80);
 
   // Update sidebar links
   if(btn){
@@ -2820,24 +1574,12 @@ function nav(pageId, btn){
   });
 
   // Page title map
-  const defaultTitles = {overview:'Overview',fund:'Invest',markets:'Markets',traders:'Copy Traders',portfolio:'Watch Portfolio',withdraw:'Withdraw',transactions:'Transactions',referral:'Referral',profile:'Profile'};
-  const t = window._langTitles || {};
-  const titleMap = {
-    overview: t.nav_overview || defaultTitles.overview,
-    fund:     t.nav_invest   || defaultTitles.fund,
-    markets:  t.nav_markets  || defaultTitles.markets,
-    traders:  t.nav_traders  || defaultTitles.traders,
-    portfolio:t.nav_portfolio|| defaultTitles.portfolio,
-    withdraw: t.nav_withdraw || defaultTitles.withdraw,
-    transactions: t.nav_transactions || defaultTitles.transactions,
-    referral: t.nav_referral || defaultTitles.referral,
-    profile:  t.nav_profile  || defaultTitles.profile,
-  };
-  $('tbPage').textContent = titleMap[pageId] || pageId;
+  const titles = {overview:'Overview',fund:'Invest',markets:'Markets',traders:'Copy Traders',portfolio:'Watch Portfolio',withdraw:'Withdraw',transactions:'Transactions',referral:'Referral',profile:'Profile'};
+  $('tbPage').textContent = titles[pageId]||pageId;
 
   // Load markets lazily
   if(pageId==='markets') setTimeout(loadMarketWidgets, 50);
-  if(pageId==='portfolio'){ loadPortfolio(); buildPayoutSlider(); buildPortfolioTicker(); }
+  if(pageId==='portfolio') loadPortfolio();
 
   // Load referral
   if(pageId==='referral') loadReferral();
@@ -2878,8 +1620,6 @@ function toast(msg, type=''){
 /* ═══════════ TOP UP INVESTMENT ═══════════ */
 function openTopUp(){
   $('topupOverlay').style.display='flex';
-  $('topupOverlay').style.animation='modalIn .25s ease';
-  $('topupOverlay').querySelector('div').style.animation='modalCardIn .35s cubic-bezier(.22,1,.36,1)';
   refreshTopupWallet();
   $('topupAmt').value='';
   $('topupAlert').className='alert';
@@ -2951,6 +1691,147 @@ function showA(el, msg, type){
   el.className='alert alert-'+type+' on';
   el.innerHTML=(type==='err'?'<i class="fas fa-circle-xmark"></i>':type==='ok'?'<i class="fas fa-check-circle"></i>':'<i class="fas fa-circle-info"></i>')+' '+msg;
 }
+
+
+/* ═══════════ LANGUAGE SWITCHER ═══════════ */
+const DB_LANG = {
+  en:{nav_overview:'Overview',nav_invest:'Invest',nav_markets:'Markets',nav_traders:'Copy Traders',nav_portfolio:'Watch Portfolio',nav_withdraw:'Withdraw',nav_transactions:'Transactions',nav_referral:'Referral',nav_profile:'Profile',grp_main:'Main',grp_finance:'Finance',grp_account:'Account',stat_balance:'Available Balance',stat_profit:'Total Profit',stat_deposited:'Total Deposited',stat_investments:'Active Investments',btn_invest:'Invest Now',btn_withdraw:'Withdraw Funds',btn_topup:'Top Up Investment',btn_traders:'Copy Traders',btn_markets:'View Markets',lbl_next_payout:'Next Payout Window',card_inv_status:'Investment Status',card_quick_actions:'Quick Actions',card_activity:'Recent Activity'},
+  es:{nav_overview:'Resumen',nav_invest:'Invertir',nav_markets:'Mercados',nav_traders:'Copiar Traders',nav_portfolio:'Portafolio',nav_withdraw:'Retirar',nav_transactions:'Transacciones',nav_referral:'Referido',nav_profile:'Perfil',grp_main:'Principal',grp_finance:'Finanzas',grp_account:'Cuenta',stat_balance:'Saldo Disponible',stat_profit:'Ganancia Total',stat_deposited:'Total Depositado',stat_investments:'Inversiones Activas',btn_invest:'Invertir Ahora',btn_withdraw:'Retirar Fondos',btn_topup:'Recargar',btn_traders:'Copiar Traders',btn_markets:'Ver Mercados',lbl_next_payout:'Próximo Pago',card_inv_status:'Estado Inversión',card_quick_actions:'Acciones Rápidas',card_activity:'Actividad Reciente'},
+  fr:{nav_overview:'Aperçu',nav_invest:'Investir',nav_markets:'Marchés',nav_traders:'Copier Traders',nav_portfolio:'Portefeuille',nav_withdraw:'Retirer',nav_transactions:'Transactions',nav_referral:'Parrainage',nav_profile:'Profil',grp_main:'Principal',grp_finance:'Finance',grp_account:'Compte',stat_balance:'Solde Disponible',stat_profit:'Profit Total',stat_deposited:'Total Déposé',stat_investments:'Investissements Actifs',btn_invest:'Investir',btn_withdraw:'Retirer',btn_topup:'Recharger',btn_traders:'Copier Traders',btn_markets:'Voir Marchés',lbl_next_payout:'Prochain Paiement',card_inv_status:'Statut Investissement',card_quick_actions:'Actions Rapides',card_activity:'Activité Récente'},
+  pt:{nav_overview:'Visão Geral',nav_invest:'Investir',nav_markets:'Mercados',nav_traders:'Copiar Traders',nav_portfolio:'Portfólio',nav_withdraw:'Sacar',nav_transactions:'Transações',nav_referral:'Indicação',nav_profile:'Perfil',grp_main:'Principal',grp_finance:'Finanças',grp_account:'Conta',stat_balance:'Saldo Disponível',stat_profit:'Lucro Total',stat_deposited:'Total Depositado',stat_investments:'Investimentos Ativos',btn_invest:'Investir Agora',btn_withdraw:'Sacar',btn_topup:'Recarregar',btn_traders:'Copiar Traders',btn_markets:'Ver Mercados',lbl_next_payout:'Próximo Pagamento',card_inv_status:'Status Investimento',card_quick_actions:'Ações Rápidas',card_activity:'Atividade Recente'},
+  ar:{nav_overview:'نظرة عامة',nav_invest:'استثمار',nav_markets:'الأسواق',nav_traders:'نسخ المتداولين',nav_portfolio:'المحفظة',nav_withdraw:'سحب',nav_transactions:'المعاملات',nav_referral:'الإحالة',nav_profile:'الملف',grp_main:'الرئيسية',grp_finance:'المالية',grp_account:'الحساب',stat_balance:'الرصيد المتاح',stat_profit:'إجمالي الربح',stat_deposited:'إجمالي الإيداع',stat_investments:'الاستثمارات النشطة',btn_invest:'استثمر الآن',btn_withdraw:'سحب الأموال',btn_topup:'إعادة الشحن',btn_traders:'نسخ المتداولين',btn_markets:'عرض الأسواق',lbl_next_payout:'موعد الدفع القادم',card_inv_status:'حالة الاستثمار',card_quick_actions:'إجراءات سريعة',card_activity:'النشاط الأخير'},
+  zh:{nav_overview:'总览',nav_invest:'投资',nav_markets:'市场',nav_traders:'复制交易员',nav_portfolio:'投资组合',nav_withdraw:'提款',nav_transactions:'交易',nav_referral:'推荐',nav_profile:'个人资料',grp_main:'主要',grp_finance:'财务',grp_account:'账户',stat_balance:'可用余额',stat_profit:'总利润',stat_deposited:'总存款',stat_investments:'活跃投资',btn_invest:'立即投资',btn_withdraw:'提款',btn_topup:'充值',btn_traders:'复制交易员',btn_markets:'查看市场',lbl_next_payout:'下次付款',card_inv_status:'投资状态',card_quick_actions:'快捷操作',card_activity:'近期活动'},
+  hi:{nav_overview:'अवलोकन',nav_invest:'निवेश',nav_markets:'बाजार',nav_traders:'ट्रेडर कॉपी करें',nav_portfolio:'पोर्टफोलियो',nav_withdraw:'निकासी',nav_transactions:'लेनदेन',nav_referral:'रेफरल',nav_profile:'प्रोफाइल',grp_main:'मुख्य',grp_finance:'वित्त',grp_account:'खाता',stat_balance:'उपलब्ध शेष',stat_profit:'कुल लाभ',stat_deposited:'कुल जमा',stat_investments:'सक्रिय निवेश',btn_invest:'अभी निवेश करें',btn_withdraw:'निकासी',btn_topup:'टॉप अप',btn_traders:'ट्रेडर कॉपी करें',btn_markets:'बाजार देखें',lbl_next_payout:'अगला भुगतान',card_inv_status:'निवेश स्थिति',card_quick_actions:'त्वरित क्रिया',card_activity:'हालिया गतिविधि'},
+  ru:{nav_overview:'Обзор',nav_invest:'Инвестировать',nav_markets:'Рынки',nav_traders:'Копировать Трейдеров',nav_portfolio:'Портфель',nav_withdraw:'Вывод',nav_transactions:'Транзакции',nav_referral:'Реферал',nav_profile:'Профиль',grp_main:'Главное',grp_finance:'Финансы',grp_account:'Аккаунт',stat_balance:'Доступный Баланс',stat_profit:'Общая Прибыль',stat_deposited:'Всего Внесено',stat_investments:'Активные Инвестиции',btn_invest:'Инвестировать',btn_withdraw:'Вывести',btn_topup:'Пополнить',btn_traders:'Копировать',btn_markets:'Рынки',lbl_next_payout:'Следующая Выплата',card_inv_status:'Статус Инвестиций',card_quick_actions:'Быстрые Действия',card_activity:'Последние Действия'},
+  de:{nav_overview:'Übersicht',nav_invest:'Investieren',nav_markets:'Märkte',nav_traders:'Trader Kopieren',nav_portfolio:'Portfolio',nav_withdraw:'Auszahlen',nav_transactions:'Transaktionen',nav_referral:'Empfehlung',nav_profile:'Profil',grp_main:'Haupt',grp_finance:'Finanzen',grp_account:'Konto',stat_balance:'Verfügbares Guthaben',stat_profit:'Gesamtgewinn',stat_deposited:'Gesamt Eingezahlt',stat_investments:'Aktive Investitionen',btn_invest:'Jetzt Investieren',btn_withdraw:'Auszahlen',btn_topup:'Aufladen',btn_traders:'Trader Kopieren',btn_markets:'Märkte Ansehen',lbl_next_payout:'Nächste Auszahlung',card_inv_status:'Investitionsstatus',card_quick_actions:'Schnellaktionen',card_activity:'Letzte Aktivität'},
+  it:{nav_overview:'Panoramica',nav_invest:'Investire',nav_markets:'Mercati',nav_traders:'Copia Trader',nav_portfolio:'Portafoglio',nav_withdraw:'Preleva',nav_transactions:'Transazioni',nav_referral:'Referral',nav_profile:'Profilo',grp_main:'Principale',grp_finance:'Finanze',grp_account:'Account',stat_balance:'Saldo Disponibile',stat_profit:'Profitto Totale',stat_deposited:'Totale Depositato',stat_investments:'Investimenti Attivi',btn_invest:'Investi Ora',btn_withdraw:'Preleva',btn_topup:'Ricarica',btn_traders:'Copia Trader',btn_markets:'Vedi Mercati',lbl_next_payout:'Prossimo Pagamento',card_inv_status:'Stato Investimento',card_quick_actions:'Azioni Rapide',card_activity:'Attività Recente'},
+  tr:{nav_overview:'Genel Bakış',nav_invest:'Yatırım',nav_markets:'Piyasalar',nav_traders:'Trader Kopyala',nav_portfolio:'Portföy',nav_withdraw:'Çekim',nav_transactions:'İşlemler',nav_referral:'Referans',nav_profile:'Profil',grp_main:'Ana',grp_finance:'Finans',grp_account:'Hesap',stat_balance:'Kullanılabilir Bakiye',stat_profit:'Toplam Kâr',stat_deposited:'Toplam Yatırılan',stat_investments:'Aktif Yatırımlar',btn_invest:'Şimdi Yatır',btn_withdraw:'Çek',btn_topup:'Yükle',btn_traders:'Trader Kopyala',btn_markets:'Piyasaları Gör',lbl_next_payout:'Sonraki Ödeme',card_inv_status:'Yatırım Durumu',card_quick_actions:'Hızlı İşlemler',card_activity:'Son Aktivite'},
+  yo:{nav_overview:'Akopọ',nav_invest:'Idoko-owo',nav_markets:'Oja',nav_traders:'Daakọ Awọn Oniṣowo',nav_portfolio:'Akojọ Idoko-owo',nav_withdraw:'Yọ Owo Kuro',nav_transactions:'Awọn Iṣowo',nav_referral:'Itọkasi',nav_profile:'Profaili',grp_main:'Akọkọ',grp_finance:'Inawo',grp_account:'Akọọlẹ',stat_balance:'Owo Ti O Wa',stat_profit:'Ere Lapapọ',stat_deposited:'Idapo Lapapọ',stat_investments:'Idoko-owo Ti Nṣiṣẹ',btn_invest:'Doko-owo Bayi',btn_withdraw:'Yọ Owo',btn_topup:'Fikun Owo',btn_traders:'Daakọ Oniṣowo',btn_markets:'Wo Oja',lbl_next_payout:'Isanwo To Nbọ',card_inv_status:'Ipo Idoko-owo',card_quick_actions:'Awọn Iṣe Yara',card_activity:'Iṣẹ Aipẹ'},
+  ig:{nav_overview:'Nchoputa',nav_invest:'Itinye ego',nav_markets:'Ahia',nav_traders:'Detuo ndị na-azụ ahịa',nav_portfolio:'Nchịkọta ego',nav_withdraw:'Wepụ ego',nav_transactions:'Azụmaahịa',nav_referral:'Ntụziaka',nav_profile:'Profaịlụ',grp_main:'Isi',grp_finance:'Ego',grp_account:'Akaụntụ',stat_balance:'Ego dị ugbu a',stat_profit:'Ọnụ ọgụgụ uru',stat_deposited:'Ego etinyere',stat_investments:'Ntinye ego na-arụ ọrụ',btn_invest:'Tinye ego ugbu a',btn_withdraw:'Wepụ ego',btn_topup:'Tinye ego ọzọ',btn_traders:'Detuo ndị ọchụnta',btn_markets:'Lee ahịa',lbl_next_payout:'Ụbọchị ịkwụ ụgwọ',card_inv_status:'Ọnọdụ ntinye ego',card_quick_actions:'Ọrụ ngwa ngwa',card_activity:'Ihe emere n'oge na-adịghị anya'},
+  ha:{nav_overview:'Bayani',nav_invest:'Saka Jari',nav_markets:'Kasuwanni',nav_traders:'Kwafi 'Yan Kasuwa',nav_portfolio:'Jarin Ku',nav_withdraw:'Cirewa',nav_transactions:'Ma'amaloli',nav_referral:'Kira',nav_profile:'Bayanan Kai',grp_main:'Babban',grp_finance:'Kudi',grp_account:'Asusun',stat_balance:'Kudin Da Ake Da Su',stat_profit:'Jimlar Riba',stat_deposited:'Jimlar Ajiya',stat_investments:'Jarin Da Ke Aiki',btn_invest:'Saka Jari Yanzu',btn_withdraw:'Cirewa',btn_topup:'Ƙara Kudi',btn_traders:'Kwafi 'Yan Kasuwa',btn_markets:'Duba Kasuwanni',lbl_next_payout:'Biyan Kudi Na Gaba',card_inv_status:'Yanayin Jari',card_quick_actions:'Ayyuka Masu Sauri',card_activity:'Ayyukan Kwanan Nan'},
+};
+
+// Data-i18n map: key -> selector or element id
+const DB_I18N_MAP = {
+  nav_overview: '[onclick="nav('overview',this)"] span, [onclick="nav('overview',null)"] span',
+  nav_invest:   '[onclick="nav('fund',this)"] span, [onclick="nav('fund',null)"] span',
+  nav_markets:  '[onclick="nav('markets',this)"] span, [onclick="nav('markets',null)"] span',
+  nav_traders:  '[onclick="nav('traders',this)"] span, [onclick="nav('traders',null)"] span',
+  nav_portfolio:'[onclick="nav('portfolio',this)"] span, [onclick="nav('portfolio',null)"] span',
+  nav_withdraw: '[onclick="nav('withdraw',this)"] span, [onclick="nav('withdraw',null)"] span',
+  nav_transactions:'[onclick="nav('transactions',this)"] span',
+  nav_referral: '[onclick="nav('referral',this)"] span',
+  nav_profile:  '[onclick="nav('profile',this)"] span',
+};
+
+let _dbLang = localStorage.getItem('cvp_db_lang') || 'en';
+
+function toggleDbLang(e){
+  e.stopPropagation();
+  document.getElementById('dbLangDrop').classList.toggle('open');
+  document.getElementById('dbLangBtn').classList.toggle('open');
+}
+
+function setDbLang(code, flag, label){
+  _dbLang = code;
+  localStorage.setItem('cvp_db_lang', code);
+  // Update button
+  document.getElementById('dbLangFlag').textContent = flag;
+  document.getElementById('dbLangCode').textContent = label;
+  // Close dropdown
+  document.getElementById('dbLangDrop').classList.remove('open');
+  document.getElementById('dbLangBtn').classList.remove('open');
+  // Highlight active
+  document.querySelectorAll('.db-lang-opt').forEach(o => {
+    o.classList.toggle('active', (o.getAttribute('onclick')||'').includes("'"+code+"'"));
+  });
+  // Apply translations
+  applyDbLang(code);
+}
+
+function applyDbLang(code){
+  const t = DB_LANG[code] || DB_LANG.en;
+  // RTL for Arabic
+  document.documentElement.dir = code === 'ar' ? 'rtl' : 'ltr';
+  // Translate sidebar nav items (each sb-link has text directly)
+  document.querySelectorAll('.sb-link').forEach(btn => {
+    const ic = btn.querySelector('i');
+    const onclick = btn.getAttribute('onclick') || '';
+    let key = null;
+    if(onclick.includes("'overview'")) key = 'nav_overview';
+    else if(onclick.includes("'fund'"))   key = 'nav_invest';
+    else if(onclick.includes("'markets'"))key = 'nav_markets';
+    else if(onclick.includes("'traders'"))key = 'nav_traders';
+    else if(onclick.includes("'portfolio'"))key='nav_portfolio';
+    else if(onclick.includes("'withdraw'"))key='nav_withdraw';
+    else if(onclick.includes("'transactions'"))key='nav_transactions';
+    else if(onclick.includes("'referral'"))key='nav_referral';
+    else if(onclick.includes("'profile'"))key='nav_profile';
+    if(key && t[key]){
+      // Rebuild text preserving the icon
+      btn.childNodes.forEach(n=>{ if(n.nodeType===3) n.textContent=' '+t[key]; });
+    }
+  });
+  // Translate group labels
+  document.querySelectorAll('.sb-group-lbl').forEach(el => {
+    const txt = el.textContent.trim().toLowerCase();
+    if(txt === 'main' || txt === t.grp_main || txt === DB_LANG.en.grp_main) el.textContent = t.grp_main;
+    else if(txt === 'finance' || txt === t.grp_finance || txt === DB_LANG.en.grp_finance) el.textContent = t.grp_finance;
+    else if(txt === 'account' || txt === t.grp_account || txt === DB_LANG.en.grp_account) el.textContent = t.grp_account;
+  });
+  // Translate stat labels
+  const statMap = {
+    'ov-balance-lbl':   'stat_balance',
+    'ov-profit-lbl':    'stat_profit',
+    'ov-deposited-lbl': 'stat_deposited',
+    'ov-inv-lbl':       'stat_investments',
+  };
+  Object.entries(statMap).forEach(([id,key])=>{
+    const el = document.getElementById(id);
+    if(el && t[key]) el.textContent = t[key];
+  });
+  // Translate topbar withdraw/invest button spans
+  document.querySelectorAll('.tb-btn span').forEach(span => {
+    const btn = span.closest('button,a');
+    if(!btn) return;
+    const onclick = btn.getAttribute('onclick')||'';
+    if(onclick.includes("'withdraw'")) span.textContent = t.nav_withdraw;
+    else if(onclick.includes("'fund'")) span.textContent = t.nav_invest;
+  });
+  // Translate mobile bottom nav
+  document.querySelectorAll('.bnav-item').forEach(btn => {
+    const onclick = btn.getAttribute('onclick')||'';
+    const ic = btn.querySelector('i');
+    let key = null;
+    if(onclick.includes("'overview'"))   key='nav_overview';
+    else if(onclick.includes("'fund'"))  key='nav_invest';
+    else if(onclick.includes("'markets'"))key='nav_markets';
+    else if(onclick.includes("'traders'"))key='nav_traders';
+    else if(onclick.includes("'portfolio'"))key='nav_portfolio';
+    else if(onclick.includes("'withdraw'"))key='nav_withdraw';
+    if(key && t[key]){
+      btn.childNodes.forEach(n=>{ if(n.nodeType===3) n.textContent=t[key]; });
+    }
+  });
+}
+
+// Close on outside click
+document.addEventListener('click', () => {
+  const d = document.getElementById('dbLangDrop');
+  const b = document.getElementById('dbLangBtn');
+  if(d) d.classList.remove('open');
+  if(b) b.classList.remove('open');
+});
+
+// Restore saved language on load
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('cvp_db_lang');
+  if(saved && saved !== 'en'){
+    const flagMap = {es:'🇪🇸',fr:'🇫🇷',pt:'🇧🇷',ar:'🇸🇦',zh:'🇨🇳',hi:'🇮🇳',ru:'🇷🇺',de:'🇩🇪',it:'🇮🇹',tr:'🇹🇷',yo:'🇳🇬',ig:'🇳🇬',ha:'🇳🇬'};
+    if(flagMap[saved]) setDbLang(saved, flagMap[saved], saved.toUpperCase());
+  }
+});
+
 </script>
 </body>
 </html>
