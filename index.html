@@ -1028,7 +1028,6 @@ strong{font-weight:600}
   :root{--section-py:64px;--card-pad:24px}
   .nav-links,.nav-cta{display:none}
   .nav-mobile-right{display:flex}
-  .ham{display:flex}
   .navbar{padding:0 20px}.topbar{display:none}
   .about-inner,.calc-inner,.noexp-inner,.why-grid{grid-template-columns:1fr}
   .why-grid{border-radius:var(--r-lg)}
@@ -1249,8 +1248,7 @@ strong{font-weight:600}
 .l-chk{margin-left:auto;font-size:10px;color:#a8841a;opacity:0}
 .l-opt.on .l-chk{opacity:1}
 /* Mobile right group — lang + ham together on the right */
-.nav-mobile-right{display:none;align-items:center;gap:8px;margin-left:auto}
-.l-btn-mob{padding:7px 10px;background:#f5f4f1;border:1.5px solid #e5e7eb;border-radius:9px;gap:4px;font-size:16px}
+.nav-mobile-right{display:none;align-items:center;gap:8px}
 </style>
 </head>
 <body>
@@ -1309,11 +1307,11 @@ strong{font-weight:600}
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-cta">
-    <div class="l-wrap">
-      <button class="l-btn" id="lBtn" onclick="toggleLangDrop(event)">
-        <span class="l-flag" id="lFlag">🌐</span>
-        <span id="lCode">EN</span>
-        <i class="fas fa-chevron-down l-caret"></i>
+    <div class="l-wrap" id="desktopLangWrap">
+      <button class="l-btn" id="lBtn" onclick="openLang('desktop',event)">
+        <span id="lFlag">🌐</span>
+        <span id="lCode" style="font-size:12px;font-weight:700">EN</span>
+        <i class="fas fa-chevron-down" style="font-size:9px;color:#888"></i>
       </button>
       <div class="l-drop" id="lDrop">
         <div class="l-opt on" onclick="setLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check l-chk"></i></div>
@@ -1329,12 +1327,12 @@ strong{font-weight:600}
     <a href="login.html" id="lLogin" class="btn-nav btn-nav-solid ripple-wrap">Log In</a>
     <a href="register.html" id="lStart" class="btn-nav btn-nav-solid ripple-wrap">Get Started</a>
   </div>
-  <!-- Mobile right group: lang + hamburger, always on right -->
+  <!-- Mobile right: lang globe + hamburger -->
   <div class="nav-mobile-right">
-    <div class="l-wrap">
-      <button class="l-btn l-btn-mob" id="lBtnMob" onclick="toggleLangDropMob(event)">
-        <span id="lFlagMob">🌐</span>
-        <i class="fas fa-chevron-down" style="font-size:8px;color:#6b7280"></i>
+    <div class="l-wrap" id="mobileLangWrap">
+      <button class="l-btn" id="lBtnMob" style="padding:7px 10px;gap:4px" onclick="openLang('mobile',event)">
+        <span id="lFlagMob" style="font-size:17px">🌐</span>
+        <i class="fas fa-chevron-down" style="font-size:8px;color:#888"></i>
       </button>
       <div class="l-drop" id="lDropMob">
         <div class="l-opt on" onclick="setLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check l-chk"></i></div>
@@ -1917,7 +1915,7 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="/cdn-cgi/l/email-protection#ccafa3bcb5baa9bfb8bcbea38caba1ada5a0e2afa3a1"><span class="__cf_email__" data-cfemail="e1828e91989784929591938ea1868c80888dcf828e8c">[email&#160;protected]</span></a>
+            <a href="mailto:copyvestpro@gmail.com">copyvestpro@gmail.com</a>
             <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
           </div>
         </li>
@@ -2337,17 +2335,25 @@ const T={
   hi:{home:'होम',about:'हमारे बारे में',faqs:'सवाल-जवाब',trading:'ट्रेडिंग',contact:'संपर्क',login:'लॉग इन',start:'शुरू करें'},
   ru:{home:'Главная',about:'О нас',faqs:'Вопросы',trading:'Торговля',contact:'Контакт',login:'Войти',start:'Начать'},
 };
-function toggleLangDrop(e){
+/* openLang: opens the correct dropdown, closes the other one */
+let _langOpen = null; // track which is open: 'desktop' | 'mobile' | null
+function openLang(which, e){
   e.stopPropagation();
-  document.getElementById('lDrop').classList.toggle('open');
-  document.getElementById('lBtn').classList.toggle('open');
-}
-function toggleLangDropMob(e){
-  e.stopPropagation();
-  const d=document.getElementById('lDropMob');
-  const b=document.getElementById('lBtnMob');
-  if(d) d.classList.toggle('open');
-  if(b) b.classList.toggle('open');
+  const drops = {desktop:'lDrop', mobile:'lDropMob'};
+  const btns  = {desktop:'lBtn',  mobile:'lBtnMob'};
+  const other = which==='desktop' ? 'mobile' : 'desktop';
+  // Close other
+  const od = document.getElementById(drops[other]);
+  const ob = document.getElementById(btns[other]);
+  if(od) od.classList.remove('open');
+  if(ob) ob.classList.remove('open');
+  // Toggle current
+  const cd = document.getElementById(drops[which]);
+  const cb = document.getElementById(btns[which]);
+  const willOpen = cd && !cd.classList.contains('open');
+  if(cd) cd.classList.toggle('open');
+  if(cb) cb.classList.toggle('open');
+  _langOpen = willOpen ? which : null;
 }
 function setLang(code,flag,label){
   const t=T[code]||T.en;
@@ -2374,9 +2380,14 @@ function setLang(code,flag,label){
   document.documentElement.dir=code==='ar'?'rtl':'ltr';
   localStorage.setItem('cvp_lang',code);
 }
-document.addEventListener('click',()=>{
-  ['lDrop','lDropMob'].forEach(id=>{ const d=document.getElementById(id); if(d) d.classList.remove('open'); });
-  ['lBtn','lBtnMob'].forEach(id=>{  const b=document.getElementById(id); if(b) b.classList.remove('open'); });
+document.addEventListener('click', function(e){
+  // Only close lang dropdowns if click is outside any lang wrap
+  const inLang = e.target.closest('.l-wrap');
+  if(!inLang){
+    ['lDrop','lDropMob'].forEach(id=>{ const d=document.getElementById(id); if(d) d.classList.remove('open'); });
+    ['lBtn','lBtnMob'].forEach(id=>{  const b=document.getElementById(id); if(b) b.classList.remove('open'); });
+    _langOpen = null;
+  }
 });
 document.addEventListener('DOMContentLoaded',()=>{
   const s=loc
