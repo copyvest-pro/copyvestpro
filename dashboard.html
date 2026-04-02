@@ -247,9 +247,10 @@ tbody tr:hover{background:var(--bg)}
 .trader-card:hover{box-shadow:var(--sh-md);border-color:var(--gold-border)}
 .trader-avatar-wrap{position:relative;width:80px;margin:0 auto 14px}
 .trader-avatar-wrap img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold-pale);box-shadow:0 4px 14px rgba(201,168,76,.2);display:block;background:#eee}
-.trader-badge{position:absolute;bottom:2px;right:2px;width:20px;height:20px;border-radius:50%;background:var(--green);border:2px solid #fff;display:flex;align-items:center;justify-content:center}
+.trader-badge{position:absolute;bottom:0px;right:0px;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#1d9bf0,#0d84d6);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(29,155,240,.4)}
 .trader-badge i{font-size:9px;color:#fff}
-.trader-name{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.trader-name{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:6px}
+.verified-chip{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,rgba(29,155,240,.1),rgba(13,132,214,.08));border:1px solid rgba(29,155,240,.2);color:#1d9bf0;font-size:10px;font-weight:700;padding:2px 7px 2px 5px;border-radius:var(--r-pill);flex-shrink:0}
 .trader-handle{font-size:13px;color:var(--muted);margin-bottom:14px}
 .trader-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
 .ts-item{background:var(--bg);border-radius:var(--r-sm);padding:8px;text-align:center}
@@ -327,26 +328,35 @@ tbody tr:hover{background:var(--bg)}
 
 /* ═══ LANGUAGE SWITCHER ═══ */
 .db-lang-wrap{position:relative}
-.db-lang-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;font-family:var(--font);transition:var(--tr);white-space:nowrap}
+.db-lang-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;transition:var(--tr);font-family:var(--font)}
 .db-lang-btn:hover{border-color:var(--gold-border);background:var(--gold-pale)}
 .db-lang-btn.open{border-color:var(--gold);background:var(--gold-pale)}
-.db-lang-btn i.fa-chevron-down{font-size:9px;color:var(--muted);transition:transform .2s}
-.db-lang-btn.open i.fa-chevron-down{transform:rotate(180deg)}
-.db-lang-drop{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);box-shadow:var(--sh-md);width:200px;z-index:9999;overflow:hidden;padding:5px;max-height:320px;overflow-y:auto}
+.db-lang-caret{font-size:9px;color:var(--muted);transition:transform .2s}
+.db-lang-btn.open .db-lang-caret{transform:rotate(180deg)}
+.db-lang-drop{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);box-shadow:var(--sh-md);width:190px;z-index:9999;overflow:hidden;padding:5px;max-height:320px;overflow-y:auto}
 .db-lang-drop.open{display:block;animation:dbLangIn .16s var(--ease)}
 @keyframes dbLangIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.db-lang-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer;border-radius:var(--r-sm);transition:background .12s;color:var(--txt)}
+.db-lang-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer;border-radius:8px;transition:background .12s;color:var(--txt)}
 .db-lang-opt:hover{background:var(--gold-pale)}
-.db-lang-opt.active{color:var(--gold-d);background:rgba(201,168,76,.07)}
-.db-lang-opt .lf{font-size:16px;flex-shrink:0}
-.db-lang-opt .lcheck{margin-left:auto;font-size:10px;color:var(--gold-d);opacity:0}
-.db-lang-opt.active .lcheck{opacity:1}
-/* Mobile: flag only, no text code */
+.db-lang-opt.on{color:var(--gold-d);background:rgba(201,168,76,.06);font-weight:700}
+.db-lang-opt .lf{font-size:16px}
+.db-lang-chk{margin-left:auto;font-size:10px;color:var(--gold-d);opacity:0}
+.db-lang-opt.on .db-lang-chk{opacity:1}
 @media(max-width:768px){
   .db-lang-code{display:none}
-  .db-lang-btn{padding:7px 10px}
-  .db-lang-drop{right:0;left:auto}
+  .db-lang-btn{padding:7px 9px}
 }
+/* ═══ PAGE TRANSITION ═══ */
+.page.active{animation:pageIn .32s cubic-bezier(.22,1,.36,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* ═══ TOPBAR SCROLL SHADOW ═══ */
+.topbar{transition:box-shadow .3s}
+/* ═══ BUTTON PRESS ═══ */
+.btn:active{transform:scale(.97)!important}
+/* ═══ PREMIUM SCROLLBAR ═══ */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
 
 </style>
 </head>
@@ -374,21 +384,21 @@ tbody tr:hover{background:var(--bg)}
   <nav class="sb-nav">
     <div class="sb-group">
       <div class="sb-group-lbl">Main</div>
-      <button class="sb-link active" onclick="nav('overview',this)"><i class="fas fa-chart-pie"></i> Overview</button>
-      <button class="sb-link" onclick="nav('fund',this)"><i class="fas fa-wallet"></i> Invest</button>
-      <button class="sb-link" onclick="nav('markets',this)"><i class="fas fa-chart-line"></i> Markets</button>
-      <button class="sb-link" onclick="nav('traders',this)"><i class="fas fa-users"></i> Copy Traders</button>
-      <button class="sb-link" onclick="nav('portfolio',this)"><i class="fas fa-chart-bar"></i> Watch Portfolio</button>
+      <button class="sb-link active" onclick="nav('overview',this)"><i class="fas fa-chart-pie"></i><span data-i18n="nav_overview">Overview</span></button>
+      <button class="sb-link" onclick="nav('fund',this)"><i class="fas fa-wallet"></i><span data-i18n="nav_invest">Invest</span></button>
+      <button class="sb-link" onclick="nav('markets',this)"><i class="fas fa-chart-line"></i><span data-i18n="nav_markets">Markets</span></button>
+      <button class="sb-link" onclick="nav('traders',this)"><i class="fas fa-users"></i><span data-i18n="nav_traders">Copy Traders</span></button>
+      <button class="sb-link" onclick="nav('portfolio',this)"><i class="fas fa-chart-bar"></i><span data-i18n="nav_portfolio">Watch Portfolio</span></button>
     </div>
     <div class="sb-group">
       <div class="sb-group-lbl">Finance</div>
-      <button class="sb-link" onclick="nav('withdraw',this)"><i class="fas fa-arrow-up-from-line"></i> Withdraw</button>
-      <button class="sb-link" onclick="nav('transactions',this)"><i class="fas fa-receipt"></i> Transactions</button>
+      <button class="sb-link" onclick="nav('withdraw',this)"><i class="fas fa-arrow-up-from-line"></i><span data-i18n="nav_withdraw">Withdraw</span></button>
+      <button class="sb-link" onclick="nav('transactions',this)"><i class="fas fa-receipt"></i><span data-i18n="nav_transactions">Transactions</span></button>
     </div>
     <div class="sb-group">
       <div class="sb-group-lbl">Account</div>
-      <button class="sb-link" onclick="nav('referral',this)"><i class="fas fa-gift"></i> Referral</button>
-      <button class="sb-link" onclick="nav('profile',this)"><i class="fas fa-user-circle"></i> Profile</button>
+      <button class="sb-link" onclick="nav('referral',this)"><i class="fas fa-gift"></i><span data-i18n="nav_referral">Referral</span></button>
+      <button class="sb-link" onclick="nav('profile',this)"><i class="fas fa-user-circle"></i><span data-i18n="nav_profile">Profile</span></button>
     </div>
   </nav>
 
@@ -416,28 +426,25 @@ tbody tr:hover{background:var(--bg)}
     <div class="tb-right">
       <button class="tb-btn tb-btn-ghost" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i> <span>Withdraw</span></button>
       <button class="tb-btn tb-btn-gold" onclick="nav('fund',null)"><i class="fas fa-plus"></i> <span>Invest</span></button>
-      <!-- Language Switcher -->
-      <div class="db-lang-wrap" id="dbLangWrap">
+      <div class="db-lang-wrap">
         <button class="db-lang-btn" id="dbLangBtn" onclick="toggleDbLang(event)">
-          <span id="dbLangFlag">🌐</span>
-          <span class="db-lang-code" id="dbLangCode">EN</span>
-          <i class="fas fa-chevron-down"></i>
+          <span id="dbLangFlag" style="font-size:15px">🌐</span>
+          <span id="dbLangCode" class="db-lang-code">EN</span>
+          <i class="fas fa-chevron-down db-lang-caret"></i>
         </button>
         <div class="db-lang-drop" id="dbLangDrop">
-          <div class="db-lang-opt active" onclick="setDbLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('es','🇪🇸','ES')"><span class="lf">🇪🇸</span>Español<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('fr','🇫🇷','FR')"><span class="lf">🇫🇷</span>Français<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('pt','🇧🇷','PT')"><span class="lf">🇧🇷</span>Português<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('ar','🇸🇦','AR')"><span class="lf">🇸🇦</span>العربية<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('zh','🇨🇳','ZH')"><span class="lf">🇨🇳</span>中文<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('hi','🇮🇳','HI')"><span class="lf">🇮🇳</span>हिन्दी<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('ru','🇷🇺','RU')"><span class="lf">🇷🇺</span>Русский<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('de','🇩🇪','DE')"><span class="lf">🇩🇪</span>Deutsch<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('it','🇮🇹','IT')"><span class="lf">🇮🇹</span>Italiano<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('tr','🇹🇷','TR')"><span class="lf">🇹🇷</span>Türkçe<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('yo','🇳🇬','YO')"><span class="lf">🇳🇬</span>Yorùbá<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('ig','🇳🇬','IG')"><span class="lf">🇳🇬</span>Igbo<i class="fas fa-check lcheck"></i></div>
-          <div class="db-lang-opt" onclick="setDbLang('ha','🇳🇬','HA')"><span class="lf">🇳🇬</span>Hausa<i class="fas fa-check lcheck"></i></div>
+          <div class="db-lang-opt on" onclick="setDbLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('es','🇪🇸','ES')"><span class="lf">🇪🇸</span>Español<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('fr','🇫🇷','FR')"><span class="lf">🇫🇷</span>Français<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('pt','🇧🇷','PT')"><span class="lf">🇧🇷</span>Português<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ar','🇸🇦','AR')"><span class="lf">🇸🇦</span>العربية<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('zh','🇨🇳','ZH')"><span class="lf">🇨🇳</span>中文<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('hi','🇮🇳','HI')"><span class="lf">🇮🇳</span>हिन्दी<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ru','🇷🇺','RU')"><span class="lf">🇷🇺</span>Русский<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('de','🇩🇪','DE')"><span class="lf">🇩🇪</span>Deutsch<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('yo','🇳🇬','YO')"><span class="lf">🇳🇬</span>Yoruba<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ig','🇳🇬','IG')"><span class="lf">🇳🇬</span>Igbo<i class="fas fa-check db-lang-chk"></i></div>
+          <div class="db-lang-opt" onclick="setDbLang('ha','🇳🇬','HA')"><span class="lf">🇳🇬</span>Hausa<i class="fas fa-check db-lang-chk"></i></div>
         </div>
       </div>
       <button class="tb-btn tb-btn-ghost" onclick="logout()" title="Logout" style="padding:0 12px;color:var(--red)"><i class="fas fa-right-from-bracket"></i></button>
@@ -455,23 +462,23 @@ tbody tr:hover{background:var(--bg)}
         <div class="stat-card gold">
           <div class="stat-ico gold"><i class="fas fa-wallet"></i></div>
           <div class="stat-val" id="ov-balance">$0.00</div>
-          <div class="stat-lbl">Available Balance</div>
+          <div class="stat-lbl"><span data-i18n="stat_balance">Available Balance</span></div>
         </div>
         <div class="stat-card green">
           <div class="stat-ico green"><i class="fas fa-chart-line"></i></div>
           <div class="stat-val" id="ov-profit">$0.00</div>
-          <div class="stat-lbl">Total Profit</div>
+          <div class="stat-lbl"><span data-i18n="stat_profit">Total Profit</span></div>
           <div class="profit-update"><i class="fas fa-circle"></i><span id="profitUpdatedAt">Updating hourly</span></div>
         </div>
         <div class="stat-card blue">
           <div class="stat-ico blue"><i class="fas fa-arrow-down-to-line"></i></div>
           <div class="stat-val" id="ov-deposited">$0.00</div>
-          <div class="stat-lbl">Total Deposited</div>
+          <div class="stat-lbl"><span data-i18n="stat_deposited">Total Deposited</span></div>
         </div>
         <div class="stat-card purple">
           <div class="stat-ico purple"><i class="fas fa-bolt"></i></div>
           <div class="stat-val" id="ov-investments">0</div>
-          <div class="stat-lbl">Active Investments</div>
+          <div class="stat-lbl"><span data-i18n="stat_investments">Active Investments</span></div>
         </div>
       </div>
 
@@ -883,11 +890,11 @@ const COIN_LABELS = {
   'USDC_ERC20':'USDC — ERC20','SOL':'Solana (SOL)','USDC_TRC20':'USDC — TRC20','USDT_TRC20':'USDT — TRC20'
 };
 const WALLETS = {
-  'BTC':['bc1q5q460ngh4dkdsxl4m4p2xw90uvc46lkvefqad3','bc1qrwqynkr6l2xy6zwz5dyra40dz25499up7venn9'],
-  'ETH_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377'],
-  'USDT_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377'],
-  'USDC_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
-  'SOL':['838C1Dkn9aPFFqyr4nM8q9stA3x2qcPsKRokfSRVFbJD','4jPt9jyRMVFfUs5hUPTkaKNdUmzhesugHfpX4SmC6tHn'],
+  'BTC':       ['bc1q5q460ngh4dkdsxl4m4p2xw90uvc46lkvefqad3','bc1qrwqynkr6l2xy6zwz5dyra40dz25499up7venn9'],
+  'ETH_ERC20': ['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
+  'USDT_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
+  'USDC_ERC20':['0x91E658396628b0144F9DCe431938D3259B5eCe52','0x78ec070a7454ac271e3a013bd291171436ebe377','0x0619c23bf4c0c41c4e606ef18a9548e88fb8e97c'],
+  'SOL':       ['838C1Dkn9aPFFqyr4nM8q9stA3x2qcPsKRokfSRVFbJD','4jPt9jyRMVFfUs5hUPTkaKNdUmzhesugHfpX4SmC6tHn'],
   'USDC_TRC20':['TCcuwT7wmpz4TV8wsPGg3ABmdhATbfLPYu','TWT5mwFcmzaC9yiNTgUbLR2umE5MJwqzLC'],
   'USDT_TRC20':['TCcuwT7wmpz4TV8wsPGg3ABmdhATbfLPYu','TWT5mwFcmzaC9yiNTgUbLR2umE5MJwqzLC']
 };
@@ -910,13 +917,15 @@ const TRADERS = [
   {id:'t8',name:'The Edge Funder',handle:'@edgefunder',roi:'+134%',followers:'7.3K',copiers:'3.4K',accuracy:'90%',specialty:'Asian Markets',
    photo:'https://copyvest-pro.github.io/copyvestpro/The_Edge_funder.jpg'},
   {id:'t9',name:'The Trading Academy',handle:'@tradingacademy',roi:'+221%',followers:'15.2K',copiers:'6.9K',accuracy:'95%',specialty:'High-Freq Trading',
-   photo:'https://copyvest-pro.github.io/copyvestpro/The_trading_academy.jpg'}
+   photo:'https://copyvest-pro.github.io/copyvestpro/The_trading_academy.jpg'},
+  {id:'t10',name:'Elite Trading Academy',handle:'@elitetradingacademy',roi:'+178%',followers:'11.4K',copiers:'5.2K',accuracy:'93%',specialty:'Crypto/Bitcoin',
+   photo:'https://copyvest-pro.github.io/copyvestpro/Elite_trading_academy.jpg'}
 ];
 
 /* ═══════════ STATE ═══════════ */
 let token = localStorage.getItem('cvp_token');
 let user  = JSON.parse(localStorage.getItem('cvp_user') || '{}');
-let wIdx  = parseInt(localStorage.getItem('cvp_wi') || '0');
+let wIdx = Math.floor(Math.random() * 10); // random per session
 let selectedPlanId = null;
 let selectedTrader = JSON.parse(localStorage.getItem('cvp_selected_trader') || 'null');
 let profitInterval = null;
@@ -1042,7 +1051,8 @@ function renderOverview(d){
           <div class="progress-track"><div class="progress-fill ${pct>=100?'complete':''}" style="width:${pct}%"></div></div>
         </div>
         <div style="font-size:13px;color:var(--muted);margin-top:6px">${inv.monthly_roi}% ROI/mo &middot; Next accrual: ${fmtDate(inv.next_accrual_date)}</div>
-      </div>`;
+        ${inv.status!=='active' && pct<100 ? `<button onclick="nav('fund',null);setTimeout(()=>{setAmt(${Math.max(0,parseFloat(inv.plan_min_deposit||0)-parseFloat(inv.funded_total||inv.principal||0))})},120)" style="margin-top:10px;width:100%;padding:10px 14px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fde68a;border-radius:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:space-between;transition:all .2s" onmouseover="this.style.borderColor='#d97706'" onmouseout="this.style.borderColor='#fde68a'"><div style="text-align:left"><div style="font-size:16px;font-weight:800;color:#d97706">${fmt(Math.max(0,parseFloat(inv.plan_min_deposit||0)-parseFloat(inv.funded_total||inv.principal||0)))}</div><div style="font-size:11px;color:#92400e;font-weight:600">Tap to fund and activate</div></div><div style="width:32px;height:32px;background:#d97706;border-radius:8px;display:flex;align-items:center;justify-content:center"><i class="fas fa-arrow-right" style="color:#fff;font-size:12px"></i></div></button>` : ''}
+      </div>\`;
     }).join('');
   }
 }
@@ -1308,6 +1318,7 @@ async function loadAndRenderTraders(filter=''){
             'target hit':        'Target_hit.jpg',
             'the edge funder':   'The_Edge_funder.jpg',
             'the trading academy':'The_trading_academy.jpg',
+            'elite trading':     'Elite_trading_academy.jpg',
           };
           const key = (t.name||'').toLowerCase().trim();
           const file = Object.keys(nameMap).find(k=>key.includes(k));
@@ -1334,7 +1345,7 @@ function renderTraderGrid(filter=''){
         <img src="${t.photo}" alt="${t.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&size=160&background=c9a84c&color=fff&bold=true'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
         <div class="trader-badge"><i class="fas fa-check"></i></div>
       </div>
-      <div class="trader-name">${t.name}</div>
+      <div class="trader-name"><span>${t.name}</span><span class="verified-chip"><i class="fas fa-check" style="font-size:8px"></i> Verified</span></div>
       <div class="trader-handle">${t.handle} &middot; ${t.specialty}</div>
       <div class="trader-stats">
         <div class="ts-item"><div class="ts-val pos">${t.roi}</div><div class="ts-lbl">ROI</div></div>
@@ -1692,146 +1703,67 @@ function showA(el, msg, type){
   el.innerHTML=(type==='err'?'<i class="fas fa-circle-xmark"></i>':type==='ok'?'<i class="fas fa-check-circle"></i>':'<i class="fas fa-circle-info"></i>')+' '+msg;
 }
 
-
-/* ═══════════ LANGUAGE SWITCHER ═══════════ */
-const DB_LANG = {
-  en:{nav_overview:'Overview',nav_invest:'Invest',nav_markets:'Markets',nav_traders:'Copy Traders',nav_portfolio:'Watch Portfolio',nav_withdraw:'Withdraw',nav_transactions:'Transactions',nav_referral:'Referral',nav_profile:'Profile',grp_main:'Main',grp_finance:'Finance',grp_account:'Account',stat_balance:'Available Balance',stat_profit:'Total Profit',stat_deposited:'Total Deposited',stat_investments:'Active Investments',btn_invest:'Invest Now',btn_withdraw:'Withdraw Funds',btn_topup:'Top Up Investment',btn_traders:'Copy Traders',btn_markets:'View Markets',lbl_next_payout:'Next Payout Window',card_inv_status:'Investment Status',card_quick_actions:'Quick Actions',card_activity:'Recent Activity'},
-  es:{nav_overview:'Resumen',nav_invest:'Invertir',nav_markets:'Mercados',nav_traders:'Copiar Traders',nav_portfolio:'Portafolio',nav_withdraw:'Retirar',nav_transactions:'Transacciones',nav_referral:'Referido',nav_profile:'Perfil',grp_main:'Principal',grp_finance:'Finanzas',grp_account:'Cuenta',stat_balance:'Saldo Disponible',stat_profit:'Ganancia Total',stat_deposited:'Total Depositado',stat_investments:'Inversiones Activas',btn_invest:'Invertir Ahora',btn_withdraw:'Retirar Fondos',btn_topup:'Recargar',btn_traders:'Copiar Traders',btn_markets:'Ver Mercados',lbl_next_payout:'Próximo Pago',card_inv_status:'Estado Inversión',card_quick_actions:'Acciones Rápidas',card_activity:'Actividad Reciente'},
-  fr:{nav_overview:'Aperçu',nav_invest:'Investir',nav_markets:'Marchés',nav_traders:'Copier Traders',nav_portfolio:'Portefeuille',nav_withdraw:'Retirer',nav_transactions:'Transactions',nav_referral:'Parrainage',nav_profile:'Profil',grp_main:'Principal',grp_finance:'Finance',grp_account:'Compte',stat_balance:'Solde Disponible',stat_profit:'Profit Total',stat_deposited:'Total Déposé',stat_investments:'Investissements Actifs',btn_invest:'Investir',btn_withdraw:'Retirer',btn_topup:'Recharger',btn_traders:'Copier Traders',btn_markets:'Voir Marchés',lbl_next_payout:'Prochain Paiement',card_inv_status:'Statut Investissement',card_quick_actions:'Actions Rapides',card_activity:'Activité Récente'},
-  pt:{nav_overview:'Visão Geral',nav_invest:'Investir',nav_markets:'Mercados',nav_traders:'Copiar Traders',nav_portfolio:'Portfólio',nav_withdraw:'Sacar',nav_transactions:'Transações',nav_referral:'Indicação',nav_profile:'Perfil',grp_main:'Principal',grp_finance:'Finanças',grp_account:'Conta',stat_balance:'Saldo Disponível',stat_profit:'Lucro Total',stat_deposited:'Total Depositado',stat_investments:'Investimentos Ativos',btn_invest:'Investir Agora',btn_withdraw:'Sacar',btn_topup:'Recarregar',btn_traders:'Copiar Traders',btn_markets:'Ver Mercados',lbl_next_payout:'Próximo Pagamento',card_inv_status:'Status Investimento',card_quick_actions:'Ações Rápidas',card_activity:'Atividade Recente'},
-  ar:{nav_overview:'نظرة عامة',nav_invest:'استثمار',nav_markets:'الأسواق',nav_traders:'نسخ المتداولين',nav_portfolio:'المحفظة',nav_withdraw:'سحب',nav_transactions:'المعاملات',nav_referral:'الإحالة',nav_profile:'الملف',grp_main:'الرئيسية',grp_finance:'المالية',grp_account:'الحساب',stat_balance:'الرصيد المتاح',stat_profit:'إجمالي الربح',stat_deposited:'إجمالي الإيداع',stat_investments:'الاستثمارات النشطة',btn_invest:'استثمر الآن',btn_withdraw:'سحب الأموال',btn_topup:'إعادة الشحن',btn_traders:'نسخ المتداولين',btn_markets:'عرض الأسواق',lbl_next_payout:'موعد الدفع القادم',card_inv_status:'حالة الاستثمار',card_quick_actions:'إجراءات سريعة',card_activity:'النشاط الأخير'},
-  zh:{nav_overview:'总览',nav_invest:'投资',nav_markets:'市场',nav_traders:'复制交易员',nav_portfolio:'投资组合',nav_withdraw:'提款',nav_transactions:'交易',nav_referral:'推荐',nav_profile:'个人资料',grp_main:'主要',grp_finance:'财务',grp_account:'账户',stat_balance:'可用余额',stat_profit:'总利润',stat_deposited:'总存款',stat_investments:'活跃投资',btn_invest:'立即投资',btn_withdraw:'提款',btn_topup:'充值',btn_traders:'复制交易员',btn_markets:'查看市场',lbl_next_payout:'下次付款',card_inv_status:'投资状态',card_quick_actions:'快捷操作',card_activity:'近期活动'},
-  hi:{nav_overview:'अवलोकन',nav_invest:'निवेश',nav_markets:'बाजार',nav_traders:'ट्रेडर कॉपी करें',nav_portfolio:'पोर्टफोलियो',nav_withdraw:'निकासी',nav_transactions:'लेनदेन',nav_referral:'रेफरल',nav_profile:'प्रोफाइल',grp_main:'मुख्य',grp_finance:'वित्त',grp_account:'खाता',stat_balance:'उपलब्ध शेष',stat_profit:'कुल लाभ',stat_deposited:'कुल जमा',stat_investments:'सक्रिय निवेश',btn_invest:'अभी निवेश करें',btn_withdraw:'निकासी',btn_topup:'टॉप अप',btn_traders:'ट्रेडर कॉपी करें',btn_markets:'बाजार देखें',lbl_next_payout:'अगला भुगतान',card_inv_status:'निवेश स्थिति',card_quick_actions:'त्वरित क्रिया',card_activity:'हालिया गतिविधि'},
-  ru:{nav_overview:'Обзор',nav_invest:'Инвестировать',nav_markets:'Рынки',nav_traders:'Копировать Трейдеров',nav_portfolio:'Портфель',nav_withdraw:'Вывод',nav_transactions:'Транзакции',nav_referral:'Реферал',nav_profile:'Профиль',grp_main:'Главное',grp_finance:'Финансы',grp_account:'Аккаунт',stat_balance:'Доступный Баланс',stat_profit:'Общая Прибыль',stat_deposited:'Всего Внесено',stat_investments:'Активные Инвестиции',btn_invest:'Инвестировать',btn_withdraw:'Вывести',btn_topup:'Пополнить',btn_traders:'Копировать',btn_markets:'Рынки',lbl_next_payout:'Следующая Выплата',card_inv_status:'Статус Инвестиций',card_quick_actions:'Быстрые Действия',card_activity:'Последние Действия'},
-  de:{nav_overview:'Übersicht',nav_invest:'Investieren',nav_markets:'Märkte',nav_traders:'Trader Kopieren',nav_portfolio:'Portfolio',nav_withdraw:'Auszahlen',nav_transactions:'Transaktionen',nav_referral:'Empfehlung',nav_profile:'Profil',grp_main:'Haupt',grp_finance:'Finanzen',grp_account:'Konto',stat_balance:'Verfügbares Guthaben',stat_profit:'Gesamtgewinn',stat_deposited:'Gesamt Eingezahlt',stat_investments:'Aktive Investitionen',btn_invest:'Jetzt Investieren',btn_withdraw:'Auszahlen',btn_topup:'Aufladen',btn_traders:'Trader Kopieren',btn_markets:'Märkte Ansehen',lbl_next_payout:'Nächste Auszahlung',card_inv_status:'Investitionsstatus',card_quick_actions:'Schnellaktionen',card_activity:'Letzte Aktivität'},
-  it:{nav_overview:'Panoramica',nav_invest:'Investire',nav_markets:'Mercati',nav_traders:'Copia Trader',nav_portfolio:'Portafoglio',nav_withdraw:'Preleva',nav_transactions:'Transazioni',nav_referral:'Referral',nav_profile:'Profilo',grp_main:'Principale',grp_finance:'Finanze',grp_account:'Account',stat_balance:'Saldo Disponibile',stat_profit:'Profitto Totale',stat_deposited:'Totale Depositato',stat_investments:'Investimenti Attivi',btn_invest:'Investi Ora',btn_withdraw:'Preleva',btn_topup:'Ricarica',btn_traders:'Copia Trader',btn_markets:'Vedi Mercati',lbl_next_payout:'Prossimo Pagamento',card_inv_status:'Stato Investimento',card_quick_actions:'Azioni Rapide',card_activity:'Attività Recente'},
-  tr:{nav_overview:'Genel Bakış',nav_invest:'Yatırım',nav_markets:'Piyasalar',nav_traders:'Trader Kopyala',nav_portfolio:'Portföy',nav_withdraw:'Çekim',nav_transactions:'İşlemler',nav_referral:'Referans',nav_profile:'Profil',grp_main:'Ana',grp_finance:'Finans',grp_account:'Hesap',stat_balance:'Kullanılabilir Bakiye',stat_profit:'Toplam Kâr',stat_deposited:'Toplam Yatırılan',stat_investments:'Aktif Yatırımlar',btn_invest:'Şimdi Yatır',btn_withdraw:'Çek',btn_topup:'Yükle',btn_traders:'Trader Kopyala',btn_markets:'Piyasaları Gör',lbl_next_payout:'Sonraki Ödeme',card_inv_status:'Yatırım Durumu',card_quick_actions:'Hızlı İşlemler',card_activity:'Son Aktivite'},
-  yo:{nav_overview:'Akopọ',nav_invest:'Idoko-owo',nav_markets:'Oja',nav_traders:'Daakọ Awọn Oniṣowo',nav_portfolio:'Akojọ Idoko-owo',nav_withdraw:'Yọ Owo Kuro',nav_transactions:'Awọn Iṣowo',nav_referral:'Itọkasi',nav_profile:'Profaili',grp_main:'Akọkọ',grp_finance:'Inawo',grp_account:'Akọọlẹ',stat_balance:'Owo Ti O Wa',stat_profit:'Ere Lapapọ',stat_deposited:'Idapo Lapapọ',stat_investments:'Idoko-owo Ti Nṣiṣẹ',btn_invest:'Doko-owo Bayi',btn_withdraw:'Yọ Owo',btn_topup:'Fikun Owo',btn_traders:'Daakọ Oniṣowo',btn_markets:'Wo Oja',lbl_next_payout:'Isanwo To Nbọ',card_inv_status:'Ipo Idoko-owo',card_quick_actions:'Awọn Iṣe Yara',card_activity:'Iṣẹ Aipẹ'},
-  ig:{nav_overview:'Nchoputa',nav_invest:'Itinye ego',nav_markets:'Ahia',nav_traders:'Detuo ndị na-azụ ahịa',nav_portfolio:'Nchịkọta ego',nav_withdraw:'Wepụ ego',nav_transactions:'Azụmaahịa',nav_referral:'Ntụziaka',nav_profile:'Profaịlụ',grp_main:'Isi',grp_finance:'Ego',grp_account:'Akaụntụ',stat_balance:'Ego dị ugbu a',stat_profit:'Ọnụ ọgụgụ uru',stat_deposited:'Ego etinyere',stat_investments:'Ntinye ego na-arụ ọrụ',btn_invest:'Tinye ego ugbu a',btn_withdraw:'Wepụ ego',btn_topup:'Tinye ego ọzọ',btn_traders:'Detuo ndị ọchụnta',btn_markets:'Lee ahịa',lbl_next_payout:'Ụbọchị ịkwụ ụgwọ',card_inv_status:'Ọnọdụ ntinye ego',card_quick_actions:'Ọrụ ngwa ngwa',card_activity:'Ihe emere n'oge na-adịghị anya'},
-  ha:{nav_overview:'Bayani',nav_invest:'Saka Jari',nav_markets:'Kasuwanni',nav_traders:'Kwafi 'Yan Kasuwa',nav_portfolio:'Jarin Ku',nav_withdraw:'Cirewa',nav_transactions:'Ma'amaloli',nav_referral:'Kira',nav_profile:'Bayanan Kai',grp_main:'Babban',grp_finance:'Kudi',grp_account:'Asusun',stat_balance:'Kudin Da Ake Da Su',stat_profit:'Jimlar Riba',stat_deposited:'Jimlar Ajiya',stat_investments:'Jarin Da Ke Aiki',btn_invest:'Saka Jari Yanzu',btn_withdraw:'Cirewa',btn_topup:'Ƙara Kudi',btn_traders:'Kwafi 'Yan Kasuwa',btn_markets:'Duba Kasuwanni',lbl_next_payout:'Biyan Kudi Na Gaba',card_inv_status:'Yanayin Jari',card_quick_actions:'Ayyuka Masu Sauri',card_activity:'Ayyukan Kwanan Nan'},
+/* ═══════════ LANGUAGE SWITCHER (DASHBOARD) ═══════════ */
+const DB_T = {
+  en:{nav_overview:'Overview',nav_invest:'Invest',nav_markets:'Markets',nav_traders:'Copy Traders',nav_portfolio:'Watch Portfolio',nav_withdraw:'Withdraw',nav_transactions:'Transactions',nav_referral:'Referral',nav_profile:'Profile',stat_balance:'Available Balance',stat_profit:'Total Profit',stat_deposited:'Total Deposited',stat_investments:'Active Investments'},
+  es:{nav_overview:'Resumen',nav_invest:'Invertir',nav_markets:'Mercados',nav_traders:'Copiar Traders',nav_portfolio:'Portafolio',nav_withdraw:'Retirar',nav_transactions:'Transacciones',nav_referral:'Referido',nav_profile:'Perfil',stat_balance:'Saldo Disponible',stat_profit:'Ganancia Total',stat_deposited:'Total Depositado',stat_investments:'Inversiones Activas'},
+  fr:{nav_overview:'Apercu',nav_invest:'Investir',nav_markets:'Marches',nav_traders:'Copier Traders',nav_portfolio:'Portefeuille',nav_withdraw:'Retirer',nav_transactions:'Transactions',nav_referral:'Parrainage',nav_profile:'Profil',stat_balance:'Solde Disponible',stat_profit:'Profit Total',stat_deposited:'Total Depose',stat_investments:'Investissements Actifs'},
+  pt:{nav_overview:'Visao Geral',nav_invest:'Investir',nav_markets:'Mercados',nav_traders:'Copiar Traders',nav_portfolio:'Portfolio',nav_withdraw:'Sacar',nav_transactions:'Transacoes',nav_referral:'Indicacao',nav_profile:'Perfil',stat_balance:'Saldo Disponivel',stat_profit:'Lucro Total',stat_deposited:'Total Depositado',stat_investments:'Investimentos Ativos'},
+  ar:{nav_overview:'نظرة عامة',nav_invest:'استثمار',nav_markets:'الأسواق',nav_traders:'نسخ المتداولين',nav_portfolio:'المحفظة',nav_withdraw:'سحب',nav_transactions:'المعاملات',nav_referral:'الإحالة',nav_profile:'الملف',stat_balance:'الرصيد',stat_profit:'الربح',stat_deposited:'الإيداع',stat_investments:'الاستثمارات'},
+  zh:{nav_overview:'概览',nav_invest:'投资',nav_markets:'市场',nav_traders:'跟单交易员',nav_portfolio:'投资组合',nav_withdraw:'提款',nav_transactions:'交易',nav_referral:'推荐',nav_profile:'个人资料',stat_balance:'可用余额',stat_profit:'总利润',stat_deposited:'总存款',stat_investments:'活跃投资'},
+  hi:{nav_overview:'अवलोकन',nav_invest:'निवेश',nav_markets:'बाजार',nav_traders:'ट्रेडर कॉपी करें',nav_portfolio:'पोर्टफोलियो',nav_withdraw:'निकासी',nav_transactions:'लेनदेन',nav_referral:'रेफरल',nav_profile:'प्रोफाइल',stat_balance:'उपलब्ध शेष',stat_profit:'कुल लाभ',stat_deposited:'कुल जमा',stat_investments:'सक्रिय निवेश'},
+  ru:{nav_overview:'Обзор',nav_invest:'Инвестировать',nav_markets:'Рынки',nav_traders:'Копировать',nav_portfolio:'Портфель',nav_withdraw:'Вывод',nav_transactions:'Транзакции',nav_referral:'Реферал',nav_profile:'Профиль',stat_balance:'Баланс',stat_profit:'Прибыль',stat_deposited:'Депозит',stat_investments:'Инвестиции'},
+  de:{nav_overview:'Ubersicht',nav_invest:'Investieren',nav_markets:'Markte',nav_traders:'Trader Kopieren',nav_portfolio:'Portfolio',nav_withdraw:'Abheben',nav_transactions:'Transaktionen',nav_referral:'Empfehlung',nav_profile:'Profil',stat_balance:'Verfugbar',stat_profit:'Gesamtgewinn',stat_deposited:'Eingezahlt',stat_investments:'Aktive Investitionen'},
+  yo:{nav_overview:'Iwoye',nav_invest:'Idoko-owo',nav_markets:'Oja',nav_traders:'Awon Oniowo',nav_portfolio:'Akojo',nav_withdraw:'Yiyokuro',nav_transactions:'Isowo',nav_referral:'Itokasi',nav_profile:'Profaili',stat_balance:'Iye Owo',stat_profit:'Ere',stat_deposited:'Ti Gbe Wole',stat_investments:'Idoko-owo Lowo'},
+  ig:{nav_overview:'Nleanya',nav_invest:'Itinye Ego',nav_markets:'Ahia',nav_traders:'Ndị Na-azụ',nav_portfolio:'Nchekwa Ego',nav_withdraw:'Iweputa',nav_transactions:'Azụmahịa',nav_referral:'Ntụgharị',nav_profile:'Profaịlụ',stat_balance:'Ego Dị',stat_profit:'Uru',stat_deposited:'Edeponye',stat_investments:'Ntinye Ego Ọrụ'},
+  ha:{nav_overview:'Bayanai',nav_invest:'Saka Jari',nav_markets:'Kasuwanci',nav_traders:'Yan Kasuwanci',nav_portfolio:'Portfolio',nav_withdraw:'Cire Kudi',nav_transactions:'Ma'amaloli',nav_referral:'Kira',nav_profile:'Bayani',stat_balance:'Kudin da Ake da shi',stat_profit:'Riba',stat_deposited:'Jimillar da aka Saka',stat_investments:'Ayyukan Saka Jari'},
 };
 
-// Data-i18n map: key -> selector or element id
-const DB_I18N_MAP = {
-  nav_overview: '[onclick="nav('overview',this)"] span, [onclick="nav('overview',null)"] span',
-  nav_invest:   '[onclick="nav('fund',this)"] span, [onclick="nav('fund',null)"] span',
-  nav_markets:  '[onclick="nav('markets',this)"] span, [onclick="nav('markets',null)"] span',
-  nav_traders:  '[onclick="nav('traders',this)"] span, [onclick="nav('traders',null)"] span',
-  nav_portfolio:'[onclick="nav('portfolio',this)"] span, [onclick="nav('portfolio',null)"] span',
-  nav_withdraw: '[onclick="nav('withdraw',this)"] span, [onclick="nav('withdraw',null)"] span',
-  nav_transactions:'[onclick="nav('transactions',this)"] span',
-  nav_referral: '[onclick="nav('referral',this)"] span',
-  nav_profile:  '[onclick="nav('profile',this)"] span',
-};
-
-let _dbLang = localStorage.getItem('cvp_db_lang') || 'en';
-
+let _dbLangOpen = false;
 function toggleDbLang(e){
   e.stopPropagation();
-  document.getElementById('dbLangDrop').classList.toggle('open');
-  document.getElementById('dbLangBtn').classList.toggle('open');
+  const drop = document.getElementById('dbLangDrop');
+  const btn  = document.getElementById('dbLangBtn');
+  _dbLangOpen = !_dbLangOpen;
+  if(drop) drop.classList.toggle('open', _dbLangOpen);
+  if(btn)  btn.classList.toggle('open', _dbLangOpen);
 }
-
 function setDbLang(code, flag, label){
-  _dbLang = code;
-  localStorage.setItem('cvp_db_lang', code);
+  const t = DB_T[code] || DB_T.en;
   // Update button
-  document.getElementById('dbLangFlag').textContent = flag;
-  document.getElementById('dbLangCode').textContent = label;
-  // Close dropdown
-  document.getElementById('dbLangDrop').classList.remove('open');
-  document.getElementById('dbLangBtn').classList.remove('open');
-  // Highlight active
+  const f = document.getElementById('dbLangFlag'); if(f) f.textContent = flag;
+  const c = document.getElementById('dbLangCode'); if(c) c.textContent = label;
+  // Close drop
+  const drop = document.getElementById('dbLangDrop'); if(drop) drop.classList.remove('open');
+  const btn  = document.getElementById('dbLangBtn');  if(btn)  btn.classList.remove('open');
+  _dbLangOpen = false;
+  // Update active option
   document.querySelectorAll('.db-lang-opt').forEach(o => {
-    o.classList.toggle('active', (o.getAttribute('onclick')||'').includes("'"+code+"'"));
+    o.classList.toggle('on', (o.getAttribute('onclick')||'').includes("'"+code+"'"));
   });
-  // Apply translations
-  applyDbLang(code);
-}
-
-function applyDbLang(code){
-  const t = DB_LANG[code] || DB_LANG.en;
+  // Translate sidebar nav links using data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(t[key]) el.textContent = t[key];
+  });
   // RTL for Arabic
   document.documentElement.dir = code === 'ar' ? 'rtl' : 'ltr';
-  // Translate sidebar nav items (each sb-link has text directly)
-  document.querySelectorAll('.sb-link').forEach(btn => {
-    const ic = btn.querySelector('i');
-    const onclick = btn.getAttribute('onclick') || '';
-    let key = null;
-    if(onclick.includes("'overview'")) key = 'nav_overview';
-    else if(onclick.includes("'fund'"))   key = 'nav_invest';
-    else if(onclick.includes("'markets'"))key = 'nav_markets';
-    else if(onclick.includes("'traders'"))key = 'nav_traders';
-    else if(onclick.includes("'portfolio'"))key='nav_portfolio';
-    else if(onclick.includes("'withdraw'"))key='nav_withdraw';
-    else if(onclick.includes("'transactions'"))key='nav_transactions';
-    else if(onclick.includes("'referral'"))key='nav_referral';
-    else if(onclick.includes("'profile'"))key='nav_profile';
-    if(key && t[key]){
-      // Rebuild text preserving the icon
-      btn.childNodes.forEach(n=>{ if(n.nodeType===3) n.textContent=' '+t[key]; });
-    }
-  });
-  // Translate group labels
-  document.querySelectorAll('.sb-group-lbl').forEach(el => {
-    const txt = el.textContent.trim().toLowerCase();
-    if(txt === 'main' || txt === t.grp_main || txt === DB_LANG.en.grp_main) el.textContent = t.grp_main;
-    else if(txt === 'finance' || txt === t.grp_finance || txt === DB_LANG.en.grp_finance) el.textContent = t.grp_finance;
-    else if(txt === 'account' || txt === t.grp_account || txt === DB_LANG.en.grp_account) el.textContent = t.grp_account;
-  });
-  // Translate stat labels
-  const statMap = {
-    'ov-balance-lbl':   'stat_balance',
-    'ov-profit-lbl':    'stat_profit',
-    'ov-deposited-lbl': 'stat_deposited',
-    'ov-inv-lbl':       'stat_investments',
-  };
-  Object.entries(statMap).forEach(([id,key])=>{
-    const el = document.getElementById(id);
-    if(el && t[key]) el.textContent = t[key];
-  });
-  // Translate topbar withdraw/invest button spans
-  document.querySelectorAll('.tb-btn span').forEach(span => {
-    const btn = span.closest('button,a');
-    if(!btn) return;
-    const onclick = btn.getAttribute('onclick')||'';
-    if(onclick.includes("'withdraw'")) span.textContent = t.nav_withdraw;
-    else if(onclick.includes("'fund'")) span.textContent = t.nav_invest;
-  });
-  // Translate mobile bottom nav
-  document.querySelectorAll('.bnav-item').forEach(btn => {
-    const onclick = btn.getAttribute('onclick')||'';
-    const ic = btn.querySelector('i');
-    let key = null;
-    if(onclick.includes("'overview'"))   key='nav_overview';
-    else if(onclick.includes("'fund'"))  key='nav_invest';
-    else if(onclick.includes("'markets'"))key='nav_markets';
-    else if(onclick.includes("'traders'"))key='nav_traders';
-    else if(onclick.includes("'portfolio'"))key='nav_portfolio';
-    else if(onclick.includes("'withdraw'"))key='nav_withdraw';
-    if(key && t[key]){
-      btn.childNodes.forEach(n=>{ if(n.nodeType===3) n.textContent=t[key]; });
-    }
-  });
+  localStorage.setItem('cvp_db_lang', code);
 }
-
 // Close on outside click
-document.addEventListener('click', () => {
-  const d = document.getElementById('dbLangDrop');
-  const b = document.getElementById('dbLangBtn');
-  if(d) d.classList.remove('open');
-  if(b) b.classList.remove('open');
-});
-
-// Restore saved language on load
-document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('cvp_db_lang');
-  if(saved && saved !== 'en'){
-    const flagMap = {es:'🇪🇸',fr:'🇫🇷',pt:'🇧🇷',ar:'🇸🇦',zh:'🇨🇳',hi:'🇮🇳',ru:'🇷🇺',de:'🇩🇪',it:'🇮🇹',tr:'🇹🇷',yo:'🇳🇬',ig:'🇳🇬',ha:'🇳🇬'};
-    if(flagMap[saved]) setDbLang(saved, flagMap[saved], saved.toUpperCase());
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.db-lang-wrap')){
+    const drop = document.getElementById('dbLangDrop'); if(drop) drop.classList.remove('open');
+    const btn  = document.getElementById('dbLangBtn');  if(btn)  btn.classList.remove('open');
+    _dbLangOpen = false;
   }
 });
-
+// Restore saved language
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('cvp_db_lang');
+  const flags = {es:'🇪🇸',fr:'🇫🇷',pt:'🇧🇷',ar:'🇸🇦',zh:'🇨🇳',hi:'🇮🇳',ru:'🇷🇺',de:'🇩🇪',yo:'🇳🇬',ig:'🇳🇬',ha:'🇳🇬'};
+  if(saved && saved !== 'en' && flags[saved]) setDbLang(saved, flags[saved], saved.toUpperCase());
+});
 </script>
 </body>
 </html>
