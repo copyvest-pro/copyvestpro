@@ -306,6 +306,105 @@ tbody tr:hover{background:var(--bg)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{animation:spin .7s linear infinite}
 
+/* ════ PREMIUM DASHBOARD TRANSITIONS ════ */
+
+/* Page slide-in when switching sections */
+.page{display:none;animation:none}
+.page.active{display:block;animation:pageSlideIn .38s cubic-bezier(.22,1,.36,1)}
+@keyframes pageSlideIn{
+  0%{opacity:0;transform:translateY(18px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* Stat cards stagger on load */
+@keyframes statCardIn{
+  0%{opacity:0;transform:translateY(24px) scale(.97)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.stat-card{animation:statCardIn .5s cubic-bezier(.22,1,.36,1) both}
+.stat-card:nth-child(1){animation-delay:.05s}
+.stat-card:nth-child(2){animation-delay:.12s}
+.stat-card:nth-child(3){animation-delay:.19s}
+.stat-card:nth-child(4){animation-delay:.26s}
+
+/* Card hover — more pronounced lift */
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.card{transition:box-shadow .3s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.22,1,.36,1)}
+
+/* Trader card entrance */
+@keyframes traderCardIn{
+  0%{opacity:0;transform:translateY(20px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.trader-card{animation:traderCardIn .45s cubic-bezier(.22,1,.36,1) both}
+
+/* Sidebar link hover slide */
+.sb-link{position:relative;overflow:hidden}
+.sb-link::before{content:'';position:absolute;left:-100%;top:0;bottom:0;width:3px;background:var(--gold);border-radius:0 2px 2px 0;transition:left .22s cubic-bezier(.22,1,.36,1)}
+.sb-link.active::before,.sb-link:hover::before{left:0}
+
+/* Number count-up for stat values */
+@keyframes numberIn{
+  0%{opacity:0;transform:translateY(12px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.stat-val{animation:numberIn .5s cubic-bezier(.22,1,.36,1) .3s both}
+
+/* Gold shimmer on active plan card */
+@keyframes planShimmer{
+  0%{background-position:-400px 0}
+  100%{background-position:400px 0}
+}
+.plan-card.selected::before{
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);
+  background-size:400px 100%;
+  animation:planShimmer 1.8s linear infinite;
+  opacity:1
+}
+
+/* Smooth progress bar fill animation */
+.progress-fill{animation:progressFill .9s cubic-bezier(.22,1,.36,1) .2s both}
+@keyframes progressFill{from{width:0!important}to{}}
+
+/* Toast slide in from right */
+@keyframes toastIn{
+  from{opacity:0;transform:translateX(24px) scale(.96)}
+  to{opacity:1;transform:translateX(0) scale(1)}
+}
+.toast{animation:toastIn .3s cubic-bezier(.22,1,.36,1)}
+
+/* Modal backdrop blur entrance */
+@keyframes modalIn{
+  0%{opacity:0}
+  100%{opacity:1}
+}
+@keyframes modalCardIn{
+  0%{opacity:0;transform:translateY(28px) scale(.96)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* Button press effect */
+.btn:active{transform:scale(.97)}
+.btn-gold:active{transform:scale(.97)}
+
+/* Skeleton shimmer improvement */
+@keyframes shimmer{
+  0%{background-position:-600px 0}
+  100%{background-position:600px 0}
+}
+.skel{
+  background:linear-gradient(90deg,#f0f0f0 25%,#e4e4e4 50%,#f0f0f0 75%);
+  background-size:600px 100%;
+  animation:shimmer 1.6s ease-in-out infinite
+}
+
+/* Activity item hover */
+.activity-item{transition:background .2s cubic-bezier(.22,1,.36,1),padding .2s}
+.activity-item:hover{background:var(--gold-pale);padding-left:8px;border-radius:var(--r-sm)}
+
+/* Topbar page title transition */
+#tbPage{transition:opacity .2s,transform .2s}
+
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:1200px){
   .grid-4{grid-template-columns:repeat(2,1fr)}
@@ -372,6 +471,219 @@ tbody tr:hover{background:var(--bg)}
 .pending-fund-btn-lbl{font-size:12px;color:#92400e;font-weight:600}
 .pending-fund-btn-arrow{width:36px;height:36px;background:var(--amber);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(217,119,6,.3)}
 .pending-fund-btn-arrow i{color:#fff;font-size:14px}
+
+/* ══ LANGUAGE SELECTOR ══ */
+#langMenu::-webkit-scrollbar{width:4px}
+#langMenu::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+.lang-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--r-sm);cursor:pointer;transition:background var(--tr);font-size:13px;font-weight:500;color:var(--ink)}
+.lang-item:hover{background:var(--gold-pale)}
+.lang-item.active{background:var(--gold-pale);font-weight:700;color:var(--gold-d)}
+.lang-item-flag{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+.lang-item-name{flex:1}
+.lang-item-native{font-size:11px;color:var(--muted)}
+
+
+/* ════ PREMIUM ANIMATIONS ════ */
+
+/* Page enter — smooth slide up + fade */
+.page{display:none}
+.page.active{display:block;animation:pageEnter .42s cubic-bezier(.22,1,.36,1) both}
+@keyframes pageEnter{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Stat cards — staggered entrance */
+@keyframes cardRise{
+  from{opacity:0;transform:translateY(28px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.stat-card{animation:cardRise .5s cubic-bezier(.22,1,.36,1) both}
+.stat-card:nth-child(1){animation-delay:.04s}
+.stat-card:nth-child(2){animation-delay:.10s}
+.stat-card:nth-child(3){animation-delay:.16s}
+.stat-card:nth-child(4){animation-delay:.22s}
+
+/* Trader cards — staggered grid entrance */
+@keyframes traderRise{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.trader-card:nth-child(1){animation:traderRise .4s .05s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(2){animation:traderRise .4s .10s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(3){animation:traderRise .4s .15s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(4){animation:traderRise .4s .20s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(5){animation:traderRise .4s .25s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(6){animation:traderRise .4s .30s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(7){animation:traderRise .4s .35s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(8){animation:traderRise .4s .40s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(9){animation:traderRise .4s .45s cubic-bezier(.22,1,.36,1) both}
+.trader-card:nth-child(10){animation:traderRise .4s .50s cubic-bezier(.22,1,.36,1) both}
+
+/* Card hover — premium spring lift */
+.card,.stat-card,.plan-card,.trader-card{
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s cubic-bezier(.22,1,.36,1);
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.10)}
+.stat-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 12px 40px rgba(0,0,0,.10)}
+.trader-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(201,168,76,.14)}
+.plan-card:hover{transform:translateY(-3px)}
+
+/* Button press feel */
+.btn{transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease,background .18s ease}
+.btn:active{transform:scale(.96)!important}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.38)}
+
+/* Sidebar link hover slide */
+.sb-link{transition:background .2s,color .2s,transform .2s cubic-bezier(.34,1.56,.64,1),padding-left .2s}
+.sb-link:hover{padding-left:16px}
+.sb-link.active{padding-left:16px}
+
+/* Gold stat value count-up glow */
+@keyframes goldGlow{
+  0%{text-shadow:none}
+  50%{text-shadow:0 0 20px rgba(201,168,76,.4)}
+  100%{text-shadow:none}
+}
+.stat-val{animation:goldGlow 2.5s ease 1s 1}
+
+/* Progress bar entrance */
+@keyframes progressGrow{
+  from{width:0%!important}
+}
+.progress-fill{animation:progressGrow .9s cubic-bezier(.22,1,.36,1) both}
+
+/* Toast slide in from right */
+@keyframes toastSlide{
+  from{opacity:0;transform:translateX(100%)}
+  to{opacity:1;transform:translateX(0)}
+}
+.toast{animation:toastSlide .32s cubic-bezier(.22,1,.36,1)}
+
+/* Activity feed items — stagger */
+@keyframes feedItemIn{
+  from{opacity:0;transform:translateX(-12px)}
+  to{opacity:1;transform:translateX(0)}
+}
+.activity-item{animation:feedItemIn .35s cubic-bezier(.22,1,.36,1) both}
+.activity-item:nth-child(1){animation-delay:.05s}
+.activity-item:nth-child(2){animation-delay:.10s}
+.activity-item:nth-child(3){animation-delay:.15s}
+.activity-item:nth-child(4){animation-delay:.20s}
+.activity-item:nth-child(5){animation-delay:.25s}
+.activity-item:nth-child(6){animation-delay:.30s}
+
+/* Modal entrance */
+@keyframes modalPop{
+  from{opacity:0;transform:scale(.92) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+#topupOverlay > div,
+#buytradeOverlay > div{animation:modalPop .32s cubic-bezier(.34,1.56,.64,1)}
+
+/* Sidebar entrance on mobile */
+@keyframes sidebarSlide{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(0)}
+}
+.sidebar.open{animation:sidebarSlide .3s cubic-bezier(.22,1,.36,1)}
+
+/* Number ticker for stat values */
+.stat-val{font-variant-numeric:tabular-nums}
+
+/* Pending fund button pulse */
+@keyframes pendingPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(217,119,6,.3)}
+  50%{box-shadow:0 0 0 8px rgba(217,119,6,0)}
+}
+.pending-fund-btn{animation:pendingPulse 2.5s ease infinite}
+
+/* Payout slider entrance */
+.payout-slider-wrap{animation:cardRise .5s .1s cubic-bezier(.22,1,.36,1) both}
+
+/* Chart card entrance */
+.portfolio-chart-card{animation:cardRise .5s .15s cubic-bezier(.22,1,.36,1) both}
+
+/* Verified chip shimmer */
+@keyframes chipShimmer{
+  0%{background-position:-100px 0}
+  100%{background-position:200px 0}
+}
+.verified-chip{
+  background-size:200% 100%;
+}
+
+/* ════ LANGUAGE SWITCHER ════ */
+.lang-wrap{position:relative;display:inline-flex}
+.lang-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;transition:var(--tr);font-family:var(--font);letter-spacing:.02em}
+.lang-btn:hover{border-color:var(--gold-border);background:var(--gold-pale)}
+.lang-btn.open{border-color:var(--gold);background:var(--gold-pale)}
+.lang-flag{font-size:15px;line-height:1}
+.lang-caret{font-size:9px;color:var(--muted);transition:transform .2s}
+.lang-btn.open .lang-caret{transform:rotate(180deg)}
+.lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.12);min-width:170px;z-index:9999;display:none;overflow:hidden}
+.lang-dropdown.open{display:block;animation:langDrop .18s var(--ease)}
+@keyframes langDrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.lang-option{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--txt);cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border)}
+.lang-option:last-child{border-bottom:none}
+.lang-option:hover{background:var(--gold-pale)}
+.lang-option.active{background:rgba(201,168,76,.06);color:var(--gold-d)}
+.lf{font-size:16px;flex-shrink:0}
+.ln{flex:1}
+.lcheck{color:var(--gold-d);font-size:10px;opacity:0}
+.lang-option.active .lcheck{opacity:1}
+
+/* ════ PAGE TRANSITION ANIMATIONS ════ */
+.page{display:none;animation:none}
+.page.active{display:block;animation:pageIn .38s cubic-bezier(.22,1,.36,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* Card stagger entrance */
+.stagger-wrap > *{opacity:0;transform:translateY(20px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.stagger-wrap.revealed > *{opacity:1;transform:none}
+.stagger-wrap.revealed > *:nth-child(1){transition-delay:.05s}
+.stagger-wrap.revealed > *:nth-child(2){transition-delay:.12s}
+.stagger-wrap.revealed > *:nth-child(3){transition-delay:.19s}
+.stagger-wrap.revealed > *:nth-child(4){transition-delay:.26s}
+.stagger-wrap.revealed > *:nth-child(5){transition-delay:.33s}
+.stagger-wrap.revealed > *:nth-child(6){transition-delay:.40s}
+
+/* Stat card number count-up glow */
+.stat-val{transition:color .3s}
+.stat-card:hover .stat-val{filter:brightness(1.15)}
+
+/* Skeleton pulse */
+@keyframes skelPulse{0%,100%{opacity:1}50%{opacity:.5}}
+.skel{animation:skelPulse 1.6s ease infinite}
+
+/* Smooth sidebar active indicator */
+.sb-link.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;background:var(--gold-d);border-radius:0 3px 3px 0}
+
+/* Premium toast slide */
+@keyframes toastIn{from{opacity:0;transform:translateX(24px) scale(.96)}to{opacity:1;transform:none}}
+
+/* Button press effect */
+.btn:active{transform:scale(.97)!important}
+
+/* Input premium focus ring */
+.f-inp:focus,.f-sel:focus{border-color:var(--gold);box-shadow:0 0 0 3.5px rgba(201,168,76,.14);transform:none}
+
+/* Ripple on gold buttons */
+.btn-gold{position:relative;overflow:hidden}
+.btn-gold::after{content:'';position:absolute;inset:0;background:radial-gradient(circle,rgba(255,255,255,.25) 0%,transparent 70%);opacity:0;transition:opacity .3s}
+.btn-gold:hover::after{opacity:1}
+
+/* Live dot enhanced pulse */
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.sb-dot{animation:livePulse 2s ease infinite}
+
+/* Progress bar animated fill on load */
+@keyframes fillBar{from{width:0}to{width:var(--target-w)}}
+
+/* Topbar shadow on scroll */
+.topbar{transition:box-shadow .3s}
+.topbar.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.1)}
+
 
 /* ════ PREMIUM FINTECH ENHANCEMENTS ════ */
 
@@ -457,22 +769,22 @@ tbody tr:hover{background:var(--gold-pale)!important}
 
   <nav class="sb-nav">
     <div class="sb-group">
-      <div class="sb-group-lbl">Main</div>
-      <button class="sb-link active" onclick="nav('overview',this)"><i class="fas fa-chart-pie"></i> Overview</button>
-      <button class="sb-link" onclick="nav('fund',this)"><i class="fas fa-wallet"></i> Invest</button>
-      <button class="sb-link" onclick="nav('markets',this)"><i class="fas fa-chart-line"></i> Markets</button>
-      <button class="sb-link" onclick="nav('traders',this)"><i class="fas fa-users"></i> Copy Traders</button>
-      <button class="sb-link" onclick="nav('portfolio',this)"><i class="fas fa-chart-bar"></i> Watch Portfolio</button>
+      <div class="sb-group-lbl" data-i18n="grp_main">Main</div>
+      <button class="sb-link active" onclick="nav('overview',this)"><i class="fas fa-chart-pie"></i> <span data-i18n="nav_overview">Overview</span></button>
+      <button class="sb-link" onclick="nav('fund',this)"><i class="fas fa-wallet"></i> <span data-i18n="nav_invest">Invest</span></button>
+      <button class="sb-link" onclick="nav('markets',this)"><i class="fas fa-chart-line"></i> <span data-i18n="nav_markets">Markets</span></button>
+      <button class="sb-link" onclick="nav('traders',this)"><i class="fas fa-users"></i> <span data-i18n="nav_traders">Copy Traders</span></button>
+      <button class="sb-link" onclick="nav('portfolio',this)"><i class="fas fa-chart-bar"></i> <span data-i18n="nav_portfolio">Watch Portfolio</span></button>
     </div>
     <div class="sb-group">
-      <div class="sb-group-lbl">Finance</div>
-      <button class="sb-link" onclick="nav('withdraw',this)"><i class="fas fa-arrow-up-from-line"></i> Withdraw</button>
-      <button class="sb-link" onclick="nav('transactions',this)"><i class="fas fa-receipt"></i> Transactions</button>
+      <div class="sb-group-lbl" data-i18n="grp_finance">Finance</div>
+      <button class="sb-link" onclick="nav('withdraw',this)"><i class="fas fa-arrow-up-from-line"></i> <span data-i18n="nav_withdraw">Withdraw</span></button>
+      <button class="sb-link" onclick="nav('transactions',this)"><i class="fas fa-receipt"></i> <span data-i18n="nav_transactions">Transactions</span></button>
     </div>
     <div class="sb-group">
-      <div class="sb-group-lbl">Account</div>
-      <button class="sb-link" onclick="nav('referral',this)"><i class="fas fa-gift"></i> Referral</button>
-      <button class="sb-link" onclick="nav('profile',this)"><i class="fas fa-user-circle"></i> Profile</button>
+      <div class="sb-group-lbl" data-i18n="grp_account">Account</div>
+      <button class="sb-link" onclick="nav('referral',this)"><i class="fas fa-gift"></i> <span data-i18n="nav_referral">Referral</span></button>
+      <button class="sb-link" onclick="nav('profile',this)"><i class="fas fa-user-circle"></i> <span data-i18n="nav_profile">Profile</span></button>
     </div>
   </nav>
 
@@ -498,8 +810,19 @@ tbody tr:hover{background:var(--gold-pale)!important}
       <div class="tb-page" id="tbPage">Overview</div>
     </div>
     <div class="tb-right">
-      <button class="tb-btn tb-btn-ghost" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i> <span>Withdraw</span></button>
-      <button class="tb-btn tb-btn-gold" onclick="nav('fund',null)"><i class="fas fa-plus"></i> <span>Invest</span></button>
+      <div style="position:relative">
+        <button class="tb-btn tb-btn-ghost" onclick="toggleLangMenu()" id="langBtn" style="gap:6px;min-width:80px">
+          <span id="langFlag" style="font-size:16px">🌐</span>
+          <span id="langCode" style="font-size:13px;font-weight:700">EN</span>
+          <i class="fas fa-chevron-down" style="font-size:10px"></i>
+        </button>
+        <div id="langMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh-md);z-index:9999;width:220px;max-height:340px;overflow-y:auto;padding:6px">
+          <div style="padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);margin-bottom:4px">Select Language</div>
+          <div id="langList"></div>
+        </div>
+      </div>
+      <button class="tb-btn tb-btn-ghost" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i> <span data-i18n="nav_withdraw">Withdraw</span></button>
+      <button class="tb-btn tb-btn-gold" onclick="nav('fund',null)"><i class="fas fa-plus"></i> <span data-i18n="nav_invest">Invest</span></button>
       <button class="tb-btn tb-btn-ghost" onclick="logout()" title="Logout" style="padding:0 12px;color:var(--red)"><i class="fas fa-right-from-bracket"></i></button>
     </div>
   </div>
@@ -515,30 +838,30 @@ tbody tr:hover{background:var(--gold-pale)!important}
         <div class="stat-card gold">
           <div class="stat-ico gold"><i class="fas fa-wallet"></i></div>
           <div class="stat-val" id="ov-balance">$0.00</div>
-          <div class="stat-lbl">Available Balance</div>
+          <div class="stat-lbl" data-i18n="stat_balance">Available Balance</div>
         </div>
         <div class="stat-card green">
           <div class="stat-ico green"><i class="fas fa-chart-line"></i></div>
           <div class="stat-val" id="ov-profit">$0.00</div>
-          <div class="stat-lbl">Total Profit</div>
+          <div class="stat-lbl" data-i18n="stat_profit">Total Profit</div>
           <div class="profit-update"><i class="fas fa-circle"></i><span id="profitUpdatedAt">Updating hourly</span></div>
         </div>
         <div class="stat-card blue">
           <div class="stat-ico blue"><i class="fas fa-arrow-down-to-line"></i></div>
           <div class="stat-val" id="ov-deposited">$0.00</div>
-          <div class="stat-lbl">Total Deposited</div>
+          <div class="stat-lbl" data-i18n="stat_deposited">Total Deposited</div>
         </div>
         <div class="stat-card purple">
           <div class="stat-ico purple"><i class="fas fa-bolt"></i></div>
           <div class="stat-val" id="ov-investments">0</div>
-          <div class="stat-lbl">Active Investments</div>
+          <div class="stat-lbl" data-i18n="stat_investments">Active Investments</div>
         </div>
       </div>
 
       <div class="grid-2-1" style="margin-bottom:22px">
         <!-- ACTIVE PLAN STATUS -->
         <div class="card">
-          <div class="card-title">Investment Status</div>
+          <div class="card-title" data-i18n="card_inv_status">Investment Status</div>
           <div class="card-sub">Your active plan and funding progress</div>
           <div id="investmentStatus">
             <div class="empty"><i class="fas fa-chart-pie"></i><p>No active investments yet.<br><a href="#" onclick="nav('fund',null)" style="color:var(--gold-d);font-weight:600">Invest now</a> to get started.</p></div>
@@ -547,18 +870,18 @@ tbody tr:hover{background:var(--gold-pale)!important}
 
         <!-- QUICK ACTIONS -->
         <div class="card">
-          <div class="card-title">Quick Actions</div>
+          <div class="card-title" data-i18n="card_quick_actions">Quick Actions</div>
           <div class="card-sub">What would you like to do?</div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <button class="btn btn-gold btn-full" onclick="nav('fund',null)"><i class="fas fa-wallet"></i> Invest Now</button>
-            <button class="btn btn-dark btn-full" onclick="openTopUp()"><i class="fas fa-arrow-up-right-dots"></i> Top Up Investment</button>
-            <button class="btn btn-dark btn-full" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up-from-line"></i> Withdraw Funds</button>
-            <button class="btn btn-ghost btn-full" onclick="nav('traders',null)"><i class="fas fa-users"></i> Copy Traders</button>
-            <button class="btn btn-ghost btn-full" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i> View Markets</button>
+            <button class="btn btn-gold btn-full" onclick="nav('fund',null)"><i class="fas fa-wallet"></i> <span data-i18n="btn_invest_now">Invest Now</span></button>
+            <button class="btn btn-dark btn-full" onclick="openTopUp()"><i class="fas fa-arrow-up-right-dots"></i> <span data-i18n="btn_top_up">Top Up Investment</span></button>
+            <button class="btn btn-dark btn-full" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up-from-line"></i> <span data-i18n="btn_withdraw_funds">Withdraw Funds</span></button>
+            <button class="btn btn-ghost btn-full" onclick="nav('traders',null)"><i class="fas fa-users"></i> <span data-i18n="nav_traders">Copy Traders</span></button>
+            <button class="btn btn-ghost btn-full" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i> <span data-i18n="btn_view_markets">View Markets</span></button>
           </div>
           <!-- Next payout -->
           <div style="margin-top:18px;padding:12px;background:var(--gold-pale);border-radius:var(--r-sm);border:1px solid var(--gold-border)">
-            <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px">Next Payout Window</div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px" data-i18n="lbl_next_payout">Next Payout Window</div>
             <div id="nextPayout" style="font-size:15px;font-weight:600;color:var(--ink)">—</div>
           </div>
         </div>
@@ -568,7 +891,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
           <div>
-            <div class="card-title">Recent Activity</div>
+            <div class="card-title" data-i18n="card_activity">Recent Activity</div>
             <div class="card-sub" style="margin-bottom:0">Deposits, withdrawals and profit credits</div>
           </div>
           <button class="btn btn-ghost btn-sm" onclick="nav('transactions',null)">View All <i class="fas fa-arrow-right"></i></button>
@@ -591,13 +914,13 @@ tbody tr:hover{background:var(--gold-pale)!important}
         <!-- FUND FORM -->
         <div>
           <div class="card" style="margin-bottom:18px">
-            <div class="card-title">Select Trading Plan</div>
+            <div class="card-title" data-i18n="card_select_plan">Select Trading Plan</div>
             <div class="card-sub">Choose a plan to begin funding. The plan activates when the minimum is reached.</div>
             <div id="planCards" class="grid-2" style="margin-top:4px"></div>
           </div>
 
           <div class="card">
-            <div class="card-title">Make Your Investment</div>
+            <div class="card-title" data-i18n="card_make_investment">Make Your Investment</div>
             <div class="card-sub">Select your plan, choose an amount, send crypto, and confirm below.</div>
             <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:11px 15px;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--amber)">
               <i class="fas fa-hourglass-half"></i>
@@ -659,7 +982,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
         <div>
           <!-- FUNDING PROGRESS -->
           <div class="card" style="margin-bottom:18px">
-            <div class="card-title">Funding Progress</div>
+            <div class="card-title" data-i18n="card_funding_progress">Funding Progress</div>
             <div class="card-sub">Track how close you are to activating your plan</div>
             <div id="fundingProgress">
               <div class="empty" style="padding:28px 0"><i class="fas fa-chart-pie"></i><p>Select a plan to see progress</p></div>
@@ -668,7 +991,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
 
           <!-- DEPOSIT HISTORY -->
           <div class="card">
-            <div class="card-title">Deposit History</div>
+            <div class="card-title" data-i18n="card_deposit_history">Deposit History</div>
             <div class="card-sub">Your recent deposit requests</div>
             <div id="depositHistoryWrap">
               <div class="empty"><i class="fas fa-inbox"></i><p>No deposits yet</p></div>
@@ -722,7 +1045,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
       <div class="card" style="margin-bottom:22px">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
           <div>
-            <div class="card-title">Watch Portfolio</div>
+            <div class="card-title" data-i18n="card_portfolio">Watch Portfolio</div>
             <div class="card-sub" style="margin-bottom:0">Live performance of traders you are watching or copying</div>
           </div>
           <button class="btn btn-ghost btn-sm" onclick="loadPortfolio()"><i class="fas fa-rotate"></i> Refresh</button>
@@ -771,7 +1094,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
       <div class="card" style="margin-bottom:22px">
         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
           <div style="flex:1;min-width:200px">
-            <div class="card-title">Top Copy Traders</div>
+            <div class="card-title" data-i18n="card_traders">Top Copy Traders</div>
             <div class="card-sub" style="margin-bottom:0">All traders are performance-verified. Select one and fund your account to activate copy trading.</div>
           </div>
           <div style="position:relative">
@@ -791,7 +1114,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-withdraw">
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Withdraw Funds</div>
+          <div class="card-title" data-i18n="card_withdraw">Withdraw Funds</div>
           <div class="card-sub">Submit a withdrawal request. Admin processes within 24 hours.</div>
           <div class="alert alert-warn on" style="margin-bottom:18px"><i class="fas fa-circle-info"></i> Withdrawals are processed manually. Only available balance can be withdrawn.</div>
 
@@ -820,7 +1143,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
         </div>
 
         <div class="card">
-          <div class="card-title">Withdrawal History</div>
+          <div class="card-title" data-i18n="card_withdraw_history">Withdrawal History</div>
           <div class="card-sub">Track your withdrawal requests</div>
           <div id="withdrawHistoryWrap">
             <div class="empty"><i class="fas fa-inbox"></i><p>No withdrawals yet</p></div>
@@ -833,7 +1156,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-transactions">
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
-          <div><div class="card-title">All Transactions</div><div class="card-sub" style="margin-bottom:0">Complete history of deposits, withdrawals and profit credits</div></div>
+          <div><div class="card-title" data-i18n="card_transactions">All Transactions</div><div class="card-sub" style="margin-bottom:0">Complete history of deposits, withdrawals and profit credits</div></div>
         </div>
         <div class="tbl-wrap">
           <table>
@@ -848,7 +1171,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-referral">
       <div class="grid-2" style="margin-bottom:22px">
         <div class="card">
-          <div class="card-title">Your Referral Code</div>
+          <div class="card-title" data-i18n="card_referral">Your Referral Code</div>
           <div class="card-sub">Share this code or link. Earn 5% on every referred deposit.</div>
           <div class="ref-box"><span id="refCode">—</span><button class="copy-btn btn-sm" onclick="copyRef('code')"><i class="fas fa-copy"></i> Copy</button></div>
           <div style="margin-top:12px">
@@ -867,7 +1190,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
     <div class="page" id="page-profile">
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Update Profile</div>
+          <div class="card-title" data-i18n="card_profile">Update Profile</div>
           <div class="card-sub">Keep your account information up to date</div>
           <div class="f-grp"><label class="f-lbl">Full Name</label><input type="text" class="f-inp" id="pName" placeholder="Your name"></div>
           <div class="f-grp"><label class="f-lbl">Phone</label><input type="text" class="f-inp" id="pPhone" placeholder="+1 234 567 8900"></div>
@@ -876,7 +1199,7 @@ tbody tr:hover{background:var(--gold-pale)!important}
           <button class="btn btn-gold btn-full" onclick="updateProfile()"><i class="fas fa-save"></i> Save Changes</button>
         </div>
         <div class="card">
-          <div class="card-title">Change Password</div>
+          <div class="card-title" data-i18n="card_password">Change Password</div>
           <div class="card-sub">Use a strong password of at least 8 characters</div>
           <div class="f-grp"><label class="f-lbl">Current Password</label><input type="password" class="f-inp" id="pwCur" placeholder="••••••••"></div>
           <div class="f-grp"><label class="f-lbl">New Password</label><input type="password" class="f-inp" id="pwNew" placeholder="••••••••"></div>
@@ -894,12 +1217,12 @@ tbody tr:hover{background:var(--gold-pale)!important}
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bot-nav">
   <div class="bot-nav-inner">
-    <button class="bnav-item active" id="bn-overview" onclick="nav('overview',null)"><i class="fas fa-chart-pie"></i>Overview</button>
-    <button class="bnav-item" id="bn-fund" onclick="nav('fund',null)"><i class="fas fa-wallet"></i>Invest</button>
-    <button class="bnav-item" id="bn-markets" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i>Markets</button>
-    <button class="bnav-item" id="bn-traders" onclick="nav('traders',null)"><i class="fas fa-users"></i>Traders</button>
-    <button class="bnav-item" id="bn-portfolio" onclick="nav('portfolio',null)"><i class="fas fa-chart-bar"></i>Portfolio</button>
-    <button class="bnav-item" id="bn-withdraw" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i>Withdraw</button>
+    <button class="bnav-item active" id="bn-overview" onclick="nav('overview',null)"><i class="fas fa-chart-pie"></i><span data-i18n="nav_overview">Overview</span></button>
+    <button class="bnav-item" id="bn-fund" onclick="nav('fund',null)"><i class="fas fa-wallet"></i><span data-i18n="nav_invest">Invest</span></button>
+    <button class="bnav-item" id="bn-markets" onclick="nav('markets',null)"><i class="fas fa-chart-line"></i><span data-i18n="nav_markets">Markets</span></button>
+    <button class="bnav-item" id="bn-traders" onclick="nav('traders',null)"><i class="fas fa-users"></i><span data-i18n="nav_traders_short">Traders</span></button>
+    <button class="bnav-item" id="bn-portfolio" onclick="nav('portfolio',null)"><i class="fas fa-chart-bar"></i><span data-i18n="nav_portfolio_short">Portfolio</span></button>
+    <button class="bnav-item" id="bn-withdraw" onclick="nav('withdraw',null)"><i class="fas fa-arrow-up"></i><span data-i18n="nav_withdraw">Withdraw</span></button>
   </div>
 </nav>
 
@@ -1040,6 +1363,7 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshWallet();
   if (selectedTrader) showCopyBanner();
   startProfitClock();
+  initLang();
 });
 
 function $(id){ return document.getElementById(id); }
@@ -1085,11 +1409,27 @@ async function loadDashboard(){
 }
 
 /* ═══════════ RENDER OVERVIEW ═══════════ */
+function animateValue(el, target, prefix='$', decimals=2){
+  if(!el) return;
+  const duration = 1200;
+  const start = performance.now();
+  function update(now){
+    const p = Math.min((now-start)/duration, 1);
+    const eased = 1 - Math.pow(1-p, 3);
+    const val = (target * eased);
+    el.textContent = prefix + val.toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
+    if(p < 1) requestAnimationFrame(update);
+    else el.textContent = prefix + target.toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
+  }
+  requestAnimationFrame(update);
+}
+
 function renderOverview(d){
   // principal_balance = funded capital, profit_balance = earned profits
-  $('ov-balance').textContent    = fmt((parseFloat(d.principal_balance||0)+parseFloat(d.profit_balance||0)));
-  $('ov-profit').textContent     = fmt(d.profit_balance||0);
-  $('ov-deposited').textContent  = fmt(d.total_deposited||0);
+  const balance = parseFloat(d.principal_balance||0)+parseFloat(d.profit_balance||0);
+  animateValue($('ov-balance'),    balance, '$', 2);
+  animateValue($('ov-profit'),     parseFloat(d.profit_balance||0), '$', 2);
+  animateValue($('ov-deposited'),  parseFloat(d.total_deposited||0), '$', 2);
   $('ov-investments').textContent= d.active_investments||0;
 
   // Status bar
@@ -1518,8 +1858,8 @@ function renderTraderGrid(filter=''){
   const list = filter ? _traders.filter(t=>t.name.toLowerCase().includes(filter.toLowerCase())||t.specialty.toLowerCase().includes(filter.toLowerCase())) : _traders;
   const grid = $('traderGrid');
   if(!list.length){ grid.innerHTML='<div class="empty" style="grid-column:1/-1"><i class="fas fa-users"></i><p>No traders found</p></div>'; return; }
-  grid.innerHTML = list.map(t=>`
-    <div class="trader-card">
+  grid.innerHTML = list.map((t,i)=>`
+    <div class="trader-card" style="animation-delay:${i*0.07}s">
       <div class="trader-avatar-wrap">
         <img src="${t.photo}" alt="${t.name}"
           onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.jpg','.jpeg').replace('.JPG','.jpeg')}else{this.src='https://ui-avatars.com/api/?name='+encodeURIComponent(t.name)+'&size=160&background=c9a84c&color=fff&bold=true'}"
@@ -1920,11 +2260,544 @@ function switchPortChart(symbol, btn){
   if(btn) btn.classList.add('active');
 }
 
+
+/* ═══════════════════════════════════════════════════════
+   LANGUAGE TRANSLATION SYSTEM
+   ═══════════════════════════════════════════════════════ */
+
+const LANGUAGES = [
+  {code:'en', flag:'🇬🇧', name:'English',       native:'English'},
+  {code:'fr', flag:'🇫🇷', name:'French',        native:'Français'},
+  {code:'es', flag:'🇪🇸', name:'Spanish',       native:'Español'},
+  {code:'pt', flag:'🇧🇷', name:'Portuguese',    native:'Português'},
+  {code:'ar', flag:'🇸🇦', name:'Arabic',        native:'العربية'},
+  {code:'zh', flag:'🇨🇳', name:'Chinese',       native:'中文'},
+  {code:'hi', flag:'🇮🇳', name:'Hindi',         native:'हिन्दी'},
+  {code:'ru', flag:'🇷🇺', name:'Russian',       native:'Русский'},
+  {code:'de', flag:'🇩🇪', name:'German',        native:'Deutsch'},
+  {code:'it', flag:'🇮🇹', name:'Italian',       native:'Italiano'},
+  {code:'ja', flag:'🇯🇵', name:'Japanese',      native:'日本語'},
+  {code:'ko', flag:'🇰🇷', name:'Korean',        native:'한국어'},
+  {code:'tr', flag:'🇹🇷', name:'Turkish',       native:'Türkçe'},
+  {code:'nl', flag:'🇳🇱', name:'Dutch',         native:'Nederlands'},
+  {code:'pl', flag:'🇵🇱', name:'Polish',        native:'Polski'},
+  {code:'sv', flag:'🇸🇪', name:'Swedish',       native:'Svenska'},
+  {code:'id', flag:'🇮🇩', name:'Indonesian',    native:'Bahasa Indonesia'},
+  {code:'ms', flag:'🇲🇾', name:'Malay',         native:'Bahasa Melayu'},
+  {code:'vi', flag:'🇻🇳', name:'Vietnamese',    native:'Tiếng Việt'},
+  {code:'th', flag:'🇹🇭', name:'Thai',          native:'ภาษาไทย'},
+  {code:'tl', flag:'🇵🇭', name:'Filipino',      native:'Filipino'},
+  {code:'bn', flag:'🇧🇩', name:'Bengali',       native:'বাংলা'},
+  {code:'ur', flag:'🇵🇰', name:'Urdu',          native:'اردو'},
+  {code:'fa', flag:'🇮🇷', name:'Persian',       native:'فارسی'},
+  {code:'he', flag:'🇮🇱', name:'Hebrew',        native:'עברית'},
+  {code:'el', flag:'🇬🇷', name:'Greek',         native:'Ελληνικά'},
+  {code:'ro', flag:'🇷🇴', name:'Romanian',      native:'Română'},
+  {code:'hu', flag:'🇭🇺', name:'Hungarian',     native:'Magyar'},
+  {code:'cs', flag:'🇨🇿', name:'Czech',         native:'Čeština'},
+  {code:'sw', flag:'🇰🇪', name:'Swahili',       native:'Kiswahili'},
+  {code:'yo', flag:'🇳🇬', name:'Yoruba',        native:'Yorùbá'},
+  {code:'ig', flag:'🇳🇬', name:'Igbo',          native:'Igbo'},
+  {code:'ha', flag:'🇳🇬', name:'Hausa',         native:'Hausa'},
+  {code:'am', flag:'🇪🇹', name:'Amharic',       native:'አማርኛ'},
+  {code:'so', flag:'🇸🇴', name:'Somali',        native:'Soomaali'},
+];
+
+const TRANSLATIONS = {
+  en: {
+    nav_overview:'Overview', nav_invest:'Invest', nav_markets:'Markets',
+    nav_traders:'Copy Traders', nav_traders_short:'Traders',
+    nav_portfolio:'Watch Portfolio', nav_portfolio_short:'Portfolio',
+    nav_withdraw:'Withdraw', nav_transactions:'Transactions',
+    nav_referral:'Referral', nav_profile:'Profile',
+    grp_main:'Main', grp_finance:'Finance', grp_account:'Account',
+    stat_balance:'Available Balance', stat_profit:'Total Profit',
+    stat_deposited:'Total Deposited', stat_investments:'Active Investments',
+    card_inv_status:'Investment Status', card_quick_actions:'Quick Actions',
+    card_activity:'Recent Activity', card_select_plan:'Select Trading Plan',
+    card_make_investment:'Make Your Investment', card_funding_progress:'Funding Progress',
+    card_deposit_history:'Deposit History', card_withdraw:'Withdraw Funds',
+    card_withdraw_history:'Withdrawal History', card_transactions:'All Transactions',
+    card_profile:'Update Profile', card_password:'Change Password',
+    card_referral:'Your Referral Code', card_traders:'Top Copy Traders',
+    card_portfolio:'Watch Portfolio',
+    btn_invest_now:'Invest Now', btn_top_up:'Top Up Investment',
+    btn_withdraw_funds:'Withdraw Funds', btn_view_markets:'View Markets',
+    lbl_next_payout:'Next Payout Window',
+  },
+  fr: {
+    nav_overview:'Aperçu', nav_invest:'Investir', nav_markets:'Marchés',
+    nav_traders:'Copier Traders', nav_traders_short:'Traders',
+    nav_portfolio:'Portefeuille', nav_portfolio_short:'Portefeuille',
+    nav_withdraw:'Retirer', nav_transactions:'Transactions',
+    nav_referral:'Parrainage', nav_profile:'Profil',
+    grp_main:'Principal', grp_finance:'Finance', grp_account:'Compte',
+    stat_balance:'Solde Disponible', stat_profit:'Profit Total',
+    stat_deposited:'Total Déposé', stat_investments:'Investissements Actifs',
+    card_inv_status:'Statut Investissement', card_quick_actions:'Actions Rapides',
+    card_activity:'Activité Récente', card_select_plan:'Sélectionner un Plan',
+    card_make_investment:'Faire un Investissement', card_funding_progress:'Progression',
+    card_deposit_history:'Historique Dépôts', card_withdraw:'Retirer des Fonds',
+    card_withdraw_history:'Historique Retraits', card_transactions:'Toutes Transactions',
+    card_profile:'Modifier Profil', card_password:'Changer Mot de Passe',
+    card_referral:'Votre Code Parrain', card_traders:'Meilleurs Traders',
+    card_portfolio:'Portefeuille Surveillé',
+    btn_invest_now:'Investir Maintenant', btn_top_up:'Recharger',
+    btn_withdraw_funds:'Retirer Fonds', btn_view_markets:'Voir Marchés',
+    lbl_next_payout:'Prochain Paiement',
+  },
+  es: {
+    nav_overview:'Resumen', nav_invest:'Invertir', nav_markets:'Mercados',
+    nav_traders:'Copiar Traders', nav_traders_short:'Traders',
+    nav_portfolio:'Portafolio', nav_portfolio_short:'Portafolio',
+    nav_withdraw:'Retirar', nav_transactions:'Transacciones',
+    nav_referral:'Referido', nav_profile:'Perfil',
+    grp_main:'Principal', grp_finance:'Finanzas', grp_account:'Cuenta',
+    stat_balance:'Saldo Disponible', stat_profit:'Ganancia Total',
+    stat_deposited:'Total Depositado', stat_investments:'Inversiones Activas',
+    card_inv_status:'Estado Inversión', card_quick_actions:'Acciones Rápidas',
+    card_activity:'Actividad Reciente', card_select_plan:'Seleccionar Plan',
+    card_make_investment:'Hacer Inversión', card_funding_progress:'Progreso',
+    card_deposit_history:'Historial Depósitos', card_withdraw:'Retirar Fondos',
+    card_withdraw_history:'Historial Retiros', card_transactions:'Todas Transacciones',
+    card_profile:'Actualizar Perfil', card_password:'Cambiar Contraseña',
+    card_referral:'Tu Código Referido', card_traders:'Mejores Traders',
+    card_portfolio:'Portafolio Vigilado',
+    btn_invest_now:'Invertir Ahora', btn_top_up:'Recargar',
+    btn_withdraw_funds:'Retirar Fondos', btn_view_markets:'Ver Mercados',
+    lbl_next_payout:'Próximo Pago',
+  },
+  pt: {
+    nav_overview:'Visão Geral', nav_invest:'Investir', nav_markets:'Mercados',
+    nav_traders:'Copiar Traders', nav_traders_short:'Traders',
+    nav_portfolio:'Portfólio', nav_portfolio_short:'Portfólio',
+    nav_withdraw:'Sacar', nav_transactions:'Transações',
+    nav_referral:'Indicação', nav_profile:'Perfil',
+    grp_main:'Principal', grp_finance:'Finanças', grp_account:'Conta',
+    stat_balance:'Saldo Disponível', stat_profit:'Lucro Total',
+    stat_deposited:'Total Depositado', stat_investments:'Investimentos Ativos',
+    card_inv_status:'Status Investimento', card_quick_actions:'Ações Rápidas',
+    card_activity:'Atividade Recente', card_select_plan:'Selecionar Plano',
+    card_make_investment:'Fazer Investimento', card_funding_progress:'Progresso',
+    card_deposit_history:'Histórico Depósitos', card_withdraw:'Sacar Fundos',
+    card_withdraw_history:'Histórico Saques', card_transactions:'Todas Transações',
+    card_profile:'Atualizar Perfil', card_password:'Alterar Senha',
+    card_referral:'Seu Código de Indicação', card_traders:'Melhores Traders',
+    card_portfolio:'Portfólio Monitorado',
+    btn_invest_now:'Investir Agora', btn_top_up:'Recarregar',
+    btn_withdraw_funds:'Sacar Fundos', btn_view_markets:'Ver Mercados',
+    lbl_next_payout:'Próximo Pagamento',
+  },
+  ar: {
+    nav_overview:'نظرة عامة', nav_invest:'استثمار', nav_markets:'الأسواق',
+    nav_traders:'نسخ المتداولين', nav_traders_short:'المتداولون',
+    nav_portfolio:'المحفظة', nav_portfolio_short:'المحفظة',
+    nav_withdraw:'سحب', nav_transactions:'المعاملات',
+    nav_referral:'الإحالة', nav_profile:'الملف الشخصي',
+    grp_main:'الرئيسية', grp_finance:'المالية', grp_account:'الحساب',
+    stat_balance:'الرصيد المتاح', stat_profit:'إجمالي الربح',
+    stat_deposited:'إجمالي الإيداع', stat_investments:'الاستثمارات النشطة',
+    card_inv_status:'حالة الاستثمار', card_quick_actions:'إجراءات سريعة',
+    card_activity:'النشاط الأخير', card_select_plan:'اختر خطة',
+    card_make_investment:'قم بالاستثمار', card_funding_progress:'تقدم التمويل',
+    card_deposit_history:'سجل الإيداعات', card_withdraw:'سحب الأموال',
+    card_withdraw_history:'سجل السحوبات', card_transactions:'جميع المعاملات',
+    card_profile:'تحديث الملف', card_password:'تغيير كلمة المرور',
+    card_referral:'كود الإحالة', card_traders:'أفضل المتداولين',
+    card_portfolio:'محفظة المراقبة',
+    btn_invest_now:'استثمر الآن', btn_top_up:'إضافة رصيد',
+    btn_withdraw_funds:'سحب الأموال', btn_view_markets:'عرض الأسواق',
+    lbl_next_payout:'نافذة الدفع القادمة',
+  },
+  zh: {
+    nav_overview:'概览', nav_invest:'投资', nav_markets:'市场',
+    nav_traders:'复制交易员', nav_traders_short:'交易员',
+    nav_portfolio:'投资组合', nav_portfolio_short:'组合',
+    nav_withdraw:'提款', nav_transactions:'交易记录',
+    nav_referral:'推荐', nav_profile:'个人资料',
+    grp_main:'主要', grp_finance:'财务', grp_account:'账户',
+    stat_balance:'可用余额', stat_profit:'总收益',
+    stat_deposited:'总存款', stat_investments:'活跃投资',
+    card_inv_status:'投资状态', card_quick_actions:'快捷操作',
+    card_activity:'最近活动', card_select_plan:'选择计划',
+    card_make_investment:'进行投资', card_funding_progress:'资金进度',
+    card_deposit_history:'存款记录', card_withdraw:'提取资金',
+    card_withdraw_history:'提款记录', card_transactions:'所有交易',
+    card_profile:'更新资料', card_password:'修改密码',
+    card_referral:'您的推荐码', card_traders:'顶级交易员',
+    card_portfolio:'监控组合',
+    btn_invest_now:'立即投资', btn_top_up:'追加投资',
+    btn_withdraw_funds:'提取资金', btn_view_markets:'查看市场',
+    lbl_next_payout:'下次付款窗口',
+  },
+  hi: {
+    nav_overview:'अवलोकन', nav_invest:'निवेश', nav_markets:'बाज़ार',
+    nav_traders:'ट्रेडर कॉपी करें', nav_traders_short:'ट्रेडर्स',
+    nav_portfolio:'पोर्टफोलियो', nav_portfolio_short:'पोर्टफोलियो',
+    nav_withdraw:'निकासी', nav_transactions:'लेनदेन',
+    nav_referral:'रेफरल', nav_profile:'प्रोफाइल',
+    grp_main:'मुख्य', grp_finance:'वित्त', grp_account:'खाता',
+    stat_balance:'उपलब्ध बैलेंस', stat_profit:'कुल लाभ',
+    stat_deposited:'कुल जमा', stat_investments:'सक्रिय निवेश',
+    card_inv_status:'निवेश स्थिति', card_quick_actions:'त्वरित क्रियाएं',
+    card_activity:'हाल की गतिविधि', card_select_plan:'प्लान चुनें',
+    card_make_investment:'निवेश करें', card_funding_progress:'फंडिंग प्रगति',
+    card_deposit_history:'जमा इतिहास', card_withdraw:'पैसे निकालें',
+    card_withdraw_history:'निकासी इतिहास', card_transactions:'सभी लेनदेन',
+    card_profile:'प्रोफाइल अपडेट करें', card_password:'पासवर्ड बदलें',
+    card_referral:'आपका रेफरल कोड', card_traders:'शीर्ष ट्रेडर्स',
+    card_portfolio:'वॉच पोर्टफोलियो',
+    btn_invest_now:'अभी निवेश करें', btn_top_up:'टॉप अप करें',
+    btn_withdraw_funds:'पैसे निकालें', btn_view_markets:'बाज़ार देखें',
+    lbl_next_payout:'अगली भुगतान विंडो',
+  },
+  ru: {
+    nav_overview:'Обзор', nav_invest:'Инвестировать', nav_markets:'Рынки',
+    nav_traders:'Копировать трейдеров', nav_traders_short:'Трейдеры',
+    nav_portfolio:'Портфель', nav_portfolio_short:'Портфель',
+    nav_withdraw:'Вывод', nav_transactions:'Транзакции',
+    nav_referral:'Реферал', nav_profile:'Профиль',
+    grp_main:'Главное', grp_finance:'Финансы', grp_account:'Аккаунт',
+    stat_balance:'Доступный баланс', stat_profit:'Общая прибыль',
+    stat_deposited:'Всего внесено', stat_investments:'Активные инвестиции',
+    card_inv_status:'Статус инвестиций', card_quick_actions:'Быстрые действия',
+    card_activity:'Последняя активность', card_select_plan:'Выбрать план',
+    card_make_investment:'Сделать инвестицию', card_funding_progress:'Прогресс',
+    card_deposit_history:'История депозитов', card_withdraw:'Вывод средств',
+    card_withdraw_history:'История выводов', card_transactions:'Все транзакции',
+    card_profile:'Обновить профиль', card_password:'Сменить пароль',
+    card_referral:'Ваш реферальный код', card_traders:'Лучшие трейдеры',
+    card_portfolio:'Отслеживаемый портфель',
+    btn_invest_now:'Инвестировать сейчас', btn_top_up:'Пополнить',
+    btn_withdraw_funds:'Вывести средства', btn_view_markets:'Просмотр рынков',
+    lbl_next_payout:'Следующая выплата',
+  },
+  de: {
+    nav_overview:'Übersicht', nav_invest:'Investieren', nav_markets:'Märkte',
+    nav_traders:'Trader kopieren', nav_traders_short:'Trader',
+    nav_portfolio:'Portfolio', nav_portfolio_short:'Portfolio',
+    nav_withdraw:'Abheben', nav_transactions:'Transaktionen',
+    nav_referral:'Empfehlung', nav_profile:'Profil',
+    grp_main:'Haupt', grp_finance:'Finanzen', grp_account:'Konto',
+    stat_balance:'Verfügbares Guthaben', stat_profit:'Gesamtgewinn',
+    stat_deposited:'Gesamt eingezahlt', stat_investments:'Aktive Investitionen',
+    card_inv_status:'Investitionsstatus', card_quick_actions:'Schnellaktionen',
+    card_activity:'Letzte Aktivität', card_select_plan:'Plan auswählen',
+    card_make_investment:'Investition tätigen', card_funding_progress:'Finanzierungsfortschritt',
+    card_deposit_history:'Einzahlungshistorie', card_withdraw:'Geld abheben',
+    card_withdraw_history:'Auszahlungshistorie', card_transactions:'Alle Transaktionen',
+    card_profile:'Profil aktualisieren', card_password:'Passwort ändern',
+    card_referral:'Ihr Empfehlungscode', card_traders:'Top Trader',
+    card_portfolio:'Beobachtungsportfolio',
+    btn_invest_now:'Jetzt investieren', btn_top_up:'Aufstocken',
+    btn_withdraw_funds:'Geld abheben', btn_view_markets:'Märkte ansehen',
+    lbl_next_payout:'Nächstes Auszahlungsfenster',
+  },
+  it: {
+    nav_overview:'Panoramica', nav_invest:'Investire', nav_markets:'Mercati',
+    nav_traders:'Copia Trader', nav_traders_short:'Trader',
+    nav_portfolio:'Portafoglio', nav_portfolio_short:'Portafoglio',
+    nav_withdraw:'Prelievo', nav_transactions:'Transazioni',
+    nav_referral:'Referral', nav_profile:'Profilo',
+    grp_main:'Principale', grp_finance:'Finanze', grp_account:'Account',
+    stat_balance:'Saldo Disponibile', stat_profit:'Profitto Totale',
+    stat_deposited:'Totale Depositato', stat_investments:'Investimenti Attivi',
+    card_inv_status:'Stato Investimento', card_quick_actions:'Azioni Rapide',
+    card_activity:'Attività Recente', card_select_plan:'Seleziona Piano',
+    card_make_investment:'Fai un Investimento', card_funding_progress:'Progresso',
+    card_deposit_history:'Storico Depositi', card_withdraw:'Prelevare Fondi',
+    card_withdraw_history:'Storico Prelievi', card_transactions:'Tutte le Transazioni',
+    card_profile:'Aggiorna Profilo', card_password:'Cambia Password',
+    card_referral:'Il Tuo Codice Referral', card_traders:'Migliori Trader',
+    card_portfolio:'Portfolio Monitorato',
+    btn_invest_now:'Investi Ora', btn_top_up:'Ricarica',
+    btn_withdraw_funds:'Preleva Fondi', btn_view_markets:'Vedi Mercati',
+    lbl_next_payout:'Prossima Finestra di Pagamento',
+  },
+  ja: {
+    nav_overview:'概要', nav_invest:'投資', nav_markets:'市場',
+    nav_traders:'トレーダーコピー', nav_traders_short:'トレーダー',
+    nav_portfolio:'ポートフォリオ', nav_portfolio_short:'ポートフォリオ',
+    nav_withdraw:'出金', nav_transactions:'取引履歴',
+    nav_referral:'紹介', nav_profile:'プロフィール',
+    grp_main:'メイン', grp_finance:'財務', grp_account:'アカウント',
+    stat_balance:'利用可能残高', stat_profit:'総利益',
+    stat_deposited:'総入金額', stat_investments:'アクティブ投資',
+    card_inv_status:'投資ステータス', card_quick_actions:'クイックアクション',
+    card_activity:'最近のアクティビティ', card_select_plan:'プランを選択',
+    card_make_investment:'投資する', card_funding_progress:'資金調達進捗',
+    card_deposit_history:'入金履歴', card_withdraw:'出金する',
+    card_withdraw_history:'出金履歴', card_transactions:'全取引',
+    card_profile:'プロフィール更新', card_password:'パスワード変更',
+    card_referral:'紹介コード', card_traders:'トップトレーダー',
+    card_portfolio:'監視ポートフォリオ',
+    btn_invest_now:'今すぐ投資', btn_top_up:'追加投資',
+    btn_withdraw_funds:'出金する', btn_view_markets:'市場を見る',
+    lbl_next_payout:'次回支払い',
+  },
+  ko: {
+    nav_overview:'개요', nav_invest:'투자', nav_markets:'시장',
+    nav_traders:'트레이더 복사', nav_traders_short:'트레이더',
+    nav_portfolio:'포트폴리오', nav_portfolio_short:'포트폴리오',
+    nav_withdraw:'출금', nav_transactions:'거래내역',
+    nav_referral:'추천', nav_profile:'프로필',
+    grp_main:'메인', grp_finance:'재무', grp_account:'계정',
+    stat_balance:'사용 가능 잔액', stat_profit:'총 수익',
+    stat_deposited:'총 입금', stat_investments:'활성 투자',
+    card_inv_status:'투자 현황', card_quick_actions:'빠른 작업',
+    card_activity:'최근 활동', card_select_plan:'플랜 선택',
+    card_make_investment:'투자하기', card_funding_progress:'펀딩 진행률',
+    card_deposit_history:'입금 내역', card_withdraw:'출금하기',
+    card_withdraw_history:'출금 내역', card_transactions:'모든 거래',
+    card_profile:'프로필 업데이트', card_password:'비밀번호 변경',
+    card_referral:'추천 코드', card_traders:'최고 트레이더',
+    card_portfolio:'관심 포트폴리오',
+    btn_invest_now:'지금 투자', btn_top_up:'추가 투자',
+    btn_withdraw_funds:'출금하기', btn_view_markets:'시장 보기',
+    lbl_next_payout:'다음 지급 창',
+  },
+  tr: {
+    nav_overview:'Genel Bakış', nav_invest:'Yatırım Yap', nav_markets:'Piyasalar',
+    nav_traders:'Trader Kopyala', nav_traders_short:'Traderlar',
+    nav_portfolio:'Portföy', nav_portfolio_short:'Portföy',
+    nav_withdraw:'Para Çek', nav_transactions:'İşlemler',
+    nav_referral:'Referans', nav_profile:'Profil',
+    grp_main:'Ana', grp_finance:'Finans', grp_account:'Hesap',
+    stat_balance:'Mevcut Bakiye', stat_profit:'Toplam Kâr',
+    stat_deposited:'Toplam Yatırılan', stat_investments:'Aktif Yatırımlar',
+    card_inv_status:'Yatırım Durumu', card_quick_actions:'Hızlı İşlemler',
+    card_activity:'Son Aktivite', card_select_plan:'Plan Seç',
+    card_make_investment:'Yatırım Yap', card_funding_progress:'Finansman İlerlemesi',
+    card_deposit_history:'Para Yatırma Geçmişi', card_withdraw:'Para Çek',
+    card_withdraw_history:'Para Çekme Geçmişi', card_transactions:'Tüm İşlemler',
+    card_profile:'Profili Güncelle', card_password:'Şifre Değiştir',
+    card_referral:'Referans Kodunuz', card_traders:'En İyi Traderlar',
+    card_portfolio:'İzleme Portföyü',
+    btn_invest_now:'Şimdi Yatır', btn_top_up:'Yükle',
+    btn_withdraw_funds:'Para Çek', btn_view_markets:'Piyasaları Gör',
+    lbl_next_payout:'Sonraki Ödeme Penceresi',
+  },
+  sw: {
+    nav_overview:'Muhtasari', nav_invest:'Kuwekeza', nav_markets:'Masoko',
+    nav_traders:'Nakili Wafanyabiashara', nav_traders_short:'Wafanyabiashara',
+    nav_portfolio:'Jalada', nav_portfolio_short:'Jalada',
+    nav_withdraw:'Toa Pesa', nav_transactions:'Miamala',
+    nav_referral:'Rufaa', nav_profile:'Wasifu',
+    grp_main:'Kuu', grp_finance:'Fedha', grp_account:'Akaunti',
+    stat_balance:'Salio Linalopatikana', stat_profit:'Faida Jumla',
+    stat_deposited:'Jumla Iliyowekwa', stat_investments:'Uwekezaji Hai',
+    card_inv_status:'Hali ya Uwekezaji', card_quick_actions:'Vitendo vya Haraka',
+    card_activity:'Shughuli za Hivi Karibuni', card_select_plan:'Chagua Mpango',
+    card_make_investment:'Fanya Uwekezaji', card_funding_progress:'Maendeleo ya Ufadhili',
+    card_deposit_history:'Historia ya Amana', card_withdraw:'Toa Fedha',
+    card_withdraw_history:'Historia ya Kutoa', card_transactions:'Miamala Yote',
+    card_profile:'Sasisha Wasifu', card_password:'Badilisha Nenosiri',
+    card_referral:'Msimbo Wako wa Rufaa', card_traders:'Wafanyabiashara Bora',
+    card_portfolio:'Jalada la Ufuatiliaji',
+    btn_invest_now:'Wekeza Sasa', btn_top_up:'Ongeza',
+    btn_withdraw_funds:'Toa Fedha', btn_view_markets:'Ona Masoko',
+    lbl_next_payout:'Dirisha la Malipo Lijalo',
+  },
+  yo: {
+    nav_overview:'Akopọ', nav_invest:'Ṣe Idoko-owo', nav_markets:'Awọn Oja',
+    nav_traders:'Daakọ Awọn Oniṣowo', nav_traders_short:'Awọn Oniṣowo',
+    nav_portfolio:'Àkójọ Idoko-owo', nav_portfolio_short:'Àkójọ',
+    nav_withdraw:'Yọ Owo', nav_transactions:'Awọn Iṣowo',
+    nav_referral:'Itọkasi', nav_profile:'Profaili',
+    grp_main:'Akọkọ', grp_finance:'Inawo', grp_account:'Akanti',
+    stat_balance:'Iye Owo to wa', stat_profit:'Ere Lapapọ',
+    stat_deposited:'Lapapọ ti a fi sinu', stat_investments:'Idoko-owo to n ṣiṣẹ',
+    card_inv_status:'Ipo Idoko-owo', card_quick_actions:'Awọn Iṣe Yara',
+    card_activity:'Iṣẹ Aipẹ', card_select_plan:'Yan Eto',
+    card_make_investment:'Ṣe Idoko-owo', card_funding_progress:'Ilọsiwaju Owo',
+    card_deposit_history:'Itan Ifipamọ', card_withdraw:'Yọ Owo',
+    card_withdraw_history:'Itan Yiyọ Owo', card_transactions:'Gbogbo Iṣowo',
+    card_profile:'Ṣe Imudojuiwọn Profaili', card_password:'Yi Ọrọigbaniwọle pada',
+    card_referral:'Koodu Itọkasi Rẹ', card_traders:'Awọn Oniṣowo Giga',
+    card_portfolio:'Àkójọ Amojuto',
+    btn_invest_now:'Doko-owo Bayi', btn_top_up:'Fi Kun',
+    btn_withdraw_funds:'Yọ Owo', btn_view_markets:'Wo Awọn Oja',
+    lbl_next_payout:'Ferese Isanwo To nbọ',
+  },
+  ig: {
+    nav_overview:'Nchịkọta', nav_invest:'Itinye Ego', nav_markets:'Ahịa',
+    nav_traders:'Detuo Ndị Ahịa', nav_traders_short:'Ndị Ahịa',
+    nav_portfolio:'Ndekọ Ihe', nav_portfolio_short:'Ndekọ',
+    nav_withdraw:'Wepụ Ego', nav_transactions:'Azụmahịa',
+    nav_referral:'Ntụnyere', nav_profile:'Profaịlụ',
+    grp_main:'Isi', grp_finance:'Ego', grp_account:'Akaụntụ',
+    stat_balance:'Ego Dị Ndụ', stat_profit:'Nnata Nile',
+    stat_deposited:'Ego Etinyere Nile', stat_investments:'Ntinye Ego Na-arụ Ọrụ',
+    card_inv_status:'Ọnọdụ Ntinye Ego', card_quick_actions:'Ọrụ Ngwa Ngwa',
+    card_activity:'Mmegharị Nso', card_select_plan:'Họrọ Atụmatụ',
+    card_make_investment:'Tinye Ego', card_funding_progress:'Ọganihu Ego',
+    card_deposit_history:'Akụkọ Ntinye', card_withdraw:'Wepụ Ego',
+    card_withdraw_history:'Akụkọ Iwepụ', card_transactions:'Azụmahịa Nile',
+    card_profile:'Melite Profaịlụ', card_password:'Gbanwee Paswọọdụ',
+    card_referral:'Koodu Ntụnyere Gị', card_traders:'Ndị Ahịa Kachasị Mma',
+    card_portfolio:'Ndekọ Na-elele',
+    btn_invest_now:'Tinye Ego Ugbu a', btn_top_up:'Tinye Ọzọ',
+    btn_withdraw_funds:'Wepụ Ego', btn_view_markets:'Lee Ahịa',
+    lbl_next_payout:'Oge Ụgwọ Ọzọ',
+  },
+  ha: {
+    nav_overview:'Bayanai', nav_invest:'Saka Jari', nav_markets:'Kasuwar',
+    nav_traders:'Kwafi Masu Ciniki', nav_traders_short:'Masu Ciniki',
+    nav_portfolio:'Kundin Jari', nav_portfolio_short:'Kundi',
+    nav_withdraw:'Cire Kudi', nav_transactions:'Ma'amaloli',
+    nav_referral:'Koma', nav_profile:'Bayanan Kai',
+    grp_main:'Babba', grp_finance:'Kudi', grp_account:'Asusun',
+    stat_balance:'Kudin da ake da shi', stat_profit:'Jimlar Riba',
+    stat_deposited:'Jimlar Ajiya', stat_investments:'Jarin da ke Aiki',
+    card_inv_status:'Yanayin Jari', card_quick_actions:'Ayyuka Cikin Sauri',
+    card_activity:'Ayyuka na Kwanan nan', card_select_plan:'Zaɓi Shirin',
+    card_make_investment:'Saka Jari', card_funding_progress:'Ci gaban Kuɗi',
+    card_deposit_history:'Tarihin Ajiya', card_withdraw:'Cire Kuɗi',
+    card_withdraw_history:'Tarihin Cirewa', card_transactions:'Duk Ma'amaloli',
+    card_profile:'Sabunta Bayanan Kai', card_password:'Canza Kalmar Sirri',
+    card_referral:'Lambar Koma Naka', card_traders:'Manyan Masu Ciniki',
+    card_portfolio:'Kundin Kallo',
+    btn_invest_now:'Saka Jari Yanzu', btn_top_up:'Kara',
+    btn_withdraw_funds:'Cire Kuɗi', btn_view_markets:'Duba Kasuwar',
+    lbl_next_payout:'Window na Biyan Kuɗi Mai Zuwa',
+  },
+  id: {
+    nav_overview:'Ikhtisar', nav_invest:'Investasi', nav_markets:'Pasar',
+    nav_traders:'Salin Trader', nav_traders_short:'Trader',
+    nav_portfolio:'Portofolio', nav_portfolio_short:'Portofolio',
+    nav_withdraw:'Tarik Dana', nav_transactions:'Transaksi',
+    nav_referral:'Referral', nav_profile:'Profil',
+    grp_main:'Utama', grp_finance:'Keuangan', grp_account:'Akun',
+    stat_balance:'Saldo Tersedia', stat_profit:'Total Keuntungan',
+    stat_deposited:'Total Disetor', stat_investments:'Investasi Aktif',
+    card_inv_status:'Status Investasi', card_quick_actions:'Tindakan Cepat',
+    card_activity:'Aktivitas Terbaru', card_select_plan:'Pilih Rencana',
+    card_make_investment:'Lakukan Investasi', card_funding_progress:'Kemajuan Dana',
+    card_deposit_history:'Riwayat Setoran', card_withdraw:'Tarik Dana',
+    card_withdraw_history:'Riwayat Penarikan', card_transactions:'Semua Transaksi',
+    card_profile:'Perbarui Profil', card_password:'Ganti Kata Sandi',
+    card_referral:'Kode Referral Anda', card_traders:'Trader Terbaik',
+    card_portfolio:'Portofolio Pantau',
+    btn_invest_now:'Investasi Sekarang', btn_top_up:'Tambah Dana',
+    btn_withdraw_funds:'Tarik Dana', btn_view_markets:'Lihat Pasar',
+    lbl_next_payout:'Jendela Pembayaran Berikutnya',
+  },
+};
+
+// Fill missing languages with English fallback
+const EN = TRANSLATIONS.en;
+LANGUAGES.forEach(l => {
+  if(!TRANSLATIONS[l.code]){
+    TRANSLATIONS[l.code] = {...EN};
+  } else {
+    // Fill any missing keys with English
+    TRANSLATIONS[l.code] = {...EN, ...TRANSLATIONS[l.code]};
+  }
+});
+
+let currentLang = localStorage.getItem('cvp_lang') || 'en';
+
+function initLang(){
+  buildLangMenu();
+  applyLang(currentLang, false);
+}
+
+function buildLangMenu(){
+  const list = document.getElementById('langList');
+  if(!list) return;
+  list.innerHTML = LANGUAGES.map(l => `
+    <div class="lang-item ${l.code===currentLang?'active':''}" onclick="setLang('${l.code}')">
+      <span class="lang-item-flag">${l.flag}</span>
+      <div class="lang-item-name">
+        <div>${l.name}</div>
+        <div class="lang-item-native">${l.native}</div>
+      </div>
+      ${l.code===currentLang?'<i class="fas fa-check" style="color:var(--gold-d);font-size:12px"></i>':''}
+    </div>`).join('');
+}
+
+function setLang(code){
+  currentLang = code;
+  localStorage.setItem('cvp_lang', code);
+  applyLang(code, true);
+  closeLangMenu();
+  buildLangMenu();
+}
+
+function applyLang(code, animate){
+  const t = TRANSLATIONS[code] || TRANSLATIONS.en;
+  const lang = LANGUAGES.find(l=>l.code===code) || LANGUAGES[0];
+
+  // Update flag and code in button
+  const flag = document.getElementById('langFlag');
+  const codeEl = document.getElementById('langCode');
+  if(flag) flag.textContent = lang.flag;
+  if(codeEl) codeEl.textContent = code.toUpperCase();
+
+  // Apply RTL for Arabic, Hebrew, Urdu, Persian
+  const rtl = ['ar','he','ur','fa'].includes(code);
+  document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+  document.documentElement.lang = code;
+
+  // Translate all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(t[key]){
+      if(animate){
+        el.style.opacity='0';
+        el.style.transform='translateY(4px)';
+        setTimeout(()=>{
+          el.textContent = t[key];
+          el.style.transition='opacity .25s,transform .25s';
+          el.style.opacity='1';
+          el.style.transform='translateY(0)';
+        }, 80);
+      } else {
+        el.textContent = t[key];
+      }
+    }
+  });
+
+  // Also update page title map used by nav()
+  window._langTitles = t;
+}
+
+function toggleLangMenu(){
+  const menu = document.getElementById('langMenu');
+  if(!menu) return;
+  const isOpen = menu.style.display !== 'none';
+  menu.style.display = isOpen ? 'none' : 'block';
+  if(!isOpen) buildLangMenu();
+}
+
+function closeLangMenu(){
+  const menu = document.getElementById('langMenu');
+  if(menu) menu.style.display = 'none';
+}
+
+// Close lang menu when clicking outside
+document.addEventListener('click', e => {
+  const btn = document.getElementById('langBtn');
+  const menu = document.getElementById('langMenu');
+  if(menu && btn && !btn.contains(e.target) && !menu.contains(e.target)){
+    menu.style.display = 'none';
+  }
+});
+
 /* ═══════════ NAVIGATION ═══════════ */
 function nav(pageId, btn){
+  // Animate page title out then in
+  const titleEl = $('tbPage');
+  if(titleEl){ titleEl.style.opacity='0'; titleEl.style.transform='translateY(-8px)'; }
+
   // Update pages
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   $('page-'+pageId).classList.add('active');
+
+  // Animate title back in
+  setTimeout(()=>{
+    if(titleEl){ titleEl.style.opacity='1'; titleEl.style.transform='translateY(0)'; }
+  }, 80);
 
   // Update sidebar links
   if(btn){
@@ -1943,8 +2816,20 @@ function nav(pageId, btn){
   });
 
   // Page title map
-  const titles = {overview:'Overview',fund:'Invest',markets:'Markets',traders:'Copy Traders',portfolio:'Watch Portfolio',withdraw:'Withdraw',transactions:'Transactions',referral:'Referral',profile:'Profile'};
-  $('tbPage').textContent = titles[pageId]||pageId;
+  const defaultTitles = {overview:'Overview',fund:'Invest',markets:'Markets',traders:'Copy Traders',portfolio:'Watch Portfolio',withdraw:'Withdraw',transactions:'Transactions',referral:'Referral',profile:'Profile'};
+  const t = window._langTitles || {};
+  const titleMap = {
+    overview: t.nav_overview || defaultTitles.overview,
+    fund:     t.nav_invest   || defaultTitles.fund,
+    markets:  t.nav_markets  || defaultTitles.markets,
+    traders:  t.nav_traders  || defaultTitles.traders,
+    portfolio:t.nav_portfolio|| defaultTitles.portfolio,
+    withdraw: t.nav_withdraw || defaultTitles.withdraw,
+    transactions: t.nav_transactions || defaultTitles.transactions,
+    referral: t.nav_referral || defaultTitles.referral,
+    profile:  t.nav_profile  || defaultTitles.profile,
+  };
+  $('tbPage').textContent = titleMap[pageId] || pageId;
 
   // Load markets lazily
   if(pageId==='markets') setTimeout(loadMarketWidgets, 50);
@@ -1989,6 +2874,8 @@ function toast(msg, type=''){
 /* ═══════════ TOP UP INVESTMENT ═══════════ */
 function openTopUp(){
   $('topupOverlay').style.display='flex';
+  $('topupOverlay').style.animation='modalIn .25s ease';
+  $('topupOverlay').querySelector('div').style.animation='modalCardIn .35s cubic-bezier(.22,1,.36,1)';
   refreshTopupWallet();
   $('topupAmt').value='';
   $('topupAlert').className='alert';

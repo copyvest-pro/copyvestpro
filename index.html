@@ -788,12 +788,54 @@ strong{font-weight:600}
 .fsoc:hover{color:#fff;transform:translateY(-3px);box-shadow:0 6px 18px rgba(201,168,76,.28)}
 
 /* ═══════════════════ SCROLL REVEAL ═══════════════════ */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .68s var(--ease),transform .68s var(--ease)}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-d1{transition-delay:.1s}
-.reveal-d2{transition-delay:.2s}
-.reveal-d3{transition-delay:.3s}
-.reveal-d4{transition-delay:.4s}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.16s}
+.reveal-d3{transition-delay:.24s}
+.reveal-d4{transition-delay:.32s}
+.reveal-d5{transition-delay:.40s}
+.reveal-d6{transition-delay:.48s}
+
+/* ── NUMBER COUNTER ── */
+.count-up{font-variant-numeric:tabular-nums}
+
+/* ── HERO WORD ANIMATION ── */
+@keyframes heroWordIn{
+  0%{opacity:0;transform:translateY(24px) skewY(3deg);filter:blur(4px)}
+  100%{opacity:1;transform:translateY(0) skewY(0);filter:blur(0)}
+}
+.hero-word{display:inline-block;animation:heroWordIn .7s cubic-bezier(.22,1,.36,1) both}
+
+/* ── FLOATING BADGE PULSE ── */
+@keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-badge{animation:floatBadge 3.5s ease-in-out infinite}
+
+/* ── STAT NUMBER GLOW ON SCROLL ── */
+@keyframes statGlow{
+  0%{text-shadow:none}
+  50%{text-shadow:0 0 20px rgba(201,168,76,.4)}
+  100%{text-shadow:none}
+}
+.stat-glow{animation:statGlow 1.5s ease forwards}
+
+/* ── CARD HOVER LIFT ── */
+.hover-lift{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s cubic-bezier(.22,1,.36,1)}
+.hover-lift:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.12)}
+
+/* ── SHIMMER LINE ── */
+@keyframes shimmerLine{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.shimmer-line{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);background-size:400px 100%;animation:shimmerLine 2.5s linear infinite;border-radius:2px;margin:16px 0}
+
+/* ── SMOOTH PAGE TRANSITION ── */
+.page-transition-overlay{position:fixed;inset:0;background:var(--navy);z-index:99999;pointer-events:none;opacity:0;transition:opacity .4s cubic-bezier(.22,1,.36,1)}
+.page-transition-overlay.in{opacity:1}
 
 /* ═══════════════════ RIPPLE ═══════════════════ */
 .ripple-wrap{position:relative;overflow:hidden}
@@ -1229,6 +1271,23 @@ strong{font-weight:600}
   .discover-actions .btn-hero-solid, .discover-actions .btn-hero-outline{width:100%;justify-content:center}
 }
 
+
+/* ══ LANGUAGE SWITCHER ══ */
+.lang-wrap{position:relative;display:flex;align-items:center}
+.lang-btn{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--r-pill);border:1.5px solid var(--border);background:var(--surface);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;transition:all .22s;font-family:var(--font)}
+.lang-btn:hover{border-color:var(--gold);color:var(--gold-dark)}
+.lang-btn .lang-flag{font-size:16px;line-height:1}
+.lang-btn .lang-caret{font-size:9px;color:var(--muted);transition:transform .22s}
+.lang-btn.open .lang-caret{transform:rotate(180deg)}
+.lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12);min-width:180px;padding:6px;z-index:9999;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:all .22s cubic-bezier(.22,1,.36,1)}
+.lang-dropdown.open{opacity:1;transform:none;pointer-events:auto}
+.lang-option{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:background .15s}
+.lang-option:hover{background:var(--gold-pale)}
+.lang-option.active{background:rgba(201,168,76,.1);color:var(--gold-dark)}
+.lang-option .lf{font-size:18px;line-height:1}
+.lang-option .ln{flex:1}
+.lang-option .lcheck{color:var(--gold);font-size:12px;opacity:0}
+.lang-option.active .lcheck{opacity:1}
 </style>
 </head>
 <body>
@@ -1287,6 +1346,40 @@ strong{font-weight:600}
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-cta">
+    <!-- Language Switcher -->
+    <div class="lang-wrap" id="langWrap">
+      <button class="lang-btn" id="langBtn" onclick="toggleLang(event)" aria-label="Select language">
+        <span class="lang-flag" id="langFlag">🇬🇧</span>
+        <span id="langCode">EN</span>
+        <i class="fas fa-chevron-down lang-caret" id="langCaret"></i>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <div class="lang-option active" onclick="setLang('en','🇬🇧','EN')">
+          <span class="lf">🇬🇧</span><span class="ln">English</span><i class="fas fa-check lcheck"></i>
+        </div>
+        <div class="lang-option" onclick="setLang('es','🇪🇸','ES')">
+          <span class="lf">🇪🇸</span><span class="ln">Español</span><i class="fas fa-check lcheck"></i>
+        </div>
+        <div class="lang-option" onclick="setLang('fr','🇫🇷','FR')">
+          <span class="lf">🇫🇷</span><span class="ln">Français</span><i class="fas fa-check lcheck"></i>
+        </div>
+        <div class="lang-option" onclick="setLang('pt','🇧🇷','PT')">
+          <span class="lf">🇧🇷</span><span class="ln">Português</span><i class="fas fa-check lcheck"></i>
+        </div>
+        <div class="lang-option" onclick="setLang('ar','🇸🇦','AR')">
+          <span class="lf">🇸🇦</span><span class="ln">العربية</span><i class="fas fa-check lcheck"></i>
+        </div>
+        <div class="lang-option" onclick="setLang('zh','🇨🇳','ZH')">
+          <span class="lf">🇨🇳</span><span class="ln">中文</span><i class="fas fa-check lcheck"></i>
+        </div>
+        <div class="lang-option" onclick="setLang('hi','🇮🇳','HI')">
+          <span class="lf">🇮🇳</span><span class="ln">हिन्दी</span><i class="fas fa-check lcheck"></i>
+        </div>
+        <div class="lang-option" onclick="setLang('ru','🇷🇺','RU')">
+          <span class="lf">🇷🇺</span><span class="ln">Русский</span><i class="fas fa-check lcheck"></i>
+        </div>
+      </div>
+    </div>
     <a href="login.html" class="btn-nav btn-nav-solid ripple-wrap">Log In</a>
     <a href="register.html" class="btn-nav btn-nav-solid ripple-wrap">Get Started</a>
   </div>
@@ -1299,9 +1392,9 @@ strong{font-weight:600}
     <div class="slide s1">
       <div class="slide-body">
         <div class="slide-inner">
-          <div class="hero-badge reveal"><i class="fas fa-shield-halved"></i> Trusted &amp; Regulated Platform</div>
-          <h1 class="reveal reveal-d1">CopyVestPro<span>You Can Trust</span></h1>
-          <p class="hero-sub reveal reveal-d2">We trade on stocks, cryptocurrencies, bonds, futures and commodities with the best financial experts.</p>
+          <div class="hero-badge reveal"><i class="fas fa-shield-halved"></i> <span data-i18n="hero1_badge">Trusted &amp; Regulated Platform</span></div>
+          <h1 class="reveal reveal-d1">CopyVestPro<span data-i18n="hero1_h1">You Can Trust</span></h1>
+          <p class="hero-sub reveal reveal-d2" data-i18n="hero1_sub">We trade on stocks, cryptocurrencies, bonds, futures and commodities with the best financial experts.</p>
           <div class="hero-btns reveal reveal-d3">
             <a href="login.html" class="btn-hero-solid ripple-wrap">Log In</a>
             <a href="register.html" class="btn-hero-outline">Get Started</a>
@@ -1312,9 +1405,9 @@ strong{font-weight:600}
     <div class="slide s2">
       <div class="slide-body">
         <div class="slide-inner">
-          <div class="hero-badge"><i class="fas fa-globe"></i> Operating Worldwide</div>
-          <h1>CopyVestPro<span>We Are Global</span></h1>
-          <p class="hero-sub">We help chart a path to financial wealth thereby challenging businesses to reach higher standards.</p>
+          <div class="hero-badge"><i class="fas fa-globe"></i> <span data-i18n="hero2_badge">Operating Worldwide</span></div>
+          <h1>CopyVestPro<span data-i18n="hero2_h1">We Are Global</span></h1>
+          <p class="hero-sub" data-i18n="hero2_sub">We help chart a path to financial wealth thereby challenging businesses to reach higher standards.</p>
           <div class="hero-btns">
             <a href="login.html" class="btn-hero-solid ripple-wrap">Log In</a>
             <a href="register.html" class="btn-hero-outline">Get Started</a>
@@ -1456,22 +1549,22 @@ strong{font-weight:600}
 <!-- ══ FEATURE BOXES ══ -->
 <section class="features">
   <div class="features-grid">
-    <div class="fbox reveal">
+    <div class="fbox hover-lift reveal">
       <div class="fbox-icon"><i class="fas fa-chart-line" style="color:#c9a84c;font-size:1.55rem"></i></div>
       <h6>Licensed Platform</h6>
       <p>We are a registered and licensed company authorized to operate in any part of the world.</p>
     </div>
-    <div class="fbox reveal reveal-d1">
+    <div class="fbox hover-lift reveal reveal-d1">
       <div class="fbox-icon"><i class="fas fa-eye" style="color:#c9a84c;font-size:1.55rem"></i></div>
       <h6>No Hidden Fees</h6>
       <p>All fees are transparent and are paid through your client area.</p>
     </div>
-    <div class="fbox reveal reveal-d2">
+    <div class="fbox hover-lift reveal reveal-d2">
       <div class="fbox-icon"><i class="fas fa-bolt" style="color:#c9a84c;font-size:1.55rem"></i></div>
       <h6>Instant Trading</h6>
       <p>Once you enrol in any trading plan, your funds are traded instantly yielding you profits.</p>
     </div>
-    <div class="fbox reveal reveal-d3">
+    <div class="fbox hover-lift reveal reveal-d3">
       <div class="fbox-icon"><i class="fas fa-shield-halved" style="color:#c9a84c;font-size:1.55rem"></i></div>
       <h6>Secure &amp; Trusted</h6>
       <p>We use one of the most experienced and trusted DDoS protection and mitigation providers.</p>
@@ -1574,15 +1667,15 @@ strong{font-weight:600}
       <h2 class="section-heading">Trading Plans</h2>
     </div>
     <div class="plans-grid3">
-      <div class="plan-card reveal reveal-d1">
+      <div class="plan-card hover-lift reveal reveal-d1">
         <div class="pc-top"><div class="pc-price"><span class="sup">$</span>500<span class="sub">.00</span></div><div class="pc-name">Starter Auto Plan</div></div>
         <div class="pc-body"><ul class="pc-feats"><li>Stocks / Forex / Crypto</li><li>35% ROI</li><li>Maximum — $9,999</li><li>5% Referral Bonus</li><li>14 Days Contract</li><li>Automatic Payout</li></ul><a href="register.html" class="pc-cta ripple-wrap">Get Started</a></div>
       </div>
-      <div class="plan-card reveal reveal-d2">
+      <div class="plan-card hover-lift reveal reveal-d2">
         <div class="pc-top"><div class="pc-price"><span class="sup">$</span>10,000<span class="sub">.00</span></div><div class="pc-name">Intermediate Auto Plan</div></div>
         <div class="pc-body"><ul class="pc-feats"><li>Stocks / Forex / Crypto</li><li>45% ROI</li><li>Maximum — $49,999</li><li>5% Referral Bonus</li><li>60 Days Contract</li><li>Automatic Payout</li></ul><a href="register.html" class="pc-cta ripple-wrap">Get Started</a></div>
       </div>
-      <div class="plan-card reveal reveal-d3">
+      <div class="plan-card hover-lift reveal reveal-d3">
         <div class="pc-top"><div class="pc-price"><span class="sup">$</span>50,000<span class="sub">.00</span></div><div class="pc-name">Advanced Auto Plan</div></div>
         <div class="pc-body"><ul class="pc-feats"><li>Stocks / Forex / Crypto</li><li>50% ROI</li><li>Maximum — $99,999</li><li>5% Referral Bonus</li><li>99 Days Contract</li><li>Automatic Payout</li></ul><a href="register.html" class="pc-cta ripple-wrap">Get Started</a></div>
       </div>
@@ -1859,7 +1952,7 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="mailto:copyvestpro@gmail.com">copyvestpro@gmail.com</a>
+            <a href="/cdn-cgi/l/email-protection#c3a0acb3bab5a6b0b7b3b1ac83a4aea2aaafeda0acae"><span class="__cf_email__" data-cfemail="8cefe3fcf5fae9fff8fcfee3ccebe1ede5e0a2efe3e1">[email&#160;protected]</span></a>
             <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
           </div>
         </li>
@@ -1949,7 +2042,106 @@ strong{font-weight:600}
 </div>
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+/* ══ LANGUAGE SWITCHER ══ */
+const TRANSLATIONS = {
+  en:{
+    nav_home:'Home',nav_about:'About',nav_faqs:'FAQs',nav_trading:'Trading',nav_contact:'Contact',nav_login:'Log In',nav_started:'Get Started',
+    hero1_badge:'Trusted & Regulated Platform',hero1_h1:'You Can Trust',hero1_sub:'We trade on stocks, cryptocurrencies, bonds, futures and commodities with the best financial experts.',
+    hero2_badge:'Operating Worldwide',hero2_h1:'We Are Global',hero2_sub:'We help chart a path to financial wealth thereby challenging businesses to reach higher standards.',
+    login:'Log In',get_started:'Get Started',
+  },
+  es:{
+    nav_home:'Inicio',nav_about:'Nosotros',nav_faqs:'Preguntas',nav_trading:'Trading',nav_contact:'Contacto',nav_login:'Iniciar sesión',nav_started:'Comenzar',
+    hero1_badge:'Plataforma Confiable y Regulada',hero1_h1:'En Quien Confiar',hero1_sub:'Operamos en acciones, criptomonedas, bonos, futuros y materias primas con los mejores expertos financieros.',
+    hero2_badge:'Operando en Todo el Mundo',hero2_h1:'Somos Globales',hero2_sub:'Trazamos el camino hacia la riqueza financiera, desafiando a las empresas a alcanzar mayores estándares.',
+    login:'Iniciar sesión',get_started:'Comenzar',
+  },
+  fr:{
+    nav_home:'Accueil',nav_about:'À propos',nav_faqs:'FAQ',nav_trading:'Trading',nav_contact:'Contact',nav_login:'Connexion',nav_started:'Commencer',
+    hero1_badge:'Plateforme Fiable et Réglementée',hero1_h1:'En Qui Vous Pouvez Faire Confiance',hero1_sub:'Nous tradons sur les actions, crypto-monnaies, obligations, contrats à terme et matières premières.',
+    hero2_badge:'En Activité dans le Monde Entier',hero2_h1:'Nous Sommes Mondiaux',hero2_sub:'Nous traçons la voie vers la richesse financière en aidant les entreprises à atteindre des normes plus élevées.',
+    login:'Connexion',get_started:'Commencer',
+  },
+  pt:{
+    nav_home:'Início',nav_about:'Sobre',nav_faqs:'Perguntas',nav_trading:'Trading',nav_contact:'Contato',nav_login:'Entrar',nav_started:'Começar',
+    hero1_badge:'Plataforma Confiável e Regulamentada',hero1_h1:'Em Quem Você Pode Confiar',hero1_sub:'Negociamos em ações, criptomoedas, títulos, futuros e commodities com os melhores especialistas financeiros.',
+    hero2_badge:'Operando em Todo o Mundo',hero2_h1:'Somos Globais',hero2_sub:'Ajudamos a traçar o caminho para a riqueza financeira, desafiando empresas a alcançar padrões mais elevados.',
+    login:'Entrar',get_started:'Começar',
+  },
+  ar:{
+    nav_home:'الرئيسية',nav_about:'من نحن',nav_faqs:'الأسئلة',nav_trading:'التداول',nav_contact:'اتصل بنا',nav_login:'تسجيل الدخول',nav_started:'ابدأ الآن',
+    hero1_badge:'منصة موثوقة ومنظمة',hero1_h1:'يمكنك الوثوق بها',hero1_sub:'نتداول في الأسهم والعملات المشفرة والسندات والعقود الآجلة والسلع مع أفضل الخبراء الماليين.',
+    hero2_badge:'نعمل في جميع أنحاء العالم',hero2_h1:'نحن عالميون',hero2_sub:'نساعد في رسم مسار نحو الثروة المالية مما يدفع الشركات للوصول إلى معايير أعلى.',
+    login:'تسجيل الدخول',get_started:'ابدأ الآن',
+  },
+  zh:{
+    nav_home:'首页',nav_about:'关于',nav_faqs:'常见问题',nav_trading:'交易',nav_contact:'联系',nav_login:'登录',nav_started:'立即开始',
+    hero1_badge:'值得信赖的受监管平台',hero1_h1:'您可以信赖的选择',hero1_sub:'我们与顶级金融专家在股票、加密货币、债券、期货和大宗商品市场进行交易。',
+    hero2_badge:'全球运营',hero2_h1:'我们是全球性的',hero2_sub:'我们帮助规划通往财富的道路，推动企业达到更高标准。',
+    login:'登录',get_started:'立即开始',
+  },
+  hi:{
+    nav_home:'होम',nav_about:'हमारे बारे में',nav_faqs:'सवाल-जवाब',nav_trading:'ट्रेडिंग',nav_contact:'संपर्क',nav_login:'लॉग इन',nav_started:'शुरू करें',
+    hero1_badge:'विश्वसनीय और विनियमित प्लेटफ़ॉर्म',hero1_h1:'जिस पर आप भरोसा कर सकते हैं',hero1_sub:'हम सर्वश्रेष्ठ वित्तीय विशेषज्ञों के साथ शेयर, क्रिप्टो, बॉन्ड, फ्यूचर्स और कमोडिटी में व्यापार करते हैं।',
+    hero2_badge:'विश्वभर में संचालित',hero2_h1:'हम वैश्विक हैं',hero2_sub:'हम वित्तीय समृद्धि का मार्ग प्रशस्त करते हैं और व्यवसायों को उच्च मानकों तक पहुँचने में मदद करते हैं।',
+    login:'लॉग इन',get_started:'शुरू करें',
+  },
+  ru:{
+    nav_home:'Главная',nav_about:'О нас',nav_faqs:'Вопросы',nav_trading:'Торговля',nav_contact:'Контакт',nav_login:'Войти',nav_started:'Начать',
+    hero1_badge:'Надёжная и Регулируемая Платформа',hero1_h1:'Которой Можно Доверять',hero1_sub:'Мы торгуем акциями, криптовалютами, облигациями, фьючерсами и товарами с лучшими финансовыми экспертами.',
+    hero2_badge:'Работаем по всему миру',hero2_h1:'Мы Глобальны',hero2_sub:'Мы прокладываем путь к финансовому благополучию, помогая бизнесу достигать высоких стандартов.',
+    login:'Войти',get_started:'Начать',
+  },
+};
+
+function toggleLang(e){
+  e.stopPropagation();
+  const dd = document.getElementById('langDropdown');
+  const btn = document.getElementById('langBtn');
+  const open = dd.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+
+function setLang(code, flag, label){
+  localStorage.setItem('cvp_lang', code);
+  document.getElementById('langFlag').textContent = flag;
+  document.getElementById('langCode').textContent = label;
+  document.querySelectorAll('.lang-option').forEach(o => {
+    o.classList.toggle('active', (o.getAttribute('onclick')||'').includes("'"+code+"'"));
+  });
+  document.getElementById('langDropdown').classList.remove('open');
+  document.getElementById('langBtn').classList.remove('open');
+  const t = TRANSLATIONS[code] || TRANSLATIONS.en;
+  const keys = ['nav_home','nav_about','nav_faqs','nav_trading','nav_contact'];
+  document.querySelectorAll('.nav-links a').forEach((a,i) => { if(keys[i]) a.textContent = t[keys[i]]; });
+  document.querySelectorAll('a[href="login.html"]').forEach(a => { if(a.textContent.trim()) a.textContent = t.nav_login; });
+  document.querySelectorAll('a[href="register.html"]').forEach(a => { if(a.textContent.trim()) a.textContent = t.nav_started; });
+  // Translate all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(t[key]) el.textContent = t[key];
+  });
+  // RTL support for Arabic
+  document.documentElement.setAttribute('dir', code === 'ar' ? 'rtl' : 'ltr');
+  document.documentElement.setAttribute('lang', code);
+}
+
+document.addEventListener('click', () => {
+  document.getElementById('langDropdown')?.classList.remove('open');
+  document.getElementById('langBtn')?.classList.remove('open');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('cvp_lang');
+  if(saved && saved !== 'en'){
+    document.querySelectorAll('.lang-option').forEach(o => {
+      if((o.getAttribute('onclick')||'').includes("'"+saved+"'")) o.click();
+    });
+  }
+});
+
+</script><script>
 /* ── PRELOADER ── */
 const _hidePreloader=()=>{const p=document.getElementById('preloader');if(p&&!p.classList.contains('gone'))p.classList.add('gone')};
 document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,920));
@@ -2011,11 +2203,90 @@ document.addEventListener('click',function(e){
   setTimeout(()=>r.remove(),650);
 });
 
-/* ── SCROLL REVEAL ── */
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}});
-},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+/* ── SCROLL REVEAL (all directions) ── */
+const revealClasses = ['.reveal','.reveal-left','.reveal-right','.reveal-scale'];
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      ro.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealClasses.forEach(cls => document.querySelectorAll(cls).forEach(el => ro.observe(el)));
+
+/* ── NUMBER COUNTER ANIMATION ── */
+function animateCounter(el){
+  const target = parseFloat(el.dataset.target || el.textContent.replace(/[^0-9.]/g,''));
+  const suffix = el.dataset.suffix || el.textContent.replace(/[0-9.,]/g,'');
+  const prefix = el.dataset.prefix || '';
+  const decimals = el.dataset.decimals || 0;
+  const duration = 1800;
+  const start = performance.now();
+  function update(now){
+    const elapsed = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - elapsed, 3); // ease-out-cubic
+    const val = (target * eased).toFixed(decimals);
+    el.textContent = prefix + parseFloat(val).toLocaleString() + suffix;
+    if(elapsed < 1) requestAnimationFrame(update);
+    else { el.textContent = prefix + target.toLocaleString() + suffix; el.classList.add('stat-glow'); }
+  }
+  requestAnimationFrame(update);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      animateCounter(e.target);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => counterObs.observe(el));
+
+/* ── STAGGER CHILDREN ON REVEAL ── */
+document.querySelectorAll('[data-stagger]').forEach(parent => {
+  const children = parent.children;
+  Array.from(children).forEach((child, i) => {
+    child.classList.add('reveal');
+    child.style.transitionDelay = (i * 0.1) + 's';
+    ro.observe(child);
+  });
+});
+
+/* ── SMOOTH PAGE TRANSITION ── */
+const overlay = document.createElement('div');
+overlay.className = 'page-transition-overlay';
+document.body.appendChild(overlay);
+document.querySelectorAll('a[href]').forEach(a => {
+  const href = a.getAttribute('href');
+  if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || a.target === '_blank') return;
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    overlay.classList.add('in');
+    setTimeout(() => window.location.href = href, 380);
+  });
+});
+window.addEventListener('pageshow', () => {
+  overlay.classList.remove('in');
+});
+
+/* ── HERO HEADING WORD-BY-WORD ANIMATION ── */
+document.querySelectorAll('.hero h1').forEach(h1 => {
+  const words = h1.innerHTML.split(/(\s+)/);
+  h1.innerHTML = words.map((w, i) => {
+    if(w.trim() === '' || w.startsWith('<')) return w;
+    return `<span class="hero-word" style="animation-delay:${0.1 + i*0.06}s">${w}</span>`;
+  }).join('');
+});
+
+/* ── NAVBAR PROGRESS BAR ── */
+const progressBar = document.createElement('div');
+progressBar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));z-index:9999;width:0;transition:width .1s linear;pointer-events:none';
+document.body.appendChild(progressBar);
+window.addEventListener('scroll', () => {
+  const scrolled = (scrollY / (document.body.scrollHeight - innerHeight)) * 100;
+  progressBar.style.width = scrolled + '%';
+});
 
 /* ── FOOTER SOCIALS ── */
 document.querySelectorAll('.fsoc').forEach(s=>{
@@ -2253,14 +2524,4 @@ backBtn.addEventListener('click',()=>{
   }
 
   // Mount trending widget immediately
-  loaded.trending = true;
-  mountTradingView(wraps.trending, configs.trending.src, configs.trending.cfg);
-
-  // Wire tab clicks
-  btns.forEach(b => {
-    b.addEventListener('click', () => activate(b.dataset.mtab));
-  });
-})();
-</script>
-</body>
-</html>
+  loa
