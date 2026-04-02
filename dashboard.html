@@ -1039,20 +1039,29 @@ function renderOverview(d){
   // Investment status
   if(d.active_investments > 0 && d.investments){
     $('investmentStatus').innerHTML = d.investments.slice(0,2).map(inv => {
-      const pct = Math.min(100, ((inv.funded_total||inv.principal)/inv.plan_min_deposit)*100);
-      const st  = inv.status==='active'?'badge-green':'badge-amber';
-      return `<div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-          <span style="font-weight:600;font-size:15px">${inv.plan_name||'Investment'}</span>
-          <span class="badge ${st}">${inv.status}</span>
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-info"><span>${fmt(inv.funded_total||inv.principal)} funded</span><span>${fmt(inv.plan_min_deposit)} goal</span></div>
-          <div class="progress-track"><div class="progress-fill ${pct>=100?'complete':''}" style="width:${pct}%"></div></div>
-        </div>
-        <div style="font-size:13px;color:var(--muted);margin-top:6px">${inv.monthly_roi}% ROI/mo &middot; Next accrual: ${fmtDate(inv.next_accrual_date)}</div>
-        ${inv.status!=='active' && pct<100 ? `<button onclick="nav('fund',null);setTimeout(()=>{setAmt(${Math.max(0,parseFloat(inv.plan_min_deposit||0)-parseFloat(inv.funded_total||inv.principal||0))})},120)" style="margin-top:10px;width:100%;padding:10px 14px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fde68a;border-radius:10px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:space-between;transition:all .2s" onmouseover="this.style.borderColor='#d97706'" onmouseout="this.style.borderColor='#fde68a'"><div style="text-align:left"><div style="font-size:16px;font-weight:800;color:#d97706">${fmt(Math.max(0,parseFloat(inv.plan_min_deposit||0)-parseFloat(inv.funded_total||inv.principal||0)))}</div><div style="font-size:11px;color:#92400e;font-weight:600">Tap to fund and activate</div></div><div style="width:32px;height:32px;background:#d97706;border-radius:8px;display:flex;align-items:center;justify-content:center"><i class="fas fa-arrow-right" style="color:#fff;font-size:12px"></i></div></button>` : ''}
-      </div>\`;
+      const funded    = parseFloat(inv.funded_total||inv.principal||0);
+      const target    = parseFloat(inv.plan_min_deposit||1);
+      const pct       = Math.min(100, (funded/target)*100);
+      const isActive  = inv.status==='active' || pct>=100;
+      const remaining = Math.max(0, target - funded);
+      const st        = isActive ? 'badge-green' : 'badge-amber';
+      let out = '<div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">';
+      out += '<div style="display:flex;justify-content:space-between;margin-bottom:8px">';
+      out += '<span style="font-weight:600;font-size:15px">' + (inv.plan_name||'Investment') + '</span>';
+      out += '<span class="badge ' + st + '">' + (isActive ? 'Active' : 'Pending') + '</span></div>';
+      out += '<div class="progress-wrap"><div class="progress-info"><span>' + fmt(funded) + ' funded</span><span>' + fmt(target) + ' goal</span></div>';
+      out += '<div class="progress-track"><div class="progress-fill ' + (pct>=100?'complete':'') + '" style="width:' + pct.toFixed(1) + '%"></div></div></div>';
+      out += '<div style="font-size:13px;color:var(--muted);margin-top:6px">' + inv.monthly_roi + '% ROI/mo</div>';
+      if(!isActive && remaining > 0){
+        out += '<button onclick="fundRemaining(' + remaining + ','+ JSON.stringify(inv.plan_id||'') +')" ';
+        out += 'style="margin-top:10px;width:100%;padding:11px 14px;background:#fffbeb;border:1.5px solid #fde68a;border-radius:10px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:space-between">';
+        out += '<div><div style="font-size:16px;font-weight:800;color:#d97706">' + fmt(remaining) + '</div>';
+        out += '<div style="font-size:11px;color:#92400e;font-weight:600">Tap to fund remaining and activate</div></div>';
+        out += '<div style="width:30px;height:30px;background:#d97706;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">';
+        out += '<i class="fas fa-arrow-right" style="color:#fff;font-size:11px"></i></div></button>';
+      }
+      out += '</div>';
+      return out;
     }).join('');
   }
 }
