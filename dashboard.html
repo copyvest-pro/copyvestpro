@@ -464,8 +464,8 @@ tbody tr:hover{background:var(--bg)}
       <div class="grid-2-1" style="margin-bottom:22px">
         <!-- ACTIVE PLAN STATUS -->
         <div class="card">
-          <div class="card-title">Investment Status</div>
-          <div class="card-sub">Your active plan and funding progress</div>
+          <div class="card-title"><span data-i18n="card_inv_status">Investment Status</span></div>
+          <div class="card-sub"><span data-i18n="card_inv_sub">Your active plan and funding progress</span></div>
           <div id="investmentStatus">
             <div class="empty"><i class="fas fa-chart-pie"></i><p>No active investments yet.<br><a href="#" onclick="nav('fund',null)" style="color:var(--gold-d);font-weight:600">Invest now</a> to get started.</p></div>
           </div>
@@ -473,7 +473,7 @@ tbody tr:hover{background:var(--bg)}
 
         <!-- QUICK ACTIONS -->
         <div class="card">
-          <div class="card-title">Quick Actions</div>
+          <div class="card-title"><span data-i18n="card_quick_actions">Quick Actions</span></div>
           <div class="card-sub">What would you like to do?</div>
           <div style="display:flex;flex-direction:column;gap:10px">
             <button class="btn btn-gold btn-full" onclick="nav('fund',null)"><i class="fas fa-wallet"></i> Invest Now</button>
@@ -484,7 +484,7 @@ tbody tr:hover{background:var(--bg)}
           </div>
           <!-- Next payout -->
           <div style="margin-top:18px;padding:12px;background:var(--gold-pale);border-radius:var(--r-sm);border:1px solid var(--gold-border)">
-            <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px">Next Payout Window</div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px"><span data-i18n="lbl_next_payout">Next Payout Window</span></div>
             <div id="nextPayout" style="font-size:15px;font-weight:600;color:var(--ink)">—</div>
           </div>
         </div>
@@ -494,7 +494,7 @@ tbody tr:hover{background:var(--bg)}
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
           <div>
-            <div class="card-title">Recent Activity</div>
+            <div class="card-title"><span data-i18n="card_activity">Recent Activity</span></div>
             <div class="card-sub" style="margin-bottom:0">Deposits, withdrawals and profit credits</div>
           </div>
           <button class="btn btn-ghost btn-sm" onclick="nav('transactions',null)">View All <i class="fas fa-arrow-right"></i></button>
@@ -517,7 +517,7 @@ tbody tr:hover{background:var(--bg)}
         <!-- FUND FORM -->
         <div>
           <div class="card" style="margin-bottom:18px">
-            <div class="card-title">Select Trading Plan</div>
+            <div class="card-title"><span data-i18n="card_select_plan">Select Trading Plan</span></div>
             <div class="card-sub">Choose a plan to begin funding. The plan activates when the minimum is reached.</div>
             <div id="planCards" class="grid-2" style="margin-top:4px"></div>
           </div>
@@ -585,7 +585,7 @@ tbody tr:hover{background:var(--bg)}
         <div>
           <!-- FUNDING PROGRESS -->
           <div class="card" style="margin-bottom:18px">
-            <div class="card-title">Funding Progress</div>
+            <div class="card-title"><span data-i18n="card_funding_progress">Funding Progress</span></div>
             <div class="card-sub">Track how close you are to activating your plan</div>
             <div id="fundingProgress">
               <div class="empty" style="padding:28px 0"><i class="fas fa-chart-pie"></i><p>Select a plan to see progress</p></div>
@@ -594,7 +594,7 @@ tbody tr:hover{background:var(--bg)}
 
           <!-- DEPOSIT HISTORY -->
           <div class="card">
-            <div class="card-title">Deposit History</div>
+            <div class="card-title"><span data-i18n="card_deposit_history">Deposit History</span></div>
             <div class="card-sub">Your recent deposit requests</div>
             <div id="depositHistoryWrap">
               <div class="empty"><i class="fas fa-inbox"></i><p>No deposits yet</p></div>
@@ -674,7 +674,7 @@ tbody tr:hover{background:var(--bg)}
     <div class="page" id="page-withdraw">
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Withdraw Funds</div>
+          <div class="card-title"><span data-i18n="card_withdraw">Withdraw Funds</span></div>
           <div class="card-sub">Submit a withdrawal request. Admin processes within 24 hours.</div>
           <div class="alert alert-warn on" style="margin-bottom:18px"><i class="fas fa-circle-info"></i> Withdrawals are processed manually. Only available balance can be withdrawn.</div>
 
@@ -703,7 +703,7 @@ tbody tr:hover{background:var(--bg)}
         </div>
 
         <div class="card">
-          <div class="card-title">Withdrawal History</div>
+          <div class="card-title"><span data-i18n="card_withdraw_history">Withdrawal History</span></div>
           <div class="card-sub">Track your withdrawal requests</div>
           <div id="withdrawHistoryWrap">
             <div class="empty"><i class="fas fa-inbox"></i><p>No withdrawals yet</p></div>
@@ -750,7 +750,7 @@ tbody tr:hover{background:var(--bg)}
     <div class="page" id="page-profile">
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Update Profile</div>
+          <div class="card-title"><span data-i18n="card_profile">Update Profile</span></div>
           <div class="card-sub">Keep your account information up to date</div>
           <div class="f-grp"><label class="f-lbl">Full Name</label><input type="text" class="f-inp" id="pName" placeholder="Your name"></div>
           <div class="f-grp"><label class="f-lbl">Phone</label><input type="text" class="f-inp" id="pPhone" placeholder="+1 234 567 8900"></div>
@@ -759,7 +759,7 @@ tbody tr:hover{background:var(--bg)}
           <button class="btn btn-gold btn-full" onclick="updateProfile()"><i class="fas fa-save"></i> Save Changes</button>
         </div>
         <div class="card">
-          <div class="card-title">Change Password</div>
+          <div class="card-title"><span data-i18n="card_password">Change Password</span></div>
           <div class="card-sub">Use a strong password of at least 8 characters</div>
           <div class="f-grp"><label class="f-lbl">Current Password</label><input type="password" class="f-inp" id="pwCur" placeholder="••••••••"></div>
           <div class="f-grp"><label class="f-lbl">New Password</label><input type="password" class="f-inp" id="pwNew" placeholder="••••••••"></div>
@@ -963,16 +963,23 @@ async function loadDashboard(){
     loadWithdrawals();
     loadTransactions();
     loadPlans();
+    // Re-apply translation after dynamic content renders
+    setTimeout(function(){ i18nApply(i18nLang()); }, 100);
   } catch(e){ console.error('dashboard:', e); }
 }
 
 /* ═══════════ RENDER OVERVIEW ═══════════ */
 function renderOverview(d){
-  // principal_balance = funded capital, profit_balance = earned profits
-  $('ov-balance').textContent    = fmt((parseFloat(d.principal_balance||0)+parseFloat(d.profit_balance||0)));
-  $('ov-profit').textContent     = fmt(d.profit_balance||0);
-  $('ov-deposited').textContent  = fmt(d.total_deposited||0);
-  $('ov-investments').textContent= d.active_investments||0;
+  // Null-safe parsing — handles legacy users with missing fields
+  const profitBal    = parseFloat(d.profit_balance    || d.total_profit        || 0);
+  const principalBal = parseFloat(d.principal_balance || d.available_balance   || 0);
+  const totalDep     = parseFloat(d.total_deposited   || 0);
+  const totalBal     = principalBal + profitBal;
+
+  $('ov-balance').textContent     = fmt(totalBal > 0 ? totalBal : (parseFloat(d.available_balance||0)));
+  $('ov-profit').textContent      = fmt(profitBal);
+  $('ov-deposited').textContent   = fmt(totalDep);
+  $('ov-investments').textContent = d.active_investments || 0;
 
   // Status bar
   const total = parseFloat(d.principal_balance||0) + parseFloat(d.profit_balance||0);
@@ -1256,7 +1263,7 @@ async function updateProfit(){
     const r = await af('/api/user/dashboard');
     if(!r.ok) return;
     const d = await r.json();
-    const profit = parseFloat(d.profit_balance||0);
+    const profit = parseFloat(d.profit_balance || d.total_profit || 0);
     $('ov-profit').textContent = fmt(profit);
     $('profitUpdatedAt').textContent = 'Updated ' + new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
     dashData = d;
@@ -1587,6 +1594,8 @@ function nav(pageId, btn){
 
   // Close sidebar on mobile
   if(window.innerWidth<=768) closeSidebar();
+  // Re-apply translation for any newly visible static [data-i18n] elements
+  i18nApply(i18nLang());
 }
 
 /* ═══════════ SIDEBAR TOGGLE ═══════════ */
@@ -1725,6 +1734,16 @@ const CVP_LANGS = [
 const CVP_T = {
   en: {
     nav_overview:'Overview', nav_invest:'Invest', nav_markets:'Markets',
+    card_inv_status:'Investment Status', card_inv_sub:'Your active plan and funding progress',
+    card_quick_actions:'Quick Actions', card_activity:'Recent Activity',
+    lbl_next_payout:'Next Payout Window',
+    card_select_plan:'Select Trading Plan', card_make_investment:'Make Your Investment',
+    card_funding_progress:'Funding Progress', card_deposit_history:'Deposit History',
+    card_withdraw:'Withdraw Funds', card_withdraw_history:'Withdrawal History',
+    card_profile:'Update Profile', card_password:'Change Password',
+    btn_invest_now:'Invest Now', btn_top_up:'Top Up Investment',
+    btn_withdraw_funds:'Withdraw Funds', btn_view_markets:'View Markets',
+    btn_copy_traders:'Copy Traders',
     nav_traders:'Copy Traders', nav_portfolio:'Watch Portfolio',
     nav_withdraw:'Withdraw', nav_transactions:'Transactions',
     nav_referral:'Referral', nav_profile:'Profile',
@@ -1802,7 +1821,7 @@ const CVP_T = {
     card_activity:'Activité Récente', card_invest:'Faire un Investissement',
     btn_invest:'Investir', btn_topup:'Recharger',
     btn_withdraw:'Retirer', btn_markets:'Voir Marchés',
-    next_payout:'Prochain Paiement', empty_invest:'Pas d'investissements actifs.',
+    next_payout:'Prochain Paiement', empty_invest:"Pas d'investissements actifs.",
     pending_badge:'En attente', active_badge:'Actif',
   },
   ar: {
@@ -1956,7 +1975,7 @@ const CVP_T = {
   ha: {
     nav_overview:'Bayanai', nav_invest:'Saka Jari', nav_markets:'Kasuwanci',
     nav_traders:'Yan Kasuwanci', nav_portfolio:'Jerin Jari',
-    nav_withdraw:'Cire Kudi', nav_transactions:'Ma'amaloli',
+    nav_withdraw:'Cire Kudi', nav_transactions:'Ma\u2019amaloli',
     nav_referral:'Kira Aboki', nav_profile:'Bayanin Kai',
     grp_main:'Babban Menu', grp_finance:'Kuɗi', grp_account:'Asusun',
     stat_balance:'Kuɗin da Ake da shi', stat_profit:'Riba Gaba ɗaya',

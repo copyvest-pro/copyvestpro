@@ -261,7 +261,7 @@ a{text-decoration:none;color:inherit}
         <div class="alert alert-err" id="regAlert"></div>
 
         <div class="f-grp">
-          <label class="f-lbl">Full Name</label>
+          <label class="f-lbl">data-i18n="fname">Full Name</label>
           <div class="f-wrap">
             <i class="fas fa-user f-ico"></i>
             <input type="text" class="f-inp" id="fullName" placeholder="John Doe" autocomplete="name">
@@ -349,7 +349,7 @@ a{text-decoration:none;color:inherit}
         </button>
 
         <div class="form-foot">
-          Already have an account? <a href="login.html">Sign in →</a>
+          <span data-i18n="has_acc">Already have an account?</span> <a href="login.html">Sign in →</a>
         </div>
       </div>
 
@@ -484,5 +484,109 @@ function markErr(id) {
   el.addEventListener('input', () => el.classList.remove('err'), { once: true });
 }
 </script>
+
+<script>
+/* ── Shared language persistence for login/register ── */
+(function(){
+  var T={
+    en:{title:'Welcome Back',sub:'Sign in to your CopyVestPro account',
+        email:'Email Address',pw:'Password',btn:'Sign In',
+        no_acc:"Don't have an account?",register:'Create Account',
+        forgot:'Forgot password?',
+        rtitle:'Create Your Account',rsub:'Join CopyVestPro and start investing',
+        fname:'Full Name',phone:'Phone Number',country:'Select your country...',
+        confirm:'Confirm Password',terms:'I agree to the',tos:'Terms of Service',
+        rbtn:'Create My Account',has_acc:'Already have an account?',login:'Sign In'},
+    es:{title:'Bienvenido de nuevo',sub:'Inicia sesion en tu cuenta CopyVestPro',
+        email:'Correo electronico',pw:'Contrasena',btn:'Iniciar sesion',
+        no_acc:'No tienes cuenta?',register:'Crear cuenta',forgot:'Olvide mi contrasena',
+        rtitle:'Crear cuenta',rsub:'Unete a CopyVestPro y empieza a invertir',
+        fname:'Nombre completo',phone:'Numero de telefono',country:'Selecciona tu pais...',
+        confirm:'Confirmar contrasena',terms:'Acepto los',tos:'Terminos de servicio',
+        rbtn:'Crear mi cuenta',has_acc:'Ya tienes cuenta?',login:'Iniciar sesion'},
+    fr:{title:'Bon retour',sub:'Connectez-vous a votre compte CopyVestPro',
+        email:'Adresse e-mail',pw:'Mot de passe',btn:'Se connecter',
+        no_acc:"Pas de compte?",register:'Creer un compte',forgot:'Mot de passe oublie',
+        rtitle:'Creer votre compte',rsub:'Rejoignez CopyVestPro et commencez a investir',
+        fname:'Nom complet',phone:'Numero de telephone',country:'Selectionnez votre pays...',
+        confirm:'Confirmer le mot de passe',terms:"J'accepte les",tos:'Conditions d utilisation',
+        rbtn:'Creer mon compte',has_acc:'Deja un compte?',login:'Se connecter'},
+    pt:{title:'Bem-vindo de volta',sub:'Entre na sua conta CopyVestPro',
+        email:'Endereco de e-mail',pw:'Senha',btn:'Entrar',
+        no_acc:'Nao tem conta?',register:'Criar conta',forgot:'Esqueci a senha',
+        rtitle:'Criar sua conta',rsub:'Junte-se ao CopyVestPro e comece a investir',
+        fname:'Nome completo',phone:'Numero de telefone',country:'Selecione seu pais...',
+        confirm:'Confirmar senha',terms:'Concordo com os',tos:'Termos de servico',
+        rbtn:'Criar minha conta',has_acc:'Ja tem conta?',login:'Entrar'},
+    ar:{title:'مرحبا بعودتك',sub:'سجل الدخول الى حسابك في CopyVestPro',
+        email:'البريد الالكتروني',pw:'كلمة المرور',btn:'تسجيل الدخول',
+        no_acc:'ليس لديك حساب؟',register:'انشاء حساب',forgot:'نسيت كلمة المرور',
+        rtitle:'انشاء حسابك',rsub:'انضم الى CopyVestPro وابدا الاستثمار',
+        fname:'الاسم الكامل',phone:'رقم الهاتف',country:'اختر دولتك...',
+        confirm:'تاكيد كلمة المرور',terms:'اوافق على',tos:'شروط الخدمة',
+        rbtn:'انشاء حسابي',has_acc:'لديك حساب بالفعل؟',login:'تسجيل الدخول'},
+    zh:{title:'欢迎回来',sub:'登录您的 CopyVestPro 账户',
+        email:'电子邮件',pw:'密码',btn:'登录',
+        no_acc:'没有账户？',register:'注册',forgot:'忘记密码',
+        rtitle:'创建账户',rsub:'加入 CopyVestPro 开始投资',
+        fname:'全名',phone:'电话号码',country:'选择您的国家...',
+        confirm:'确认密码',terms:'我同意',tos:'服务条款',
+        rbtn:'创建我的账户',has_acc:'已有账户？',login:'登录'},
+    hi:{title:'वापस स्वागत है',sub:'अपने CopyVestPro खाते में साइन इन करें',
+        email:'ईमेल पता',pw:'पासवर्ड',btn:'साइन इन करें',
+        no_acc:'खाता नहीं है?',register:'खाता बनाएं',forgot:'पासवर्ड भूल गए',
+        rtitle:'अपना खाता बनाएं',rsub:'CopyVestPro से जुड़ें और निवेश शुरू करें',
+        fname:'पूरा नाम',phone:'फोन नंबर',country:'अपना देश चुनें...',
+        confirm:'पासवर्ड की पुष्टि करें',terms:'मैं सहमत हूं',tos:'सेवा की शर्तें',
+        rbtn:'मेरा खाता बनाएं',has_acc:'पहले से खाता है?',login:'साइन इन करें'},
+    ru:{title:'С возвращением',sub:'Войдите в свой аккаунт CopyVestPro',
+        email:'Электронная почта',pw:'Пароль',btn:'Войти',
+        no_acc:'Нет аккаунта?',register:'Создать аккаунт',forgot:'Забыли пароль',
+        rtitle:'Создать аккаунт',rsub:'Присоединяйтесь к CopyVestPro',
+        fname:'Полное имя',phone:'Номер телефона',country:'Выберите страну...',
+        confirm:'Подтвердите пароль',terms:'Я согласен с',tos:'Условиями использования',
+        rbtn:'Создать мой аккаунт',has_acc:'Уже есть аккаунт?',login:'Войти'},
+    yo:{title:'Kaaboo pada',sub:'Wole si akanti CopyVestPro re',
+        email:'Adiresi imeeli',pw:'Oopasweed',btn:'Wole',
+        no_acc:'Ko ni akanti?',register:'Ṣẹda akanti',forgot:'Gbagbe oopasweed',
+        rtitle:'Ṣẹda Akanti Rẹ',rsub:'Darapọ mọ CopyVestPro ki o bẹrẹ idoko-owo',
+        fname:'Orukọ kikun',phone:'Nọmba foonu',country:'Yan orilẹ-ede rẹ...',
+        confirm:'Jẹrisi oopasweed',terms:'Mo gba',tos:'Awọn ofin iṣẹ',
+        rbtn:'Ṣẹda akanti mi',has_acc:'Ti ni akanti?',login:'Wole'},
+    ig:{title:'Nnọọ azụ',sub:'Banye na akaụntụ CopyVestPro gị',
+        email:'Adreesị ozi-e',pw:'Okwuntughe',btn:'Banye',
+        no_acc:'Enweghị akaụntụ?',register:'Mepụta akaụntụ',forgot:'Chefuo okwuntughe',
+        rtitle:'Mepụta Akaụntụ Gị',rsub:'Sonye CopyVestPro ma bido itinye ego',
+        fname:'Aha zuru oke',phone:'Nọmba ekwentị',country:'Họrọ mpaghara gị...',
+        confirm:'Kwenye okwuntughe',terms:'Ekwenyere m na',tos:'Iwu ọrụ',
+        rbtn:'Mepụta akaụntụ m',has_acc:'Nwere akaụntụ?',login:'Banye'},
+    ha:{title:'Barka da dawowa',sub:'Shiga asusun CopyVestPro naka',
+        email:'Adireshin imel',pw:'Kalmar sirri',btn:'Shiga',
+        no_acc:'Ba ka da asusun?',register:'Kirkira asusun',forgot:'Na manta kalmar sirri',
+        rtitle:'Kirkira Asusunka',rsub:'Shiga CopyVestPro ka fara zuba jari',
+        fname:'Cikakken suna',phone:'Lambar wayar salula',country:'Zabi kasarka...',
+        confirm:'Tabbatar da kalmar sirri',terms:'Na yarda da',tos:'Sharuddan sabis',
+        rbtn:'Kirkira asusuna',has_acc:'Kana da asusun?',login:'Shiga'},
+  };
+  var code=localStorage.getItem('cvp_lang')||'en';
+  var t=T[code]||T.en;
+  document.documentElement.dir=(code==='ar')?'rtl':'ltr';
+  document.documentElement.lang=code;
+  // Apply to any [data-i18n] elements on this page
+  document.addEventListener('DOMContentLoaded',function(){
+    var code2=localStorage.getItem('cvp_lang')||'en';
+    var t2=T[code2]||T.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k=el.getAttribute('data-i18n');
+      if(t2[k]) el.textContent=t2[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var k=el.getAttribute('data-i18n-ph');
+      if(t2[k]) el.placeholder=t2[k];
+    });
+  });
+})();
+</script>
 </body>
+
 </html>
