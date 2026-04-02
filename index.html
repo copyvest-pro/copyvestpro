@@ -92,9 +92,6 @@ strong{font-weight:600}
   transition:opacity .7s var(--ease),visibility .7s var(--ease);
 }
 #preloader.gone{opacity:0;visibility:hidden;pointer-events:none}
-/* CSS nuclear fallback — forces preloader off after 3s no matter what */
-@keyframes forceHide{0%,80%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden;pointer-events:none;display:none}}
-#preloader{animation:forceHide 3s ease forwards}
 .pre-wrap{display:flex;flex-direction:column;align-items:center;gap:26px}
 .pre-ring{position:relative;width:84px;height:84px;display:flex;align-items:center;justify-content:center}
 .pre-ring::before{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(201,168,76,.1)}
@@ -1395,9 +1392,9 @@ strong{font-weight:600}
     <div class="slide s1">
       <div class="slide-body">
         <div class="slide-inner">
-          <div class="hero-badge reveal"><i class="fas fa-shield-halved"></i> <span data-i18n="hero1_badge">Trusted &amp; Regulated Platform</span></div>
-          <h1 class="reveal reveal-d1">CopyVestPro<span data-i18n="hero1_h1">You Can Trust</span></h1>
-          <p class="hero-sub reveal reveal-d2" data-i18n="hero1_sub">We trade on stocks, cryptocurrencies, bonds, futures and commodities with the best financial experts.</p>
+          <div class="hero-badge reveal"><i class="fas fa-shield-halved"></i> Trusted &amp; Regulated Platform</div>
+          <h1 class="reveal reveal-d1">CopyVestPro<span>You Can Trust</span></h1>
+          <p class="hero-sub reveal reveal-d2">We trade on stocks, cryptocurrencies, bonds, futures and commodities with the best financial experts.</p>
           <div class="hero-btns reveal reveal-d3">
             <a href="login.html" class="btn-hero-solid ripple-wrap">Log In</a>
             <a href="register.html" class="btn-hero-outline">Get Started</a>
@@ -1408,9 +1405,9 @@ strong{font-weight:600}
     <div class="slide s2">
       <div class="slide-body">
         <div class="slide-inner">
-          <div class="hero-badge"><i class="fas fa-globe"></i> <span data-i18n="hero2_badge">Operating Worldwide</span></div>
-          <h1>CopyVestPro<span data-i18n="hero2_h1">We Are Global</span></h1>
-          <p class="hero-sub" data-i18n="hero2_sub">We help chart a path to financial wealth thereby challenging businesses to reach higher standards.</p>
+          <div class="hero-badge"><i class="fas fa-globe"></i> Operating Worldwide</div>
+          <h1>CopyVestPro<span>We Are Global</span></h1>
+          <p class="hero-sub">We help chart a path to financial wealth thereby challenging businesses to reach higher standards.</p>
           <div class="hero-btns">
             <a href="login.html" class="btn-hero-solid ripple-wrap">Log In</a>
             <a href="register.html" class="btn-hero-outline">Get Started</a>
@@ -2120,13 +2117,6 @@ function setLang(code, flag, label){
   document.querySelectorAll('.nav-links a').forEach((a,i) => { if(keys[i]) a.textContent = t[keys[i]]; });
   document.querySelectorAll('a[href="login.html"]').forEach(a => { if(a.textContent.trim()) a.textContent = t.nav_login; });
   document.querySelectorAll('a[href="register.html"]').forEach(a => { if(a.textContent.trim()) a.textContent = t.nav_started; });
-  // Translate all data-i18n elements
-  try {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if(t[key]) el.textContent = t[key];
-    });
-  } catch(e) { console.warn('i18n error:', e); }
   // RTL support for Arabic
   document.documentElement.setAttribute('dir', code === 'ar' ? 'rtl' : 'ltr');
   document.documentElement.setAttribute('lang', code);
@@ -2148,17 +2138,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script><script>
 /* ── PRELOADER ── */
-const _hidePreloader=()=>{
-  try{
-    const p=document.getElementById('preloader');
-    if(p){ p.style.opacity='0'; p.style.visibility='hidden'; p.style.pointerEvents='none';
-      setTimeout(()=>{ p.style.display='none'; },700);
-    }
-  }catch(e){}
-};
-document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,600));
-window.addEventListener('load',()=>setTimeout(_hidePreloader,200));
-setTimeout(_hidePreloader,2500);
+const _hidePreloader=()=>{const p=document.getElementById('preloader');if(p&&!p.classList.contains('gone'))p.classList.add('gone')};
+document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,800));
+window.addEventListener('load',_hidePreloader);
+setTimeout(_hidePreloader,3000);
 
 /* ── HERO SLIDER ── */
 let cur=0;
