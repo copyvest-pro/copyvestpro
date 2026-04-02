@@ -1026,8 +1026,9 @@ strong{font-weight:600}
 }
 @media(max-width:768px){
   :root{--section-py:64px;--card-pad:24px}
-  .nav-links,.nav-cta{display:none}.ham{display:flex}
-  .l-mobile{display:flex!important}
+  .nav-links,.nav-cta{display:none}
+  .nav-mobile-right{display:flex}
+  .ham{display:flex}
   .navbar{padding:0 20px}.topbar{display:none}
   .about-inner,.calc-inner,.noexp-inner,.why-grid{grid-template-columns:1fr}
   .why-grid{border-radius:var(--r-lg)}
@@ -1247,6 +1248,9 @@ strong{font-weight:600}
 .l-opt .lf{font-size:16px}
 .l-chk{margin-left:auto;font-size:10px;color:#a8841a;opacity:0}
 .l-opt.on .l-chk{opacity:1}
+/* Mobile right group — lang + ham together on the right */
+.nav-mobile-right{display:none;align-items:center;gap:8px;margin-left:auto}
+.l-btn-mob{padding:7px 10px;background:#f5f4f1;border:1.5px solid #e5e7eb;border-radius:9px;gap:4px;font-size:16px}
 </style>
 </head>
 <body>
@@ -1325,24 +1329,25 @@ strong{font-weight:600}
     <a href="login.html" id="lLogin" class="btn-nav btn-nav-solid ripple-wrap">Log In</a>
     <a href="register.html" id="lStart" class="btn-nav btn-nav-solid ripple-wrap">Get Started</a>
   </div>
-  <div class="ham" onclick="toggleNav()"><span></span><span></span><span></span></div>
-  <!-- Mobile-only lang switcher -->
-  <div class="l-wrap l-mobile" style="display:none">
-    <button class="l-btn" id="lBtnMob" onclick="toggleLangDropMob(event)" style="padding:7px 10px">
-      <span class="l-flag" id="lFlagMob">🌐</span>
-      <span id="lCodeMob">EN</span>
-      <i class="fas fa-chevron-down l-caret" style="font-size:8px"></i>
-    </button>
-    <div class="l-drop" id="lDropMob" style="right:0;left:auto">
-      <div class="l-opt on" onclick="setLangAll('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check l-chk"></i></div>
-      <div class="l-opt" onclick="setLangAll('es','🇪🇸','ES')"><span class="lf">🇪🇸</span>Español<i class="fas fa-check l-chk"></i></div>
-      <div class="l-opt" onclick="setLangAll('fr','🇫🇷','FR')"><span class="lf">🇫🇷</span>Français<i class="fas fa-check l-chk"></i></div>
-      <div class="l-opt" onclick="setLangAll('pt','🇧🇷','PT')"><span class="lf">🇧🇷</span>Português<i class="fas fa-check l-chk"></i></div>
-      <div class="l-opt" onclick="setLangAll('ar','🇸🇦','AR')"><span class="lf">🇸🇦</span>العربية<i class="fas fa-check l-chk"></i></div>
-      <div class="l-opt" onclick="setLangAll('zh','🇨🇳','ZH')"><span class="lf">🇨🇳</span>中文<i class="fas fa-check l-chk"></i></div>
-      <div class="l-opt" onclick="setLangAll('hi','🇮🇳','HI')"><span class="lf">🇮🇳</span>हिन्दी<i class="fas fa-check l-chk"></i></div>
-      <div class="l-opt" onclick="setLangAll('ru','🇷🇺','RU')"><span class="lf">🇷🇺</span>Русский<i class="fas fa-check l-chk"></i></div>
+  <!-- Mobile right group: lang + hamburger, always on right -->
+  <div class="nav-mobile-right">
+    <div class="l-wrap">
+      <button class="l-btn l-btn-mob" id="lBtnMob" onclick="toggleLangDropMob(event)">
+        <span id="lFlagMob">🌐</span>
+        <i class="fas fa-chevron-down" style="font-size:8px;color:#6b7280"></i>
+      </button>
+      <div class="l-drop" id="lDropMob">
+        <div class="l-opt on" onclick="setLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check l-chk"></i></div>
+        <div class="l-opt" onclick="setLang('es','🇪🇸','ES')"><span class="lf">🇪🇸</span>Español<i class="fas fa-check l-chk"></i></div>
+        <div class="l-opt" onclick="setLang('fr','🇫🇷','FR')"><span class="lf">🇫🇷</span>Français<i class="fas fa-check l-chk"></i></div>
+        <div class="l-opt" onclick="setLang('pt','🇧🇷','PT')"><span class="lf">🇧🇷</span>Português<i class="fas fa-check l-chk"></i></div>
+        <div class="l-opt" onclick="setLang('ar','🇸🇦','AR')"><span class="lf">🇸🇦</span>العربية<i class="fas fa-check l-chk"></i></div>
+        <div class="l-opt" onclick="setLang('zh','🇨🇳','ZH')"><span class="lf">🇨🇳</span>中文<i class="fas fa-check l-chk"></i></div>
+        <div class="l-opt" onclick="setLang('hi','🇮🇳','HI')"><span class="lf">🇮🇳</span>हिन्दी<i class="fas fa-check l-chk"></i></div>
+        <div class="l-opt" onclick="setLang('ru','🇷🇺','RU')"><span class="lf">🇷🇺</span>Русский<i class="fas fa-check l-chk"></i></div>
+      </div>
     </div>
+    <div class="ham" onclick="toggleNav()"><span></span><span></span><span></span></div>
   </div>
 </nav>
 
