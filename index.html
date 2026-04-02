@@ -1018,8 +1018,6 @@ strong{font-weight:600}
 .cs-back:hover{background:rgba(255,255,255,.1);color:#fff}
 
 /* ═══════════════════ RESPONSIVE ═══════════════════ */
-.nav-mobile-right{display:none;align-items:center;gap:8px}
-
 @media(max-width:1024px){
   .plans-grid3{grid-template-columns:1fr 1fr}
   .partners-grid{grid-template-columns:repeat(3,1fr)}
@@ -1028,9 +1026,7 @@ strong{font-weight:600}
 }
 @media(max-width:768px){
   :root{--section-py:64px;--card-pad:24px}
-  .nav-links,.nav-cta{display:none}
-  .nav-mobile-right{display:flex;align-items:center;gap:8px;margin-left:auto}
-  .ham{display:flex}
+  .nav-links,.nav-cta{display:none}.ham{display:flex}
   .navbar{padding:0 20px}.topbar{display:none}
   .about-inner,.calc-inner,.noexp-inner,.why-grid{grid-template-columns:1fr}
   .why-grid{border-radius:var(--r-lg)}
@@ -1234,23 +1230,24 @@ strong{font-weight:600}
 }
 
 
-/* ── LANGUAGE SWITCHER ── */
-.l-wrap{position:relative}
-.l-btn{display:flex;align-items:center;gap:5px;padding:8px 12px;background:#f5f4f1;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:700;color:#0f0f0f;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
-.l-btn:hover,.l-btn.open{border-color:rgba(201,168,76,.5);background:#fdf8ef}
-.l-flag{font-size:15px}
-.l-caret{font-size:9px;color:#6b7280;transition:transform .2s}
-.l-btn.open .l-caret{transform:rotate(180deg)}
-.l-drop{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.12);width:188px;z-index:9999;overflow:hidden;padding:5px}
-.l-drop.open{display:block;animation:lDrop .16s ease}
-@keyframes lDrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.l-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer;border-radius:9px;transition:background .12s;color:#333}
-.l-opt:hover{background:#fdf8ef}
-.l-opt.on{color:#a8841a;background:rgba(201,168,76,.07)}
-.l-opt .lf{font-size:16px}
-.l-chk{margin-left:auto;font-size:10px;color:#a8841a;opacity:0}
-.l-opt.on .l-chk{opacity:1}
-/* Mobile right group — lang + ham together on the right */
+.nav-mobile-right{display:none;align-items:center;gap:8px}
+@media(max-width:768px){
+  .nav-mobile-right{display:flex}
+  .ham{display:flex}
+}
+.hp-lsw{position:relative}
+.hp-lsw-btn{display:flex;align-items:center;gap:5px;padding:8px 11px;background:#f5f4f1;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:700;color:#0f0f0f;cursor:pointer;font-family:inherit;transition:all .2s}
+.hp-lsw-btn:hover,.hp-lsw-btn.open{border-color:rgba(201,168,76,.5);background:#fdf8ef}
+.hp-lsw-caret{font-size:9px;color:#6b7280;transition:transform .2s}
+.hp-lsw-btn.open .hp-lsw-caret{transform:rotate(180deg)}
+.hp-lsw-drop{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.12);width:182px;z-index:9999;overflow:hidden;padding:5px;max-height:340px;overflow-y:auto}
+.hp-lsw-drop.open{display:block}
+.hp-lsw-opt{display:flex;align-items:center;gap:9px;padding:9px 12px;font-size:13px;font-weight:500;cursor:pointer;border-radius:8px;transition:background .12s;color:#333}
+.hp-lsw-opt:hover{background:#fdf8ef}
+.hp-lsw-opt.on{color:#a8841a;background:rgba(201,168,76,.07);font-weight:700}
+.lf{font-size:15px;flex-shrink:0}
+.hp-lsw-chk{margin-left:auto;font-size:10px;color:#a8841a;opacity:0}
+.hp-lsw-opt.on .hp-lsw-chk{opacity:1}
 </style>
 </head>
 <body>
@@ -1309,43 +1306,24 @@ strong{font-weight:600}
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-cta">
-    <div class="l-wrap" id="desktopLangWrap">
-      <button class="l-btn" id="lBtn" onclick="openLang('desktop',event)">
-        <span id="lFlag">🌐</span>
-        <span id="lCode" style="font-size:12px;font-weight:700">EN</span>
-        <i class="fas fa-chevron-down" style="font-size:9px;color:#888"></i>
+    <div class="hp-lsw">
+      <button class="hp-lsw-btn" id="hpLswBtn" onclick="hpLswToggle(event)">
+        <span id="hpLswFlag" style="font-size:15px">&#127760;</span>
+        <span id="hpLswCode" style="font-size:12px;font-weight:700">EN</span>
+        <i class="fas fa-chevron-down hp-lsw-caret"></i>
       </button>
-      <div class="l-drop" id="lDrop">
-        <div class="l-opt on" onclick="setLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('es','🇪🇸','ES')"><span class="lf">🇪🇸</span>Español<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('fr','🇫🇷','FR')"><span class="lf">🇫🇷</span>Français<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('pt','🇧🇷','PT')"><span class="lf">🇧🇷</span>Português<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('ar','🇸🇦','AR')"><span class="lf">🇸🇦</span>العربية<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('zh','🇨🇳','ZH')"><span class="lf">🇨🇳</span>中文<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('hi','🇮🇳','HI')"><span class="lf">🇮🇳</span>हिन्दी<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('ru','🇷🇺','RU')"><span class="lf">🇷🇺</span>Русский<i class="fas fa-check l-chk"></i></div>
-      </div>
+      <div class="hp-lsw-drop" id="hpLswDrop"></div>
     </div>
-    <a href="login.html" id="lLogin" class="btn-nav btn-nav-solid ripple-wrap">Log In</a>
-    <a href="register.html" id="lStart" class="btn-nav btn-nav-solid ripple-wrap">Get Started</a>
+    <a href="login.html" class="btn-nav btn-nav-solid ripple-wrap">Log In</a>
+    <a href="register.html" class="btn-nav btn-nav-solid ripple-wrap">Get Started</a>
   </div>
-  <!-- Mobile right: lang globe + hamburger -->
   <div class="nav-mobile-right">
-    <div class="l-wrap" id="mobileLangWrap">
-      <button class="l-btn" id="lBtnMob" style="padding:7px 10px;gap:4px" onclick="openLang('mobile',event)">
-        <span id="lFlagMob" style="font-size:17px">🌐</span>
+    <div class="hp-lsw">
+      <button class="hp-lsw-btn" style="padding:7px 9px;gap:4px" onclick="hpLswToggle(event)">
+        <span id="hpLswMobFlag" style="font-size:17px">&#127760;</span>
         <i class="fas fa-chevron-down" style="font-size:8px;color:#888"></i>
       </button>
-      <div class="l-drop" id="lDropMob">
-        <div class="l-opt on" onclick="setLang('en','🇬🇧','EN')"><span class="lf">🇬🇧</span>English<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('es','🇪🇸','ES')"><span class="lf">🇪🇸</span>Español<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('fr','🇫🇷','FR')"><span class="lf">🇫🇷</span>Français<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('pt','🇧🇷','PT')"><span class="lf">🇧🇷</span>Português<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('ar','🇸🇦','AR')"><span class="lf">🇸🇦</span>العربية<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('zh','🇨🇳','ZH')"><span class="lf">🇨🇳</span>中文<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('hi','🇮🇳','HI')"><span class="lf">🇮🇳</span>हिन्दी<i class="fas fa-check l-chk"></i></div>
-        <div class="l-opt" onclick="setLang('ru','🇷🇺','RU')"><span class="lf">🇷🇺</span>Русский<i class="fas fa-check l-chk"></i></div>
-      </div>
+      <div class="hp-lsw-drop" id="hpLswMobDrop"></div>
     </div>
     <div class="ham" onclick="toggleNav()"><span></span><span></span><span></span></div>
   </div>
@@ -1917,7 +1895,7 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="/cdn-cgi/l/email-protection#87e4e8f7fef1e2f4f3f7f5e8c7e0eae6eeeba9e4e8ea"><span class="__cf_email__" data-cfemail="294a4659505f4c5a5d595b46694e44484045074a4644">[email&#160;protected]</span></a>
+            <a href="mailto:copyvestpro@gmail.com">copyvestpro@gmail.com</a>
             <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
           </div>
         </li>
@@ -2007,7 +1985,7 @@ strong{font-weight:600}
 </div>
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── PRELOADER ── */
 const _hidePreloader=()=>{const p=document.getElementById('preloader');if(p&&!p.classList.contains('gone'))p.classList.add('gone')};
 document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,920));
@@ -2307,95 +2285,111 @@ backBtn.addEventListener('click',()=>{
       mountTradingView(wraps[key], configs[key].src, configs[key].cfg);
     }
   }
-
-  // Load trending on init
   activate('trending');
-
-  btns.forEach(b => {
-    b.addEventListener('click', () => activate(b.dataset.mtab));
-  });
-
-  // Duplicate the trusted track for infinite loop
-  const track = document.getElementById('trustedTrack');
-  if(track){
-    const wrap = document.getElementById('trustedTrackWrap');
-    if(wrap) wrap.appendChild(track.cloneNode(true));
-  }
-
+  btns.forEach(b => { b.addEventListener('click', () => activate(b.dataset.mtab)); });
+  var track = document.getElementById('trustedTrack');
+  if(track){ var w=document.getElementById('trustedTrackWrap'); if(w) w.appendChild(track.cloneNode(true)); }
 })();
 </script>
-
 <script>
-/* ── LANGUAGE SWITCHER ── */
-const T={
-  en:{home:'Home',about:'About',faqs:'FAQs',trading:'Trading',contact:'Contact',login:'Log In',start:'Get Started'},
-  es:{home:'Inicio',about:'Nosotros',faqs:'Preguntas',trading:'Trading',contact:'Contacto',login:'Iniciar sesión',start:'Comenzar'},
-  fr:{home:'Accueil',about:'À propos',faqs:'FAQ',trading:'Trading',contact:'Contact',login:'Connexion',start:'Commencer'},
-  pt:{home:'Início',about:'Sobre',faqs:'Perguntas',trading:'Trading',contact:'Contato',login:'Entrar',start:'Começar'},
-  ar:{home:'الرئيسية',about:'من نحن',faqs:'الأسئلة',trading:'التداول',contact:'اتصل بنا',login:'تسجيل الدخول',start:'ابدأ الآن'},
-  zh:{home:'首页',about:'关于',faqs:'常见问题',trading:'交易',contact:'联系',login:'登录',start:'立即开始'},
-  hi:{home:'होम',about:'हमारे बारे में',faqs:'सवाल-जवाब',trading:'ट्रेडिंग',contact:'संपर्क',login:'लॉग इन',start:'शुरू करें'},
-  ru:{home:'Главная',about:'О нас',faqs:'Вопросы',trading:'Торговля',contact:'Контакт',login:'Войти',start:'Начать'},
+var HP_LANGS=[
+  {code:'en',flag:'🇬🇧',name:'English'},
+  {code:'zh',flag:'🇨🇳',name:'中文 (简)'},
+  {code:'zh-TW',flag:'🇹🇼',name:'中文 (繁)'},
+  {code:'es',flag:'🇪🇸',name:'Español'},
+  {code:'fr',flag:'🇫🇷',name:'Français'},
+  {code:'ar',flag:'🇸🇦',name:'العربية',rtl:true},
+  {code:'pt',flag:'🇧🇷',name:'Português'},
+  {code:'ru',flag:'🇷🇺',name:'Русский'},
+  {code:'hi',flag:'🇮🇳',name:'हिन्दी'},
+  {code:'de',flag:'🇩🇪',name:'Deutsch'},
+  {code:'ja',flag:'🇯🇵',name:'日本語'},
+  {code:'ko',flag:'🇰🇷',name:'한국어'},
+  {code:'tr',flag:'🇹🇷',name:'Türkçe'},
+  {code:'it',flag:'🇮🇹',name:'Italiano'},
+  {code:'nl',flag:'🇳🇱',name:'Nederlands'},
+  {code:'yo',flag:'🇳🇬',name:'Yoruba'},
+  {code:'ig',flag:'🇳🇬',name:'Igbo'},
+  {code:'ha',flag:'🇳🇬',name:'Hausa'}
+];
+var HP_T={
+  en:{nav_home:'Home',nav_about:'About',nav_faqs:'FAQs',nav_trading:'Trading',nav_contact:'Contact',btn_login:'Log In',btn_start:'Get Started'},
+  zh:{nav_home:'首页',nav_about:'关于',nav_faqs:'常见问题',nav_trading:'交易',nav_contact:'联系',btn_login:'登录',btn_start:'立即开始'},
+  'zh-TW':{nav_home:'首頁',nav_about:'關於',nav_faqs:'常見問題',nav_trading:'交易',nav_contact:'聯絡',btn_login:'登入',btn_start:'立即開始'},
+  es:{nav_home:'Inicio',nav_about:'Nosotros',nav_faqs:'Preguntas',nav_trading:'Trading',nav_contact:'Contacto',btn_login:'Iniciar sesion',btn_start:'Comenzar'},
+  fr:{nav_home:'Accueil',nav_about:'A propos',nav_faqs:'FAQ',nav_trading:'Trading',nav_contact:'Contact',btn_login:'Connexion',btn_start:'Commencer'},
+  ar:{nav_home:'الرئيسية',nav_about:'من نحن',nav_faqs:'الأسئلة',nav_trading:'التداول',nav_contact:'اتصل بنا',btn_login:'تسجيل الدخول',btn_start:'ابدأ الآن'},
+  pt:{nav_home:'Inicio',nav_about:'Sobre',nav_faqs:'Perguntas',nav_trading:'Trading',nav_contact:'Contato',btn_login:'Entrar',btn_start:'Comecar'},
+  ru:{nav_home:'Главная',nav_about:'О нас',nav_faqs:'Вопросы',nav_trading:'Торговля',nav_contact:'Контакт',btn_login:'Войти',btn_start:'Начать'},
+  hi:{nav_home:'होम',nav_about:'हमारे बारे में',nav_faqs:'सवाल-जवाब',nav_trading:'ट्रेडिंग',nav_contact:'संपर्क',btn_login:'लॉग इन',btn_start:'शुरू करें'},
+  de:{nav_home:'Startseite',nav_about:'Uber uns',nav_faqs:'FAQ',nav_trading:'Trading',nav_contact:'Kontakt',btn_login:'Anmelden',btn_start:'Jetzt starten'},
+  ja:{nav_home:'ホーム',nav_about:'概要',nav_faqs:'よくある質問',nav_trading:'取引',nav_contact:'お問い合わせ',btn_login:'ログイン',btn_start:'始める'},
+  ko:{nav_home:'홈',nav_about:'소개',nav_faqs:'자주 묻는 질문',nav_trading:'거래',nav_contact:'문의',btn_login:'로그인',btn_start:'시작하기'},
+  tr:{nav_home:'Ana Sayfa',nav_about:'Hakkimizda',nav_faqs:'SSS',nav_trading:'Ticaret',nav_contact:'Iletisim',btn_login:'Giris Yap',btn_start:'Basla'},
+  it:{nav_home:'Home',nav_about:'Chi siamo',nav_faqs:'FAQ',nav_trading:'Trading',nav_contact:'Contatto',btn_login:'Accedi',btn_start:'Inizia'},
+  nl:{nav_home:'Home',nav_about:'Over ons',nav_faqs:'FAQ',nav_trading:'Handel',nav_contact:'Contact',btn_login:'Inloggen',btn_start:'Beginnen'},
+  yo:{nav_home:'Ile',nav_about:'Nipa Wa',nav_faqs:'Awon Ibeere',nav_trading:'Isowo',nav_contact:'Kan Si Wa',btn_login:'Wole',btn_start:'Bere'},
+  ig:{nav_home:'Ulo',nav_about:'Maka Anyi',nav_faqs:'Ajuju',nav_trading:'Ahia',nav_contact:'Kpoturu Anyi',btn_login:'Banye',btn_start:'Bido'},
+  ha:{nav_home:'Gida',nav_about:'Game da Mu',nav_faqs:'Tambayoyi',nav_trading:'Kasuwanci',nav_contact:'Tuntube Mu',btn_login:'Shiga',btn_start:'Fara'}
 };
-/* openLang: opens the correct dropdown, closes the other one */
-let _langOpen = null; // track which is open: 'desktop' | 'mobile' | null
-function openLang(which, e){
+
+function hpLang(){ return localStorage.getItem('cvp_lang')||'en'; }
+
+function hpApply(code){
+  var t=HP_T[code]||HP_T.en;
+  var lang=HP_LANGS.filter(function(l){return l.code===code;})[0]||HP_LANGS[0];
+  var f1=document.getElementById('hpLswFlag'); if(f1) f1.textContent=lang.flag;
+  var f2=document.getElementById('hpLswMobFlag'); if(f2) f2.textContent=lang.flag;
+  var cd=document.getElementById('hpLswCode'); if(cd) cd.textContent=code.toUpperCase();
+  var navLinks=document.querySelectorAll('.nav-links a');
+  var keys=['nav_home','nav_about','nav_faqs','nav_trading','nav_contact'];
+  for(var i=0;i<navLinks.length;i++){ if(keys[i]&&t[keys[i]]) navLinks[i].textContent=t[keys[i]]; }
+  document.querySelectorAll('a[href="login.html"]').forEach(function(a){ if(a.textContent.trim()&&t.btn_login) a.textContent=t.btn_login; });
+  document.querySelectorAll('a[href="register.html"]').forEach(function(a){ if(a.textContent.trim()&&t.btn_start) a.textContent=t.btn_start; });
+  document.documentElement.dir=lang.rtl?'rtl':'ltr';
+  document.documentElement.lang=code;
+}
+
+function hpLswBuildDrop(dropEl, code){
+  if(!dropEl) return;
+  dropEl.innerHTML=HP_LANGS.map(function(l){
+    return '<div class="hp-lsw-opt'+(l.code===code?' on':'')+'" onclick="hpLswSelect(\''+l.code+'\')"><span class="lf">'+l.flag+'</span>'+l.name+'<i class="fas fa-check hp-lsw-chk"></i></div>';
+  }).join('');
+}
+
+function hpLswToggle(e){
   e.stopPropagation();
-  const drops = {desktop:'lDrop', mobile:'lDropMob'};
-  const btns  = {desktop:'lBtn',  mobile:'lBtnMob'};
-  const other = which==='desktop' ? 'mobile' : 'desktop';
-  // Close other
-  const od = document.getElementById(drops[other]);
-  const ob = document.getElementById(btns[other]);
-  if(od) od.classList.remove('open');
-  if(ob) ob.classList.remove('open');
-  // Toggle current
-  const cd = document.getElementById(drops[which]);
-  const cb = document.getElementById(btns[which]);
-  const willOpen = cd && !cd.classList.contains('open');
-  if(cd) cd.classList.toggle('open');
-  if(cb) cb.classList.toggle('open');
-  _langOpen = willOpen ? which : null;
+  var wrap=e.currentTarget.closest('.hp-lsw');
+  if(!wrap) return;
+  var drop=wrap.querySelector('.hp-lsw-drop');
+  var btn=wrap.querySelector('.hp-lsw-btn');
+  document.querySelectorAll('.hp-lsw-drop').forEach(function(d){d.classList.remove('open');});
+  document.querySelectorAll('.hp-lsw-btn').forEach(function(b){b.classList.remove('open');});
+  if(drop && !drop.classList.contains('open')){
+    hpLswBuildDrop(drop, hpLang());
+    drop.classList.add('open');
+    if(btn) btn.classList.add('open');
+  }
 }
-function setLang(code,flag,label){
-  const t=T[code]||T.en;
-  // Update desktop button
-  const lf=document.getElementById('lFlag'); if(lf) lf.textContent=flag;
-  const lc=document.getElementById('lCode'); if(lc) lc.textContent=label;
-  const ld=document.getElementById('lDrop'); if(ld) ld.classList.remove('open');
-  const lb=document.getElementById('lBtn');  if(lb) lb.classList.remove('open');
-  // Update mobile button
-  const mf=document.getElementById('lFlagMob'); if(mf) mf.textContent=flag;
-  const mc=document.getElementById('lCodeMob'); if(mc) mc.textContent=label;
-  const md=document.getElementById('lDropMob'); if(md) md.classList.remove('open');
-  const mb=document.getElementById('lBtnMob');  if(mb) mb.classList.remove('open');
-  // Highlight active option in all dropdowns
-  document.querySelectorAll('.l-opt').forEach(o=>{
-    const attr = o.getAttribute('onclick')||'';
-    o.classList.toggle('on', attr.includes("'"+code+"'"));
-  });
-  // Translate nav links
-  const nav=document.querySelectorAll('.nav-links a');
-  ['home','about','faqs','trading','contact'].forEach((k,i)=>{ if(nav[i]) nav[i].textContent=t[k]; });
-  const li=document.getElementById('lLogin'); if(li) li.textContent=t.login;
-  const ls=document.getElementById('lStart'); if(ls) ls.textContent=t.start;
-  document.documentElement.dir=code==='ar'?'rtl':'ltr';
+
+function hpLswSelect(code){
   localStorage.setItem('cvp_lang',code);
+  hpApply(code);
+  document.querySelectorAll('.hp-lsw-drop').forEach(function(d){
+    hpLswBuildDrop(d, code);
+    d.classList.remove('open');
+  });
+  document.querySelectorAll('.hp-lsw-btn').forEach(function(b){b.classList.remove('open');});
 }
-document.addEventListener('click', function(e){
-  // Only close lang dropdowns if click is outside any lang wrap
-  const inLang = e.target.closest('.l-wrap');
-  if(!inLang){
-    ['lDrop','lDropMob'].forEach(id=>{ const d=document.getElementById(id); if(d) d.classList.remove('open'); });
-    ['lBtn','lBtnMob'].forEach(id=>{  const b=document.getElementById(id); if(b) b.classList.remove('open'); });
-    _langOpen = null;
+
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.hp-lsw')){
+    document.querySelectorAll('.hp-lsw-drop').forEach(function(d){d.classList.remove('open');});
+    document.querySelectorAll('.hp-lsw-btn').forEach(function(b){b.classList.remove('open');});
   }
 });
-document.addEventListener('DOMContentLoaded',()=>{
-  const s=localStorage.getItem('cvp_lang');
-  const flags={es:'🇪🇸',fr:'🇫🇷',pt:'🇧🇷',ar:'🇸🇦',zh:'🇨🇳',hi:'🇮🇳',ru:'🇷🇺'};
-  if(s && s!=='en' && flags[s]) setLang(s, flags[s], s.toUpperCase());
-});
+
+document.addEventListener('DOMContentLoaded',function(){ hpApply(hpLang()); });
 </script>
 </body>
 </html>
