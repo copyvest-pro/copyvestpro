@@ -1027,7 +1027,8 @@ strong{font-weight:600}
 @media(max-width:768px){
   :root{--section-py:64px;--card-pad:24px}
   .nav-links,.nav-cta{display:none}
-  .nav-mobile-right{display:flex}
+  .nav-mobile-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+  .ham{display:flex}
   .navbar{padding:0 20px}.topbar{display:none}
   .about-inner,.calc-inner,.noexp-inner,.why-grid{grid-template-columns:1fr}
   .why-grid{border-radius:var(--r-lg)}
@@ -1915,7 +1916,7 @@ strong{font-weight:600}
         <li>
           <span class="ico"><i class="fas fa-envelope"></i></span>
           <div>
-            <a href="mailto:copyvestpro@gmail.com">copyvestpro@gmail.com</a>
+            <a href="/cdn-cgi/l/email-protection#87e4e8f7fef1e2f4f3f7f5e8c7e0eae6eeeba9e4e8ea"><span class="__cf_email__" data-cfemail="294a4659505f4c5a5d595b46694e44484045074a4644">[email&#160;protected]</span></a>
             <a href="https://copyvestpro.xyz" target="_blank">www.copyvestpro.xyz</a>
           </div>
         </li>
@@ -2005,7 +2006,7 @@ strong{font-weight:600}
 </div>
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── PRELOADER ── */
 const _hidePreloader=()=>{const p=document.getElementById('preloader');if(p&&!p.classList.contains('gone'))p.classList.add('gone')};
 document.addEventListener('DOMContentLoaded',()=>setTimeout(_hidePreloader,920));
@@ -2390,4 +2391,10 @@ document.addEventListener('click', function(e){
   }
 });
 document.addEventListener('DOMContentLoaded',()=>{
-  const s=loc
+  const s=localStorage.getItem('cvp_lang');
+  const flags={es:'🇪🇸',fr:'🇫🇷',pt:'🇧🇷',ar:'🇸🇦',zh:'🇨🇳',hi:'🇮🇳',ru:'🇷🇺'};
+  if(s && s!=='en' && flags[s]) setLang(s, flags[s], s.toUpperCase());
+});
+</script>
+</body>
+</html>
