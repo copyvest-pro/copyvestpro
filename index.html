@@ -2164,7 +2164,7 @@ sendBtn.addEventListener('click',async function(){
   let sent=false;
   // 1. Try backend endpoint
   try{
-    const res=await fetch('/api/support/message',{
+    const res=await fetch('https://copyvestpro-backend-production.up.railway.app/api/contact',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(payload),
