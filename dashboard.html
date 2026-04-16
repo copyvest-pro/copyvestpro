@@ -350,6 +350,20 @@ tbody tr:hover{background:var(--bg)}
 .lsw-opt.on .lsw-chk{opacity:1}
 @media(max-width:768px){.lsw-code{display:none}.lsw-btn{padding:7px 9px}}
 
+
+/* ═══ SUPPORT PAGE ═══ */
+.faq-item{border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;transition:var(--tr)}
+.faq-item:hover{border-color:var(--gold-border)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:none;border:none;font-family:var(--font);font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;text-align:left;transition:var(--tr)}
+.faq-q:hover{background:var(--gold-pale)}
+.faq-q span{flex:1;line-height:1.4}
+.faq-icon{font-size:11px;color:var(--muted);transition:transform .25s var(--ease);flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(180deg)}
+.faq-item.open .faq-q{background:var(--gold-pale);color:var(--gold-d)}
+.faq-a{display:none;padding:0 16px 14px;font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border)}
+.faq-item.open .faq-a{display:block;animation:faqIn .2s ease}
+@keyframes faqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
 </style>
 </head>
 <body>
@@ -391,6 +405,7 @@ tbody tr:hover{background:var(--bg)}
       <div class="sb-group-lbl">Account</div>
       <button class="sb-link" onclick="nav('referral',this)"><i class="fas fa-gift"></i> <span data-i18n="nav_referral">Referral</span></button>
       <button class="sb-link" onclick="nav('profile',this)"><i class="fas fa-user-circle"></i> <span data-i18n="nav_profile">Profile</span></button>
+      <button class="sb-link" onclick="nav('support',this)"><i class="fas fa-headset"></i> <span data-i18n="nav_support">Support</span></button>
     </div>
   </nav>
 
@@ -767,6 +782,139 @@ tbody tr:hover{background:var(--bg)}
           <div class="alert" id="pwAlert" style="margin-bottom:12px"></div>
           <button class="btn btn-dark btn-full" onclick="changePassword()"><i class="fas fa-lock"></i> Update Password</button>
         </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: SUPPORT ══ -->
+    <div class="page" id="page-support">
+
+      <!-- Header card -->
+      <div style="background:linear-gradient(135deg,var(--navy) 0%,#1a3a5c 100%);border-radius:var(--r);padding:32px 28px;margin-bottom:22px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(201,168,76,.08)"></div>
+        <div style="position:absolute;bottom:-60px;left:20%;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.03)"></div>
+        <div style="position:relative;z-index:1">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(201,168,76,.35)">
+              <i class="fas fa-headset" style="color:#fff;font-size:1.2rem"></i>
+            </div>
+            <div>
+              <div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em">Support Center</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px">We typically reply within 24 hours</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+            <a href="mailto:support@copyvestpro.xyz" style="display:inline-flex;align-items:center;gap:8px;padding:9px 18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-pill);font-size:13px;font-weight:600;color:#fff;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.2)';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.borderColor='rgba(255,255,255,.15)'">
+              <i class="fas fa-envelope" style="color:var(--gold)"></i> support@copyvestpro.xyz
+            </a>
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:9px 18px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:var(--r-pill);font-size:13px;font-weight:600;color:rgba(255,255,255,.8)">
+              <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px rgba(74,222,128,.6);flex-shrink:0"></span>
+              Online — 24/7 Support
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- Contact Form -->
+        <div class="card">
+          <div class="card-title"><i class="fas fa-paper-plane" style="color:var(--gold);margin-right:8px"></i>Send a Message</div>
+          <div class="card-sub">Describe your issue and we will get back to you shortly</div>
+          <div style="margin-top:18px">
+            <div class="f-grp">
+              <label class="f-lbl">Subject</label>
+              <select class="f-sel" id="suppSubject">
+                <option value="">Select a topic...</option>
+                <option value="Deposit Issue">Deposit Issue</option>
+                <option value="Withdrawal Request">Withdrawal Request</option>
+                <option value="Investment Plan">Investment Plan Query</option>
+                <option value="Account Access">Account Access</option>
+                <option value="Copy Trading">Copy Trading</option>
+                <option value="Referral Bonus">Referral Bonus</option>
+                <option value="Balance Discrepancy">Balance Discrepancy</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="f-grp">
+              <label class="f-lbl">Message</label>
+              <textarea class="f-inp" id="suppMsg" placeholder="Describe your issue in detail..." rows="5" style="resize:vertical;min-height:120px;line-height:1.6"></textarea>
+            </div>
+            <div class="alert" id="suppAlert" style="margin-bottom:12px"></div>
+            <button class="btn btn-gold btn-full" id="suppBtn" onclick="sendSupportMsg()">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+            <div style="margin-top:14px;padding:12px 14px;background:var(--bg);border-radius:var(--r-sm);border:1px solid var(--border);display:flex;align-items:center;gap:10px">
+              <i class="fas fa-shield-halved" style="color:var(--gold);font-size:1rem;flex-shrink:0"></i>
+              <span style="font-size:12px;color:var(--muted);line-height:1.5">Your message is sent securely and only our support team can read it.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+          <div class="card-title"><i class="fas fa-circle-question" style="color:var(--gold);margin-right:8px"></i>Frequently Asked Questions</div>
+          <div class="card-sub">Quick answers to common questions</div>
+          <div style="margin-top:18px;display:flex;flex-direction:column;gap:10px" id="faqList">
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                <span>How do I make a deposit?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+              </button>
+              <div class="faq-a">Go to the <strong>Invest</strong> page, select your trading plan, choose your preferred cryptocurrency, copy the wallet address and send the exact amount. Your investment will be activated once confirmed.</div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                <span>When will I receive my profits?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+              </button>
+              <div class="faq-a">Profits are credited automatically every hour based on your plan ROI. You can track your next accrual time on the Overview page under your investment status.</div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                <span>How do I withdraw my funds?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+              </button>
+              <div class="faq-a">Go to the <strong>Withdraw</strong> page, enter the amount and your wallet address, then submit. Withdrawals are processed within 24 hours after admin approval.</div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                <span>What is copy trading?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+              </button>
+              <div class="faq-a">Copy trading allows you to automatically mirror the trades of our verified expert traders. Go to <strong>Copy Traders</strong>, select a trader and fund your account to activate copy mode.</div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                <span>How does the referral program work?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+              </button>
+              <div class="faq-a">Share your unique referral link from the <strong>Referral</strong> page. When someone registers and invests using your link, you earn a 5% bonus on their first deposit, credited to your balance automatically.</div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                <span>Is my investment safe?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+              </button>
+              <div class="faq-a">CopyVestPro uses advanced security protocols and works with verified professional traders. All funds are managed with strict risk controls and our platform is monitored 24/7.</div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                <span>My balance is showing zero. What do I do?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+              </button>
+              <div class="faq-a">This usually happens when a deposit is still pending confirmation. Please allow up to 24 hours for blockchain confirmation. If the issue persists, contact support with your transaction ID.</div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1733,7 +1881,7 @@ const CVP_LANGS = [
 
 const CVP_T = {
   en: {
-    nav_overview:'Overview', nav_invest:'Invest', nav_markets:'Markets',
+    nav_support:'Support', nav_overview:'Overview', nav_invest:'Invest', nav_markets:'Markets',
     card_inv_status:'Investment Status', card_inv_sub:'Your active plan and funding progress',
     card_quick_actions:'Quick Actions', card_activity:'Recent Activity',
     lbl_next_payout:'Next Payout Window',
@@ -2076,6 +2224,57 @@ document.addEventListener('click', function(e) {
 document.addEventListener('DOMContentLoaded', function() {
   i18nApply(i18nLang());
 });
+
+
+/* ═══════════ SUPPORT PAGE ═══════════ */
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  // Open clicked if it was closed
+  if(!isOpen) item.classList.add('open');
+}
+
+async function sendSupportMsg(){
+  const subj = document.getElementById('suppSubject').value.trim();
+  const msg  = document.getElementById('suppMsg').value.trim();
+  const al   = document.getElementById('suppAlert');
+  const btn  = document.getElementById('suppBtn');
+
+  if(!subj) return showA(al, 'Please select a subject.', 'err');
+  if(!msg || msg.length < 10) return showA(al, 'Please write at least 10 characters.', 'err');
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sending...';
+
+  try {
+    const r = await fetch('https://copyvestpro-backend-production.up.railway.app/api/contact', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name:    user.full_name || user.email,
+        email:   user.email,
+        subject: subj,
+        message: msg,
+      }),
+      signal: AbortSignal.timeout(10000),
+    });
+    const d = await r.json();
+    if(r.ok){
+      showA(al, 'Message sent successfully! We will reply to ' + user.email + ' within 24 hours.', 'ok');
+      document.getElementById('suppSubject').value = '';
+      document.getElementById('suppMsg').value = '';
+    } else {
+      showA(al, d.error || 'Failed to send. Please try again.', 'err');
+    }
+  } catch(e) {
+    showA(al, 'Connection error. Please email us at support@copyvestpro.xyz', 'err');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+}
 
 </script>
 </body>
