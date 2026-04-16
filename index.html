@@ -2162,23 +2162,34 @@ sendBtn.addEventListener('click',async function(){
   const payload={name:nameInput.value.trim(),email:emailInput.value.trim(),message:msgInput.value.trim()};
 
   let sent=false;
-  // 1. Try backend endpoint
+  // Send to backend
   try{
     const res=await fetch('https://copyvestpro-backend-production.up.railway.app/api/contact',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(payload),
-      signal:AbortSignal.timeout(6000),
+      signal:AbortSignal.timeout(10000),
     });
-    if(res.ok)sent=true;
-  }catch(err){/* backend not ready — fall through */}
+    if(res.ok){
+      sent=true;
+    } else {
+      const d=await res.json().catch(()=>({}));
+      console.error('Contact failed:',res.status,d);
+    }
+  }catch(err){
+    console.error('Contact fetch error:',err.message);
+  }
 
-  // 2. Fallback: mailto
   if(!sent){
-    const subject=encodeURIComponent('CopyVestPro Support Request – '+payload.name);
-    const body=encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\n\nMessage:\n${payload.message}`);
-    window.open(`mailto:support@copyvestpro.xyz?subject=${subject}&body=${body}`,'_blank');
-    sent=true;
+    // Show error to user instead of silently opening mailto
+    sendBtn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';
+    sendBtn.disabled=false;
+    const errEl=document.createElement('div');
+    errEl.style.cssText='color:#ef4444;font-size:13px;margin-top:8px;text-align:center';
+    errEl.textContent='Could not send. Please email us at support@copyvestpro.xyz';
+    sendBtn.parentNode.insertBefore(errEl,sendBtn.nextSibling);
+    setTimeout(()=>errEl.remove(),5000);
+    return;
   }
 
   // Clear draft
