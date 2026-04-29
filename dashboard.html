@@ -1048,7 +1048,9 @@ const TRADERS = [
   {id:'t9',name:'The Trading Academy',handle:'@tradingacademy',roi:'+221%',followers:'15.2K',copiers:'6.9K',accuracy:'95%',specialty:'High-Freq Trading',
    photo:'https://copyvest-pro.github.io/copyvestpro/The_trading_academy.jpg'},
   {id:'t10',name:'Elite Trading Academy',handle:'@elitetradingacademy',roi:'+178%',followers:'11.4K',copiers:'5.2K',accuracy:'93%',specialty:'Crypto/Bitcoin',
-   photo:'https://copyvest-pro.github.io/copyvestpro/Elite_trading_academy.jpg'}
+   photo:'https://copyvest-pro.github.io/copyvestpro/Elite_trading_academy.jpg'},
+  {id:'t11',name:'VALORA Trading Academy',handle:'@VTA-hub',roi:'+156%',followers:'1.6K',copiers:'847',accuracy:'89%',specialty:'Trading Systems / Forex',
+   photo:'https://copyvest-pro.github.io/copyvestpro/Kenny_vta.jpg'}
 ];
 
 /* ═══════════ STATE ═══════════ */
@@ -1454,6 +1456,8 @@ async function loadAndRenderTraders(filter=''){
             'the edge funder':   'The_Edge_funder.jpg',
             'the trading academy':'The_trading_academy.jpg',
             'elite trading':     'Elite_trading_academy.jpg',
+            'valora':           'Kenny_vta.jpg',
+            'vta':              'Kenny_vta.jpg',
           };
           const key = (t.name||'').toLowerCase().trim();
           const file = Object.keys(nameMap).find(k=>key.includes(k));
