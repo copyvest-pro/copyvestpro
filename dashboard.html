@@ -1437,9 +1437,9 @@ async function loadAndRenderTraders(filter=''){
         id: t.id,
         name: t.name,
         handle: t.handle ? '@'+t.handle.replace(/^@/,'') : '@'+t.name.toLowerCase().replace(/\s+/,''),
-        roi: t.roi_display || '+—%',
-        followers: t.followers ? (t.followers>=1000?(t.followers/1000).toFixed(1)+'K':t.followers) : '—',
-        copiers: t.copiers ? (t.copiers>=1000?(t.copiers/1000).toFixed(1)+'K':t.copiers) : '—',
+        roi: t.roi_display || t.roi || '+—%',
+        followers: t.followers ? (String(t.followers).includes('K') ? t.followers : (parseFloat(t.followers)>=1000?(parseFloat(t.followers)/1000).toFixed(1)+'K':t.followers)) : '—',
+        copiers: t.copiers ? (String(t.copiers).includes('K') ? t.copiers : (parseFloat(t.copiers)>=1000?(parseFloat(t.copiers)/1000).toFixed(1)+'K':t.copiers)) : '—',
         accuracy: t.accuracy || '—',
         specialty: (t.markets&&t.markets.length) ? t.markets.join('/') : (t.category||'Crypto/Forex'),
         photo: t.photo_url || (()=>{
